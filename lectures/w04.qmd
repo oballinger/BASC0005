@@ -23,11 +23,11 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 <!-- src: Week 4 - Text Data.pptx slide 4 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w04/w04_1aa4a18e45c.jpg)
+:::: {.column width="49%"}
+![](img/w04/w04_1aa4a18e45c03bc.jpg){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w04/w04_b1e3a89d2fc.jpg)
+:::: {.column width="51%"}
+![](img/w04/w04_b1e3a89d2fc15ac.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -36,10 +36,10 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 
 ::: {.columns}
 :::: {.column width="50%"}
-![](img/w04/w04_c8d57b548c.jpg)
+![](img/w04/w04_c8d57b548c.jpg){.pic style="max-height:700px"}
 ::::
 :::: {.column width="50%"}
-![](img/w04/w04_6fd777425a.jpg)
+![](img/w04/w04_6fd777425a.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -157,14 +157,9 @@ The first step in almost any NLP pipeline is to split our corpus into sentences.
 ## 3. Part-of-Speech tagging
 <!-- src: Week 4 - Text Data.pptx slide 24 -->
 
-::: {.columns}
-:::: {.column width="50%"}
-![](img/w04/w04_894cc00eb3.png)
-::::
-:::: {.column width="50%"}
-![](img/w04/w04_0e4d790a5e.png)
-::::
-:::
+![](img/w04/w04_894cc00eb3.png){.pic style="max-height:504px"}
+
+![](img/w04/w04_0e4d790a5e.png){.pic style="max-height:196px"}
 
 ::: notes
 Next, we’ll look at each token and try to guess its part of speech — whether it is a noun, a verb, an adjective and so on. Knowing the role of each word in the sentence will help us start to figure out what the sentence is talking about. 
@@ -209,7 +204,7 @@ Slide text: 7. Named Entity Recognition · Some nouns are special, and reference
 ## Python Implementation
 <!-- src: Week 4 - Text Data.pptx slide 31 -->
 
-![](img/w04/w04_0e41e62094c.png){.r-stretch fig-align="center"}
+![](img/w04/w04_0e41e62094c3090.png){.r-stretch fig-align="center"}
 
 ## From Text to Table
 <!-- src: Week 4 - Text Data.pptx slide 34 -->
@@ -235,14 +230,13 @@ Slide text: 7. Named Entity Recognition · Some nouns are special, and reference
 <!-- src: Week 4 - Text Data.pptx slide 37 -->
 
 ::: {.columns}
-:::: {.column width="33%"}
-![](img/w04/w04_96eb243eb7.png)
+:::: {.column width="42%"}
+![](img/w04/w04_f654f1852ece8e1.jpg){.pic style="max-height:700px"}
 ::::
-:::: {.column width="33%"}
-![](img/w04/w04_63134796ba.png)
-::::
-:::: {.column width="33%"}
-![](img/w04/w04_f654f1852ec.jpg)
+:::: {.column width="58%"}
+![](img/w04/w04_96eb243eb7.png){.pic style="max-height:162px"}
+
+![](img/w04/w04_63134796ba.png){.pic style="max-height:538px"}
 ::::
 :::
 
@@ -305,7 +299,7 @@ Slide text: Devil’s in the details · Jungherr, A., Jürgens, P., & Schoen, H.
 - This is what dummy variables do in a regression
 ::::
 :::: {.column width="57%"}
-![](img/w04/embeddings_468dd8513a.png)
+![](img/w04/embeddings_468dd8513a.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -322,7 +316,7 @@ Slide text: Devil’s in the details · Jungherr, A., Jürgens, P., & Schoen, H.
     - ship · banana: **0.18**
 ::::
 :::: {.column width="63%"}
-![](img/w04/embeddings_08e5c8df48.png)
+![](img/w04/embeddings_08e5c8df48.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -351,7 +345,7 @@ Values are cosine similarities from the pretrained GloVe model glove-wiki-gigawo
 - Nobody programmed this in. It emerged from reading text
 ::::
 :::: {.column width="57%"}
-![](img/w04/embeddings_f108c5bbb2.png)
+![](img/w04/embeddings_f108c5bbb2.png){.pic style="max-height:700px"}
 ::::
 :::
 

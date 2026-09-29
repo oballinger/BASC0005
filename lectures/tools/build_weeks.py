@@ -289,7 +289,8 @@ WEEKS = {
                         ("w09", "42,45,46"),                    # close elections, fuzzy RD
                         ("md", AUDIT),
                         ("w09", "50")],
-                fixes=[(r"^# Case Study 1: Immigration and Employment", "# Case Study: The Mariel Boatlift"),
+                fixes=[(r"^## Endogeneity$", "## Endogeneity {.smaller}"),
+                       (r"^# Case Study 1: Immigration and Employment", "# Case Study: The Mariel Boatlift"),
                        (r"^## Correlation versus Causation$", "## Why Not Just Compare Before and After?"),
                        (r"\n+1\. Intro\n", "\n"),                      # stray section tags from the pptx
                        (r"25km\*\*\*\*2\*\* \*\*area", "25km² area"),
@@ -303,7 +304,7 @@ WEEKS = {
                                            (r"\| Brazil \| 2020 \| 1608\.9", "| Brazil | 2021 | 1608.9"),
                                            (r"\| Colombia \| 2021 \| 323\.1", "| Colombia | 2019 | 323.1"),
                                            (r"\| Colombia \| 2021 \| 270\.2", "| Colombia | 2020 | 270.2")]},
-                fixes=[(r"\n1\. Pandas\n", "\n"),
+                fixes=[(r"\n1\. Pandas\n", "\n"), (r"^## Key acronyms$", "## Key acronyms {.smaller}"),
                        (r"^## 2\. Data Types", "## 3. Data Types")]),
     "w03": dict(title="Spatial & Network Data",
                 pieces=[("w03", "2"), ("md", W3_OUTLINE),
@@ -314,9 +315,10 @@ WEEKS = {
                         ("w03", "52,53,57"),                   # analysis; ML examples and Iraq timelapse cut
                         ("networks", "8-18,30-33"),            # networks, on the same Kerch data
                         ("w03", "76")],
-                fixes=[(r"^# \d\. (What Is a Network\?|Who Matters\? Centrality|Finding Communities)", r"# \1")],
-                slide_fixes={("w03", 25): [(r'\{\.column width="25%"\}', '{.column width="48%"}'),
-                                           (r'\{\.column width="75%"\}', '{.column width="52%"}')],
+                fixes=[(r"^## Arithmetic$", "## Arithmetic {.smaller}"),
+                       (r"^# \d\. (What Is a Network\?|Who Matters\? Centrality|Finding Communities)", r"# \1")],
+                slide_fixes={("w03", 25): [(r'\{\.column width="34%"\}', '{.column width="48%"}'),
+                                           (r'\{\.column width="66%"\}', '{.column width="52%"}')],
                              ("networks", 13): [(r"^## It's a Small World$", "## It's a Small World {.smaller}")],
                              ("networks", 12): [(r"The Tube is", "The London Underground is")],
                              ("networks", 17): [(r" \(section 6\)", "")],

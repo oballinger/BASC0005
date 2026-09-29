@@ -42,7 +42,7 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 
 ![](img/w07/w07_450fe0c571.png){.r-stretch fig-align="center"}
 
-## {background-image="img/w07/w07_b90654c9a0c.jpg" background-size="contain"}
+## {background-image="img/w07/w07_b90654c9a0c3dbf.jpg" background-size="contain"}
 <!-- src: Week 7 - Regression.pptx slide 9 -->
 
 ## Dark STS
@@ -56,7 +56,7 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 - Over 500 identified in 2023 alone:
 ::::
 :::: {.column width="58%"}
-![](img/w07/w07_fd9cd97f27.gif)
+![](img/w07/w07_fd9cd97f27.gif){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -269,7 +269,7 @@ Slide text: Confidence intervals for the coefficients
 But due to error, every time we measure the response *Y* for a fixed value of X we will obtain a different observation.
 ::::
 :::: {.column width="73%"}
-![](img/w07/w07_f63dff2c4c.png)
+![](img/w07/w07_f63dff2c4c.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -281,7 +281,7 @@ But due to error, every time we measure the response *Y* for a fixed value of X 
 One set of observations, “one realization” we obtain one set of *Y*s (red crosses).
 ::::
 :::: {.column width="70%"}
-![](img/w07/w07_16700c9c9e.png)
+![](img/w07/w07_16700c9c9e.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -293,7 +293,7 @@ One set of observations, “one realization” we obtain one set of *Y*s (red cr
 Another set of observations, “another realization” we obtain another set of *Y*s (green crosses).
 ::::
 :::: {.column width="72%"}
-![](img/w07/w07_b762c55261.png)
+![](img/w07/w07_b762c55261.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -305,7 +305,7 @@ Another set of observations, “another realization” we obtain another set of 
 Another set of observations, “another realization” we obtain another set of *Y*s (black crosses).
 ::::
 :::: {.column width="71%"}
-![](img/w07/w07_623dc16876.png)
+![](img/w07/w07_623dc16876.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -422,19 +422,12 @@ Slide text: Confidence intervals for the coefficients · 68% · 95%
 ::: notes Slide text: Importance of predictors
 :::
 
-## Coefficient Plot
+## {background-image="img/w07/w07_slide_060.jpg" background-size="contain" .fallback}
 <!-- src: Week 7 - Regression.pptx slide 60 -->
 
-::: {.columns}
-:::: {.column width="33%"}
-![](img/w07/w07_335796eb3ac.png)
-::::
-:::: {.column width="33%"}
-![](img/w07/w07_7e8b5aa8d4c.jpg)
-::::
-:::: {.column width="33%"}
-![](img/w07/w07_4d89360018.png)
-::::
+
+::: notes
+Slide text: Coefficient Plot
 :::
 
 ## {.notitle}
@@ -462,7 +455,7 @@ Slide text: Confidence intervals for the coefficients · 68% · 95%
 - The relationship between the variables may not be linear
 ::::
 :::: {.column width="61%"}
-![](img/w07/w07_a5c5e39d9e.jpg)
+![](img/w07/w07_a5c5e39d9e.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -486,14 +479,15 @@ Slide text: Non-Linear relationships
 <!-- src: Week 7 - Regression.pptx slide 73 -->
 
 ::: {.columns}
-:::: {.column width="75%"}
-![](img/w07/w07_59dfdb38e2.jpg)
-![](img/w07/w07_9b24c2ceca.jpg)
-::::
-:::: {.column width="25%"}
+:::: {.column width="51%"}
 Linear-Linear
 
+![](img/w07/w07_59dfdb38e2.jpg){.pic style="max-height:647px"}
+::::
+:::: {.column width="49%"}
 Log-Linear
+
+![](img/w07/w07_9b24c2ceca.jpg){.pic style="max-height:646px"}
 ::::
 :::
 
@@ -505,7 +499,7 @@ Log-Linear
 Slide text: 1. Homoscedasticity · The variance of residuals is the same for any value of X
 :::
 
-## {background-image="img/w07/w07_b203b499b7c.png" background-size="contain"}
+## {background-image="img/w07/w07_b203b499b7c1708.png" background-size="contain"}
 <!-- src: Week 7 - Regression.pptx slide 75 -->
 
 ## {background-image="img/w07/w07_slide_076.jpg" background-size="contain" .fallback}

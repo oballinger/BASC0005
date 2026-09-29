@@ -32,7 +32,7 @@ Slide text: $2.13/hr
 - **Endogeneity**
     - Occurs when the independent variable X is correlated with the error term e.
 
-## Endogeneity
+## Endogeneity {.smaller}
 <!-- src: Week 8 - Causal Inference I.pptx slide 14 -->
 
 - There are three main sources of endogeneity:
@@ -56,7 +56,7 @@ Slide text: $2.13/hr
 - But what about non-experimental settings?
 ::::
 :::: {.column width="73%"}
-![](img/w08/w08_61af6f70c3.png)
+![](img/w08/w08_61af6f70c3.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -168,7 +168,7 @@ The policy lowered poverty in NJ by **1 percentage point** relative to the trend
 - We can provide suggestive evidence of this if we have data on pre-years.
 ::::
 :::: {.column width="60%"}
-![](img/w08/w08_4aa0fa3d3e.jpg)
+![](img/w08/w08_4aa0fa3d3e.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -193,7 +193,7 @@ The policy lowered poverty in NJ by **1 percentage point** relative to the trend
 - [Card’s (1990)](https://www.sciencedirect.com/science/article/pii/S1573446399030047#bb0280) study of the effect of immigration on the employment of American citizens, using a Difference in Differences design and the Mariel Boatlift.
 ::::
 :::: {.column width="34%"}
-![](img/w08/w08_292121534e.jpg)
+![](img/w08/w08_292121534e.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -282,7 +282,7 @@ Slide text: Treatment Assignment
 There appears to be a jump in the observed values of the outcome variable (earnings) around the cutoff (scholarship eligibility)
 ::::
 :::: {.column width="60%"}
-![](img/w08/w09_d19263f6a9.png)
+![](img/w08/w09_d19263f6a9.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -294,7 +294,7 @@ There appears to be a jump in the observed values of the outcome variable (earni
 We can use the discontinuity created by the treatment to estimate the effect of D on Y at the threshold
 ::::
 :::: {.column width="59%"}
-![](img/w08/w09_7bbc95c0ff.png)
+![](img/w08/w09_7bbc95c0ff.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -329,7 +329,7 @@ Slide text: Non-Linear
 - Originally a “peasant movement”, recruiting largely from farming communities (Yavuz, 2001: 10)
 ::::
 :::: {.column width="59%"}
-![](img/w08/w09_c98a2e9ebf.png)
+![](img/w08/w09_c98a2e9ebf.png){.pic style="max-height:656px"}
 ::::
 :::
 
@@ -347,7 +347,7 @@ Slide text: Non-Linear
 - Government hoped it would reduce appeal of PKK
 ::::
 :::: {.column width="45%"}
-![](img/w08/w09_a077989a1b.gif)
+![](img/w08/w09_a077989a1b.gif){.pic style="max-height:665px"}
 ::::
 :::
 

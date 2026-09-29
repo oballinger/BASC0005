@@ -98,7 +98,7 @@ def save_picture(sh, img_dir, rel):
                int(w * (1 - max(cr, 0))), int(hgt * (1 - max(cb, 0))))
         if box[2] > box[0] and box[3] > box[1]:
             im = im.crop(box)
-            h += "c"
+            h += "c" + hashlib.sha1(repr(box).encode()).hexdigest()[:4]  # one file per distinct crop
     if max(im.size) > MAXW:
         im.thumbnail((MAXW, MAXW))
     photo = im.mode in ("RGB", "CMYK", "YCbCr") or ext in ("jpg", "jpeg")
@@ -165,6 +165,68 @@ def classify(slide):
     if len(texts) > 2:
         reasons.append(f"{len(texts)} text boxes")
     return (not reasons), ", ".join(sorted(set(reasons))), (title, texts, pics, tables)
+
+
+BODY_H = 700  # px of a 1600x900 slide left below the title
+
+
+def layout(items):
+    """Lay out (kind, shape, markdown) items the way they sit on the slide.
+
+    Items whose horizontal extents overlap form a column; columns sit side by side with widths
+    in proportion to the slide, items within a column run top to bottom. Pictures get a share of
+    the column height in proportion to their height on the slide, and fill their column's width
+    (class .pic) instead of showing at their pixel size. Returns None when two pictures sit side
+    by side inside one column (a collage), which Markdown columns can't express.
+    """
+    box = lambda sh: (sh.left or 0, sh.top or 0, sh.width or 0, sh.height or 0)
+    cols = []
+    for it in sorted(items, key=lambda it: box(it[1])[0]):
+        x, _, w, _ = box(it[1])
+        cols.append({"l": x, "r": x + w, "items": [it]})
+    merged = True
+    while merged:  # merge columns whose extents overlap by over half the narrower one
+        merged = False
+        for a in range(len(cols)):
+            for b in range(a + 1, len(cols)):
+                A, B = cols[a], cols[b]
+                ov = min(A["r"], B["r"]) - max(A["l"], B["l"])
+                if ov > 0.5 * min(A["r"] - A["l"], B["r"] - B["l"]):
+                    A["l"], A["r"] = min(A["l"], B["l"]), max(A["r"], B["r"])
+                    A["items"] += B["items"]; del cols[b]; merged = True; break
+            if merged:
+                break
+    cols.sort(key=lambda c: c["l"])
+    for c in cols:
+        c["items"].sort(key=lambda it: box(it[1])[1])
+        ps = [box(it[1]) for it in c["items"] if it[0] == "pic"]
+        for m in range(len(ps)):
+            for n in range(m + 1, len(ps)):
+                (_, t1, _, h1), (_, t2, _, h2) = ps[m], ps[n]
+                if min(t1 + h1, t2 + h2) - max(t1, t2) > 0.3 * min(h1, h2):
+                    return None
+
+    def render(c, single):
+        tot = sum(box(it[1])[3] for it in c["items"]) or 1
+        npic = sum(it[0] == "pic" for it in c["items"])
+        out = []
+        for kind, sh, md in c["items"]:
+            if kind != "pic":
+                out.append(md)
+            elif single and npic == 1:
+                out.append(f"![]({md}){{.r-stretch fig-align=\"center\"}}")
+            else:
+                h = min(BODY_H, round(BODY_H * box(sh)[3] / tot))
+                out.append(f"![]({md}){{.pic style=\"max-height:{h}px\"}}")
+        return "\n\n".join(out)
+
+    if len(cols) == 1:
+        return render(cols[0], True)
+    span = sum(c["r"] - c["l"] for c in cols) or 1
+    widths = [round(100 * (c["r"] - c["l"]) / span) for c in cols]
+    widths[-1] = 100 - sum(widths[:-1])
+    return "::: {.columns}\n" + "\n".join(
+        f":::: {{.column width=\"{w}%\"}}\n{render(c, False)}\n::::" for c, w in zip(cols, widths)) + "\n:::"
 
 
 def table_md(sh):
@@ -250,19 +312,22 @@ def convert(deck, pdf, out_dir, slug, title=None, select=None):
                     head = f'## {{background-image="{pic_paths[0]}" background-size="contain"}}'
                 else:
                     body.append(f"![]({pic_paths[0]}){{.r-stretch fig-align=\"center\"}}")
-            elif only_pic:
-                w = 100 // len(pic_paths)
-                cols = [f":::: {{.column width=\"{w}%\"}}\n![]({pp})\n::::" for pp in pic_paths]
-                body.append("::: {.columns}\n" + "\n".join(cols) + "\n:::")
             elif pic_paths:
-                # text beside pictures, keeping their left/right order
-                pic_left = min(p.left or 0 for p in pics) < min(t.left or 0 for t in texts) if texts else False
-                tw = max((t.width or 0) for t in texts) if texts else 1
-                pw = max((p.left or 0) + (p.width or 0) for p in pics) - min(p.left or 0 for p in pics)
-                tp = max(25, min(70, round(100 * tw / (tw + pw)))) if (tw + pw) else 50
-                tcol = f":::: {{.column width=\"{tp}%\"}}\n" + "\n\n".join(txt + tbl) + "\n::::"
-                pcol = f":::: {{.column width=\"{100 - tp}%\"}}\n" + "\n".join(f"![]({pp})" for pp in pic_paths) + "\n::::"
-                body.append("::: {.columns}\n" + ("\n".join([pcol, tcol]) if pic_left else "\n".join([tcol, pcol])) + "\n:::")
+                items = ([("pic", p, pp) for p, pp in zip(pics, pic_paths)]
+                         + [("md", t, text_block(t.text_frame)) for t in texts]
+                         + [("md", t, table_md(t)) for t in tables])
+                md = layout([it for it in items if it[2]])
+                if md is None:  # pictures tiled or overlapping: keep the slide as drawn
+                    src = render_fallback(pdf, page_of[i], img_dir, rel, f"{i:03d}")
+                    head = f'## {{background-image="{src}" background-size="contain" .fallback}}'
+                    txt = slide_text(s)
+                    notes = "\n\n".join(x for x in [notes, "Slide text: " + txt.replace("\n", " · ") if txt else ""] if x)
+                    report.append((i, "image", "tiled pictures")); body = []
+                    chunk = [f"<!-- src: {Path(deck).name} slide {i} -->", head, ""]
+                    if notes:
+                        chunk += ["", "::: notes", notes, ":::"]
+                    chunks.append("\n".join(chunk).rstrip()); continue
+                body.append(md)
             else:
                 body += txt + tbl
             report.append((i, "native", ""))

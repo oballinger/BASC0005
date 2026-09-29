@@ -22,17 +22,8 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 ## 1. Dirty Data {.center}
 <!-- src: Week 2 - Data.pptx slide 4 -->
 
-## {.notitle}
+## {background-image="img/w02/w02_slide_005.jpg" background-size="contain" .fallback}
 <!-- src: Week 2 - Data.pptx slide 5 -->
-
-::: {.columns}
-:::: {.column width="50%"}
-![](img/w02/w02_f3566c636c.png)
-::::
-:::: {.column width="50%"}
-![](img/w02/w02_7b8b21252e.jpg)
-::::
-:::
 
 ## Dirty Data Kills
 <!-- src: Week 2 - Data.pptx slide 6 -->
@@ -48,11 +39,11 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 <!-- src: Week 2 - Data.pptx slide 7 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w02/w02_dc2fd525ba.jpg)
+:::: {.column width="41%"}
+![](img/w02/w02_bdd2ff26ba.png){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w02/w02_bdd2ff26ba.png)
+:::: {.column width="59%"}
+![](img/w02/w02_dc2fd525ba.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -68,38 +59,17 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 - Greece’s [death rate jumped by 17.7%](https://newsroom.uw.edu/news/austerity-measures-have-devastated-greece%E2%80%99s-health#:~:text=Greece's%20reduced%20spending%2C%20required%20as,%2C%20neonatal%2C%20and%20nutritional%20diseases.) during the next six years.
     - “Researchers reported that government health spending fell sharply and that the causes of death that increased most were largely those that healthcare could have addressed. **Greece’s reduced spending, required as part of the austerity measures**, had been criticized for omitting measures to protect the country’s National Health System.”
 
-## {.notitle}
+## {background-image="img/w02/w02_slide_010.jpg" background-size="contain" .fallback}
 <!-- src: Week 2 - Data.pptx slide 10 -->
-
-::: {.columns}
-:::: {.column width="25%"}
-![](img/w02/w02_ba62148c7bc.png)
-::::
-:::: {.column width="25%"}
-![](img/w02/w02_fd8c5c0e40.png)
-::::
-:::: {.column width="25%"}
-![](img/w02/w02_7a0dbc4f49.png)
-::::
-:::: {.column width="25%"}
-![](img/w02/w02_acce7cd37f.png)
-::::
-:::
 
 ## {.notitle}
 <!-- src: Week 2 - Data.pptx slide 11 -->
 
-::: {.columns}
-:::: {.column width="33%"}
-![](img/w02/w02_18f601a50fc.png)
-::::
-:::: {.column width="33%"}
-![](img/w02/w02_ebd1ab59b6c.png)
-::::
-:::: {.column width="33%"}
-![](img/w02/w02_8aeb787219.png)
-::::
-:::
+![](img/w02/w02_ebd1ab59b6c07ed.png){.pic style="max-height:127px"}
+
+![](img/w02/w02_18f601a50fc778d.png){.pic style="max-height:155px"}
+
+![](img/w02/w02_8aeb787219.png){.pic style="max-height:418px"}
 
 ## 2. Data Acquisition {.center}
 <!-- src: Week 2 - Data.pptx slide 12 -->
@@ -194,7 +164,7 @@ Slide text: Selenium
 ## {background-image="img/w02/w02_51b0a6458e.png" background-size="contain"}
 <!-- src: Week 2 - Data.pptx slide 29 -->
 
-## Key acronyms
+## Key acronyms {.smaller}
 <!-- src: Week 2 - Data.pptx slide 30 -->
 
 - Data retrieval methods
@@ -278,11 +248,11 @@ Slide text: Tabular Data · We expect each table to contain a set of records or 
 <!-- src: Week 2 - Data.pptx slide 39 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w02/w02_a9d3e364bbc.jpg)
+:::: {.column width="42%"}
+![](img/w02/w02_a9d3e364bbc5386.jpg){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w02/w02_a9d3e364bbc.jpg)
+:::: {.column width="58%"}
+![](img/w02/w02_a9d3e364bbca470.jpg){.pic style="max-height:700px"}
 ::::
 :::
 

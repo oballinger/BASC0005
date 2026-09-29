@@ -159,11 +159,11 @@ Slide text: 95% Confidence Interval,Men
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 38 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w06/w06_d9c3b6c405.jpg)
+:::: {.column width="54%"}
+![](img/w06/w06_e01f3b758b.jpg){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w06/w06_e01f3b758b.jpg)
+:::: {.column width="46%"}
+![](img/w06/w06_d9c3b6c405.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -179,11 +179,11 @@ Slide text: 95% Confidence Interval,Women
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 40 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w06/w06_591d275ab4.jpg)
+:::: {.column width="54%"}
+![](img/w06/w06_591d275ab4.jpg){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w06/w06_e7c8e4e254.jpg)
+:::: {.column width="46%"}
+![](img/w06/w06_e7c8e4e254.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -278,7 +278,7 @@ Slide text: 1. The Null and Alternative Hypotheses
 Slide text: 2. Select a Critical Value · If we want to test the null hypothesis at the 95% confidence level, we would select a critical value of 1.96.   · If our T-statistic exceeds this value, we reject the null hypothesis that there is no difference between the group means.
 :::
 
-## {background-image="img/w06/w06_5be88f4e2fc.png" background-size="contain"}
+## {background-image="img/w06/w06_5be88f4e2fcaa14.png" background-size="contain"}
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 55 -->
 
 ## {background-image="img/w06/w06_slide_056.jpg" background-size="contain" .fallback}
@@ -310,17 +310,17 @@ Slide text: Summary of key terms
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 59 -->
 
 ::: {.columns}
-:::: {.column width="53%"}
+:::: {.column width="51%"}
 - Hypothesis testing is the basis of modern scientific research.
 - They allow us to evaluate the likelihood of our test results being attributable to random chance.
 - But, statistically significant results can be misleading
     - **Publication bias** (a form of selection bias in academic publishing) is a real threat.
     - **Bayes’** **Theorem** suggests that many statistically significant research findings may be false.
+::::
+:::: {.column width="49%"}
+![](img/w06/w06_365bda55b8.png){.pic style="max-height:636px"}
 
 Source: [Adrian Barnett](https://agbarnett.github.io/talks/TRI/slides)
-::::
-:::: {.column width="47%"}
-![](img/w06/w06_365bda55b8.png)
 ::::
 :::
 
@@ -328,25 +328,20 @@ Source: [Adrian Barnett](https://agbarnett.github.io/talks/TRI/slides)
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 60 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w06/w06_c599a40e0e.jpg)
+:::: {.column width="52%"}
+![](img/w06/w06_c599a40e0e.jpg){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w06/w06_92f73e5394.png)
+:::: {.column width="48%"}
+![](img/w06/w06_92f73e5394.png){.pic style="max-height:700px"}
 ::::
 :::
 
 ## {.notitle}
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 61 -->
 
-::: {.columns}
-:::: {.column width="50%"}
-![](img/w06/w06_65a9b13d88.png)
-::::
-:::: {.column width="50%"}
-![](img/w06/w06_697ddabbb0.png)
-::::
-:::
+![](img/w06/w06_65a9b13d88.png){.pic style="max-height:230px"}
+
+![](img/w06/w06_697ddabbb0.png){.pic style="max-height:470px"}
 
 ## {background-image="img/w06/w06_8b947f61c4.jpg" background-size="contain"}
 <!-- src: Week 6 - Hypothesis Testing.pptx slide 62 -->
@@ -469,7 +464,7 @@ Slide text: Three Ingredients · Prior · p(θ) · What we believe about θ befo
 - Beta(20, 80) says 'about 20%, and I'm fairly confident'
 ::::
 :::: {.column width="55%"}
-![](img/w06/bayes_ce290e144e.png)
+![](img/w06/bayes_ce290e144e.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -492,7 +487,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 - The true rate in our CPS data (22%) sits comfortably inside the posterior
 ::::
 :::: {.column width="61%"}
-![](img/w06/bayes_35fb85e82d.png)
+![](img/w06/bayes_35fb85e82d.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -507,7 +502,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 - Sound familiar? Just like the CLT, uncertainty shrinks as n grows
 ::::
 :::: {.column width="61%"}
-![](img/w06/bayes_6be194cf8f.png)
+![](img/w06/bayes_6be194cf8f.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -523,7 +518,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 - This is how search-and-rescue, spam filters and election models learn as data arrive
 ::::
 :::: {.column width="63%"}
-![](img/w06/bayes_5e0c3b09b0.png)
+![](img/w06/bayes_5e0c3b09b0.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -537,7 +532,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 - **Rule of thumb:** priors matter when data are scarce, which is exactly when we most need extra information
 ::::
 :::: {.column width="66%"}
-![](img/w06/bayes_07ff5f27d2.png)
+![](img/w06/bayes_07ff5f27d2.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -559,7 +554,7 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 - This is the sentence everyone **wants** to say about a confidence interval, but can't
 ::::
 :::: {.column width="59%"}
-![](img/w06/bayes_a6a283ada3.png)
+![](img/w06/bayes_a6a283ada3.png){.pic style="max-height:700px"}
 ::::
 :::
 

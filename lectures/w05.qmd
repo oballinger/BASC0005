@@ -12,7 +12,7 @@ author: "Ollie Ballinger"
 Slide text: The Data Science Process: · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results · Generate summary statistics · Mean, variance, range etc.  · Plot the data · Are there patterns?
 :::
 
-## {background-image="img/w05/w05_739b7e9c55c.jpg" background-size="contain"}
+## {background-image="img/w05/w05_739b7e9c55cd28f.jpg" background-size="contain"}
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 3 -->
 
 ## {background-image="img/w05/w05_slide_004.jpg" background-size="contain" .fallback}
@@ -210,7 +210,7 @@ Slide text: Again, it’s possible that none of them would be union members  · 
 ## Estimating Union membership in America
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 32 -->
 
-![](img/w05/w05_faf3dc8c84c.png){.r-stretch fig-align="center"}
+![](img/w05/w05_faf3dc8c84c0710.png){.r-stretch fig-align="center"}
 
 ## Estimating Union membership in America
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 33 -->
@@ -223,24 +223,24 @@ Slide text: Again, it’s possible that none of them would be union members  · 
 - **But how unlikely?**
 ::::
 :::: {.column width="50%"}
-![](img/w05/w05_b02a22e68b.jpg)
+![](img/w05/w05_b02a22e68b.jpg){.pic style="max-height:700px"}
 ::::
 :::
 
 ## Estimating Union membership in America
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 34 -->
 
-![](img/w05/w05_4ba6324d7bc.png){.r-stretch fig-align="center"}
+![](img/w05/w05_4ba6324d7bc71f9.png){.r-stretch fig-align="center"}
 
 ## The distribution of sample means becomes normal, regardless of the underlying distribution
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 35 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w05/w05_48fbf059ddc.png)
+:::: {.column width="53%"}
+![](img/w05/w05_48fbf059ddcaf7e.png){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w05/w05_21a98e238f.gif)
+:::: {.column width="47%"}
+![](img/w05/w05_21a98e238f.gif){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -249,10 +249,10 @@ Slide text: Again, it’s possible that none of them would be union members  · 
 
 ::: {.columns}
 :::: {.column width="50%"}
-![](img/w05/w05_fd36a74262.gif)
+![](img/w05/w05_edff04d6d8c6760.png){.pic style="max-height:700px"}
 ::::
 :::: {.column width="50%"}
-![](img/w05/w05_edff04d6d8c.png)
+![](img/w05/w05_fd36a74262.gif){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -260,11 +260,11 @@ Slide text: Again, it’s possible that none of them would be union members  · 
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 37 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w05/w05_9299aa4ea9.gif)
+:::: {.column width="51%"}
+![](img/w05/w05_1b10bc7c69c2707.png){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w05/w05_1b10bc7c69c.png)
+:::: {.column width="49%"}
+![](img/w05/w05_9299aa4ea9.gif){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -272,11 +272,11 @@ Slide text: Again, it’s possible that none of them would be union members  · 
 <!-- src: Week 5 - Sampling and Distributions.pptx slide 38 -->
 
 ::: {.columns}
-:::: {.column width="50%"}
-![](img/w05/w05_bd9d913afec.png)
+:::: {.column width="51%"}
+![](img/w05/w05_bd9d913afec95fa.png){.pic style="max-height:700px"}
 ::::
-:::: {.column width="50%"}
-![](img/w05/w05_6d27988902.gif)
+:::: {.column width="49%"}
+![](img/w05/w05_6d27988902.gif){.pic style="max-height:700px"}
 ::::
 :::
 

@@ -36,7 +36,7 @@ Source: GFW infrastructure-v2 dataset writeup (ce-ai-1: ~/users/ollie/GFW/infras
 - No need to say in advance how many platforms there are
 ::::
 :::: {.column width="63%"}
-![](img/w10/clustering_0d4f51ee71.png)
+![](img/w10/clustering_0d4f51ee71.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -67,7 +67,7 @@ Slide text: Infrastructure V2: Results · ~97% · of structures in the previous 
 
 ::: {.columns}
 :::: {.column width="62%"}
-![](img/w10/clustering_3dd7a33281.png)
+![](img/w10/clustering_3dd7a33281.png){.pic style="max-height:700px"}
 ::::
 :::: {.column width="38%"}
 - You probably said **three**, instantly.
@@ -98,14 +98,9 @@ Slide text: Three Ingredients · Features · What describes each observation? e.
 ## The K-Means Algorithm
 <!-- src: Week X - Clustering.pptx slide 12 -->
 
-::: {.columns}
-:::: {.column width="50%"}
+![](img/w10/clustering_40d28056e5.png){.r-stretch fig-align="center"}
+
 Goal: make each cluster as **tight** as possible (minimise the total squared distance from each point to its centroid)
-::::
-:::: {.column width="50%"}
-![](img/w10/clustering_40d28056e5.png)
-::::
-:::
 
 ## K-Means: The Fine Print
 <!-- src: Week X - Clustering.pptx slide 13 -->
@@ -137,7 +132,7 @@ Goal: make each cluster as **tight** as possible (minimise the total squared dis
 - Choosing k is a **judgement call**, not a calculation
 ::::
 :::: {.column width="63%"}
-![](img/w10/clustering_e72b8e8fbb.png)
+![](img/w10/clustering_e72b8e8fbb.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -152,14 +147,9 @@ Slide text: London's Neighbourhood Types · Young families · 164 wards · e.g. 
 ## What Makes Each Cluster Different?
 <!-- src: Week X - Clustering.pptx slide 17 -->
 
-::: {.columns}
-:::: {.column width="50%"}
+![](img/w10/clustering_740534de78.png){.r-stretch fig-align="center"}
+
 The algorithm outputs numbers 0–4. **The names are ours**: an interpretation of these profiles, not a fact about the data
-::::
-:::: {.column width="50%"}
-![](img/w10/clustering_740534de78.png)
-::::
-:::
 
 # 3. Hierarchical Clustering
 <!-- src: Week X - Clustering.pptx slide 18 -->
@@ -178,14 +168,9 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 ## London's Boroughs as a Family Tree
 <!-- src: Week X - Clustering.pptx slide 20 -->
 
-::: {.columns}
-:::: {.column width="58%"}
+![](img/w10/clustering_e7388236bd.png){.r-stretch fig-align="center"}
+
 32 boroughs, same 7 features. The height of each join shows how different the merged groups are. The dotted line cuts the tree into 3 clusters
-::::
-:::: {.column width="42%"}
-![](img/w10/clustering_e7388236bd.png)
-::::
-:::
 
 # 4. DBSCAN
 <!-- src: Week X - Clustering.pptx slide 21 -->
@@ -202,7 +187,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 - The number of clusters is **discovered**, not chosen
 ::::
 :::: {.column width="57%"}
-![](img/w10/clustering_df822db5c9.png)
+![](img/w10/clustering_df822db5c9.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -216,7 +201,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 - …and it flags stray points as noise rather than forcing them into a cluster
 ::::
 :::: {.column width="67%"}
-![](img/w10/clustering_437f25cb65.png)
+![](img/w10/clustering_437f25cb65.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -232,7 +217,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 - Nobody told it where the cities are
 ::::
 :::: {.column width="44%"}
-![](img/w10/clustering_bdca713c5c.png)
+![](img/w10/clustering_bdca713c5c.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -259,7 +244,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 - We met embeddings in Week 4
 ::::
 :::: {.column width="54%"}
-![](img/w10/clustering_a263939396.png)
+![](img/w10/clustering_a263939396.png){.pic style="max-height:700px"}
 ::::
 :::
 
@@ -271,7 +256,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 
 ::: {.columns}
 :::: {.column width="52%"}
-![](img/w10/clustering_0af80442e8.png)
+![](img/w10/clustering_0af80442e8.png){.pic style="max-height:700px"}
 ::::
 :::: {.column width="48%"}
 - 400 points drawn **completely at random**. Ask k-means for 5 clusters and you get 5 clusters.
