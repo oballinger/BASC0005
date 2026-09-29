@@ -1,0 +1,407 @@
+---
+title: "Data"
+subtitle: "BASC0005 Quantitative Methods 2: Data Science and Visualisation"
+author: "Ollie Ballinger"
+---
+
+## {background-image="img/w02/w02_slide_002.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 2 -->
+
+
+::: notes
+Slide text: The Data Science Process: · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results · What is the population of interest? · How were the data sampled? · Which data are relevant? · What are the ethical implications of using this data?
+:::
+
+## Outline
+<!-- src: Week 2 - Data.pptx slide 3 -->
+
+1. Dirty Data
+1. Data Acquisition
+1. Data Types
+
+## 1. Dirty Data {.center}
+<!-- src: Week 2 - Data.pptx slide 4 -->
+
+## {.notitle}
+<!-- src: Week 2 - Data.pptx slide 5 -->
+
+::: {.columns}
+:::: {.column width="50%"}
+![](img/w02/w02_f3566c636c.png)
+::::
+:::: {.column width="50%"}
+![](img/w02/w02_7b8b21252e.jpg)
+::::
+:::
+
+## Dirty Data Kills
+<!-- src: Week 2 - Data.pptx slide 6 -->
+
+- Understanding and cleaning data properly may seem boring, but is (literally) of vital importance
+- “Growth in a Time of Debt”, 2010
+    - A paper written by Harvard professors Carmen Reinhart and Kenneth Rogoff
+    - Argued that austerity (cutting public spending) during a recession is necessary to achieve growth.
+    - A review of the paper found that its conclusions resulted from **spreadsheet error;**
+    - “When properly calculated, the average real GDP growth rate for countries carrying a public-debt-to-GDP ratio of over 90 percent is actually 2.2 percent, not −0.1 percent as published in Reinhart and Rogoff”.
+
+## {.notitle}
+<!-- src: Week 2 - Data.pptx slide 7 -->
+
+::: {.columns}
+:::: {.column width="50%"}
+![](img/w02/w02_dc2fd525ba.jpg)
+::::
+:::: {.column width="50%"}
+![](img/w02/w02_bdd2ff26ba.png)
+::::
+:::
+
+## {background-image="img/w02/w02_d95e2986f3.jpg" background-size="contain"}
+<!-- src: Week 2 - Data.pptx slide 8 -->
+
+## Dirty Data Kills
+<!-- src: Week 2 - Data.pptx slide 9 -->
+
+- Even though the paper was retracted, it was cited thousands of times including by European politicians during the Eurozone crisis
+    - George Osborne cited it directly in a [speech](https://www.theguardian.com/politics/2013/apr/18/uncovered-error-george-osborne-austerity) in Parliament.
+- It was a key piece of justification used by the International Monetary Fund to impose austerity on Greece
+- Greece’s [death rate jumped by 17.7%](https://newsroom.uw.edu/news/austerity-measures-have-devastated-greece%E2%80%99s-health#:~:text=Greece's%20reduced%20spending%2C%20required%20as,%2C%20neonatal%2C%20and%20nutritional%20diseases.) during the next six years.
+    - “Researchers reported that government health spending fell sharply and that the causes of death that increased most were largely those that healthcare could have addressed. **Greece’s reduced spending, required as part of the austerity measures**, had been criticized for omitting measures to protect the country’s National Health System.”
+
+## {.notitle}
+<!-- src: Week 2 - Data.pptx slide 10 -->
+
+::: {.columns}
+:::: {.column width="25%"}
+![](img/w02/w02_ba62148c7bc.png)
+::::
+:::: {.column width="25%"}
+![](img/w02/w02_fd8c5c0e40.png)
+::::
+:::: {.column width="25%"}
+![](img/w02/w02_7a0dbc4f49.png)
+::::
+:::: {.column width="25%"}
+![](img/w02/w02_acce7cd37f.png)
+::::
+:::
+
+## {.notitle}
+<!-- src: Week 2 - Data.pptx slide 11 -->
+
+::: {.columns}
+:::: {.column width="33%"}
+![](img/w02/w02_18f601a50fc.png)
+::::
+:::: {.column width="33%"}
+![](img/w02/w02_ebd1ab59b6c.png)
+::::
+:::: {.column width="33%"}
+![](img/w02/w02_8aeb787219.png)
+::::
+:::
+
+## 2. Data Acquisition {.center}
+<!-- src: Week 2 - Data.pptx slide 12 -->
+
+## Ways to gather online data
+<!-- src: Week 2 - Data.pptx slide 15 -->
+
+- How to get data generated, published or hosted online:
+    - **Download** a packaged dataset
+    - **API (Application Programming Interface):** using a prebuilt set of functions developed by a company to access their services. Often pay to use. For example: Google Map API, Facebook API, Twitter API
+    - **Web scraping:** using software, scripts or by-hand extracting data from what is displayed on a page or what is contained in the HTML file (often in tables).
+
+## Download
+<!-- src: Week 2 - Data.pptx slide 16 -->
+
+- This is the simplest form of data acquisition. Many organizations provide access to data as **CSV** files(**C**omma **S**eparated **V**alues)
+- [https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=plannedCapacityByPublishDate&metric=cumAdmissions&format=csv](https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=plannedCapacityByPublishDate&metric=cumAdmissions&format=csv)
+
+## {.notitle}
+<!-- src: Week 2 - Data.pptx slide 17 -->
+
+![](img/w02/w02_859f49b0e5.png){.r-stretch fig-align="center"}
+
+## {background-image="img/w02/w02_slide_018.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 18 -->
+
+
+::: notes
+Slide text: API (Application Programming Interface) · What happens behind the scenes when you type an address into google maps, and receive a pin?
+:::
+
+## API (Application Programming Interface)
+<!-- src: Week 2 - Data.pptx slide 19 -->
+
+- USER: search “big ben”
+- APPLICATION: generates API request by sending a URL to a server:
+    - [https://maps.googleapis.com/maps/api/geocode/json?](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyCK_2YHUeL00WeSl7OSZCKATaHIH7cxKG4)[address=](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyCK_2YHUeL00WeSl7OSZCKATaHIH7cxKG4)[big%20ben](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyCK_2YHUeL00WeSl7OSZCKATaHIH7cxKG4)[&key=AIzaSyCK_2YHUeL00WeSl7OSZCKATaHIH7cxKG4](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyCK_2YHUeL00WeSl7OSZCKATaHIH7cxKG4)
+    - Base URL
+        - [https://maps.googleapis.com/maps/api/geocode/json](https://maps.googleapis.com/maps/api/geocode/json)
+    - User-Defined Variables
+        - [**address**](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyDBf6w3sNXqF9eLWhqqvaC29DJnurvrhhI)[=](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyDBf6w3sNXqF9eLWhqqvaC29DJnurvrhhI)[big%20ben](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyDBf6w3sNXqF9eLWhqqvaC29DJnurvrhhI)[&](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyDBf6w3sNXqF9eLWhqqvaC29DJnurvrhhI)
+        - [**key**](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyDBf6w3sNXqF9eLWhqqvaC29DJnurvrhhI)[=AIzaSyDBfhjbkafws987i3bufC29DJnurvrhhI](https://maps.googleapis.com/maps/api/geocode/json?address=big%20ben&key=AIzaSyDBf6w3sNXqF9eLWhqqvaC29DJnurvrhhI)
+- SERVER: takes the “address” field out of the URL, matches it with the corresponding location data, and sends the result back to the application as JSON data
+
+## {background-image="img/w02/w02_slide_020.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 20 -->
+
+
+::: notes
+Slide text: JSONJavaScriptObjectNotation
+:::
+
+## {background-image="img/w02/w02_ec8d752472.png" background-size="contain"}
+<!-- src: Week 2 - Data.pptx slide 21 -->
+
+## Web scraping
+<!-- src: Week 2 - Data.pptx slide 24 -->
+
+- **Why do it?**
+    - Older government or smaller news sites might not have APIs for accessing data, or publish RSS feeds or have databases for download.
+    - Or, you don’t want to pay to use the API or the database.
+- In these cases, the data you need isn’t being distributed in a structured way. You need to go out and get it.
+- BUT– be careful, you could get into trouble. Scraping is often a violation of terms and conditions. Use wisely.
+
+## {background-image="img/w02/w02_slide_025.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 25 -->
+
+
+::: notes
+Slide text: How to scrape · If there’s a table you’re interested in, you can scrape directly using Pandas: · df=pd.read_url(https://top10.netflix.com)
+:::
+
+## {background-image="img/w02/w02_slide_026.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 26 -->
+
+
+::: notes
+Slide text: How to scrape · For more advanced requests (e.g. the text from a website), you can use the BeautifulSoup python package; this method returns HTML (HyperText Markup Language)
+:::
+
+## {background-image="img/w02/w02_fd0229a601.png" background-size="contain"}
+<!-- src: Week 2 - Data.pptx slide 27 -->
+
+## {background-image="img/w02/w02_slide_028.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 28 -->
+
+
+::: notes
+Slide text: Selenium
+:::
+
+## {background-image="img/w02/w02_51b0a6458e.png" background-size="contain"}
+<!-- src: Week 2 - Data.pptx slide 29 -->
+
+## Key acronyms
+<!-- src: Week 2 - Data.pptx slide 30 -->
+
+- Data retrieval methods
+    - **API**
+        - **A**pplication **P**rogramming **I**nterface
+    - **RSS**
+        - **R**eally **S**imple **Sy**ndication
+- Data formats
+    - **CSV**
+        - **C**omma **S**eparated **V**alues
+    - **JSON**
+        - **J**ava**S**cript **O**bject **N**otation
+- Languages
+    - **XML**
+        - E**x**tensible **M**arkup **L**anguage
+    - **HTML**
+        - **H**yper**T**ext **M**arkup **L**anguage
+
+## 3. Data Types {.center}
+<!-- src: Week 2 - Data.pptx slide 31 -->
+
+## Types of data
+<!-- src: Week 2 - Data.pptx slide 32 -->
+
+- What kind of values are in your data (data types)?
+- Simple/atomic:
+    - **Numeric:** integers, floats
+    - **Boolean:** binary or true false values
+    - **Strings:** sequence of symbols
+
+## {background-image="img/w02/w02_slide_033.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 33 -->
+
+
+::: notes
+Slide text: Data types · What kind of values are in your data (data types)? Compound, composed of a bunch of atomic types:  · Date and time: compound value with a specific structure ·  · Lists: a list is a sequence of values  ·  ·  · Dictionaries: A dictionary is a collection of key-value pairs, a pair of values x : y where x is usually a string called the key representing the “name” of the entry, and y is a value of any type.
+:::
+
+## Data storage
+<!-- src: Week 2 - Data.pptx slide 34 -->
+
+- How is your data represented and stored (data format)?
+    - **Semistructured** **Data:** not all records are represented by the same set of keys or some data records are not represented using the key-value pair structure.
+    - **Structured Data:** each data record is presented in a form of a [possibly complex and multi-tiered] dictionary (json, xml, etc.)
+    - **Tabular Data:** a dataset that is a two-dimensional table, where each row typically represents a single data record, and each column represents one type of measurement (csv, dat, xlsx, etc.).
+
+## {background-image="img/w02/w02_slide_035.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 35 -->
+
+
+::: notes
+Slide text: Tabular Data · In tabular data, we expect each record or observation to represent a set of measurements of a single object or event.
+:::
+
+## {background-image="img/w02/w02_slide_036.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 36 -->
+
+
+::: notes
+Slide text: Tabular Data · Each type of measurement is called a variable or an attribute of the data (e.g. age, sex and occupation are variables or attributes). The number of attributes is called the dimension. These are often called features.
+:::
+
+## {background-image="img/w02/w02_slide_037.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 37 -->
+
+
+::: notes
+Slide text: Tabular Data · We expect each table to contain a set of records or observations of the same kind of object or event (e.g. our below above contains observations of individuals and their characteristics).
+:::
+
+## Types of Data
+<!-- src: Week 2 - Data.pptx slide 38 -->
+
+- We’ll see later that it’s important to distinguish between classes of variables or attributes based on the type of values they can take on.
+- **Quantitative variable:** is numerical and can be either:
+    - **discrete -** a finite number of values are possible in any bounded interval. For example: “Number of siblings” is a discrete variable
+    - **continuous -** an infinite number of values are possible in any bounded interval.  For example: “Height” is a continuous variable
+- **Categorical variable:** no inherent order among the values For example: “What kind of pet you have” is a categorical variable
+
+## Pandas Data Types (dtypes)
+<!-- src: Week 2 - Data.pptx slide 39 -->
+
+::: {.columns}
+:::: {.column width="50%"}
+![](img/w02/w02_a9d3e364bbc.jpg)
+::::
+:::: {.column width="50%"}
+![](img/w02/w02_a9d3e364bbc.jpg)
+::::
+:::
+
+## {background-image="img/w02/w02_slide_040.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 40 -->
+
+
+::: notes
+Slide text: Exercise: All good? · Variable Description · Variable dtypes · Dataframe · dtypes reference
+:::
+
+## Common Issues
+<!-- src: Week 2 - Data.pptx slide 41 -->
+
+- Common issues with data:
+    - Missing values: how do we fill in?
+    - Wrong values: how can we detect and correct?
+    - Messy format
+    - Not usable: the data cannot answer the question posed
+
+## {background-image="img/w02/w02_slide_042.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 42 -->
+
+
+::: notes
+Slide text: Messy Data Structures · The following is a table accounting for the number of produce deliveries over a weekend.  · What are the variables in this dataset? What object or event are we measuring?  ·  ·  ·  ·  · What’s the issue? How do we fix it?
+:::
+
+## {background-image="img/w02/w02_slide_043.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 43 -->
+
+
+::: notes
+Slide text: Messy Data Structures · We’re measuring individual deliveries; the variables are Time, Day, Number of Produce.  ·  ·  ·  ·  ·  · Problem: each column header represents a single value rather than a variable. Row headers are “hiding” the Day variable. The values of the variable, “Number of Produce”, is not recorded in a single column.
+:::
+
+## {background-image="img/w02/w02_slide_044.jpg" background-size="contain" .fallback}
+<!-- src: Week 2 - Data.pptx slide 44 -->
+
+
+::: notes
+Slide text: Fixing Messy Data · We need to reorganize the information to make explicit the event we’re observing and the variables associated to this event.
+:::
+
+## Panel Data
+<!-- src: Week 2 - Data.pptx slide 45 -->
+
+- What if we were measuring deliveries over time in *multiple* grocery stores?
+- Data that involves repeated observations of the same **groups** over **time** is called **panel data**
+- Many country-level indicators (GDP, HDI, etc.), surveys, and censuses are in panel format.
+- The best way to organize this data is to have each row represent a unique combination of **group** and **time****.** (e.g. country x year)
+
+## Example: GDP data
+<!-- src: Week 2 - Data.pptx slide 46 -->
+
+- This is GDP data as provided by the World Bank
+- It’s in “wide” format
+- It’s relatively efficient
+    - There are 12 cells
+    - There is no repetition
+- But how would you add another variable (e.g. unemployment rate) to this data set?
+
+| Country | 2019 | 2020 | 2021 |
+|---|---|---|---|
+| Angola | 69.3 | 53.6 | 72.5 |
+| Brazil | 1873.2 | 1448.5 | 1608.9 |
+| Colombia | 323.1 | 270.2 | 314.3 |
+
+## Example: GDP data {.smaller}
+
+::: {.columns}
+:::: {.column width="50%"}
+- This is the same data in **long** format
+- It's less efficient
+    - There are now 27 cells
+    - There's repetition in the Country and Year columns
+- But it's better structured
+- Adding further variables is straightforward: just add a column
+::::
+:::: {.column width="50%"}
+
+| Country | Year | GDP |
+|---|---|---|
+| Angola | 2019 | 69.3 |
+| Angola | 2020 | 53.6 |
+| Angola | 2021 | 72.5 |
+| Brazil | 2019 | 1873.2 |
+| Brazil | 2020 | 1448.5 |
+| Brazil | 2021 | 1608.9 |
+| Colombia | 2019 | 323.1 |
+| Colombia | 2020 | 270.2 |
+| Colombia | 2021 | 314.3 |
+::::
+:::
+
+## Tabular data is best data
+<!-- src: Week 2 - Data.pptx slide 48 -->
+
+- Common causes of messiness are:
+    - Column headers are values, not variable names
+    - Variables are stored in both rows and columns
+    - Multiple variables are stored in one column/entry
+    - Multiple types of experimental units stored in same table
+- In general, we want each file to correspond to a dataset, **each column to represent a single variable and each row to represent a single observation.**
+- We want to **tabularize** the data.
+
+## Recap
+<!-- src: Week 2 - Data.pptx slide 49 -->
+
+1. Acquire data
+    1. Download, use an API, scrape a website
+1. Clean/format the data so that:
+    1. Each row represents a single object/observation/entry
+    1. Each column represents an attribute/property/feature of that entry
+    1. Values are numeric whenever possible
+    1. Columns contain atomic properties that cannot be further decomposed
+1. Check that the data types are correct.
+
+## Any Questions?
+<!-- src: Week 2 - Data.pptx slide 50 -->
+
+[o.ballinger@ucl.ac.uk](mailto:o.ballinger@ucl.ac.uk)

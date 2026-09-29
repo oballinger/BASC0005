@@ -17,7 +17,7 @@ ROWS = [
  ("9","8 Dec","Prediction: Supervised Learning","Modelling","Machine Learning","W10. Machine Learning"),
  ("10","15 Dec","Unsupervised Learning: Clustering","Modelling",[],[]),
 ]
-READY = {"6","7","8","10"}
+READY = {"2","3","6","7","8","10"}
 esc = lambda s: s.replace("&", "&amp;")
 nb_href = lambda nb: "notebooks/" + nb.replace(" ", "%20") + ".html"
 def lec_html(w, lec, cls="lec"):

@@ -115,6 +115,7 @@ $\beta_3$ is the difference-in-differences: the treatment effect.
 
 ::: {.columns}
 :::: {.column width="42%"}
+
 | State | Year | Treat | Post | Poverty (%) |
 |---|---|---|---|---|
 | NJ | 1989 | 1 | 0 | 1.5 |

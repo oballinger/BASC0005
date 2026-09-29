@@ -84,6 +84,13 @@
     "text": "Storing and importing data\nTypically, data we look at won’t be just one number, or one bit of text. Python has a lot of different ways of dealing with a bunch of numbers: for example, a list of values is called a list:\n\nlisty = [1,2,3,6,9]\nprint(listy)\n\n[1, 2, 3, 6, 9]\n\n\nA set of values linked to an index (or key) is called a dictionary; for example:\n\ndicty = {'Bob': 1.2, 'Mike': 1.2, 'Coop': 1.1, 'Maddy': 1.3, 'Giant': 2.1}\nprint(dicty)\n\n{'Bob': 1.2, 'Mike': 1.2, 'Coop': 1.1, 'Maddy': 1.3, 'Giant': 2.1}\n\n\nNotice that the list uses square brackets with values separated by commas, and the dict uses curly brackets with pairs separated by commas, and colons (:) to link a key (index or address) with a value.\n(You might notice that they haven’t printed out in the order you entered them)\n*Advanced: Print out 1) The third element of listy, and 2) The element of dicty relating to Giant\nWe’ll discuss different ways of organising data again soon, but for now we’ll look at dataframes - the way our data-friendly library Pandas works with data. We’ll be using Pandas a lot this term, so it’s good to get started with it early.\nLet’s start by importing pandas. We’ll also import another library, but we’re not going to worry about that too much at the moment.\nIf you see a warning about ‘Building Font Cache’ don’t worry - this is normal.\n\nimport pandas\n\nimport matplotlib\n%matplotlib inline\n\nLet’s import a simple dataset and show it in pandas. We’ll use a pre-prepared “.csv” file, which needs to be in the same folder as our code.\n\ndata = pandas.read_csv('./data/wk1/data.csv')\ndata.head()\n\n\n\n\n\n\n\n\nName\nFirst Appearance\nApprox height\nGender\nLaw Enforcement\n\n\n\n\n0\nBob\n1.2\n6.0\nMale\nFalse\n\n\n1\nMike\n1.2\n5.5\nMale\nFalse\n\n\n2\nCoop\n1.1\n6.0\nMale\nTrue\n\n\n3\nMaddy\n1.3\n5.5\nFemale\nFalse\n\n\n4\nGiant\n2.1\n7.5\nMale\nFalse\n\n\n\n\n\n\n\nWhat we’ve done here is read in a .csv file into a dataframe, the object pandas uses to work with data, and one that has lots of methods for slicing and dicing data, as we will see over the coming weeks. The head() command tells iPython to show the first few columns/rows of the data, so we can start to get a sense of what the data looks like and what sort of type of objects is represents.\nA common first step for exploring our data is to sort it. In Pandas, this can be done easily with the sort_values() function. We can specify which column to sort the data by, and whether we want to sort in ascending or descending order, using the optional arguments by and ascending, respectively. In the example below, we’re sorting in descending order of height:\n\ndata.sort_values(by='Approx height', ascending=False).head()\n\n\n\n\n\n\n\n\nName\nFirst Appearance\nApprox height\nGender\nLaw Enforcement\n\n\n\n\n4\nGiant\n2.1\n7.5\nMale\nFalse\n\n\n0\nBob\n1.2\n6.0\nMale\nFalse\n\n\n2\nCoop\n1.1\n6.0\nMale\nTrue\n\n\n1\nMike\n1.2\n5.5\nMale\nFalse\n\n\n3\nMaddy\n1.3\n5.5\nFemale\nFalse"
   },
   {
+    "objectID": "slides/w02.html",
+    "href": "slides/w02.html",
+    "title": "Data",
+    "section": "",
+    "text": "Open full screen ↗ Week 2 workshop → F full screen · S speaker notes · ? shortcuts"
+  },
+  {
     "objectID": "notebooks/W02. Pandas.html",
     "href": "notebooks/W02. Pandas.html",
     "title": "Intro to Pandas",
@@ -180,6 +187,13 @@
     "title": "Intro to Pandas",
     "section": "Exercise",
     "text": "Exercise\nOn an approporiately labelled graph, plot the incomes of all single adults whose net equivalised income is less than or equal to £10,000. What proportion of the population is this?"
+  },
+  {
+    "objectID": "slides/w03.html",
+    "href": "slides/w03.html",
+    "title": "Spatial & Network Data",
+    "section": "",
+    "text": "Open full screen ↗ Week 3 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "notebooks/W03. Spatial Data.html",

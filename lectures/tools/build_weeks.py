@@ -13,6 +13,73 @@ from pathlib import Path
 LEC = Path(__file__).resolve().parents[1]
 STAGE = LEC / "_staging"
 
+GDP_LONG = """
+## Example: GDP data {.smaller}
+
+::: {.columns}
+:::: {.column width="50%"}
+- This is the same data in **long** format
+- It's less efficient
+    - There are now 27 cells
+    - There's repetition in the Country and Year columns
+- But it's better structured
+- Adding further variables is straightforward: just add a column
+::::
+:::: {.column width="50%"}
+| Country | Year | GDP |
+|---|---|---|
+| Angola | 2019 | 69.3 |
+| Angola | 2020 | 53.6 |
+| Angola | 2021 | 72.5 |
+| Brazil | 2019 | 1873.2 |
+| Brazil | 2020 | 1448.5 |
+| Brazil | 2021 | 1608.9 |
+| Colombia | 2019 | 323.1 |
+| Colombia | 2020 | 270.2 |
+| Colombia | 2021 | 314.3 |
+::::
+:::
+"""
+POLYGONS = """
+## Polygon Data {.smaller}
+
+::: {.columns}
+:::: {.column width="46%"}
+Each row is an area; the **geometry** column holds its boundary:
+
+| Borough | Population | Pubs | geometry |
+|---|---|---|---|
+| Hackney | 280,000 | 2,300 | POLYGON(…) |
+| Camden | 279,000 | 1,943 | POLYGON(…) |
+| Westminster | 261,000 | 532 | POLYGON(…) |
+::::
+:::: {.column width="54%"}
+![](img/extra/london_boroughs.jpg)
+::::
+:::
+"""
+SNOW = """
+## Broad Street Pump
+
+::: {.columns}
+:::: {.column width="42%"}
+- During the **1854** cholera outbreak in London, Dr John Snow noticed a pattern in the spatial distribution of cases
+- Infections were concentrated around a single water pump on Broad Street, in Soho
+::::
+:::: {.column width="58%"}
+![](img/extra/snow_cholera_map.jpg)
+::::
+:::
+"""
+W3_OUTLINE = """
+## Outline
+
+1. Case Study: Grain Theft in Ukraine
+1. Vector Data
+1. Raster Data
+1. Analysing Spatial Data
+1. Networks
+"""
 CAUSAL_OUTLINE = """
 ## Outline
 
@@ -168,14 +235,34 @@ WEEKS = {
                        (r"^## Example 2$", "## Where RDD Shows Up: Close Elections")]),
     # --- waiting for the source decks (see merge plan) ---
     "w02": dict(title="Data",
-                pieces=[("w02", "2-46,57-999")]),       # Pandas section 47-56 cut
+                pieces=[("w02", "2-46"), ("md", GDP_LONG), ("w02", "48-50")],  # Pandas 51-60 cut; 47 rebuilt
+                slide_fixes={("w02", 47): [(r"\| Angola \| 2019 \| 53\.6", "| Angola | 2020 | 53.6"),
+                                           (r"\| Angola \| 2019 \| 72\.5", "| Angola | 2021 | 72.5"),
+                                           (r"\| Brazil \| 2020 \| 1873\.2", "| Brazil | 2019 | 1873.2"),
+                                           (r"\| Brazil \| 2020 \| 1608\.9", "| Brazil | 2021 | 1608.9"),
+                                           (r"\| Colombia \| 2021 \| 323\.1", "| Colombia | 2019 | 323.1"),
+                                           (r"\| Colombia \| 2021 \| 270\.2", "| Colombia | 2020 | 270.2")]},
+                fixes=[(r"\n1\. Pandas\n", "\n"),
+                       (r"^## 2\. Data Types", "## 3. Data Types")]),
     "w03": dict(title="Spatial & Network Data",
-                pieces=[("w03", "2-30,31,33,36,40,42-51"),  # sensor showcase trimmed; 52-62 cut
-                        ("networks", "8-20,30-34")],
-                slide_fixes={("w03", 46): [(r"\b1984\b", "1854")],
+                pieces=[("w03", "2"), ("md", W3_OUTLINE),
+                        ("w03", "4,5,6,8,9,10,11,14"),         # grain-theft case study, trimmed
+                        ("w03", "18,19,21,22"), ("md", POLYGONS),  # vector; 25 rebuilt
+                        ("w03", "27,28,33,34,36,38"),          # raster; sensor showcase trimmed to 4
+                        ("w03", "45,48"), ("md", SNOW),          # 49 rebuilt: it said 1984
+                        ("w03", "52,53,57"),                   # analysis; ML examples and Iraq timelapse cut
+                        ("networks", "8-18,30-33"),            # networks, on the same Kerch data
+                        ("w03", "76")],
+                fixes=[(r"^# \d\. (What Is a Network\?|Who Matters\? Centrality|Finding Communities)", r"# \1")],
+                slide_fixes={("w03", 25): [(r'\{\.column width="25%"\}', '{.column width="48%"}'),
+                                           (r'\{\.column width="75%"\}', '{.column width="52%"}')],
+                             ("networks", 13): [(r"^## It's a Small World$", "## It's a Small World {.smaller}")],
+                             ("networks", 12): [(r"The Tube is", "The London Underground is")],
+                             ("networks", 17): [(r" \(section 6\)", "")],
                              ("networks", 31): [(r"Like clustering, but using \*\*connections\*\*, not features",
                                                  "Groups nodes by their **connections**, not their features "
-                                                 "(feature-based clustering comes in Week 10)")]}),
+                                                 "(feature-based clustering comes in Week 10)"),
+                                                (r"- Tube:", "- London Underground:")]}),
     "w04": dict(title="Text as Data",
                 pieces=[("w04", "2-43,59-999"),         # regex 47-58 cut, Twitter election trimmed
                         ("embeddings", "8-14,16-19")],          # 15, 20, 21 show unpublished GhostShip work
@@ -247,6 +334,7 @@ def build(wk):
             elif not spec.endswith("-999"):
                 missing.append(f"{deck}:{n}")
     text = "\n\n".join(chunks)
+    text = re.sub(r"([^\n])\n(\|[^\n]*\|\n\|[-|: ]+\|\n)", r"\1\n\n\2", text)   # tables need a blank line before
     for pat, rep in cfg.get("fixes", []):
         text, k = re.subn(pat, rep, text, flags=re.M)
         if not k:

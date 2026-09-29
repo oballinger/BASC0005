@@ -19,10 +19,14 @@ book:
           text: "Workshop: Python Recap"
     - part: "Week 2 · Data"
       chapters:
+        - href: slides/w02.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W02. Pandas.ipynb"
           text: "Workshop: Pandas"
     - part: "Week 3 · Spatial & Networks"
       chapters:
+        - href: slides/w03.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W03. Spatial Data.ipynb"
           text: "Workshop: Spatial Data"
     - part: "Week 4 · Text as Data"
