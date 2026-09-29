@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BASC0005 - Hypothesis Testing</title>
+<title>BASC0005 - Hypothesis Testing: Frequentist and Bayesian</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -338,12 +338,7 @@ ga('send', {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/W08. Diff-in-Diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Diff-in-Diff</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/W09. Regression Discontinuity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Regression Discontinuity</span></a>
+  <a href="../notebooks/W08. Causal Inference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Causal Inference</span></a>
   </div>
 </li>
       </ul>
@@ -364,7 +359,7 @@ ga('send', {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/W10. Machine Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Machine Learning</span></a>
+  <a href="../notebooks/W09. Supervised Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Supervised Learning</span></a>
   </div>
 </li>
       </ul>
@@ -383,6 +378,11 @@ ga('send', {
   <a href="../slides/w10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W10. Clustering.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Clustering</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -397,23 +397,49 @@ ga('send', {
   <ul>
   <li><a href="#workshop-6-open-in-colab" id="toc-workshop-6-open-in-colab" class="nav-link active" data-scroll-target="#workshop-6-open-in-colab"><em>Workshop 6</em> <img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a>
   <ul class="collapse">
-  <li><a href="#aims" id="toc-aims" class="nav-link" data-scroll-target="#aims">Aims:</a></li>
+  <li><a href="#aims" id="toc-aims" class="nav-link" data-scroll-target="#aims">Aims</a></li>
   </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence Intervals</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">1. Confidence intervals</a>
   <ul class="collapse">
-  <li><a href="#sample-standard-deviation" id="toc-sample-standard-deviation" class="nav-link" data-scroll-target="#sample-standard-deviation">Sample Standard Deviation</a></li>
-  <li><a href="#standard-error" id="toc-standard-error" class="nav-link" data-scroll-target="#standard-error">Standard Error</a></li>
-  </ul></li>
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a>
-  <ul class="collapse">
-  <li><a href="#state-the-hypotheses" id="toc-state-the-hypotheses" class="nav-link" data-scroll-target="#state-the-hypotheses">1. State the hypotheses</a></li>
-  <li><a href="#select-an-alpha-level" id="toc-select-an-alpha-level" class="nav-link" data-scroll-target="#select-an-alpha-level">2. Select an <span class="math inline">\(\alpha\)</span> level</a></li>
-  <li><a href="#calculate-the-test-statistic-the-students-t-test" id="toc-calculate-the-test-statistic-the-students-t-test" class="nav-link" data-scroll-target="#calculate-the-test-statistic-the-students-t-test">3. Calculate the Test Statistic (The Student’s T-Test)</a></li>
-  <li><a href="#make-a-decision" id="toc-make-a-decision" class="nav-link" data-scroll-target="#make-a-decision">4. Make a Decision</a></li>
+  <li><a href="#what-does-95-actually-mean" id="toc-what-does-95-actually-mean" class="nav-link" data-scroll-target="#what-does-95-actually-mean">What does “95%” actually mean?</a></li>
   <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
   </ul></li>
-  <li><a href="#assessed-question" id="toc-assessed-question" class="nav-link" data-scroll-target="#assessed-question">Assessed question</a></li>
+  <li><a href="#the-t-test-is-there-a-gender-pay-gap" id="toc-the-t-test-is-there-a-gender-pay-gap" class="nav-link" data-scroll-target="#the-t-test-is-there-a-gender-pay-gap">2. The t-test: is there a gender pay gap?</a>
+  <ul class="collapse">
+  <li><a href="#state-the-hypotheses" id="toc-state-the-hypotheses" class="nav-link" data-scroll-target="#state-the-hypotheses">1. State the hypotheses</a></li>
+  <li><a href="#select-an-alpha-level-and-critical-value" id="toc-select-an-alpha-level-and-critical-value" class="nav-link" data-scroll-target="#select-an-alpha-level-and-critical-value">2. Select an <span class="math inline">\(\alpha\)</span> level and critical value</a></li>
+  <li><a href="#compute-the-test-statistic" id="toc-compute-the-test-statistic" class="nav-link" data-scroll-target="#compute-the-test-statistic">3. Compute the test statistic</a></li>
+  <li><a href="#make-a-decision" id="toc-make-a-decision" class="nav-link" data-scroll-target="#make-a-decision">4. Make a decision</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise</a></li>
+  </ul></li>
+  <li><a href="#a-note-of-caution-when-significance-misleads" id="toc-a-note-of-caution-when-significance-misleads" class="nav-link" data-scroll-target="#a-note-of-caution-when-significance-misleads">3. A note of caution: when significance misleads</a>
+  <ul class="collapse">
+  <li><a href="#spot-the-problem-do-aries-earn-more" id="toc-spot-the-problem-do-aries-earn-more" class="nav-link" data-scroll-target="#spot-the-problem-do-aries-earn-more">Spot the problem: do Aries earn more?</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise</a></li>
+  <li><a href="#how-often-does-noise-look-significant" id="toc-how-often-does-noise-look-significant" class="nav-link" data-scroll-target="#how-often-does-noise-look-significant">How often does noise look significant?</a></li>
+  <li><a href="#where-do-null-findings-go-publication-bias-and-the-winners-curse" id="toc-where-do-null-findings-go-publication-bias-and-the-winners-curse" class="nav-link" data-scroll-target="#where-do-null-findings-go-publication-bias-and-the-winners-curse">Where do null findings go? Publication bias and the winner’s curse</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise</a></li>
+  </ul></li>
+  <li><a href="#bayes-theorem-base-rates" id="toc-bayes-theorem-base-rates" class="nav-link" data-scroll-target="#bayes-theorem-base-rates">4. Bayes’ theorem: base rates</a>
+  <ul class="collapse">
+  <li><a href="#are-most-published-findings-false" id="toc-are-most-published-findings-false" class="nav-link" data-scroll-target="#are-most-published-findings-false">Are most published findings false?</a></li>
+  <li><a href="#flipping-conditionals-with-real-data" id="toc-flipping-conditionals-with-real-data" class="nav-link" data-scroll-target="#flipping-conditionals-with-real-data">Flipping conditionals with real data</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise</a></li>
+  </ul></li>
+  <li><a href="#priors-likelihoods-and-posteriors-union-membership-again" id="toc-priors-likelihoods-and-posteriors-union-membership-again" class="nav-link" data-scroll-target="#priors-likelihoods-and-posteriors-union-membership-again">5. Priors, likelihoods and posteriors: union membership again</a>
+  <ul class="collapse">
+  <li><a href="#the-beta-distribution" id="toc-the-beta-distribution" class="nav-link" data-scroll-target="#the-beta-distribution">The Beta distribution</a></li>
+  <li><a href="#updating-is-just-counting" id="toc-updating-is-just-counting" class="nav-link" data-scroll-target="#updating-is-just-counting">Updating is just counting</a></li>
+  <li><a href="#more-data-less-prior" id="toc-more-data-less-prior" class="nav-link" data-scroll-target="#more-data-less-prior">More data, less prior</a></li>
+  <li><a href="#exercise-does-the-prior-matter" id="toc-exercise-does-the-prior-matter" class="nav-link" data-scroll-target="#exercise-does-the-prior-matter">Exercise: does the prior matter?</a></li>
+  <li><a href="#optional-todays-posterior-is-tomorrows-prior" id="toc-optional-todays-posterior-is-tomorrows-prior" class="nav-link" data-scroll-target="#optional-todays-posterior-is-tomorrows-prior">(Optional) Today’s posterior is tomorrow’s prior</a></li>
+  </ul></li>
+  <li><a href="#confidence-vs-credible-intervals" id="toc-confidence-vs-credible-intervals" class="nav-link" data-scroll-target="#confidence-vs-credible-intervals">6. Confidence vs credible intervals</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5">Exercise</a></li>
+  </ul></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/oballinger/BASC0005/blob/main/notebooks/W06. Hypothesis Testing.ipynb" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -422,7 +448,7 @@ ga('send', {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hypothesis Testing</h1>
+<h1 class="title">Hypothesis Testing: Frequentist and Bayesian</h1>
 </div>
 
 
@@ -439,63 +465,265 @@ ga('send', {
 
 <section id="workshop-6-open-in-colab" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-6-open-in-colab"><em>Workshop 6</em> <a href="https://colab.research.google.com/github/oballinger/BASC0005/blob/main/notebooks/W06.%20Hypothesis%20Testing.ipynb"><img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></h2>
-<p>For the rest of this course, we’ll be working with data from the U.S. Census <a href="https://www.census.gov/programs-surveys/cps.html">Current Population Survey (CPS)</a>.</p>
-<section id="aims" class="level3">
-<h3 class="anchored" data-anchor-id="aims">Aims:</h3>
-<ul>
-<li>Understanding:
-<ul>
-<li>Confidence Intervals</li>
-<li>Hypothesis Testing
+<p>Last week we used the Central Limit Theorem to show that sample means are approximately normal, and that their spread is the <strong>standard error</strong>. This week we put that to work, following the lecture:</p>
 <ol type="1">
-<li>Stating the Null and Alternative Hypotheses</li>
-<li>Selecting a Critical Value</li>
-<li>Calculating the Test Statistic</li>
-<li>Making a Decision</li>
-</ol></li>
-</ul></li>
+<li><strong>Confidence intervals</strong>: a range for a population value from a single sample</li>
+<li><strong>The t-test</strong>: is a difference between two groups (e.g.&nbsp;the gender pay gap) bigger than sampling error?</li>
+<li><strong>A note of caution</strong>: multiple comparisons, p-hacking and publication bias</li>
+<li><strong>Bayes’ theorem</strong>: base rates and the prosecutor’s fallacy</li>
+<li><strong>Priors, likelihoods and posteriors</strong>: estimating union membership again, the Bayesian way</li>
+<li><strong>Confidence vs credible intervals</strong></li>
+</ol>
+<p>We use the same U.S. Current Population Survey (CPS) extract as in Workshop 5.</p>
+<section id="aims" class="level3">
+<h3 class="anchored" data-anchor-id="aims">Aims</h3>
+<ul>
+<li>Build and correctly interpret a 95% confidence interval</li>
+<li>Run the four steps of a hypothesis test with a two-sample t-test</li>
+<li>See, by simulation, why testing many hypotheses produces false positives, and why publishing only significant results inflates effect sizes</li>
+<li>Use Bayes’ theorem to flip a conditional probability</li>
+<li>Update a Beta prior with binomial data, and compare a credible interval with a confidence interval</li>
+</ul>
+<p>The core path takes roughly two hours. Sections marked <strong>(Optional)</strong> are extensions.</p>
+</section>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:54.223406Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:54.223350Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:55.059540Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:55.059119Z&quot;}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"white"</span>, font_scale<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)   <span class="co"># fixed seed so your numbers match the website</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We load the data and make the same choices as last week: the 2013 survey wave, income in $ thousands, and people earning under $200k. Remember what that means for the <strong>population</strong> we can talk about: 25-64 year-old wage earners in 2013 with incomes below $200k.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:55.060861Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:55.060752Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.340869Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.340465Z&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cps <span class="op">=</span> pd.read_csv(<span class="st">"https://storage.googleapis.com/qm2/wk7/cps.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> cps[cps[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2013</span>].copy()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income"</span>] <span class="op">=</span> df[<span class="st">"incwage"</span>] <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"income"</span>] <span class="op">&lt;</span> <span class="dv">200</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Union membership, as in Workshop 5: people asked the union question, 1 = member</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>unions <span class="op">=</span> df[df[<span class="st">"union"</span>] <span class="op">!=</span> <span class="dv">0</span>].copy()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>unions[<span class="st">"member"</span>] <span class="op">=</span> (unions[<span class="st">"union"</span>] <span class="op">==</span> <span class="dv">2</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:,}</span><span class="ss"> people; </span><span class="sc">{</span><span class="bu">len</span>(unions)<span class="sc">:,}</span><span class="ss"> asked about union membership"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>52,923 people; 8,697 asked about union membership</code></pre>
+</div>
+</div>
+<p>Reminder of the columns: <code>sex</code> (1 = male, 2 = female), <code>race</code> (1 = White non-Hispanic, 2 = Black non-Hispanic, 3 = Hispanic, 4 = Other), <code>sch</code> (years of schooling), <code>union</code> (0 = not asked, 1 = not covered, 2 = member, 3 = covered but not a member), <code>income</code> ($k), <code>realhrwage</code> (hourly wage), <code>occupation</code> (<code>.</code> = missing).</p>
+<p><strong>Why this matters beyond textbooks.</strong> In the lecture’s case study, a t-test is run on <em>every pixel</em> of a stack of free Sentinel-1 radar images, before and after an attack, to flag buildings whose radar return changed more than you’d expect from noise. The same logic, signal divided by noise, is what we build today.</p>
+</section>
+<section id="confidence-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals">1. Confidence intervals</h2>
+<p>In the real world we have <strong>one</strong> sample. Let’s draw a random sample of 1,000 people and pretend it is all we have. The rest of <code>df</code> plays the role of the (normally unknown) population.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.342030Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.341965Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.408725Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.408340Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> df.sample(<span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(sample[<span class="st">"income"</span>], bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">"steelblue"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Income in our sample of 1,000"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income ($ thousands)"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>From the CLT, the sample mean is approximately normal around the population mean, with standard error</p>
+<p><span class="math display">\[SE = \frac{s}{\sqrt{n}}, \qquad s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2}\]</span></p>
+<p>so a <strong>95% confidence interval</strong> is</p>
+<p><span class="math display">\[\bar{x} \pm 1.96 \times SE\]</span></p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.409835Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.409772Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.412008Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.411699Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> sample[<span class="st">"income"</span>].mean()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> sample[<span class="st">"income"</span>].std()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(sample)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(n)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>lower, upper <span class="op">=</span> mean <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> se, mean <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> se</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample mean </span><span class="sc">{</span>mean<span class="sc">:.2f}</span><span class="ss">, standard error </span><span class="sc">{</span>se<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% CI: </span><span class="sc">{</span>lower<span class="sc">:.2f}</span><span class="ss"> to </span><span class="sc">{</span>upper<span class="sc">:.2f}</span><span class="ss">   (population mean: </span><span class="sc">{</span>df[<span class="st">'income'</span>]<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample mean 48.00, standard error 1.08
+95% CI: 45.88 to 50.12   (population mean: 46.75)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.412894Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.412844Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.457299Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.456948Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.stripplot(y<span class="op">=</span>sample[<span class="st">"income"</span>], alpha<span class="op">=</span><span class="fl">0.25</span>, jitter<span class="op">=</span><span class="fl">0.3</span>, color<span class="op">=</span><span class="st">"grey"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.axhline(df[<span class="st">"income"</span>].mean(), color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Population mean"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.axhspan(lower, upper, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, label<span class="op">=</span><span class="st">"95% CI from the sample"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Income ($ thousands)"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"One sample, one confidence interval"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="what-does-95-actually-mean" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-95-actually-mean">What does “95%” actually mean?</h3>
+<p>It is tempting to say “there is a 95% chance the population mean is in this interval”. Strictly, a frequentist can’t say that: the population mean is a fixed number, and it either is or isn’t in <em>this</em> interval. The 95% refers to the <strong>procedure</strong>: if we repeated the study many times, 95% of the intervals we built would contain the true value. Let’s check by building 100 intervals from 100 different samples.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.458381Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.458301Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.564911Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.564526Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>true_mean <span class="op">=</span> df[<span class="st">"income"</span>].mean()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>misses <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> df[<span class="st">"income"</span>].sample(<span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">5000</span> <span class="op">+</span> i)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    m, e <span class="op">=</span> x.mean(), <span class="fl">1.96</span> <span class="op">*</span> x.std() <span class="op">/</span> np.sqrt(<span class="bu">len</span>(x))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    hit <span class="op">=</span> (m <span class="op">-</span> e <span class="op">&lt;=</span> true_mean <span class="op">&lt;=</span> m <span class="op">+</span> e)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    misses <span class="op">+=</span> <span class="kw">not</span> hit</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    ax.plot([m <span class="op">-</span> e, m <span class="op">+</span> e], [i, i], color<span class="op">=</span><span class="st">"steelblue"</span> <span class="cf">if</span> hit <span class="cf">else</span> <span class="st">"red"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ax.axvline(true_mean, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"True mean"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Income ($ thousands)"</span>, ylabel<span class="op">=</span><span class="st">"Study number"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="ss">f"100 studies, 100 95% CIs: </span><span class="sc">{</span>misses<span class="sc">}</span><span class="ss"> miss the true mean (red)"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ax.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<ol start="0" type="1">
+<li>On average you’d expect about 5 of 100 intervals to miss. Why isn’t it always exactly 5?</li>
+<li>Change the multiplier from 1.96 to 2.58 (a 99% interval). What happens to the width of the intervals and the number of misses?</li>
+<li>Change the sample size from 1,000 to 100. What happens?</li>
+<li><strong>Union membership.</strong> For a proportion <span class="math inline">\(\hat{p}\)</span> the standard error is <span class="math inline">\(\sqrt{\hat{p}(1-\hat{p})/n}\)</span>. Draw a sample of 1,000 from <code>unions</code> and compute a 95% CI for the union membership rate. Does it contain the population rate <code>unions["member"].mean()</code>?</li>
+<li>Now do the same with a sample of 7 people. If no one in your sample is a member, what is your 95% CI? Does that seem sensible? (We come back to this in Section 5.)</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.566393Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.566317Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.567663Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.567432Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="the-t-test-is-there-a-gender-pay-gap" class="level2">
+<h2 class="anchored" data-anchor-id="the-t-test-is-there-a-gender-pay-gap">2. The t-test: is there a gender pay gap?</h2>
+<p>In our sample, men seem to earn more than women:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.568704Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.568637Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.606806Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.606517Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.boxplot(data<span class="op">=</span>sample, x<span class="op">=</span><span class="st">"sex"</span>, y<span class="op">=</span><span class="st">"income"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ax.set_xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">"Men"</span>, <span class="st">"Women"</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">""</span>, ylabel<span class="op">=</span><span class="st">"Income ($ thousands)"</span>, title<span class="op">=</span><span class="st">"Income by sex, sample of 1,000"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>But even if there were no difference in the population, two random groups would never have <em>exactly</em> the same mean: that’s <strong>sampling error</strong>. A hypothesis test asks whether the difference is bigger than sampling error can plausibly explain. Four steps:</p>
+<section id="state-the-hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="state-the-hypotheses">1. State the hypotheses</h3>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: there is no difference in mean income between men and women (<span class="math inline">\(\mu_{men} = \mu_{women}\)</span>)</li>
+<li><span class="math inline">\(H_a\)</span>: there is a difference (<span class="math inline">\(\mu_{men} \neq \mu_{women}\)</span>)</li>
 </ul>
 </section>
+<section id="select-an-alpha-level-and-critical-value" class="level3">
+<h3 class="anchored" data-anchor-id="select-an-alpha-level-and-critical-value">2. Select an <span class="math inline">\(\alpha\)</span> level and critical value</h3>
+<p>With large samples the t distribution is essentially normal, so: * <span class="math inline">\(\alpha = 0.05\)</span> (95% confidence): critical value <strong>1.96</strong> * <span class="math inline">\(\alpha = 0.01\)</span> (99% confidence): critical value <strong>2.58</strong></p>
+<p>If the test statistic is further from zero than the critical value, we reject <span class="math inline">\(H_0\)</span>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.607973Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.607906Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.654307Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.653799Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_z(test_statistic):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Standard normal curve with 95% and 99% critical values, and a test statistic in red</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">400</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, stats.norm.pdf(x), <span class="st">"k"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cv, col, lab <span class="kw">in</span> [(<span class="fl">1.96</span>, <span class="st">"blue"</span>, <span class="st">"±1.96 (95%)"</span>), (<span class="fl">2.58</span>, <span class="st">"green"</span>, <span class="st">"±2.58 (99%)"</span>)]:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        plt.axvline(<span class="op">-</span>cv, color<span class="op">=</span>col, ls<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span>lab)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        plt.axvline(cv, color<span class="op">=</span>col, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    plt.axvline(np.clip(test_statistic, <span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>), color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"t = </span><span class="sc">{</span>test_statistic<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Where does the test statistic fall?"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    plt.legend()<span class="op">;</span> plt.show()</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plot_z(<span class="op">-</span><span class="fl">2.3</span>)   <span class="co"># would we reject H0 at 95%? at 99%?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<p>We will be following on from the analysis we conducted in Workshop 5 (Distributions and Basic Statistics). We visually explored differences in the income levels between different groups of people in the US census. Now, we are going to conduct hypothesis testing to see if those differences are statistically significant.</p>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir data</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir data<span class="op">/</span>wk7</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl https:<span class="op">//</span>storage.googleapis.com<span class="op">/</span>qm2<span class="op">/</span>wk7<span class="op">/</span>cps.csv <span class="op">-</span>o data<span class="op">/</span>wk7<span class="op">/</span>cps.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="compute-the-test-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="compute-the-test-statistic">3. Compute the test statistic</h3>
+<p>The (Welch) t statistic is the <strong>signal</strong> (difference in means) divided by the <strong>noise</strong> (the standard error of that difference):</p>
+<p><span class="math display">\[t = \frac{\bar{x}_1-\bar{x}_2}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}\]</span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is a sample mean, <span class="math inline">\(s^2\)</span> a sample variance and <span class="math inline">\(n\)</span> a group size.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.655361Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.655300Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.658783Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.658446Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> manual_ttest(group1, group2):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Welch two-sample t statistic, computed by hand</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    n1, n2 <span class="op">=</span> <span class="bu">len</span>(group1), <span class="bu">len</span>(group2)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    m1, m2 <span class="op">=</span> group1.mean(), group2.mean()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    v1, v2 <span class="op">=</span> group1.var(), group2.var()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    se_diff <span class="op">=</span> np.sqrt(v1 <span class="op">/</span> n1 <span class="op">+</span> v2 <span class="op">/</span> n2)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> (m1 <span class="op">-</span> m2) <span class="op">/</span> se_diff</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Group 1: n=</span><span class="sc">{</span>n1<span class="sc">}</span><span class="ss">, mean=</span><span class="sc">{</span>m1<span class="sc">:.2f}</span><span class="ss">   Group 2: n=</span><span class="sc">{</span>n2<span class="sc">}</span><span class="ss">, mean=</span><span class="sc">{</span>m2<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Difference = </span><span class="sc">{</span>m1 <span class="op">-</span> m2<span class="sc">:.2f}</span><span class="ss">, SE of difference = </span><span class="sc">{</span>se_diff<span class="sc">:.2f}</span><span class="ss">, t = </span><span class="sc">{</span>t<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>men <span class="op">=</span> sample.loc[sample[<span class="st">"sex"</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">"income"</span>]</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>women <span class="op">=</span> sample.loc[sample[<span class="st">"sex"</span>] <span class="op">==</span> <span class="dv">2</span>, <span class="st">"income"</span>]</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> manual_ttest(men, women)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>mkdir: data: File exists
-mkdir: data/wk7: File exists
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 22.4M  100 22.4M    0     0  16.5M      0  0:00:01  0:00:01 --:--:-- 16.6M</code></pre>
+<pre><code>Group 1: n=501, mean=55.51   Group 2: n=499, mean=40.46
+Difference = 15.05, SE of difference = 2.11, t = 7.13</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This tells python to draw the graphs "inline" - in the notebook</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pylab</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make the plots (graphs) a little wider by default</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>pylab.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="fl">10.</span>, <span class="fl">8.</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(font_scale<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="make-a-decision" class="level3">
+<h3 class="anchored" data-anchor-id="make-a-decision">4. Make a decision</h3>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.659633Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.659573Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.707026Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.706695Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot_z(t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">'./data/wk7/cps.csv'</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'race'</span>]<span class="op">=</span>df[<span class="st">'race'</span>].astype(<span class="st">'category'</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'income'</span>]<span class="op">=</span>df[<span class="st">'incwage'</span>]<span class="op">/</span><span class="dv">1000</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>df[df[<span class="st">'income'</span>]<span class="op">&lt;</span><span class="dv">200</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>df[df[<span class="st">'year'</span>]<span class="op">==</span><span class="dv">2013</span>] <span class="co"># filter the dataframe to only contain 2013 data</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+</div>
+<p>In practice you’d use a library, which also gives a <strong>p-value</strong>: the probability of a difference at least this extreme <em>if <span class="math inline">\(H_0\)</span> were true</em>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.708216Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.708152Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.710868Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.710558Z&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> stats.ttest_ind(men, women, equal_var<span class="op">=</span><span class="va">False</span>)   <span class="co"># equal_var=False gives Welch's test, same as ours</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t = </span><span class="sc">{</span>res<span class="sc">.</span>statistic<span class="sc">:.2f}</span><span class="ss">, p-value = </span><span class="sc">{</span>res<span class="sc">.</span>pvalue<span class="sc">:.2g}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t = 7.13, p-value = 2e-12</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise</h3>
+<ol type="1">
+<li>Write a one-paragraph interpretation of this test, in the style of the lecture (“In a sample of … men and … women, …”). Be precise about what the p-value does and does not mean.</li>
+<li>Plot the mean income of each group with 95% confidence intervals (hint: <code>sns.pointplot(data=sample, x="sex", y="income", errorbar=("ci", 95), linestyle="none", capsize=0.2)</code>). Do the intervals overlap?</li>
+<li>Using samples of 500 people from <code>df</code>, test whether White non-Hispanic workers (<code>race == 1</code>) earn more than each of the other three groups. Which gap is largest? Which (if any) is not significant?</li>
+<li>Is the union wage premium real? Test whether union members earn more than non-members, using all of <code>unions</code>.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.711874Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.711820Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.713164Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.712870Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="a-note-of-caution-when-significance-misleads" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-of-caution-when-significance-misleads">3. A note of caution: when significance misleads</h2>
+<p>A 5% significance level means that when <span class="math inline">\(H_0\)</span> is true, we’ll wrongly reject it 5% of the time. That is fine for <em>one</em> test. But researchers rarely run just one.</p>
+<section id="spot-the-problem-do-aries-earn-more" class="level3">
+<h3 class="anchored" data-anchor-id="spot-the-problem-do-aries-earn-more">Spot the problem: do Aries earn more?</h3>
+<p>A researcher collects star signs for our sample of 1,000 (here we <strong>assign them at random</strong>, so there is by construction no real effect) and tests each sign against everyone else:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.714083Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.714030Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.726576Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.726234Z&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>signs <span class="op">=</span> [<span class="st">"Aries"</span>, <span class="st">"Taurus"</span>, <span class="st">"Gemini"</span>, <span class="st">"Cancer"</span>, <span class="st">"Leo"</span>, <span class="st">"Virgo"</span>, <span class="st">"Libra"</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Scorpio"</span>, <span class="st">"Sagittarius"</span>, <span class="st">"Capricorn"</span>, <span class="st">"Aquarius"</span>, <span class="st">"Pisces"</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>zodiac_rng <span class="op">=</span> np.random.default_rng(<span class="dv">7</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> sample.assign(sign<span class="op">=</span>zodiac_rng.choice(signs, size<span class="op">=</span><span class="bu">len</span>(sample)))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> signs:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    inside <span class="op">=</span> sample.loc[sample[<span class="st">"sign"</span>] <span class="op">==</span> s, <span class="st">"income"</span>]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    outside <span class="op">=</span> sample.loc[sample[<span class="st">"sign"</span>] <span class="op">!=</span> s, <span class="st">"income"</span>]</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> stats.ttest_ind(inside, outside, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    results.append({<span class="st">"sign"</span>: s, <span class="st">"diff"</span>: inside.mean() <span class="op">-</span> outside.mean(), <span class="st">"p"</span>: r.pvalue})</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame(results).sort_values(<span class="st">"p"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> results.iloc[<span class="dv">0</span>]</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"HEADLINE: </span><span class="sc">{</span>best[<span class="st">'sign'</span>]<span class="sc">}</span><span class="ss"> earn $</span><span class="sc">{</span><span class="bu">abs</span>(best[<span class="st">'diff'</span>])<span class="sc">:.1f}</span><span class="ss">k </span><span class="sc">{</span><span class="st">'more'</span> <span class="cf">if</span> best[<span class="st">'diff'</span>] <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'less'</span><span class="sc">}</span><span class="ss"> "</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"than everyone else (p = </span><span class="sc">{</span>best[<span class="st">'p'</span>]<span class="sc">:.3f}</span><span class="ss">, significant at 5%!)"</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>results.<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>HEADLINE: Aries earn $9.2k less than everyone else (p = 0.007, significant at 5%!)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -503,95 +731,83 @@ mkdir: data/wk7: File exists
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">state</th>
-<th data-quarto-table-cell-role="th">age</th>
-<th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">race</th>
-<th data-quarto-table-cell-role="th">sch</th>
-<th data-quarto-table-cell-role="th">ind</th>
-<th data-quarto-table-cell-role="th">union</th>
-<th data-quarto-table-cell-role="th">incwage</th>
-<th data-quarto-table-cell-role="th">realhrwage</th>
-<th data-quarto-table-cell-role="th">occupation</th>
-<th data-quarto-table-cell-role="th">income</th>
+<th data-quarto-table-cell-role="th">sign</th>
+<th data-quarto-table-cell-role="th">diff</th>
+<th data-quarto-table-cell-role="th">p</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">20</td>
-<td>2013</td>
-<td>50</td>
-<td>62</td>
-<td>1</td>
-<td>1</td>
-<td>14.0</td>
-<td>8090</td>
-<td>1.0</td>
-<td>57000.0</td>
-<td>23.889143</td>
-<td>.</td>
-<td>57.0</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>Aries</td>
+<td>-9.193</td>
+<td>0.007</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">32</td>
-<td>2013</td>
-<td>39</td>
-<td>59</td>
-<td>1</td>
-<td>1</td>
-<td>13.0</td>
-<td>9590</td>
-<td>0.0</td>
-<td>62000.0</td>
-<td>29.726475</td>
-<td>Consruction, Extraction, Installation</td>
-<td>62.0</td>
+<td data-quarto-table-cell-role="th">4</td>
+<td>Leo</td>
+<td>6.910</td>
+<td>0.117</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">34</td>
-<td>2013</td>
-<td>44</td>
-<td>44</td>
-<td>1</td>
-<td>3</td>
-<td>12.0</td>
-<td>7290</td>
-<td>0.0</td>
-<td>45000.0</td>
-<td>20.745834</td>
-<td>.</td>
-<td>45.0</td>
+<td data-quarto-table-cell-role="th">8</td>
+<td>Sagittarius</td>
+<td>4.387</td>
+<td>0.311</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">36</td>
-<td>2013</td>
-<td>12</td>
-<td>41</td>
-<td>1</td>
-<td>1</td>
-<td>12.0</td>
-<td>7070</td>
-<td>1.0</td>
-<td>28000.0</td>
-<td>12.293828</td>
-<td>Managers</td>
-<td>28.0</td>
+<td data-quarto-table-cell-role="th">6</td>
+<td>Libra</td>
+<td>3.958</td>
+<td>0.324</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">37</td>
-<td>2013</td>
-<td>33</td>
-<td>35</td>
-<td>1</td>
-<td>1</td>
-<td>12.0</td>
-<td>770</td>
-<td>0.0</td>
-<td>42500.0</td>
-<td>20.377020</td>
-<td>Transportation and materials moving</td>
-<td>42.5</td>
+<td data-quarto-table-cell-role="th">2</td>
+<td>Gemini</td>
+<td>-3.299</td>
+<td>0.367</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Taurus</td>
+<td>-2.623</td>
+<td>0.458</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>Aquarius</td>
+<td>1.882</td>
+<td>0.588</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Capricorn</td>
+<td>1.931</td>
+<td>0.618</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Scorpio</td>
+<td>-1.849</td>
+<td>0.662</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Virgo</td>
+<td>-1.586</td>
+<td>0.668</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Cancer</td>
+<td>-1.348</td>
+<td>0.749</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>Pisces</td>
+<td>-0.713</td>
+<td>0.866</td>
 </tr>
 </tbody>
 </table>
@@ -599,274 +815,420 @@ mkdir: data/wk7: File exists
 </div>
 </div>
 </div>
-<p>This is once again the U.S. census data from Week 5. As a reminder, our dataframe has 10 columns:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.727523Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.727468Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.776094Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.775692Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.bar(results[<span class="st">"sign"</span>], results[<span class="st">"p"</span>], color<span class="op">=</span>np.where(results[<span class="st">"p"</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="st">"red"</span>, <span class="st">"grey"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.05</span>, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"p = 0.05"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">60</span>)<span class="op">;</span> plt.ylabel(<span class="st">"p-value"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"12 tests on pure noise"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">Exercise</h3>
 <ol type="1">
-<li><em>year</em>: Survey year</li>
-<li><em>age</em>: the person’s age</li>
-<li><em>sex</em>: the person’s sex
-<ul>
-<li>1=male</li>
-<li>2=female</li>
-</ul></li>
-<li><em>race</em>: the person’s race
-<ul>
-<li>White non hispanic=1</li>
-<li>Black non hispanic=2</li>
-<li>Hispanic=3</li>
-<li>Other non hispanic=4)</li>
-</ul></li>
-<li><em>sch</em>: Educational attainment
-<ul>
-<li>None = 0,</li>
-<li>Grades 1-12 = 1-12</li>
-<li>Some University = 13,</li>
-<li>Associate’s degree = 14,</li>
-<li>BA = 16</li>
-<li>Advanced Degree = 18</li>
-</ul></li>
-<li><em>union</em>: Union membership
-<ul>
-<li>N/A = 0,</li>
-<li>No union coverage = 1,</li>
-<li>Member of labor union=2,</li>
-<li>Covered by union but not a member=3</li>
-</ul></li>
-<li><em>incwage</em>: Wage and salary income</li>
-<li><em>realhrwage</em>: Real Hourly Wage</li>
-<li><em>occupation</em>: Occupation</li>
-<li><em>ind</em>: <a href="https://www.census.gov/naics/?58967?yearbck=2002">industry code</a></li>
+<li>The star signs were assigned by a random number generator. So what went wrong with the headline?</li>
+<li>If you run 12 independent tests at <span class="math inline">\(\alpha=0.05\)</span> and every null is true, the probability of at least one false positive is <span class="math inline">\(1-0.95^{12}\)</span>. Compute it.</li>
+<li>The <strong>Bonferroni correction</strong> tests each hypothesis at <span class="math inline">\(\alpha/m\)</span> (here <span class="math inline">\(0.05/12\)</span>). Would the headline survive?</li>
+<li>Name two ways this could happen in real research <em>without</em> anyone meaning to cheat (think: many outcomes, many subgroups, trying different control variables, stopping data collection when p &lt; 0.05).</li>
 </ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.777272Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.777198Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:56.778778Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:56.778394Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="confidence-intervals" class="level2">
-<h2 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h2>
-<p>So far in this workshop, we’ve had the luxury of being able to draw many random samples and plot the distributions of their sample means to infer the population mean. The Central Limit Theorem lets us assume that these sample means are normally distributed, and consequently that there is a 95.45% chance that the <strong>population mean</strong> within two standard errors of the <strong>sample mean</strong>. This allows us to make inferences on the basis of <em>a single sample</em>. The standard error is the</p>
-<section id="sample-standard-deviation" class="level3">
-<h3 class="anchored" data-anchor-id="sample-standard-deviation">Sample Standard Deviation</h3>
-<p><span class="math display">\[\huge s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \overline{x})^2}\]</span></p>
-</section>
-<section id="standard-error" class="level3">
-<h3 class="anchored" data-anchor-id="standard-error">Standard Error</h3>
-<p><span class="math display">\[\huge se = \frac{s}{\sqrt{n}}\]</span></p>
-<p>Given a large enough sample <span class="math inline">\(x\)</span>, we can build a 95% confidence interval as follows:</p>
-<p><span class="math display">\[ \huge 95\% CI = \overline{x} \pm (1.96 \times se)\]</span></p>
-<p>Let’s draw a sample of 1000 random individuals from our data, and compute a 95% confidence interval to estimate the population mean for income. We’ll begin by creating a swarmplot to get a sense of how the data are distributed.</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sample<span class="op">=</span>df.sample(<span class="dv">1000</span>) <span class="co"># draw a random sample of 1000 observations from the dataframe</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(data <span class="op">=</span> sample, y<span class="op">=</span><span class="st">'income'</span>) <span class="co"># plot a swarmplot of income</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Income Distribution'</span>) <span class="co"># add a title</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>Text(0.5, 1.0, 'Income Distribution')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="W06. Hypothesis Testing_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<p>Now let’s set about calculating the 95% confidence interval and plotting it on our swarmplot. Luckily, the components we need to this are easy to calculate. We just need the mean, standard deviation, and number of observations. All of these are provided by the <code>.describe()</code> function, which calculates summary statistics for a sample.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>desc<span class="op">=</span>sample[<span class="st">'income'</span>].describe() <span class="co"># calculate descriptive statistics for the sample</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(desc) <span class="co"># print the descriptive statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="how-often-does-noise-look-significant" class="level3">
+<h3 class="anchored" data-anchor-id="how-often-does-noise-look-significant">How often does noise look significant?</h3>
+<p>Let’s run 2,000 “studies” in which we split 1,000 random people into two groups by coin flip and t-test their incomes. Every null hypothesis is true.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:56.779767Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:56.779698Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:57.322732Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:57.322427Z&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>incomes <span class="op">=</span> df[<span class="st">"income"</span>].to_numpy()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pvals <span class="op">=</span> []</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2000</span>):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> rng.choice(incomes, size<span class="op">=</span><span class="dv">1000</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    group <span class="op">=</span> rng.random(<span class="dv">1000</span>) <span class="op">&lt;</span> <span class="fl">0.5</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    pvals.append(stats.ttest_ind(x[group], x[<span class="op">~</span>group], equal_var<span class="op">=</span><span class="va">False</span>).pvalue)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>pvals <span class="op">=</span> np.array(pvals)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Share of 'significant' results (p &lt; 0.05): </span><span class="sc">{</span>(pvals <span class="op">&lt;</span> <span class="fl">0.05</span>)<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.hist(pvals, bins<span class="op">=</span><span class="dv">20</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>, color<span class="op">=</span><span class="st">"grey"</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.05</span>, color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"p-value"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Number of studies"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"When H0 is true, p-values are uniformly distributed"</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>count    1000.000000
-mean       47.677568
-std        33.041244
-min         0.700000
-25%        25.000000
-50%        40.000000
-75%        62.000000
-max       190.000000
-Name: income, dtype: float64</code></pre>
+<pre><code>Share of 'significant' results (p &lt; 0.05): 0.046</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<p>From the set of descriptive statistics, we can pull out the relevant components, calculate the standard error, and create a 95% confidence interval as follows:</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mean<span class="op">=</span>desc[<span class="st">'mean'</span>] <span class="co"># set the mean equal to a variable called "mean"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>std<span class="op">=</span>desc[<span class="st">'std'</span>] <span class="co"># set the standard deviation equal to a variable called "std"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span>desc[<span class="st">'count'</span>] <span class="co"># set the sample size equal to a variable called "n"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>se<span class="op">=</span>std<span class="op">/</span>np.sqrt(n) <span class="co"># calculate the standard error of the mean</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The mean is'</span>, <span class="bu">round</span>(mean, <span class="dv">2</span>), <span class="st">'with a standard error of'</span>, <span class="bu">round</span>(se, <span class="dv">2</span>)) <span class="co"># print the mean and standard error</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>upper_ci <span class="op">=</span> mean<span class="op">+</span>se<span class="op">*</span><span class="fl">1.96</span> <span class="co"># calculate the upper confidence interval</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>lower_ci <span class="op">=</span> mean<span class="op">-</span>se<span class="op">*</span><span class="fl">1.96</span> <span class="co"># calculate the lower confidence interval</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The 95</span><span class="sc">% c</span><span class="st">onfidence interval is'</span>, <span class="bu">round</span>(lower_ci, <span class="dv">2</span>), <span class="st">'to'</span>, <span class="bu">round</span>(upper_ci, <span class="dv">2</span>)) <span class="co"># print the confidence interval</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="where-do-null-findings-go-publication-bias-and-the-winners-curse" class="level3">
+<h3 class="anchored" data-anchor-id="where-do-null-findings-go-publication-bias-and-the-winners-curse">Where do null findings go? Publication bias and the winner’s curse</h3>
+<p>Journals are more likely to publish significant results; the rest end up in the “file drawer”. What does that do to the effects we read about?</p>
+<p>Let’s use a <strong>real</strong> effect. In our population, union members earn more than non-members. Imagine many research teams each run a small study (30 members, 30 non-members) and only the significant ones get published.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:57.323981Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:57.323892Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.007020Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.006425Z&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mem_inc <span class="op">=</span> unions.loc[unions[<span class="st">"member"</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">"income"</span>].to_numpy()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>non_inc <span class="op">=</span> unions.loc[unions[<span class="st">"member"</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="st">"income"</span>].to_numpy()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>true_premium <span class="op">=</span> mem_inc.mean() <span class="op">-</span> non_inc.mean()</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_studies(n_per_group, n_studies<span class="op">=</span><span class="dv">3000</span>):</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    est, sig <span class="op">=</span> [], []</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_studies):</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> rng.choice(mem_inc, n_per_group)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> rng.choice(non_inc, n_per_group)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> stats.ttest_ind(a, b, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        est.append(a.mean() <span class="op">-</span> b.mean())</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        sig.append(r.pvalue <span class="op">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(est), np.array(sig)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>est, sig <span class="op">=</span> run_studies(<span class="dv">30</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True union premium: </span><span class="sc">{</span>true_premium<span class="sc">:.1f}</span><span class="ss">k"</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Share of studies that are significant (the power): </span><span class="sc">{</span>sig<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average estimate, all studies:       </span><span class="sc">{</span>est<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss">k"</span>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average estimate, published studies: </span><span class="sc">{</span>est[sig]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss">k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The mean is 47.68 with a standard error of 1.04
-The 95% confidence interval is 45.63 to 49.73</code></pre>
+<pre><code>True union premium: 7.9k
+Share of studies that are significant (the power): 0.18
+Average estimate, all studies:       7.8k
+Average estimate, published studies: 18.6k</code></pre>
 </div>
 </div>
-<p>Finally, let’s plot these bounds on our swarmplot to graphically show this range. We can now claim that based on our sample, there is a 95% chance that the true population mean of income (shown in red) lies within this range.</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(data <span class="op">=</span> sample, y<span class="op">=</span><span class="st">'income'</span>,alpha<span class="op">=</span><span class="fl">0.5</span>) <span class="co"># plot a swarmplot of income</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.axhline(df[<span class="st">'income'</span>].mean(), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'solid'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">'Population Mean'</span>) <span class="co"># add a horizontal line at the mean</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.axhline(upper_ci, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="dv">3</span>) <span class="co"># add a dashed black line at the upper confidence interval</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.axhline(lower_ci, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="dv">3</span>) <span class="co"># add a dashed black line at the lower confidence interval</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Income Distribution, 95% Confidence Interval'</span>) <span class="co"># add a title</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>Text(0.5, 1.0, 'Income Distribution, 95% Confidence Interval')</code></pre>
-</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.008211Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.008139Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.115907Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.115487Z&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> np.linspace(est.<span class="bu">min</span>(), est.<span class="bu">max</span>(), <span class="dv">50</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.hist(est[<span class="op">~</span>sig], bins<span class="op">=</span>bins, color<span class="op">=</span><span class="st">"lightgrey"</span>, label<span class="op">=</span><span class="st">"File drawer (p ≥ 0.05)"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.hist(est[sig], bins<span class="op">=</span>bins, color<span class="op">=</span><span class="st">"red"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">"Published (p &lt; 0.05)"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.axvline(true_premium, color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"True premium = </span><span class="sc">{</span>true_premium<span class="sc">:.1f}</span><span class="ss">k"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.axvline(est[sig].mean(), color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Average published = </span><span class="sc">{</span>est[sig]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss">k"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Estimated union wage premium ($ thousands)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Number of studies"</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Publishing only significant results exaggerates the effect"</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="W06. Hypothesis Testing_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
-</section>
-<section id="hypothesis-testing" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
-<p>If we create a boxplot of income disaggregated by sex using our sample, we can observe that men seem to earn more than women:</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>sample , x<span class="op">=</span><span class="st">'sex'</span>, y<span class="op">=</span><span class="st">'income'</span>).set_xticklabels([<span class="st">'Men'</span>,<span class="st">'Women'</span>]) <span class="co"># make a box plot of income by sex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>[Text(0, 0, 'Men'), Text(1, 0, 'Women')]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="W06. Hypothesis Testing_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<p>But is this difference statistically significant? It could just be due to sampling error, random chance. <strong>Hypothesis testing</strong> provides a framework through which we can formally evaluate the likelihood of encountering an effect as extreme (in this case, the the difference between the mean incomes between both groups) as the one we observe in our data. There are four main steps in hypothesis testing:</p>
+<section id="exercise-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3">Exercise</h3>
 <ol type="1">
-<li>State the hypotheses. H0 states that there is no difference between the two population means.</li>
-<li>Select an <span class="math inline">\(\alpha\)</span> level (e.g.&nbsp;95% confidence), and select a corresponding <strong>critical value</strong> (1.96 for large samples)</li>
-<li>Compute the test statistic.</li>
-<li>Make a decision; if the test statistic exceeds the critical value, we <strong>reject the null hypothesis</strong>.</li>
+<li>By how many times does the published literature exaggerate the true premium?</li>
+<li>Re-run with 300 people per group. What happens to the power and the exaggeration? Why?</li>
+<li>A meta-analysis averages the published studies. Would it recover the true effect? What would it need to do so?</li>
+<li>A few published studies found that union members earn <em>less</em> (see the red bars left of zero, if any). Why might that happen even though the true effect is positive?</li>
 </ol>
-<p>Steps 1, 2, and 4 remain fairly constant regardless of what kind of hypothesis testing you’re conducting. Step 3 can vary quite a bit, as there are many different statistical tests that fall under the umbrella of hypothesis testing. In today’s workshop we’ll be using the Student’s T-Test (more on that in a second). For now, let’s begin the process of hypothesis testing a</p>
-<section id="state-the-hypotheses" class="level3">
-<h3 class="anchored" data-anchor-id="state-the-hypotheses">1. State the hypotheses</h3>
-<section id="the-null-hypothesis" class="level4">
-<h4 class="anchored" data-anchor-id="the-null-hypothesis">The Null Hypothesis</h4>
-<ul>
-<li><span class="math inline">\(H_0\)</span> : There is no difference in the mean income between men and women</li>
-<li><span class="math inline">\(H_0\)</span> : <span class="math inline">\(\overline{x}_{men}&nbsp;=&nbsp;\overline{x}_{women}\)</span></li>
-</ul>
-</section>
-<section id="the-alternative-hypothesis" class="level4">
-<h4 class="anchored" data-anchor-id="the-alternative-hypothesis">The Alternative Hypothesis</h4>
-<ul>
-<li><span class="math inline">\(H_a\)</span> : There is a difference in the mean income between men and women</li>
-<li><span class="math inline">\(H_a\)</span> : <span class="math inline">\(\overline{x}_{men}&nbsp;\neq&nbsp;\overline{x}_{women}\)</span></li>
-</ul>
-</section>
-</section>
-<section id="select-an-alpha-level" class="level3">
-<h3 class="anchored" data-anchor-id="select-an-alpha-level">2. Select an <span class="math inline">\(\alpha\)</span> level</h3>
-<p>Locate the critical region; the critical values for the t statistic are obtained using degrees of freedom (<span class="math inline">\(df=n-2\)</span>). Given that we have 1000 observations, <span class="math inline">\(df=998\)</span>. If <span class="math inline">\(df&gt;1000\)</span>, you can simply memorize the following critical values:</p>
-<ul>
-<li>At the 95% confidence level, the critical value is 1.96</li>
-<li>At the 99% confidence level, the critical value is 2.58</li>
-</ul>
-<p>If our test statistic exceeds either of these values, we can reject the null hypothesis with the according level of confidence. The function below creates a plot which provides a visual reference for these values, but isn’t really necessary for the process of hypothesis testing. The function accepts one argument <code>test_statistic</code>, which it will use to plot a vertical red line. If the red line falls within the dotted lines, we fail to reject the null hypothesis at the corresponding confidence level. If it’s outside of these bounds, we reject the null hypothesis.</p>
-<p>In the last line of code below, i’ve called the function to plot a test statistic of -2.3; Would we reject the null hypothesis at the 95% confidence level? what about the 99% level?</p>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_z(test_statistic):</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    mu, se<span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span> <span class="co"># create two variables, a mean "mu" equal to zero, and standard deviation "se" equal to 1</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.linspace(mu <span class="op">-</span> <span class="dv">3</span><span class="op">*</span>se, mu <span class="op">+</span> <span class="dv">3</span><span class="op">*</span>se, <span class="dv">100</span>) <span class="co"># create a range of values from -3 to 3 standard deviations</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, norm.pdf(x, mu, se)) <span class="co"># plot the normal distribution</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    plt.axvline(mu<span class="op">-</span>se<span class="op">*</span><span class="fl">1.96</span>, color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>,label<span class="op">=</span><span class="st">'µ ± 1.96σ (95</span><span class="sc">% c</span><span class="st">onfidence)'</span>) <span class="co"># plot a vertical line at the mean plus 2 standard deviations</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    plt.axvline(mu<span class="op">+</span>se<span class="op">*</span><span class="fl">1.96</span>, color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># plot a vertical line at the mean minus 2 standard deviations</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    plt.axvline(mu<span class="op">-</span>se<span class="op">*</span><span class="fl">2.58</span>, color<span class="op">=</span><span class="st">'green'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>,label<span class="op">=</span><span class="st">'µ ± 2.58σ (99</span><span class="sc">% c</span><span class="st">onfidence)'</span>) <span class="co"># plot a vertical line at the mean plus 2 standard deviations</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    plt.axvline(mu<span class="op">+</span>se<span class="op">*</span><span class="fl">2.58</span>, color<span class="op">=</span><span class="st">'green'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)  <span class="co"># plot a vertical line at the mean minus 2 standard deviations</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    plt.axvline(test_statistic, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'solid'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>,label<span class="op">=</span><span class="st">'Test Statistic'</span>) <span class="co"># plot a vertical line at the test statistic</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    plt.ylim(<span class="dv">0</span>,<span class="fl">0.4</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Z Distribution'</span>) <span class="co"># add a title</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plot_z(<span class="op">-</span><span class="fl">2.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="W06. Hypothesis Testing_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
-</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.117007Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.116942Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.118483Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.118137Z&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="calculate-the-test-statistic-the-students-t-test" class="level3">
-<h3 class="anchored" data-anchor-id="calculate-the-test-statistic-the-students-t-test">3. Calculate the Test Statistic (The Student’s T-Test)</h3>
-<p>The Student’s T-Test is an <em>independent-measures design</em> which is used in situations where a researcher has no prior knowledge about either of the two populations (or treatments) being compared. In particular, the population means and standard deviations are all unknown. Because the population variances are not known, these values must be estimated from the sample data.</p>
-<p>The purpose of a T-test is to determine whether the sample mean difference indicates a real mean difference between the two populations or whether the obtained difference is simply the result of sampling error. Given two groups, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, the <span class="math inline">\(t\)</span> statistic is calculated as:</p>
-<p><span class="math display">\[ \Huge t = {\frac{\overline{x_1}-\overline{x_2}} {\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}} \]</span></p>
-<p>Where:</p>
-<ul>
-<li><span class="math inline">\(\overline{x}\)</span>: Sample Mean</li>
-<li><span class="math inline">\(s^2\)</span>: Sample Standard Deviation</li>
-<li><span class="math inline">\(n\)</span>: Number of observations</li>
-</ul>
-<p>We’ve already seen how to calculate each of these components when we made the 95% confidence interval above using the <code>.describe()</code> function. To calculate the t-statistic, we just have to plug these values into the formula above and do some basic arithmetic. I’ve put together a function that does this below, which accepts two main arguments, <code>group1</code> and <code>group2</code>. For each group it calculates descriptive statistics, and uses these values to calculate the t-statistic. It also has an optional argument <code>plot</code>, which when set to <code>True</code> will plot a 95% confidence interval for each group. It defaults to <code>False</code>, meaning that it won’t generate the plot.</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> manual_ttest(group1, group2, plot<span class="op">=</span><span class="va">False</span>): <span class="co"># define a function called "manual_ttest" that takes two groups and a boolean value for whether or not to plot the results as arguments</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    desc1, desc2<span class="op">=</span>group1.describe(), group2.describe() <span class="co"># get descriptive statistics for both samples</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    n1,std1,mean1 <span class="op">=</span> desc1[<span class="st">'count'</span>], desc1[<span class="st">'std'</span>] ,desc1[<span class="st">'mean'</span>] <span class="co"># get the sample size, standard deviation, and mean of the first sample</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    n2,std2,mean2 <span class="op">=</span> desc2[<span class="st">'count'</span>], desc2[<span class="st">'std'</span>] ,desc2[<span class="st">'mean'</span>] <span class="co"># get the sample size, standard deviation, and mean of the second sample</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate standard errors</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    se1, se2 <span class="op">=</span> std1<span class="op">**</span><span class="dv">2</span><span class="op">/</span>n1, std2<span class="op">**</span><span class="dv">2</span><span class="op">/</span>n2 <span class="co"># '**2' is the same as squaring the number</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># standard error on the difference between the samples</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    sed <span class="op">=</span> np.sqrt(se1 <span class="op">+</span> se2)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate the t statistic</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    t_stat <span class="op">=</span> (mean1 <span class="op">-</span> mean2) <span class="op">/</span> sed</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print the results</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Group 1: n=%.0f, mean=</span><span class="sc">%.3f</span><span class="st">, std=</span><span class="sc">%.3f</span><span class="st">"</span> <span class="op">%</span> (n1,mean1,std1)) </span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Group 2: n=%.0f, mean=</span><span class="sc">%.3f</span><span class="st">, std=</span><span class="sc">%.3f</span><span class="st">"</span> <span class="op">%</span> (n2,mean2,std2))</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'The t-statistic is </span><span class="sc">%.3f</span><span class="st">'</span> <span class="op">%</span> t_stat) <span class="co"># print the t-statistic</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> plot<span class="op">==</span><span class="va">True</span>: <span class="co"># if the plot argument is set to True, plot the results</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>        groups<span class="op">=</span>pd.DataFrame() <span class="co"># create an empty dataframe</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        i<span class="op">=</span><span class="dv">1</span> <span class="co"># create a counter variable called "i" and set it equal to 1</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> group <span class="kw">in</span> [group1, group2]: <span class="co"># loop through each group in the list of groups</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>            plot_df<span class="op">=</span>pd.DataFrame({<span class="st">'Values'</span>: group,<span class="st">'Group'</span>:i}) <span class="co"># create a dataframe with the values of the group and a column called "Group" that contains the group number</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>            groups<span class="op">=</span>groups.append(plot_df) <span class="co"># append the dataframe to the list of dataframes</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>            i<span class="op">+=</span><span class="dv">1</span> <span class="co"># increase the counter by 1</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>        sns.pointplot(data<span class="op">=</span>groups , x<span class="op">=</span><span class="st">'Group'</span>, y<span class="op">=</span><span class="st">'Values'</span>,errorbar<span class="op">=</span>(<span class="st">'ci'</span>, <span class="dv">95</span>), color<span class="op">=</span><span class="st">'black'</span>, join<span class="op">=</span><span class="va">False</span>, capsize<span class="op">=</span><span class="fl">.8</span>) <span class="co"># plot the means of the groups with a 95% confidence interval</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="st">'Comparison of Group Means with 95% Confidence Intervals'</span>) <span class="co"># add a title</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_stat <span class="co"># return the t-statistic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Having defined the function, we can now call it to calculate a t-test for the difference in income between men and women</p>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>men<span class="op">=</span>sample[sample[<span class="st">'sex'</span>]<span class="op">==</span><span class="dv">1</span>] <span class="co"># filter the sample to only include men</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>women<span class="op">=</span>sample[sample[<span class="st">'sex'</span>]<span class="op">==</span><span class="dv">2</span>] <span class="co"># filter the sample to only include women</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> manual_ttest(men[<span class="st">'income'</span>],women[<span class="st">'income'</span>]) <span class="co"># run the t-test function and store the t-statistic in a variable called "t"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bayes-theorem-base-rates" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-theorem-base-rates">4. Bayes’ theorem: base rates</h2>
+<p>The lecture’s quick question: <em>a disease affects 1% of people. A test catches 90% of people who have it, but also wrongly flags 9% of healthy people. You test positive. What’s the chance you have the disease?</em></p>
+<p><span class="math display">\[P(A\mid B) = \frac{P(B\mid A)\,P(A)}{P(B)}\]</span></p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.119467Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.119409Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.121165Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.120903Z&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> posterior_positive(prior, sensitivity, false_positive_rate):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># P(condition | positive test), by Bayes' theorem</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    evidence <span class="op">=</span> sensitivity <span class="op">*</span> prior <span class="op">+</span> false_positive_rate <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> prior)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sensitivity <span class="op">*</span> prior <span class="op">/</span> evidence</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>post1 <span class="op">=</span> posterior_positive(<span class="fl">0.01</span>, <span class="fl">0.90</span>, <span class="fl">0.09</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P(sick | one positive test) = </span><span class="sc">{</span>post1<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P(sick | two positive tests) = </span><span class="sc">{</span>posterior_positive(post1, <span class="fl">0.90</span>, <span class="fl">0.09</span>)<span class="sc">:.3f}</span><span class="ss">   (yesterday's posterior = today's prior)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Group 1: n=485, mean=57.435, std=36.610
-Group 2: n=515, mean=38.489, std=26.179
-The t-statistic is 9.364</code></pre>
+<pre><code>P(sick | one positive test) = 0.092
+P(sick | two positive tests) = 0.503   (yesterday's posterior = today's prior)</code></pre>
 </div>
 </div>
-</section>
-<section id="make-a-decision" class="level3">
-<h3 class="anchored" data-anchor-id="make-a-decision">4. Make a Decision</h3>
-<p>If the t statistic indicates that the obtained difference between sample means (numerator) is substantially greater than the difference expected by chance (denominator), we reject H0 and conclude that there is a real mean difference between the two populations or treatments. Let plot the T-statistic from our test against the critical values:</p>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plot_z(t) <span class="co"># plot the test statistic on the z distribution</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.122112Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.122054Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.247931Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.247614Z&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>priors <span class="op">=</span> np.linspace(<span class="fl">0.001</span>, <span class="fl">0.5</span>, <span class="dv">300</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>plt.plot(priors, posterior_positive(priors, <span class="fl">0.90</span>, <span class="fl">0.09</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.01</span>, color<span class="op">=</span><span class="st">"red"</span>, ls<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Base rate 1%"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">"log"</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Base rate (prior), log scale"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"P(sick | positive)"</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"The same test means very different things at different base rates"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="W06. Hypothesis Testing_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Based on the plot above, can we reject the null hypothesis that there is no difference in mean income between men and women?</p>
+<section id="are-most-published-findings-false" class="level3">
+<h3 class="anchored" data-anchor-id="are-most-published-findings-false">Are most published findings false?</h3>
+<p>Ioannidis (2005) applied the same logic to research. A “positive test” is a significant result; the “base rate” is the share of tested hypotheses that are actually true.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.249140Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.249073Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.296078Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.295732Z&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> share_false_discoveries(prior_true, power, alpha<span class="op">=</span><span class="fl">0.05</span>):</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    true_pos <span class="op">=</span> power <span class="op">*</span> prior_true</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    false_pos <span class="op">=</span> alpha <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> prior_true)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> false_pos <span class="op">/</span> (true_pos <span class="op">+</span> false_pos)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lecture example (10% true, 80% power): </span><span class="sc">{</span>share_false_discoveries(<span class="fl">0.10</span>, <span class="fl">0.80</span>)<span class="sc">:.0%}</span><span class="ss"> of discoveries are false"</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>p_true <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.6</span>, <span class="dv">200</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> power <span class="kw">in</span> [<span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.2</span>]:</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    plt.plot(p_true, share_false_discoveries(p_true, power), label<span class="op">=</span><span class="ss">f"power = </span><span class="sc">{</span>power<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Share of tested hypotheses that are true (prior)"</span>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Share of significant results that are false"</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"False discoveries depend on the prior and on power"</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Lecture example (10% true, 80% power): 36% of discoveries are false</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-24-output-2.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
-<section id="exercise" class="level3">
-<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<section id="flipping-conditionals-with-real-data" class="level3">
+<h3 class="anchored" data-anchor-id="flipping-conditionals-with-real-data">Flipping conditionals with real data</h3>
+<p>The same trap appears in everyday data analysis. Use the CPS to compare two conditional probabilities that sound alike:</p>
+<ul>
+<li>P(works in construction | union member)</li>
+<li>P(union member | works in construction)</li>
+</ul>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.297125Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.297062Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.307274Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.306948Z&quot;}" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>tab <span class="op">=</span> pd.crosstab(unions[<span class="st">"occupation"</span>], unions[<span class="st">"member"</span>], margins<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>tab.columns <span class="op">=</span> [<span class="st">"non-member"</span>, <span class="st">"member"</span>, <span class="st">"total"</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>tab.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">non-member</th>
+<th data-quarto-table-cell-role="th">member</th>
+<th data-quarto-table-cell-role="th">total</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">occupation</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Production</td>
+<td>503</td>
+<td>90</td>
+<td>593</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Protective Service adj_occupations</td>
+<td>141</td>
+<td>91</td>
+<td>232</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Transportation and materials moving</td>
+<td>403</td>
+<td>93</td>
+<td>496</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">financial Operators</td>
+<td>204</td>
+<td>14</td>
+<td>218</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">All</td>
+<td>7468</td>
+<td>1229</td>
+<td>8697</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4">Exercise</h3>
 <ol type="1">
-<li>From the main dataframe <code>df</code>, draw a sample of 500 white men. Using t-tests, investigate whether there are statistically significant discrepancies in pay between white men and other groups (note: it would be best to sample 500 people in each of those groups as well). Between what groups does there exist the most significant pay gap?</li>
-<li>Some of this variation may be due to occupation. Compare income disparities between men and women within different occupations. Which occupation has the largest pay gap? which has the smallest?</li>
-<li><a href="https://journals.sagepub.com/doi/abs/10.1177/0730888401028004005">Research suggests</a> that within occupational groups, collective bargaining through union membership reduces pay gaps. Read the abstract of this article, and try to replicate the analysis using our dataset.</li>
+<li>Using <code>tab</code>, compute P(construction | member) and P(member | construction) (the occupation is called <code>"Consruction, Extraction, Installation"</code> in the data, typo included). Why are they so different? Which one is the “base rate” issue?</li>
+<li>In the zodiac example above, what was the prior probability that any sign truly affects income? So what share of those “discoveries” were false?</li>
+<li>The Sally Clark case: an expert said the chance of two cot deaths in one family was “1 in 73 million”. Which conditional probability is that? Which one did the jury need, and why does Bayes say the rare alternative (double murder) matters?</li>
+<li>Using <code>share_false_discoveries</code>, what share of significant findings are false in a field with a 5% prior and 20% power (small studies, like our 30-per-group union studies)?</li>
 </ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.308265Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.308208Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.309519Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.309245Z&quot;}" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
-<section id="assessed-question" class="level2">
-<h2 class="anchored" data-anchor-id="assessed-question">Assessed question</h2>
-<p>Which occupation has the lowest income disparity between men and women? Use a For Loop and the <code>manual_ttest()</code> function, and ignore the “.” category.</p>
+<section id="priors-likelihoods-and-posteriors-union-membership-again" class="level2">
+<h2 class="anchored" data-anchor-id="priors-likelihoods-and-posteriors-union-membership-again">5. Priors, likelihoods and posteriors: union membership again</h2>
+<p>In Workshop 5 we estimated union membership from samples. As in the lecture, suppose we can only interview <strong>7 people</strong> and <strong>none</strong> of them is a union member. The frequentist estimate is 0/7 = 0%, and the normal-approximation 95% CI is “0% to 0%”. Nobody believes that.</p>
+<p>Bayesian inference lets us add what we knew beforehand, the <strong>prior</strong>, and combine it with the data, the <strong>likelihood</strong>, to get the <strong>posterior</strong>:</p>
+<p><span class="math display">\[\text{posterior} \propto \text{likelihood} \times \text{prior}\]</span></p>
+<section id="the-beta-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="the-beta-distribution">The Beta distribution</h3>
+<p>For a proportion <span class="math inline">\(\theta\)</span> between 0 and 1, the standard prior is <span class="math inline">\(\text{Beta}(a, b)\)</span>, with mean <span class="math inline">\(a/(a+b)\)</span>. Think of <span class="math inline">\(a-1\)</span> as prior “successes” and <span class="math inline">\(b-1\)</span> as prior “failures”.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.310405Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.310347Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.356371Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.355940Z&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1001</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a, b <span class="kw">in</span> [(<span class="dv">1</span>, <span class="dv">1</span>), (<span class="dv">2</span>, <span class="dv">8</span>), (<span class="dv">20</span>, <span class="dv">80</span>)]:</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(theta, stats.beta.pdf(theta, a, b), lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Beta(</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">), mean </span><span class="sc">{</span>a<span class="op">/</span>(a<span class="op">+</span>b)<span class="sc">:.0%}</span><span class="ss">"</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Union membership rate θ"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Three possible priors"</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="updating-is-just-counting" class="level3">
+<h3 class="anchored" data-anchor-id="updating-is-just-counting">Updating is just counting</h3>
+<p>With a Beta(a, b) prior and k successes in n trials, the posterior is</p>
+<p><span class="math display">\[\text{Beta}(a + k,\; b + n - k)\]</span></p>
+<p>Let’s use the weakly informative Beta(2, 8) prior (“probably low, but I’m not sure”) and the data 0 of 7.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.357537Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.357472Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.408247Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.407896Z&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update(a, b, k, n):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> k, b <span class="op">+</span> n <span class="op">-</span> k</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_update(a, b, k, n, true_rate<span class="op">=</span><span class="va">None</span>, ax<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> ax <span class="kw">or</span> plt.gca()</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    a_post, b_post <span class="op">=</span> update(a, b, k, n)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    prior <span class="op">=</span> stats.beta.pdf(theta, a, b)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    likelihood <span class="op">=</span> stats.binom.pmf(k, n, theta)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    likelihood <span class="op">=</span> likelihood <span class="op">/</span> likelihood.<span class="bu">sum</span>() <span class="op">*</span> (<span class="bu">len</span>(theta) <span class="op">-</span> <span class="dv">1</span>)   <span class="co"># rescale so it fits on the same axes</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    posterior <span class="op">=</span> stats.beta.pdf(theta, a_post, b_post)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    ax.plot(theta, prior, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Prior Beta(</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    ax.plot(theta, likelihood, <span class="st">"k--"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Likelihood (</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> of </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    ax.plot(theta, posterior, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"Posterior Beta(</span><span class="sc">{</span>a_post<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>b_post<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> true_rate <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>        ax.axvline(true_rate, color<span class="op">=</span><span class="st">"grey"</span>, ls<span class="op">=</span><span class="st">":"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Population rate </span><span class="sc">{</span>true_rate<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Union membership rate θ"</span>, ylabel<span class="op">=</span><span class="st">"Density"</span>)</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> stats.beta(a_post, b_post)</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>p_true <span class="op">=</span> unions[<span class="st">"member"</span>].mean()</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>post <span class="op">=</span> plot_update(<span class="dv">2</span>, <span class="dv">8</span>, k<span class="op">=</span><span class="dv">0</span>, n<span class="op">=</span><span class="dv">7</span>, true_rate<span class="op">=</span>p_true)</span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"0 union members out of 7"</span>)<span class="op">;</span> plt.show()</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>lo, hi <span class="op">=</span> post.ppf([<span class="fl">0.025</span>, <span class="fl">0.975</span>])</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Posterior mean </span><span class="sc">{</span>post<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">, 95% credible interval </span><span class="sc">{</span>lo<span class="sc">:.1%}</span><span class="ss"> to </span><span class="sc">{</span>hi<span class="sc">:.1%}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior mean 11.8%, 95% credible interval 1.6% to 30.2%</code></pre>
+</div>
+</div>
+<p>The likelihood alone peaks at 0%. The prior pulls the estimate towards plausible values, and the posterior is a compromise weighted by how much information each carries.</p>
+</section>
+<section id="more-data-less-prior" class="level3">
+<h3 class="anchored" data-anchor-id="more-data-less-prior">More data, less prior</h3>
+<p>Now take a random sample of 1,000 people from <code>unions</code>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.409485Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.409400Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.464249Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.463903Z&quot;}" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> unions[<span class="st">"member"</span>].sample(<span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>k, n <span class="op">=</span> <span class="bu">int</span>(big.<span class="bu">sum</span>()), <span class="bu">len</span>(big)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>post <span class="op">=</span> plot_update(<span class="dv">2</span>, <span class="dv">8</span>, k<span class="op">=</span>k, n<span class="op">=</span>n, true_rate<span class="op">=</span>p_true)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="fl">0.4</span>)<span class="op">;</span> plt.title(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> union members out of </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)<span class="op">;</span> plt.show()</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>cred <span class="op">=</span> post.ppf([<span class="fl">0.025</span>, <span class="fl">0.975</span>])</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>p_hat <span class="op">=</span> k <span class="op">/</span> n</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>se <span class="op">=</span> np.sqrt(p_hat <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> p_hat) <span class="op">/</span> n)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>conf <span class="op">=</span> [p_hat <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> se, p_hat <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> se]</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% credible interval (Bayesian):   </span><span class="sc">{</span>cred[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>cred[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"95% confidence interval (frequentist): </span><span class="sc">{</span>conf[<span class="dv">0</span>]<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>conf[<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W06. Hypothesis Testing_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>95% credible interval (Bayesian):   0.112 to 0.154
+95% confidence interval (frequentist): 0.111 to 0.153</code></pre>
+</div>
+</div>
+<p>With 1,000 observations the likelihood is sharp and overwhelms the prior, so the two intervals are almost identical. Just like the CLT, uncertainty shrinks as n grows.</p>
+</section>
+<section id="exercise-does-the-prior-matter" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-does-the-prior-matter">Exercise: does the prior matter?</h3>
+<ol type="1">
+<li>Make a 2 x 3 grid of plots (<code>fig, axes = plt.subplots(2, 3, figsize=(16, 8))</code>): rows are sample sizes n = 20 and n = 1,000 (draw them from <code>unions["member"]</code>), columns are the priors Beta(1, 1), Beta(2, 8) and a strong, <em>wrong</em> prior Beta(50, 50) centred on 50%. Use <code>plot_update(..., ax=axes[i, j])</code>.</li>
+<li>With n = 20, how different are the three posteriors? With n = 1,000?</li>
+<li>For each case, compute the 95% credible interval. Which posteriors contain the population rate?</li>
+<li>Write one sentence of advice about when priors matter.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.465305Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.465243Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.466626Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.466378Z&quot;}" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="optional-todays-posterior-is-tomorrows-prior" class="level3">
+<h3 class="anchored" data-anchor-id="optional-todays-posterior-is-tomorrows-prior">(Optional) Today’s posterior is tomorrow’s prior</h3>
+<p>Start from a flat Beta(1, 1) prior and update in batches of 50 respondents, using each posterior as the next prior. Plot the posterior mean and 95% credible interval against the number of respondents seen. Check that after all batches you get exactly the same posterior as updating with all the data at once.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.467514Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.467460Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.468791Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.468474Z&quot;}" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="confidence-vs-credible-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-vs-credible-intervals">6. Confidence vs credible intervals</h2>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>95% confidence interval</th>
+<th>95% credible interval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>θ is…</td>
+<td>a fixed, unknown number</td>
+<td>a random variable with a distribution</td>
+</tr>
+<tr class="even">
+<td>Randomness comes from</td>
+<td>the sampling process</td>
+<td>our uncertainty about θ</td>
+</tr>
+<tr class="odd">
+<td>Correct interpretation</td>
+<td>if we repeated the study many times, 95% of intervals would contain θ</td>
+<td>given the data and prior, there’s a 95% probability θ is in this interval</td>
+</tr>
+<tr class="even">
+<td>Needs a prior?</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>Lots of data, weak prior</td>
+<td>nearly identical numbers</td>
+<td>nearly identical numbers</td>
+</tr>
+</tbody>
+</table>
+<section id="exercise-5" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5">Exercise</h3>
+<ol type="1">
+<li>For the 0-of-7 sample, compare the normal-approximation confidence interval with the Beta(2, 8) credible interval. Which is more useful? What did the Bayesian have to assume to get it?</li>
+<li>Your friend reads the 1,000-person confidence interval above and says “so there’s a 95% chance union membership is between those two numbers”. Is that a correct statement about the confidence interval? About the credible interval?</li>
+<li>Bayesian methods shine with small samples. Using <code>unions</code>, pick the occupation with the fewest respondents and estimate its union membership rate with (a) a frequentist 95% CI and (b) a Beta(2, 8) posterior and 95% credible interval. Which would you report to a policymaker, and how would you explain your prior?</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:58.469744Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:58.469692Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:58.470904Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:58.470689Z&quot;}" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="recap" class="level2">
+<h2 class="anchored" data-anchor-id="recap">Recap</h2>
+<ol type="1">
+<li>A <strong>95% confidence interval</strong> is <span class="math inline">\(\bar{x} \pm 1.96\,SE\)</span>: the procedure captures the true value in 95% of repeated samples.</li>
+<li>A <strong>t-test</strong> divides a difference in means (signal) by its standard error (noise). Four steps: hypotheses, <span class="math inline">\(\alpha\)</span> and critical value, test statistic, decision.</li>
+<li><strong>Statistical significance is not truth.</strong> Test enough hypotheses and 5% of nulls come out significant; publish only significant results and effect sizes are exaggerated.</li>
+<li><strong>Bayes’ theorem</strong> flips conditional probabilities; base rates matter. A p-value is P(data | <span class="math inline">\(H_0\)</span>), not P(<span class="math inline">\(H_0\)</span> | data).</li>
+<li>With a <strong>Beta prior</strong> and binomial data, the posterior is Beta(a + k, b + n − k). Priors matter most when data are scarce; with lots of data, credible and confidence intervals nearly agree.</li>
+</ol>
 
 
 </section>

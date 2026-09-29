@@ -336,12 +336,7 @@ ga('send', {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/W08. Diff-in-Diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Diff-in-Diff</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/W09. Regression Discontinuity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Regression Discontinuity</span></a>
+  <a href="../notebooks/W08. Causal Inference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Causal Inference</span></a>
   </div>
 </li>
       </ul>
@@ -362,7 +357,7 @@ ga('send', {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/W10. Machine Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Machine Learning</span></a>
+  <a href="../notebooks/W09. Supervised Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Supervised Learning</span></a>
   </div>
 </li>
       </ul>
@@ -381,6 +376,11 @@ ga('send', {
   <a href="../slides/w10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W10. Clustering.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Clustering</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -397,29 +397,28 @@ ga('send', {
   <ul class="collapse">
   <li><a href="#aims" id="toc-aims" class="nav-link" data-scroll-target="#aims">Aims</a></li>
   </ul></li>
-  <li><a href="#downloading-the-data" id="toc-downloading-the-data" class="nav-link" data-scroll-target="#downloading-the-data">Downloading the Data</a></li>
-  <li><a href="#joining-instructions" id="toc-joining-instructions" class="nav-link" data-scroll-target="#joining-instructions">Joining Instructions</a></li>
-  <li><a href="#adding-new-observations" id="toc-adding-new-observations" class="nav-link" data-scroll-target="#adding-new-observations">Adding new observations</a>
+  <li><a href="#adding-new-observations-concat" id="toc-adding-new-observations-concat" class="nav-link" data-scroll-target="#adding-new-observations-concat">Adding new observations: <code>concat</code></a>
   <ul class="collapse">
   <li><a href="#what-is-the-problem-above" id="toc-what-is-the-problem-above" class="nav-link" data-scroll-target="#what-is-the-problem-above">What is the problem above?</a></li>
-  <li><a href="#data-with-a-unique-index-adding-new-observations" id="toc-data-with-a-unique-index-adding-new-observations" class="nav-link" data-scroll-target="#data-with-a-unique-index-adding-new-observations">Data with a unique index: adding new observations</a></li>
-  <li><a href="#exercise-concat-continued" id="toc-exercise-concat-continued" class="nav-link" data-scroll-target="#exercise-concat-continued">Exercise: Concat continued</a></li>
-  <li><a href="#combining-on-attributes" id="toc-combining-on-attributes" class="nav-link" data-scroll-target="#combining-on-attributes">Combining on Attributes</a></li>
-  <li><a href="#merge-records" id="toc-merge-records" class="nav-link" data-scroll-target="#merge-records">Merge Records</a></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise:</a></li>
-  <li><a href="#way-back-venn" id="toc-way-back-venn" class="nav-link" data-scroll-target="#way-back-venn">Way Back Venn</a></li>
-  <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner Join:</a></li>
-  <li><a href="#inner-space" id="toc-inner-space" class="nav-link" data-scroll-target="#inner-space">Inner Space</a></li>
-  <li><a href="#the-future-of-the-left" id="toc-the-future-of-the-left" class="nav-link" data-scroll-target="#the-future-of-the-left">The Future of The Left</a></li>
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise:</a></li>
-  <li><a href="#i-am-the-one-and-only" id="toc-i-am-the-one-and-only" class="nav-link" data-scroll-target="#i-am-the-one-and-only">I Am The One and Only</a></li>
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise</a></li>
-  <li><a href="#a-footnote-about-footnotes" id="toc-a-footnote-about-footnotes" class="nav-link" data-scroll-target="#a-footnote-about-footnotes">A footnote about footnotes</a></li>
-  <li><a href="#clean-data" id="toc-clean-data" class="nav-link" data-scroll-target="#clean-data">Clean data</a></li>
-  <li><a href="#extension-in-my-place" id="toc-extension-in-my-place" class="nav-link" data-scroll-target="#extension-in-my-place">Extension: In My Place</a></li>
-  <li><a href="#life-oh-life" id="toc-life-oh-life" class="nav-link" data-scroll-target="#life-oh-life">Life, Oh Life</a></li>
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise:</a></li>
+  <li><a href="#exercise-concat-continued" id="toc-exercise-concat-continued" class="nav-link" data-scroll-target="#exercise-concat-continued">Exercise: concat continued</a></li>
   </ul></li>
+  <li><a href="#adding-new-attributes-merge" id="toc-adding-new-attributes-merge" class="nav-link" data-scroll-target="#adding-new-attributes-merge">Adding new attributes: <code>merge</code></a></li>
+  <li><a href="#mismatched-records-the-four-joins" id="toc-mismatched-records-the-four-joins" class="nav-link" data-scroll-target="#mismatched-records-the-four-joins">Mismatched records: the four joins</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner join</a></li>
+  <li><a href="#left-join" id="toc-left-join" class="nav-link" data-scroll-target="#left-join">Left join</a></li>
+  <li><a href="#exercise-right-and-outer-joins" id="toc-exercise-right-and-outer-joins" class="nav-link" data-scroll-target="#exercise-right-and-outer-joins">Exercise: right and outer joins</a></li>
+  </ul></li>
+  <li><a href="#one-to-many-joins-real-un-data" id="toc-one-to-many-joins-real-un-data" class="nav-link" data-scroll-target="#one-to-many-joins-real-un-data">One-to-many joins: real UN data</a>
+  <ul class="collapse">
+  <li><a href="#exercise-spot-the-problem" id="toc-exercise-spot-the-problem" class="nav-link" data-scroll-target="#exercise-spot-the-problem">Exercise: spot the problem</a></li>
+  </ul></li>
+  <li><a href="#life-expectancy-by-country" id="toc-life-expectancy-by-country" class="nav-link" data-scroll-target="#life-expectancy-by-country">Life expectancy by country</a>
+  <ul class="collapse">
+  <li><a href="#exercise-clean-then-join" id="toc-exercise-clean-then-join" class="nav-link" data-scroll-target="#exercise-clean-then-join">Exercise: clean, then join</a></li>
+  </ul></li>
+  <li><a href="#looking-ahead-spatial-joins" id="toc-looking-ahead-spatial-joins" class="nav-link" data-scroll-target="#looking-ahead-spatial-joins">Looking ahead: spatial joins</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/oballinger/BASC0005/blob/main/notebooks/RW. Merging and Joining.ipynb" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -445,74 +444,43 @@ ga('send', {
 
 <section id="reading-week-open-in-colab" class="level2">
 <h2 class="anchored" data-anchor-id="reading-week-open-in-colab"><em>Reading Week</em> <a href="https://colab.research.google.com/github/oballinger/BASC0005/blob/main/notebooks/RW.%20Merging%20and%20Joining.ipynb"><img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></h2>
-<p>Sometimes, we will want to combine data from different sources about the same subject - perhaps we want to compare the GDP in a country with life expectancy, or the proportion of free schools meals with the level of unemployment.</p>
+<p>We often want to combine data about the same things from different sources: GDP and life expectancy for each country, or a city’s population and the country it belongs to. This self-study notebook covers the two ways of combining tables in pandas: <strong>stacking</strong> them (<code>concat</code>) and <strong>joining</strong> them on a shared key (<code>merge</code>). It also covers the ways that joins silently go wrong.</p>
+<p>Joins are also the basis of next week’s topic: a <strong>spatial join</strong> attaches data to points or polygons based on <em>where</em> they are, rather than on a shared name.</p>
 <section id="aims" class="level3">
 <h3 class="anchored" data-anchor-id="aims">Aims</h3>
 <ul>
-<li>Understand joins</li>
-<li>Work with joining dataframes in Pandas</li>
-<li>Create your own examples</li>
+<li>Stack dataframes with <code>concat</code>, and understand what happens to the index</li>
+<li>Join dataframes with <code>merge</code>: inner, left, right and outer joins</li>
+<li>Handle one-to-many joins on real UN data</li>
+<li>Diagnose failed joins: duplicate keys, mismatched names, silently dropped rows</li>
 </ul>
-</section>
-</section>
-<section id="downloading-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-the-data">Downloading the Data</h2>
-<p>Let’s grab the data we will need this week from our course website and save it into our data folder. If you’ve not already created a data folder then do so using the following command.</p>
-<p>Don’t worry if it generates an error, that means you’ve already got a data folder.</p>
-<div class="cell" data-outputid="a43e6b17-8ac5-4135-b489-ce5c0a515cbf">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>mkdir: cannot create directory ‘data’: File exists</code></pre>
-</div>
-</div>
-<div class="cell" data-outputid="53454ca5-ad96-4b57-85e2-16ac32c7f11a">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir data<span class="op">/</span>wk5</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl https:<span class="op">//</span>s3.eu<span class="op">-</span>west<span class="op">-</span><span class="fl">2.</span><span class="er">amazonaws</span>.com<span class="op">/</span>qm2<span class="op">/</span>wk3<span class="op">/</span>UN_Life_all.csv <span class="op">-</span>o .<span class="op">/</span>data<span class="op">/</span>wk5<span class="op">/</span>UN_Life_all.csv</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl https:<span class="op">//</span>s3.eu<span class="op">-</span>west<span class="op">-</span><span class="fl">2.</span><span class="er">amazonaws</span>.com<span class="op">/</span>qm2<span class="op">/</span>wk3<span class="op">/</span>UN_Cities_1214_country.csv <span class="op">-</span>o .<span class="op">/</span>data<span class="op">/</span>wk5<span class="op">/</span>UN_Cities_1214_country.csv</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl https:<span class="op">//</span>s3.eu<span class="op">-</span>west<span class="op">-</span><span class="fl">2.</span><span class="er">amazonaws</span>.com<span class="op">/</span>qm2<span class="op">/</span>wk3<span class="op">/</span>UN_Cities_1214_population.csv <span class="op">-</span>o .<span class="op">/</span>data<span class="op">/</span>wk5<span class="op">/</span>UN_Cities_1214_population.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  354k  100  354k    0     0   411k      0 --:--:-- --:--:-- --:--:--  410k
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 31445  100 31445    0     0  63397      0 --:--:-- --:--:-- --:--:-- 63397
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  373k  100  373k    0     0   471k      0 --:--:-- --:--:-- --:--:--  471k</code></pre>
-</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:49.633972Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:49.633892Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.147843Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.147402Z&quot;}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)   <span class="co"># fixed seed, so everyone gets the same "random" numbers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="joining-instructions" class="level2">
-<h2 class="anchored" data-anchor-id="joining-instructions">Joining Instructions</h2>
-<p>Joins are the combination of different datasets, and are common in relational databases as a way of performing queries. There are lots of examples of why and when we might want to do this, but most start with two tables of data. We’re going to start with some data we’ve generated.</p>
-<p>I’m going to go back and work with fake data for a while, because it’s clean and small and we can see what’s going on - when we work with real data, we have to take great care that the data is clean, the indices match, and so on.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let’s create dataframes which represent fictitious values associated with people. Let’s assume our data is anonymised because we’re ethical researchers and don’t want information about real people leaking out.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>people1 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>people1.columns <span class="op">=</span> [<span class="st">'units of alcohol drunk'</span>,<span class="st">'cigarettes smoked'</span>,<span class="st">'sleep per night'</span>,<span class="st">'height'</span>,<span class="st">'BMI'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="fdefe3f9-f74c-4b36-9409-93eff9a90746">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>people1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
-
-  <div id="df-71f8ec53-8bfe-4cab-96e0-192ce4e0c762">
-    <div class="colab-df-container">
-      <div>
+</section>
+<section id="adding-new-observations-concat" class="level2">
+<h2 class="anchored" data-anchor-id="adding-new-observations-concat">Adding new observations: <code>concat</code></h2>
+<p>We start with small made-up tables, because they make it easy to see what is going on. Here are some (fictitious, anonymised) measurements of people:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.149833Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.149685Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.158275Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.157811Z&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"units of alcohol"</span>, <span class="st">"cigarettes smoked"</span>, <span class="st">"sleep per night"</span>, <span class="st">"height"</span>, <span class="st">"BMI"</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>people1 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span> <span class="op">+</span> rng.standard_normal((<span class="dv">5</span>, <span class="dv">5</span>)), columns<span class="op">=</span>cols)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>people2 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span> <span class="op">+</span> rng.standard_normal((<span class="dv">3</span>, <span class="dv">5</span>)), columns<span class="op">=</span>cols)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>people1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">units of alcohol drunk</th>
+<th data-quarto-table-cell-role="th">units of alcohol</th>
 <th data-quarto-table-cell-role="th">cigarettes smoked</th>
 <th data-quarto-table-cell-role="th">sleep per night</th>
 <th data-quarto-table-cell-role="th">height</th>
@@ -522,142 +490,61 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>4.589208</td>
-<td>5.052479</td>
-<td>5.514619</td>
-<td>4.721543</td>
-<td>6.076186</td>
+<td>5.304717</td>
+<td>3.960016</td>
+<td>5.750451</td>
+<td>5.940565</td>
+<td>3.048965</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>5.091470</td>
-<td>4.275959</td>
-<td>6.630442</td>
-<td>7.084920</td>
-<td>4.787786</td>
+<td>3.697820</td>
+<td>5.127840</td>
+<td>4.683757</td>
+<td>4.983199</td>
+<td>4.146956</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>5.751082</td>
-<td>4.630197</td>
-<td>5.286618</td>
-<td>5.058565</td>
-<td>3.803777</td>
+<td>5.879398</td>
+<td>5.777792</td>
+<td>5.066031</td>
+<td>6.127241</td>
+<td>5.467509</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>6.219418</td>
-<td>6.131729</td>
-<td>4.359941</td>
-<td>5.165182</td>
-<td>3.270455</td>
+<td>4.140708</td>
+<td>5.368751</td>
+<td>4.041117</td>
+<td>5.878450</td>
+<td>4.950074</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5.930070</td>
-<td>3.745579</td>
-<td>4.980880</td>
-<td>6.670358</td>
-<td>5.003252</td>
+<td>4.815138</td>
+<td>4.319070</td>
+<td>6.222541</td>
+<td>4.845471</td>
+<td>4.571672</td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-71f8ec53-8bfe-4cab-96e0-192ce4e0c762')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-71f8ec53-8bfe-4cab-96e0-192ce4e0c762 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-71f8ec53-8bfe-4cab-96e0-192ce4e0c762');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>people2 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>people2.columns <span class="op">=</span> [<span class="st">'units of alcohol drunk'</span>,<span class="st">'cigarettes smoked'</span>,<span class="st">'sleep per night'</span>,<span class="st">'height'</span>,<span class="st">'BMI'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="7f2fb38b-5eff-4495-d8c9-e41f277be2d0">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>people2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-
-  <div id="df-71a5214f-1dca-4154-858a-1281a8918b7c">
-    <div class="colab-df-container">
-      <div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.159640Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.159556Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.163135Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.162485Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>people2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">units of alcohol drunk</th>
+<th data-quarto-table-cell-role="th">units of alcohol</th>
 <th data-quarto-table-cell-role="th">cigarettes smoked</th>
 <th data-quarto-table-cell-role="th">sleep per night</th>
 <th data-quarto-table-cell-role="th">height</th>
@@ -667,129 +554,47 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>3.657942</td>
-<td>5.022931</td>
-<td>5.657866</td>
-<td>5.342434</td>
-<td>4.768451</td>
+<td>4.647866</td>
+<td>5.532309</td>
+<td>5.365444</td>
+<td>5.412733</td>
+<td>5.430821</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>5.801720</td>
-<td>6.528911</td>
-<td>3.863262</td>
-<td>3.918306</td>
-<td>3.233783</td>
+<td>7.141648</td>
+<td>4.593585</td>
+<td>4.487757</td>
+<td>4.186227</td>
+<td>5.615979</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4.937641</td>
-<td>4.726278</td>
-<td>4.398084</td>
-<td>5.610086</td>
-<td>4.368852</td>
+<td>6.128972</td>
+<td>4.886053</td>
+<td>4.159844</td>
+<td>4.175519</td>
+<td>5.650593</td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-71a5214f-1dca-4154-858a-1281a8918b7c')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-71a5214f-1dca-4154-858a-1281a8918b7c button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-71a5214f-1dca-4154-858a-1281a8918b7c');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
-</section>
-<section id="adding-new-observations" class="level1">
-<h1>Adding new observations</h1>
-<p>It looks as if we have some data about people (although we’ve just made it up), and a set of common measurements. It would be nice to have all of this in one place, so let’s <em>merge</em> them into one dataframe. We’ll use the <em>concat</em> command, which is short for <em>concatenate</em>, or “chain together”.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>people3 <span class="op">=</span> pd.concat([people1,people2])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="29133464-4d82-44d0-dfe1-06751209a6bc">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>people3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-
-  <div id="df-ccedecab-84a4-4a52-9162-788af7cdfbcf">
-    <div class="colab-df-container">
-      <div>
+<p>Both tables have the same columns, so we can stack one on top of the other with <code>concat</code> (short for <em>concatenate</em>, “chain together”):</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.164615Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.164546Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.168324Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.167917Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>people3 <span class="op">=</span> pd.concat([people1, people2])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>people3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">units of alcohol drunk</th>
+<th data-quarto-table-cell-role="th">units of alcohol</th>
 <th data-quarto-table-cell-role="th">cigarettes smoked</th>
 <th data-quarto-table-cell-role="th">sleep per night</th>
 <th data-quarto-table-cell-role="th">height</th>
@@ -799,167 +604,93 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>4.656973</td>
-<td>3.732003</td>
-<td>5.204398</td>
-<td>5.592159</td>
-<td>3.964027</td>
+<td>5.304717</td>
+<td>3.960016</td>
+<td>5.750451</td>
+<td>5.940565</td>
+<td>3.048965</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>5.023007</td>
-<td>3.480838</td>
-<td>4.677067</td>
-<td>5.065464</td>
-<td>4.795884</td>
+<td>3.697820</td>
+<td>5.127840</td>
+<td>4.683757</td>
+<td>4.983199</td>
+<td>4.146956</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>7.415662</td>
-<td>4.302678</td>
-<td>3.746028</td>
-<td>5.616205</td>
-<td>4.797184</td>
+<td>5.879398</td>
+<td>5.777792</td>
+<td>5.066031</td>
+<td>6.127241</td>
+<td>5.467509</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>5.102570</td>
-<td>4.572136</td>
-<td>3.668020</td>
-<td>2.840370</td>
-<td>4.426059</td>
+<td>4.140708</td>
+<td>5.368751</td>
+<td>4.041117</td>
+<td>5.878450</td>
+<td>4.950074</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5.393448</td>
-<td>4.397537</td>
-<td>6.849025</td>
-<td>4.490472</td>
-<td>5.248013</td>
+<td>4.815138</td>
+<td>4.319070</td>
+<td>6.222541</td>
+<td>4.845471</td>
+<td>4.571672</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0</td>
-<td>3.657942</td>
-<td>5.022931</td>
-<td>5.657866</td>
-<td>5.342434</td>
-<td>4.768451</td>
+<td>4.647866</td>
+<td>5.532309</td>
+<td>5.365444</td>
+<td>5.412733</td>
+<td>5.430821</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1</td>
-<td>5.801720</td>
-<td>6.528911</td>
-<td>3.863262</td>
-<td>3.918306</td>
-<td>3.233783</td>
+<td>7.141648</td>
+<td>4.593585</td>
+<td>4.487757</td>
+<td>4.186227</td>
+<td>5.615979</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4.937641</td>
-<td>4.726278</td>
-<td>4.398084</td>
-<td>5.610086</td>
-<td>4.368852</td>
+<td>6.128972</td>
+<td>4.886053</td>
+<td>4.159844</td>
+<td>4.175519</td>
+<td>5.650593</td>
 </tr>
 </tbody>
 </table>
 
-
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-ccedecab-84a4-4a52-9162-788af7cdfbcf')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-ccedecab-84a4-4a52-9162-788af7cdfbcf button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-ccedecab-84a4-4a52-9162-788af7cdfbcf');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
 <section id="what-is-the-problem-above" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-the-problem-above">What is the problem above?</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>people4 <span class="op">=</span> pd.concat([people1,people2], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Look at the index. What would <code>people3.loc[0]</code> return? Try it.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.169589Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.169526Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.170998Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.170681Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="393d3cbc-955f-4ee2-8350-063224ab695b">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>people4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-
-  <div id="df-67d14b67-4296-4412-9fbe-3271382eef2b">
-    <div class="colab-df-container">
-      <div>
+<p><code>ignore_index=True</code> throws away the old indices and numbers the rows afresh. Use it when the index carries no information:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.172271Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.172152Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.175997Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.175583Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>people4 <span class="op">=</span> pd.concat([people1, people2], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>people4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">units of alcohol drunk</th>
+<th data-quarto-table-cell-role="th">units of alcohol</th>
 <th data-quarto-table-cell-role="th">cigarettes smoked</th>
 <th data-quarto-table-cell-role="th">sleep per night</th>
 <th data-quarto-table-cell-role="th">height</th>
@@ -969,165 +700,85 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>4.656973</td>
-<td>3.732003</td>
-<td>5.204398</td>
-<td>5.592159</td>
-<td>3.964027</td>
+<td>5.304717</td>
+<td>3.960016</td>
+<td>5.750451</td>
+<td>5.940565</td>
+<td>3.048965</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>5.023007</td>
-<td>3.480838</td>
-<td>4.677067</td>
-<td>5.065464</td>
-<td>4.795884</td>
+<td>3.697820</td>
+<td>5.127840</td>
+<td>4.683757</td>
+<td>4.983199</td>
+<td>4.146956</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>7.415662</td>
-<td>4.302678</td>
-<td>3.746028</td>
-<td>5.616205</td>
-<td>4.797184</td>
+<td>5.879398</td>
+<td>5.777792</td>
+<td>5.066031</td>
+<td>6.127241</td>
+<td>5.467509</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>5.102570</td>
-<td>4.572136</td>
-<td>3.668020</td>
-<td>2.840370</td>
-<td>4.426059</td>
+<td>4.140708</td>
+<td>5.368751</td>
+<td>4.041117</td>
+<td>5.878450</td>
+<td>4.950074</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5.393448</td>
-<td>4.397537</td>
-<td>6.849025</td>
-<td>4.490472</td>
-<td>5.248013</td>
+<td>4.815138</td>
+<td>4.319070</td>
+<td>6.222541</td>
+<td>4.845471</td>
+<td>4.571672</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
-<td>3.657942</td>
-<td>5.022931</td>
-<td>5.657866</td>
-<td>5.342434</td>
-<td>4.768451</td>
+<td>4.647866</td>
+<td>5.532309</td>
+<td>5.365444</td>
+<td>5.412733</td>
+<td>5.430821</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
-<td>5.801720</td>
-<td>6.528911</td>
-<td>3.863262</td>
-<td>3.918306</td>
-<td>3.233783</td>
+<td>7.141648</td>
+<td>4.593585</td>
+<td>4.487757</td>
+<td>4.186227</td>
+<td>5.615979</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
-<td>4.937641</td>
-<td>4.726278</td>
-<td>4.398084</td>
-<td>5.610086</td>
-<td>4.368852</td>
+<td>6.128972</td>
+<td>4.886053</td>
+<td>4.159844</td>
+<td>4.175519</td>
+<td>5.650593</td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-67d14b67-4296-4412-9fbe-3271382eef2b')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-67d14b67-4296-4412-9fbe-3271382eef2b button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-67d14b67-4296-4412-9fbe-3271382eef2b');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
-<p><code>ignore_index</code> is very useful when we want a new DataFrame which only contains data from other DataFrames, but unrelated otherwise.</p>
-</section>
-<section id="data-with-a-unique-index-adding-new-observations" class="level2">
-<h2 class="anchored" data-anchor-id="data-with-a-unique-index-adding-new-observations">Data with a unique index: adding new observations</h2>
-<p>Let’s now examine data where the elements of study are not anonymous. Let’s consider that we have some city data. If we have city names (or equivalent) in the index column, simply concatenating them would be fine, because the names would not repeat in the way the index has above.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df1.columns <span class="op">=</span> [<span class="st">'area'</span>,<span class="st">'population'</span>,<span class="st">'mean temperature'</span>,<span class="st">'elevation'</span>,<span class="st">'annual rainfall'</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df1.index <span class="op">=</span> [<span class="st">'London'</span>, <span class="st">'Paris'</span>, <span class="st">'Beijing'</span>, <span class="st">'Medellin'</span>, <span class="st">'Port Elizabeth'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="5ce31866-dce0-4d36-e7b8-ac57a999a59e">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-
-  <div id="df-58c2a438-26a0-442e-bb52-9b194151f4c6">
-    <div class="colab-df-container">
-      <div>
+<p>When the index <strong>does</strong> mean something (here, a city name), keep it: city names do not clash the way row numbers do.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.177420Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.177338Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.184105Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.183366Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>city_cols <span class="op">=</span> [<span class="st">"area"</span>, <span class="st">"population"</span>, <span class="st">"mean temperature"</span>, <span class="st">"elevation"</span>, <span class="st">"annual rainfall"</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span> <span class="op">+</span> rng.standard_normal((<span class="dv">5</span>, <span class="dv">5</span>)), columns<span class="op">=</span>city_cols,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   index<span class="op">=</span>[<span class="st">"London"</span>, <span class="st">"Paris"</span>, <span class="st">"Beijing"</span>, <span class="st">"Medellin"</span>, <span class="st">"Port Elizabeth"</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span> <span class="op">+</span> rng.standard_normal((<span class="dv">3</span>, <span class="dv">5</span>)), columns<span class="op">=</span>city_cols,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                   index<span class="op">=</span>[<span class="st">"Mumbai"</span>, <span class="st">"Sydney"</span>, <span class="st">"Boston"</span>])</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df3 <span class="op">=</span> pd.concat([df1, df2])</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -1144,1323 +795,147 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">London</td>
-<td>4.150726</td>
-<td>6.091615</td>
-<td>5.638999</td>
-<td>4.033120</td>
-<td>5.312239</td>
+<td>5.743254</td>
+<td>5.543154</td>
+<td>4.334490</td>
+<td>5.232161</td>
+<td>5.116686</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Paris</td>
-<td>6.406381</td>
-<td>5.192887</td>
-<td>5.165797</td>
-<td>4.642474</td>
-<td>5.776229</td>
+<td>5.218689</td>
+<td>5.871429</td>
+<td>5.223596</td>
+<td>5.678914</td>
+<td>5.067579</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Beijing</td>
-<td>5.300187</td>
-<td>4.790422</td>
-<td>5.425208</td>
-<td>4.857182</td>
-<td>4.830031</td>
+<td>5.289119</td>
+<td>5.631288</td>
+<td>3.542844</td>
+<td>4.680329</td>
+<td>4.529627</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Medellin</td>
-<td>5.248481</td>
-<td>4.734017</td>
-<td>4.762919</td>
-<td>5.325021</td>
-<td>4.415028</td>
+<td>4.361122</td>
+<td>4.724858</td>
+<td>6.494941</td>
+<td>4.134169</td>
+<td>5.968278</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>3.663045</td>
-<td>5.555412</td>
-<td>5.418251</td>
-<td>4.369018</td>
-<td>5.411102</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-58c2a438-26a0-442e-bb52-9b194151f4c6')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-58c2a438-26a0-442e-bb52-9b194151f4c6 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-58c2a438-26a0-442e-bb52-9b194151f4c6');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df2.columns <span class="op">=</span> [<span class="st">'area'</span>,<span class="st">'population'</span>,<span class="st">'mean temperature'</span>,<span class="st">'elevation'</span>,<span class="st">'annual rainfall'</span>]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df2.index <span class="op">=</span> [<span class="st">'Mumbai'</span>, <span class="st">'Sydney'</span>, <span class="st">'Boston'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="0fbb5277-0cce-4bfd-eb20-2c5d152c5ebc">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-
-  <div id="df-57f15a1f-a8ae-4800-b9ec-fd2997b86d00">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Mumbai</td>
-<td>7.023555</td>
-<td>4.045827</td>
-<td>4.536805</td>
-<td>5.383593</td>
-<td>5.707156</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Sydney</td>
-<td>5.444850</td>
-<td>4.930251</td>
-<td>3.803988</td>
-<td>5.578729</td>
-<td>6.248074</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Boston</td>
-<td>3.380747</td>
-<td>3.468165</td>
-<td>4.166799</td>
-<td>4.950791</td>
-<td>5.094166</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-57f15a1f-a8ae-4800-b9ec-fd2997b86d00')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-57f15a1f-a8ae-4800-b9ec-fd2997b86d00 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-57f15a1f-a8ae-4800-b9ec-fd2997b86d00');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="op">=</span> pd.concat([df1,df2])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="7e313b9f-5309-4b05-bae5-c89a515c5a74">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-
-  <div id="df-4cab92bd-2586-4156-89b1-eb18ee4b400a">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>4.150726</td>
-<td>6.091615</td>
-<td>5.638999</td>
-<td>4.033120</td>
-<td>5.312239</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.406381</td>
-<td>5.192887</td>
-<td>5.165797</td>
-<td>4.642474</td>
-<td>5.776229</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>5.300187</td>
-<td>4.790422</td>
-<td>5.425208</td>
-<td>4.857182</td>
-<td>4.830031</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>5.248481</td>
-<td>4.734017</td>
-<td>4.762919</td>
-<td>5.325021</td>
-<td>4.415028</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>3.663045</td>
-<td>5.555412</td>
-<td>5.418251</td>
-<td>4.369018</td>
-<td>5.411102</td>
+<td>3.317130</td>
+<td>4.665115</td>
+<td>5.162753</td>
+<td>5.586222</td>
+<td>5.711227</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Mumbai</td>
-<td>7.023555</td>
-<td>4.045827</td>
-<td>4.536805</td>
-<td>5.383593</td>
-<td>5.707156</td>
+<td>5.793347</td>
+<td>4.651275</td>
+<td>4.537648</td>
+<td>5.857976</td>
+<td>4.808696</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Sydney</td>
-<td>5.444850</td>
-<td>4.930251</td>
-<td>3.803988</td>
-<td>5.578729</td>
-<td>6.248074</td>
+<td>3.724314</td>
+<td>3.866713</td>
+<td>4.080548</td>
+<td>5.497161</td>
+<td>5.142426</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Boston</td>
-<td>3.380747</td>
-<td>3.468165</td>
-<td>4.166799</td>
-<td>4.950791</td>
-<td>5.094166</td>
+<td>5.690485</td>
+<td>4.572747</td>
+<td>5.158540</td>
+<td>5.625590</td>
+<td>4.690653</td>
 </tr>
 </tbody>
 </table>
 
-
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-4cab92bd-2586-4156-89b1-eb18ee4b400a')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-4cab92bd-2586-4156-89b1-eb18ee4b400a button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-4cab92bd-2586-4156-89b1-eb18ee4b400a');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
 </section>
-<section id="exercise-concat-continued" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-concat-continued">Exercise: Concat continued</h2>
-<p>Repeat the above for fictitious values for New York, Tokyo, Manila and Budapest - concatenate into a new dataframe “df”.</p>
-</section>
-<section id="combining-on-attributes" class="level2">
-<h2 class="anchored" data-anchor-id="combining-on-attributes">Combining on Attributes</h2>
-<p>What if we’re looking at the same locations but different attributes? Consider the same df1</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df1.columns <span class="op">=</span> [<span class="st">'area'</span>,<span class="st">'population'</span>,<span class="st">'mean temperature'</span>,<span class="st">'elevation'</span>,<span class="st">'annual rainfall'</span>]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df1.index <span class="op">=</span> [<span class="st">'London'</span>, <span class="st">'Paris'</span>, <span class="st">'Beijing'</span>, <span class="st">'Medellin'</span>, <span class="st">'Port Elizabeth'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="82a6fd77-a7fe-418c-993b-3bdfcf6e322d">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="49">
-
-  <div id="df-b063b832-7d67-475b-a87a-fbcdd651506e">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>6.216092</td>
-<td>4.902209</td>
-<td>3.726599</td>
-<td>4.628916</td>
-<td>6.348860</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.041971</td>
-<td>3.477545</td>
-<td>3.075159</td>
-<td>2.630728</td>
-<td>5.945750</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.117056</td>
-<td>5.939825</td>
-<td>5.166189</td>
-<td>6.534852</td>
-<td>4.581087</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>4.186988</td>
-<td>5.007498</td>
-<td>5.732247</td>
-<td>5.746915</td>
-<td>2.452759</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>5.755107</td>
-<td>6.332844</td>
-<td>5.603563</td>
-<td>5.072384</td>
-<td>6.222260</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-b063b832-7d67-475b-a87a-fbcdd651506e')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-b063b832-7d67-475b-a87a-fbcdd651506e button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-b063b832-7d67-475b-a87a-fbcdd651506e');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<p>But a new dataframe df4, which details the same locations, but has different information about them:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df4 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">5</span>, <span class="dv">3</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df4.columns <span class="op">=</span> [<span class="st">'Mean House Price'</span>, <span class="st">'median income'</span>,<span class="st">'walkability score'</span>]</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df4.index <span class="op">=</span> [<span class="st">'London'</span>, <span class="st">'Paris'</span>, <span class="st">'Beijing'</span>, <span class="st">'Medellin'</span>, <span class="st">'Port Elizabeth'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="3e849127-3811-43a6-af50-d824439c1726">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="51">
-
-  <div id="df-72294788-4ada-46af-90e0-9ebf41eef460">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
-<th data-quarto-table-cell-role="th">median income</th>
-<th data-quarto-table-cell-role="th">walkability score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>6.041301</td>
-<td>4.795007</td>
-<td>5.916860</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.125245</td>
-<td>3.869070</td>
-<td>4.279607</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.853104</td>
-<td>5.725823</td>
-<td>4.187186</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>5.482517</td>
-<td>3.667043</td>
-<td>3.928093</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>5.565643</td>
-<td>5.884004</td>
-<td>5.007168</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-72294788-4ada-46af-90e0-9ebf41eef460')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-72294788-4ada-46af-90e0-9ebf41eef460 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-72294788-4ada-46af-90e0-9ebf41eef460');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<p>We have to join “on” the index - meaning when merging the records, python will look at the index column.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df1.merge(df4, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="2740ad52-8070-4cc8-833d-44dc76b5fc35">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="57">
-
-  <div id="df-43503f38-6c25-46d6-a6cb-9345c7a41c10">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
-<th data-quarto-table-cell-role="th">median income</th>
-<th data-quarto-table-cell-role="th">walkability score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>6.216092</td>
-<td>4.902209</td>
-<td>3.726599</td>
-<td>4.628916</td>
-<td>6.348860</td>
-<td>6.041301</td>
-<td>4.795007</td>
-<td>5.916860</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.041971</td>
-<td>3.477545</td>
-<td>3.075159</td>
-<td>2.630728</td>
-<td>5.945750</td>
-<td>6.125245</td>
-<td>3.869070</td>
-<td>4.279607</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.117056</td>
-<td>5.939825</td>
-<td>5.166189</td>
-<td>6.534852</td>
-<td>4.581087</td>
-<td>4.853104</td>
-<td>5.725823</td>
-<td>4.187186</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>4.186988</td>
-<td>5.007498</td>
-<td>5.732247</td>
-<td>5.746915</td>
-<td>2.452759</td>
-<td>5.482517</td>
-<td>3.667043</td>
-<td>3.928093</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>5.755107</td>
-<td>6.332844</td>
-<td>5.603563</td>
-<td>5.072384</td>
-<td>6.222260</td>
-<td>5.565643</td>
-<td>5.884004</td>
-<td>5.007168</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-43503f38-6c25-46d6-a6cb-9345c7a41c10')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-43503f38-6c25-46d6-a6cb-9345c7a41c10 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-43503f38-6c25-46d6-a6cb-9345c7a41c10');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<p>Note that this joins on the <em>index</em>, not the row number - so if the order of elements in df4 is different, it should still work.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df4 <span class="op">=</span> pd.DataFrame(np.random.randn(<span class="dv">5</span>, <span class="dv">3</span>))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df4.columns <span class="op">=</span> [<span class="st">'Mean House Price'</span>, <span class="st">'median income'</span>,<span class="st">'walkability score'</span>]</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df4.index <span class="op">=</span> [<span class="st">'Paris'</span>,<span class="st">'Port Elizabeth'</span>, <span class="st">'Beijing'</span>, <span class="st">'Medellin'</span>, <span class="st">'London'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="50c5a4ef-846f-47c0-b180-7389e9854aa5">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="60">
-
-  <div id="df-4db6ffc6-c416-4d16-be15-456884785d8d">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>6.216092</td>
-<td>4.902209</td>
-<td>3.726599</td>
-<td>4.628916</td>
-<td>6.348860</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.041971</td>
-<td>3.477545</td>
-<td>3.075159</td>
-<td>2.630728</td>
-<td>5.945750</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.117056</td>
-<td>5.939825</td>
-<td>5.166189</td>
-<td>6.534852</td>
-<td>4.581087</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>4.186988</td>
-<td>5.007498</td>
-<td>5.732247</td>
-<td>5.746915</td>
-<td>2.452759</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>5.755107</td>
-<td>6.332844</td>
-<td>5.603563</td>
-<td>5.072384</td>
-<td>6.222260</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-4db6ffc6-c416-4d16-be15-456884785d8d')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-4db6ffc6-c416-4d16-be15-456884785d8d button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-4db6ffc6-c416-4d16-be15-456884785d8d');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<div class="cell" data-outputid="a66a4e0c-1d1c-46ec-c195-52396244d412">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="61">
-
-  <div id="df-79b12e1f-e275-4cb5-a8d9-6740da94c41e">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
-<th data-quarto-table-cell-role="th">median income</th>
-<th data-quarto-table-cell-role="th">walkability score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>0.425225</td>
-<td>-0.446028</td>
-<td>-0.381586</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>-0.918616</td>
-<td>1.274748</td>
-<td>0.355480</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>0.918480</td>
-<td>1.060849</td>
-<td>-1.040598</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>1.414231</td>
-<td>0.914922</td>
-<td>-0.393816</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>-1.036150</td>
-<td>-0.902475</td>
-<td>-0.417904</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-79b12e1f-e275-4cb5-a8d9-6740da94c41e')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-79b12e1f-e275-4cb5-a8d9-6740da94c41e button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-79b12e1f-e275-4cb5-a8d9-6740da94c41e');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df1.merge(df4, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="874ae28d-24cb-4fd1-c822-53648caf496f">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="64">
-
-  <div id="df-7d706fd9-a541-4cb3-b8e5-d51de9d143bd">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
-<th data-quarto-table-cell-role="th">median income</th>
-<th data-quarto-table-cell-role="th">walkability score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>6.216092</td>
-<td>4.902209</td>
-<td>3.726599</td>
-<td>4.628916</td>
-<td>6.348860</td>
-<td>-1.036150</td>
-<td>-0.902475</td>
-<td>-0.417904</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.041971</td>
-<td>3.477545</td>
-<td>3.075159</td>
-<td>2.630728</td>
-<td>5.945750</td>
-<td>0.425225</td>
-<td>-0.446028</td>
-<td>-0.381586</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.117056</td>
-<td>5.939825</td>
-<td>5.166189</td>
-<td>6.534852</td>
-<td>4.581087</td>
-<td>0.918480</td>
-<td>1.060849</td>
-<td>-1.040598</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>4.186988</td>
-<td>5.007498</td>
-<td>5.732247</td>
-<td>5.746915</td>
-<td>2.452759</td>
-<td>1.414231</td>
-<td>0.914922</td>
-<td>-0.393816</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>5.755107</td>
-<td>6.332844</td>
-<td>5.603563</td>
-<td>5.072384</td>
-<td>6.222260</td>
-<td>-0.918616</td>
-<td>1.274748</td>
-<td>0.355480</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-7d706fd9-a541-4cb3-b8e5-d51de9d143bd')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-7d706fd9-a541-4cb3-b8e5-d51de9d143bd button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-7d706fd9-a541-4cb3-b8e5-d51de9d143bd');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
+<section id="exercise-concat-continued" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-concat-continued">Exercise: concat continued</h3>
+<p>Create a dataframe with made-up values for New York, Tokyo, Manila and Budapest, and concatenate it with <code>df3</code> into a new dataframe <code>df</code>. Then check that its index has no duplicates: <code>df.index.is_unique</code>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.186074Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.185987Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.187840Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.187349Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="merge-records" class="level2">
-<h2 class="anchored" data-anchor-id="merge-records">Merge Records</h2>
-<p>Consider now a case where we have data for some but not all cities; so df1 stil has data for these 5 cities:</p>
-<div class="cell" data-outputid="2d7b71f3-9df9-4b8e-d3ad-2aa52690fe2d">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
+</section>
+<section id="adding-new-attributes-merge" class="level2">
+<h2 class="anchored" data-anchor-id="adding-new-attributes-merge">Adding new attributes: <code>merge</code></h2>
+<p>What if we have <strong>different variables</strong> about the <strong>same</strong> cities? Then we want to put the tables side by side, matching rows by city, not by position.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.190174Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.189661Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.196479Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.195700Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df4 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span> <span class="op">+</span> rng.standard_normal((<span class="dv">5</span>, <span class="dv">3</span>)),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                   columns<span class="op">=</span>[<span class="st">"mean house price"</span>, <span class="st">"median income"</span>, <span class="st">"walkability score"</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                   index<span class="op">=</span>[<span class="st">"Paris"</span>, <span class="st">"Port Elizabeth"</span>, <span class="st">"Beijing"</span>, <span class="st">"Medellin"</span>, <span class="st">"London"</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>df4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
 
-  <div id="df-8b746bea-53a5-4539-a252-9da37987d0d9">
-    <div class="colab-df-container">
-      <div>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean house price</th>
+<th data-quarto-table-cell-role="th">median income</th>
+<th data-quarto-table-cell-role="th">walkability score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Paris</td>
+<td>5.456775</td>
+<td>4.338074</td>
+<td>4.636946</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Port Elizabeth</td>
+<td>4.618262</td>
+<td>3.804160</td>
+<td>5.486972</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Beijing</td>
+<td>4.530598</td>
+<td>5.012494</td>
+<td>5.480747</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Medellin</td>
+<td>5.446531</td>
+<td>5.665385</td>
+<td>4.901515</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">London</td>
+<td>4.576702</td>
+<td>4.920282</td>
+<td>3.312666</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>df4</code> is in a different order from <code>df1</code>. Joining <strong>on the index</strong> matches rows by label, so the order does not matter:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.198228Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.198106Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.213628Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.212964Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df1.merge(df4, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -2472,149 +947,7 @@ ga('send', {
 <th data-quarto-table-cell-role="th">mean temperature</th>
 <th data-quarto-table-cell-role="th">elevation</th>
 <th data-quarto-table-cell-role="th">annual rainfall</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>4.898594</td>
-<td>6.625739</td>
-<td>3.587877</td>
-<td>6.063331</td>
-<td>4.342769</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.032702</td>
-<td>3.479265</td>
-<td>2.383832</td>
-<td>5.251509</td>
-<td>5.158178</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.368419</td>
-<td>4.993774</td>
-<td>2.942992</td>
-<td>3.761624</td>
-<td>6.002863</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Medellin</td>
-<td>7.437921</td>
-<td>5.228150</td>
-<td>3.902431</td>
-<td>4.437361</td>
-<td>5.563400</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>7.053265</td>
-<td>5.936734</td>
-<td>5.842155</td>
-<td>6.042136</td>
-<td>7.057592</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-8b746bea-53a5-4539-a252-9da37987d0d9')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-8b746bea-53a5-4539-a252-9da37987d0d9 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-8b746bea-53a5-4539-a252-9da37987d0d9');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-<p>But our new table, df5, contains data for three cities:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df5 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span><span class="op">+</span>np.random.randn(<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df5.columns <span class="op">=</span> [<span class="st">'Mean House Price'</span>, <span class="st">'median income'</span>,<span class="st">'walkability score'</span>]</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df5.index <span class="op">=</span> [<span class="st">'London'</span>, <span class="st">'Paris'</span>, <span class="st">'Glasgow'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="ca47f0dd-80de-41ea-ddff-fc123adef720">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
-
-  <div id="df-f2cf9126-f712-45f3-ac23-594e711b9bc8">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
+<th data-quarto-table-cell-role="th">mean house price</th>
 <th data-quarto-table-cell-role="th">median income</th>
 <th data-quarto-table-cell-role="th">walkability score</th>
 </tr>
@@ -2622,134 +955,131 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">London</td>
-<td>4.848734</td>
-<td>6.598818</td>
-<td>5.442444</td>
+<td>5.743254</td>
+<td>5.543154</td>
+<td>4.334490</td>
+<td>5.232161</td>
+<td>5.116686</td>
+<td>4.576702</td>
+<td>4.920282</td>
+<td>3.312666</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Paris</td>
-<td>5.294294</td>
-<td>4.282418</td>
-<td>5.741057</td>
+<td>5.218689</td>
+<td>5.871429</td>
+<td>5.223596</td>
+<td>5.678914</td>
+<td>5.067579</td>
+<td>5.456775</td>
+<td>4.338074</td>
+<td>4.636946</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Beijing</td>
+<td>5.289119</td>
+<td>5.631288</td>
+<td>3.542844</td>
+<td>4.680329</td>
+<td>4.529627</td>
+<td>4.530598</td>
+<td>5.012494</td>
+<td>5.480747</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Medellin</td>
+<td>4.361122</td>
+<td>4.724858</td>
+<td>6.494941</td>
+<td>4.134169</td>
+<td>5.968278</td>
+<td>5.446531</td>
+<td>5.665385</td>
+<td>4.901515</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Port Elizabeth</td>
+<td>3.317130</td>
+<td>4.665115</td>
+<td>5.162753</td>
+<td>5.586222</td>
+<td>5.711227</td>
+<td>4.618262</td>
+<td>3.804160</td>
+<td>5.486972</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>df1</code> is the <strong>left</strong> table (the one whose <code>.merge</code> method we call) and <code>df4</code> is the <strong>right</strong> table (the argument).</p>
+</section>
+<section id="mismatched-records-the-four-joins" class="level2">
+<h2 class="anchored" data-anchor-id="mismatched-records-the-four-joins">Mismatched records: the four joins</h2>
+<p>Now suppose the second table covers only some of our cities, plus one that is not in <code>df1</code>:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.215301Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.215187Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.219351Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.218882Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df5 <span class="op">=</span> pd.DataFrame(<span class="dv">5</span> <span class="op">+</span> rng.standard_normal((<span class="dv">3</span>, <span class="dv">3</span>)),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                   columns<span class="op">=</span>[<span class="st">"mean house price"</span>, <span class="st">"median income"</span>, <span class="st">"walkability score"</span>],</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                   index<span class="op">=</span>[<span class="st">"London"</span>, <span class="st">"Paris"</span>, <span class="st">"Glasgow"</span>])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>df5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean house price</th>
+<th data-quarto-table-cell-role="th">median income</th>
+<th data-quarto-table-cell-role="th">walkability score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">London</td>
+<td>3.552888</td>
+<td>3.677300</td>
+<td>4.002753</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Paris</td>
+<td>5.399774</td>
+<td>4.094521</td>
+<td>4.621837</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Glasgow</td>
-<td>5.375804</td>
-<td>4.697775</td>
-<td>4.393675</td>
+<td>6.299228</td>
+<td>4.643736</td>
+<td>5.737516</td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-f2cf9126-f712-45f3-ac23-594e711b9bc8')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-f2cf9126-f712-45f3-ac23-594e711b9bc8 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-f2cf9126-f712-45f3-ac23-594e711b9bc8');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
+</div>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<p>Without running any code: how many cities appear in (a) both <code>df1</code> and <code>df5</code>, (b) only <code>df1</code>, (c) only <code>df5</code>?</p>
 </section>
-<section id="exercise" class="level2">
-<h2 class="anchored" data-anchor-id="exercise">Exercise:</h2>
-<p>How many cities appear in: - both dataframes - only df1 - only df5 - neither df1 nor df5?</p>
-</section>
-<section id="way-back-venn" class="level2">
-<h2 class="anchored" data-anchor-id="way-back-venn">Way Back Venn</h2>
-<p>What is the mechanism for joining data where these mismatches exist? Well, there are several, starting with the…</p>
-</section>
-<section id="inner-join" class="level2">
-<h2 class="anchored" data-anchor-id="inner-join">Inner Join:</h2>
-<div class="cell" data-outputid="73daf8c4-da40-4b44-a593-8ce9cb08ba0c">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> <span class="st">"https://s3.eu-west-2.amazonaws.com/qm2/wk3/inner.png"</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>Image(data_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
-<p><img src="RW. Merging and Joining_files/figure-html/cell-33-output-1.png" class="img-fluid"></p>
+<section id="inner-join" class="level3">
+<h3 class="anchored" data-anchor-id="inner-join">Inner join</h3>
+<p>An <strong>inner</strong> join keeps only the keys that appear in <strong>both</strong> tables. It is the default for <code>merge</code>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.220989Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.220902Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.268228Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.267587Z&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">"https://s3.eu-west-2.amazonaws.com/qm2/wk3/inner.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<p><img src="RW. Merging and Joining_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>(Image from http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/)</p>
-<p>The inner join <em>only</em> includes data whose index appears in both tables. Let’s see what that looks like:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df1.merge(df5, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="d20630dd-94de-4c7c-d7e0-8acb35ac63b2">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
-
-  <div id="df-28c6a0ff-860d-41e9-9934-29c952076112">
-    <div class="colab-df-container">
-      <div>
+<p>(Image from <a href="https://blog.codinghorror.com/a-visual-explanation-of-sql-joins/">Coding Horror: a visual explanation of SQL joins</a>)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.271728Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.271502Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.278310Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.277693Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df1.merge(df5, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">"inner"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -2761,7 +1091,7 @@ ga('send', {
 <th data-quarto-table-cell-role="th">mean temperature</th>
 <th data-quarto-table-cell-role="th">elevation</th>
 <th data-quarto-table-cell-role="th">annual rainfall</th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
+<th data-quarto-table-cell-role="th">mean house price</th>
 <th data-quarto-table-cell-role="th">median income</th>
 <th data-quarto-table-cell-role="th">walkability score</th>
 </tr>
@@ -2769,121 +1099,47 @@ ga('send', {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">London</td>
-<td>4.898594</td>
-<td>6.625739</td>
-<td>3.587877</td>
-<td>6.063331</td>
-<td>4.342769</td>
-<td>4.848734</td>
-<td>6.598818</td>
-<td>5.442444</td>
+<td>5.743254</td>
+<td>5.543154</td>
+<td>4.334490</td>
+<td>5.232161</td>
+<td>5.116686</td>
+<td>3.552888</td>
+<td>3.677300</td>
+<td>4.002753</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Paris</td>
-<td>6.032702</td>
-<td>3.479265</td>
-<td>2.383832</td>
-<td>5.251509</td>
-<td>5.158178</td>
-<td>5.294294</td>
-<td>4.282418</td>
-<td>5.741057</td>
+<td>5.218689</td>
+<td>5.871429</td>
+<td>5.223596</td>
+<td>5.678914</td>
+<td>5.067579</td>
+<td>5.399774</td>
+<td>4.094521</td>
+<td>4.621837</td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-28c6a0ff-860d-41e9-9934-29c952076112')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-28c6a0ff-860d-41e9-9934-29c952076112 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-28c6a0ff-860d-41e9-9934-29c952076112');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
-<p>Here, we have a couple of arguments specifying the manner of the join - we have specified that we are joining on the index of the left and right dataset with the optional “left_index=True” and “right_index=True”. Less obviously, the <strong>left</strong> dataset is df1 (because we’re using <em>df1.merge()</em> and the <strong>right</strong> dataset is df5 (because it appears as an argument in merge(). There’s no special reason it shouldn’t be the other way around, but for this function, it is this way around and we need to remember that when we use it.</p>
+</div>
 </section>
-<section id="inner-space" class="level2">
-<h2 class="anchored" data-anchor-id="inner-space">Inner Space</h2>
-<p>Although we haven’t specified it, the merge() function has defaulted to an inner join (like the diagram above). We can specify how the join is calculated by changing the text in the optional argument “how”:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df1.merge(df5, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="left-join" class="level3">
+<h3 class="anchored" data-anchor-id="left-join">Left join</h3>
+<p>A <strong>left</strong> join keeps <strong>every</strong> row of the left table and attaches matching data from the right. Where there is no match, the right-hand columns are <code>NaN</code> (Not a Number: missing).</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.279836Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.279734Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.357578Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.356973Z&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">"https://s3.eu-west-2.amazonaws.com/qm2/wk3/left.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<p><img src="RW. Merging and Joining_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
-<div class="cell" data-outputid="9e1ea9fa-cc64-4ae6-9b7c-5efeacea3edf">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
-
-  <div id="df-b480acd3-a2b2-4464-8872-e5fa7edcf339">
-    <div class="colab-df-container">
-      <div>
+</div>
+<p><code>indicator=True</code> adds a <code>_merge</code> column that tells you where each row came from. <strong>Use it whenever you join real data</strong>: it is the quickest way to see what did and did not match.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.360120Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.359957Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.367838Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.367389Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df1.merge(df5, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">"left"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -2895,313 +1151,102 @@ ga('send', {
 <th data-quarto-table-cell-role="th">mean temperature</th>
 <th data-quarto-table-cell-role="th">elevation</th>
 <th data-quarto-table-cell-role="th">annual rainfall</th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
+<th data-quarto-table-cell-role="th">mean house price</th>
 <th data-quarto-table-cell-role="th">median income</th>
 <th data-quarto-table-cell-role="th">walkability score</th>
+<th data-quarto-table-cell-role="th">_merge</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">London</td>
-<td>4.898594</td>
-<td>6.625739</td>
-<td>3.587877</td>
-<td>6.063331</td>
-<td>4.342769</td>
-<td>4.848734</td>
-<td>6.598818</td>
-<td>5.442444</td>
+<td>5.743254</td>
+<td>5.543154</td>
+<td>4.334490</td>
+<td>5.232161</td>
+<td>5.116686</td>
+<td>3.552888</td>
+<td>3.677300</td>
+<td>4.002753</td>
+<td>both</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Paris</td>
-<td>6.032702</td>
-<td>3.479265</td>
-<td>2.383832</td>
-<td>5.251509</td>
-<td>5.158178</td>
-<td>5.294294</td>
-<td>4.282418</td>
-<td>5.741057</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-b480acd3-a2b2-4464-8872-e5fa7edcf339')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-b480acd3-a2b2-4464-8872-e5fa7edcf339 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-b480acd3-a2b2-4464-8872-e5fa7edcf339');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-</div>
-</section>
-<section id="the-future-of-the-left" class="level2">
-<h2 class="anchored" data-anchor-id="the-future-of-the-left">The Future of The Left</h2>
-<p>The <em>left</em> join includes <strong>all</strong> rows where the index appears on the <strong>left</strong> hand side of the join, and <strong>any</strong> data which <strong>matches</strong> it on the <strong>right</strong> hand side. If the index appears on the left but not the right, it will include the data from the left table, and have blanks for the columns on the right.</p>
-<div class="cell" data-outputid="ff1637ef-c554-4f07-fd47-37d0862f501c">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> <span class="st">"https://s3.eu-west-2.amazonaws.com/qm2/wk3/left.png"</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>Image(data_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="37">
-<p><img src="RW. Merging and Joining_files/figure-html/cell-38-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<p>What does <em>this</em> look like? We will use the <em>how=‘left’</em> optional argument to create a left join:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df1.merge(df5, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">'left'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="4041eacc-ec51-4eae-f598-d14d81b4e87a">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
-
-  <div id="df-828a035e-99f7-42bb-a930-f9f6de610548">
-    <div class="colab-df-container">
-      <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">area</th>
-<th data-quarto-table-cell-role="th">population</th>
-<th data-quarto-table-cell-role="th">mean temperature</th>
-<th data-quarto-table-cell-role="th">elevation</th>
-<th data-quarto-table-cell-role="th">annual rainfall</th>
-<th data-quarto-table-cell-role="th">Mean House Price</th>
-<th data-quarto-table-cell-role="th">median income</th>
-<th data-quarto-table-cell-role="th">walkability score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">London</td>
-<td>4.898594</td>
-<td>6.625739</td>
-<td>3.587877</td>
-<td>6.063331</td>
-<td>4.342769</td>
-<td>4.848734</td>
-<td>6.598818</td>
-<td>5.442444</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Paris</td>
-<td>6.032702</td>
-<td>3.479265</td>
-<td>2.383832</td>
-<td>5.251509</td>
-<td>5.158178</td>
-<td>5.294294</td>
-<td>4.282418</td>
-<td>5.741057</td>
+<td>5.218689</td>
+<td>5.871429</td>
+<td>5.223596</td>
+<td>5.678914</td>
+<td>5.067579</td>
+<td>5.399774</td>
+<td>4.094521</td>
+<td>4.621837</td>
+<td>both</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Beijing</td>
-<td>4.368419</td>
-<td>4.993774</td>
-<td>2.942992</td>
-<td>3.761624</td>
-<td>6.002863</td>
+<td>5.289119</td>
+<td>5.631288</td>
+<td>3.542844</td>
+<td>4.680329</td>
+<td>4.529627</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>left_only</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Medellin</td>
-<td>7.437921</td>
-<td>5.228150</td>
-<td>3.902431</td>
-<td>4.437361</td>
-<td>5.563400</td>
+<td>4.361122</td>
+<td>4.724858</td>
+<td>6.494941</td>
+<td>4.134169</td>
+<td>5.968278</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>left_only</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Port Elizabeth</td>
-<td>7.053265</td>
-<td>5.936734</td>
-<td>5.842155</td>
-<td>6.042136</td>
-<td>7.057592</td>
+<td>3.317130</td>
+<td>4.665115</td>
+<td>5.162753</td>
+<td>5.586222</td>
+<td>5.711227</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>left_only</td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-828a035e-99f7-42bb-a930-f9f6de610548')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-828a035e-99f7-42bb-a930-f9f6de610548 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-828a035e-99f7-42bb-a930-f9f6de610548');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
-<p>As we see, the missing data appears as <strong>NaN</strong> - Not a Number.</p>
+</div>
 </section>
-<section id="exercise-1" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-1">Exercise:</h2>
-<p>Carry out <em>right</em> and <em>outer</em> joins on the dataframes df1 and df5 and explain how they’re filtering and joining the data.</p>
-</section>
-<section id="i-am-the-one-and-only" class="level2">
-<h2 class="anchored" data-anchor-id="i-am-the-one-and-only">I Am The One and Only</h2>
-<p>So far, we’ve carried out joins on data which have a <em>one-to-one</em> relationship; data for cities or people. What if our data has a <em>one-to-many</em> correspondence?</p>
-<p><em>Example:</em> We want to look at the quality of life in cities (a real student project from 2014). We have a dataset listing city-level characteristics for a number of cities in Europe, including the country each city is in. We also have a dataset listing the GDP, life expectancy and other indicators for a number of <em>countries</em> in Europe. How do we create a dataframe which, for each city, lists all of the characteristics of a city and those of its parent country?</p>
-<p>We’ll be working now with data from the UN, covering information about cities - real data this time. The UN has some great data, we’ve taken some from here and processed it in various ways:</p>
-<p>http://data.un.org/Data.aspx?d=POP&amp;f=tableCode%3A240</p>
-<p>Let’s load up data on city population - this set contains data for 2012-2014 inclusive:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> <span class="st">"data/wk5/UN_Cities_1214_population.csv"</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>city_pop <span class="op">=</span> pd.read_csv(data_path, encoding<span class="op">=</span><span class="st">'latin1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="exercise-right-and-outer-joins" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-right-and-outer-joins">Exercise: right and outer joins</h3>
+<p>Do a <code>how="right"</code> and a <code>how="outer"</code> join of <code>df1</code> and <code>df5</code>, with <code>indicator=True</code>. For each one, explain which rows are kept and why. Which join type would you use if losing <em>any</em> row were unacceptable?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.369230Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.369147Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.370768Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.370418Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="02ca7c3a-68a2-4b20-b65b-d7498f5b25a8">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>city_pop.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="41">
-
-  <div id="df-f0c92bbf-48b0-4f50-a81b-3779b742239a">
-    <div class="colab-df-container">
-      <div>
+</section>
+</section>
+<section id="one-to-many-joins-real-un-data" class="level2">
+<h2 class="anchored" data-anchor-id="one-to-many-joins-real-un-data">One-to-many joins: real UN data</h2>
+<p>So far each key appeared once in each table (<strong>one-to-one</strong>). Often it does not. For example, we have population data for <strong>cities</strong>, and life expectancy for <strong>countries</strong>. To give each city its country’s life expectancy, many cities must match one country: a <strong>many-to-one</strong> join.</p>
+<p>The data comes from <a href="http://data.un.org/Data.aspx?d=POP&amp;f=tableCode%3A240">UNdata</a> (city populations, 2012-2014) and the World Bank’s World Development Indicators via UNdata (life expectancy). Start with city populations:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.371718Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.371661Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.424621Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.423895Z&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> <span class="st">"https://s3.eu-west-2.amazonaws.com/qm2/wk3/"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>city_pop <span class="op">=</span> pd.read_csv(base <span class="op">+</span> <span class="st">"UN_Cities_1214_population.csv"</span>, encoding<span class="op">=</span><span class="st">"latin1"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(city_pop.shape)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>city_pop.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(3796, 10)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
 
 
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -3289,152 +1334,268 @@ ga('send', {
 </tbody>
 </table>
 
-
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-f0c92bbf-48b0-4f50-a81b-3779b742239a')" title="Convert this dataframe to an interactive table." style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"></path>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"></path><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"></path>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-f0c92bbf-48b0-4f50-a81b-3779b742239a button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-f0c92bbf-48b0-4f50-a81b-3779b742239a');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
 </div>
 </div>
-</section>
-<section id="exercise-2" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-2">Exercise</h2>
-<p>There is a another datafile we downloaded called <em>UN_Cities_1214_country.csv</em>. This is saved to <code>data/wk5/UN_Cities_1214_country.csv</code> - Load this into a dataframe called <em>city_c</em> with the city name as the index and view it; then, using <em>merge</em> on city name with city_pop to create a new dataframe called <em>cities</em>. You’ll probably get some errors. google the error messages, or ask ChatGPT/Gemini to help you understand them.</p>
-<p><strong>Hints:</strong> You’ll notice that the index <strong>won’t</strong> be the column you want to merge on in the city_pop data. What column <em>should</em> you merge on in city_pop? Which column should you merge on in city_c?</p>
-<p>The syntax for merging on a <strong>column</strong> (which is not the index) is to pass the column name to the optional ‘left_on=’ or ‘right_on=’ arguments. And we don’t use right_index=True (or left_index=True), depending on which we’re using.</p>
-<p>So for example: <strong>df1.merge(df2, left_on=‘Name’, right_index=True)</strong> would join df1 (on the left) to df2 (on the right), using the column ‘Name’ on the left (df1) and the index column (whatever that is) on the right (df2).</p>
-</section>
-<section id="a-footnote-about-footnotes" class="level2">
-<h2 class="anchored" data-anchor-id="a-footnote-about-footnotes">A footnote about footnotes</h2>
-<p>Just a quick note - if you look at the primary UN data, you’ll see footnotes which will confuse the hell out of Pandas. I’ve taken the footnotes out, but you can use .tail() to see whether there’s any junk in the trunk, and remove it via a text editor.</p>
-</section>
-<section id="clean-data" class="level2">
-<h2 class="anchored" data-anchor-id="clean-data">Clean data</h2>
-<p>We need to simplify this data a bit in the following ways:</p>
+</div>
+<p>This is long-format data with several rows per city (years × sexes). Keep one year and both sexes, and drop the footnotes column. (Returning a new dataframe is safer than editing in place with <code>inplace=True</code>.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.426517Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.426421Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.439593Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.438660Z&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>city_pop <span class="op">=</span> city_pop[(city_pop[<span class="st">"Sex"</span>] <span class="op">==</span> <span class="st">"Both Sexes"</span>) <span class="op">&amp;</span> (city_pop[<span class="st">"Year"</span>] <span class="op">==</span> <span class="dv">2012</span>)]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>city_pop <span class="op">=</span> city_pop.drop(columns<span class="op">=</span><span class="st">"Value Footnotes"</span>).rename(columns<span class="op">=</span>{<span class="st">"Value"</span>: <span class="st">"population"</span>})</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(city_pop.shape)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>city_pop.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1230, 9)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">Area</th>
+<th data-quarto-table-cell-role="th">Sex</th>
+<th data-quarto-table-cell-role="th">City</th>
+<th data-quarto-table-cell-role="th">City type</th>
+<th data-quarto-table-cell-role="th">Record Type</th>
+<th data-quarto-table-cell-role="th">Reliability</th>
+<th data-quarto-table-cell-role="th">Source Year</th>
+<th data-quarto-table-cell-role="th">population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2012</td>
+<td>Total</td>
+<td>Both Sexes</td>
+<td>MARIEHAMN</td>
+<td>City proper</td>
+<td>Estimate - de jure</td>
+<td>Final figure, complete</td>
+<td>2013</td>
+<td>11304.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>2012</td>
+<td>Total</td>
+<td>Both Sexes</td>
+<td>BahÌ_a Blanca-Cerri</td>
+<td>Urban agglomeration</td>
+<td>Estimate - de facto</td>
+<td>Final figure, complete</td>
+<td>2012</td>
+<td>314948.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>2012</td>
+<td>Total</td>
+<td>Both Sexes</td>
+<td>BUENOS AIRES</td>
+<td>Urban agglomeration</td>
+<td>Estimate - de facto</td>
+<td>Final figure, complete</td>
+<td>2012</td>
+<td>13242375.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>2012</td>
+<td>Total</td>
+<td>Both Sexes</td>
+<td>Catamarca</td>
+<td>Urban agglomeration</td>
+<td>Estimate - de facto</td>
+<td>Final figure, complete</td>
+<td>2012</td>
+<td>212174.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>2012</td>
+<td>Total</td>
+<td>Both Sexes</td>
+<td>Comodoro Rivadavia-Rada Tilly</td>
+<td>Urban agglomeration</td>
+<td>Estimate - de facto</td>
+<td>Final figure, complete</td>
+<td>2012</td>
+<td>145475.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The population table does not say which country each city is in. A second file does:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.441206Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.441110Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.494723Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.494069Z&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>city_c <span class="op">=</span> pd.read_csv(base <span class="op">+</span> <span class="st">"UN_Cities_1214_country.csv"</span>, encoding<span class="op">=</span><span class="st">"latin1"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(city_c.shape)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>city_c.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1230, 2)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Country or Area</th>
+<th data-quarto-table-cell-role="th">City</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>íƒland Islands</td>
+<td>MARIEHAMN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Argentina</td>
+<td>Bahí_a Blanca-Cerri</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Argentina</td>
+<td>BUENOS AIRES</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Argentina</td>
+<td>Catamarca</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Argentina</td>
+<td>Comodoro Rivadavia-Rada Tilly</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>(<code>íland Islands</code> should be <em>Åland Islands</em>: a character-encoding error, another kind of dirty data. It happens when a file saved in one encoding is read as another.)</p>
+<p>The key is now an ordinary <strong>column</strong>, not the index, so we use <code>on=</code> (or <code>left_on=</code>/<code>right_on=</code> if the columns have different names in the two tables):</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.496947Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.496775Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.519702Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.518927Z&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> city_pop.merge(city_c, on<span class="op">=</span><span class="st">"City"</span>, how<span class="op">=</span><span class="st">"left"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(city_pop), <span class="st">"rows before,"</span>, <span class="bu">len</span>(cities), <span class="st">"rows after"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>cities[<span class="st">"_merge"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1230 rows before, 1498 rows after</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>_merge
+both          1401
+left_only       97
+right_only       0
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<section id="exercise-spot-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-spot-the-problem">Exercise: spot the problem</h3>
+<p>A left join should keep every row of the left table <strong>exactly once</strong>. We started with 1,230 rows and ended with more.</p>
 <ol type="1">
-<li>I’m going to focus on one year (2012)</li>
-<li>I’m going to just look at “Both Sexes” (not focus on one gender)</li>
-<li>I’m going to get rid of a column of data (the ‘Value Footnotes’ column) using the <em>drop()</em> method.</li>
+<li>Find the cause. (Hint: <code>city_c["City"].duplicated().sum()</code>, and <code>city_c.duplicated().sum()</code> for completely identical rows.) What does a join do when a key appears twice in the right-hand table?</li>
+<li>Remove the exact duplicates (<code>drop_duplicates()</code>) and redo the merge, this time passing <code>validate="many_to_one"</code>, which raises an error if the right-hand keys are not unique. It still fails. Read the error message: which city is the problem, and in which two countries is it? What would a join on the name alone do to it, and what would be a better key?</li>
+<li>Now look at the 97 <code>left_only</code> rows: <code>cities[cities["_merge"] == "left_only"]["City"]</code>. What do the unmatched names have in common? Compare the same city in the two files (for example the Argentinian city of Bahía Blanca). Why can’t pandas match them?</li>
+<li><code>city_pop</code> itself also has repeated city names (<code>city_pop["City"].duplicated().sum()</code>). Look at the <code>City type</code> column: what are the two kinds of row, and why would adding them up double-count people?</li>
 </ol>
-<div class="cell" data-outputid="902afb0f-06d1-4b32-ef36-2f1c87033e86">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> cities[cities[<span class="st">'Sex'</span>]<span class="op">==</span><span class="st">'Both Sexes'</span>]</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> cities[cities[<span class="st">'Year'</span>]<span class="op">==</span><span class="dv">2012</span>]</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>cities.drop(<span class="st">'Value Footnotes'</span>, axis<span class="op">=</span><span class="dv">1</span>, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>NameError: ignored</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cities.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.521787Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.521647Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.523744Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.523311Z&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="extension-in-my-place" class="level2">
-<h2 class="anchored" data-anchor-id="extension-in-my-place">Extension: In My Place</h2>
-<p>The command I used to get rid of that column is <em>cities.drop(‘Value Footnotes’, axis=1, inplace=True)</em>. The syntax is not so complex - the first argument, <em>‘Value Footnotes’</em>, is just the name of the column; the second argument, <em>axis=1</em>, tells Pandas to look for a column to remove (instead of a row which has <em>axis=0</em>); the third and final argument, <em>inplace=True</em>, is a command that tells Pandas to edit <em>inplace</em>, i.e.&nbsp;to edit the dataframe (<em>cities</em>) directly. When <em>inplace</em> is False (the default), this command does not directly edit cities, but instead provide an output. So the syntax for that would be</p>
-<p>new_cities = cities.drop(‘Value Footnotes’, axis=1)</p>
-<p>and new_cities would be a version of <em>cities</em> without the offending column. This is usually the safer option.</p>
 </section>
-<section id="life-oh-life" class="level2">
-<h2 class="anchored" data-anchor-id="life-oh-life">Life, Oh Life</h2>
-<p>The UN also has useful data by country, so let’s try and work with some of that and join it up with our city data. Let’s work with Life Expectancy Data:</p>
-<p>http://data.un.org/Data.aspx?d=WDI&amp;f=Indicator_Code%3ASP.DYN.LE00.IN</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>life <span class="op">=</span> pd.read_csv(<span class="st">'https://s3.eu-west-2.amazonaws.com/qm2/wk3/UN_Life_all.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>life.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="exercise-3" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-3">Exercise:</h2>
-<p>In a new cell, clean up the above dataframe by</p>
-<ul>
-<li>removing the “Value Footnotes” Column</li>
-<li>use only the most recent data (2012)</li>
-</ul>
-<p>Let’s make it a little clearer what “Value” refers to, by renaming the column. This is one way to do that:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>life.rename(columns<span class="op">=</span>{<span class="st">'Value'</span>:<span class="st">'Life Expectancy'</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>life.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now, merge this data with the cities data to show life expectancy for each city (based on the country it is in), and show the first 5 rows.</p>
-<p>Plot population against life expectancy. Use plot’s <em>optional arguments</em> to specify the x column, y column, and that kind=‘scatter’.</p>
-<p>Question: How much data was “missing” in the merge?</p>
+<section id="life-expectancy-by-country" class="level2">
+<h2 class="anchored" data-anchor-id="life-expectancy-by-country">Life expectancy by country</h2>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.525151Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.525077Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.576075Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.575793Z&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>life <span class="op">=</span> pd.read_csv(base <span class="op">+</span> <span class="st">"UN_Life_all.csv"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>life.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
 
 
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Country or Area</th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">Value</th>
+<th data-quarto-table-cell-role="th">Value Footnotes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Afghanistan</td>
+<td>2012</td>
+<td>60.509122</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Afghanistan</td>
+<td>2011</td>
+<td>60.065366</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Afghanistan</td>
+<td>2010</td>
+<td>59.600098</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Afghanistan</td>
+<td>2009</td>
+<td>59.112341</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Afghanistan</td>
+<td>2008</td>
+<td>58.607098</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="exercise-clean-then-join" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-clean-then-join">Exercise: clean, then join</h3>
+<ol type="1">
+<li>Keep only 2012, drop the <code>Value Footnotes</code> column and rename <code>Value</code> to <code>life_expectancy</code>.</li>
+<li>Before you clean it: how many rows does <code>life</code> have per country? What would happen to the number of rows if you merged the <strong>uncleaned</strong> <code>life</code> onto <code>cities</code>?</li>
+<li>Merge the cleaned table onto your de-duplicated <code>cities</code> (the country column is <code>Country or Area</code> in both), using <code>how="left"</code>, <code>validate="many_to_one"</code> and <code>indicator="life_match"</code> (a new name, because <code>cities</code> already has a <code>_merge</code> column).</li>
+<li>Make a scatter plot of city population (log scale) against life expectancy.</li>
+<li>How many cities failed to match? List the unmatched <strong>countries</strong> with <code>value_counts()</code>. One country accounts for most of them. Find its name in <code>life</code> and in <code>cities</code>, and fix the mismatch (hint: <code>.replace({...})</code> on one of the columns).</li>
+</ol>
+<p>Joining on names is fragile: “United States” and “United States of America” are different strings. Where possible, join on <strong>codes</strong> (ISO3 country codes, ONS area codes, vessel MMSI numbers) instead.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:50.577176Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:50.577114Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:50.578396Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:50.578174Z&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
+</section>
+<section id="looking-ahead-spatial-joins" class="level2">
+<h2 class="anchored" data-anchor-id="looking-ahead-spatial-joins">Looking ahead: spatial joins</h2>
+<p>Next week we join on <strong>location</strong> instead of names. <code>geopandas.sjoin(points, polygons, predicate="within")</code> attaches to each point (a ship, a sensor, an event) the attributes of the polygon (a country, an ocean region, a borough) that contains it. The logic is the same as today’s: there is a left and a right table and a <code>how=</code> argument, and the same questions apply: which rows failed to match, and did any row match more than once?</p>
+
+
 </section>
 
 </main> <!-- /main -->

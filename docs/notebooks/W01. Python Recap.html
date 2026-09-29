@@ -336,12 +336,7 @@ ga('send', {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/W08. Diff-in-Diff.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Diff-in-Diff</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/W09. Regression Discontinuity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Regression Discontinuity</span></a>
+  <a href="../notebooks/W08. Causal Inference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Causal Inference</span></a>
   </div>
 </li>
       </ul>
@@ -362,7 +357,7 @@ ga('send', {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/W10. Machine Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Machine Learning</span></a>
+  <a href="../notebooks/W09. Supervised Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Supervised Learning</span></a>
   </div>
 </li>
       </ul>
@@ -381,6 +376,11 @@ ga('send', {
   <a href="../slides/w10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W10. Clustering.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Clustering</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -393,17 +393,33 @@ ga('send', {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#workshop-1-open-in-colab" id="toc-workshop-1-open-in-colab" class="nav-link active" data-scroll-target="#workshop-1-open-in-colab"><em>Workshop 1</em> <img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></li>
+  <li><a href="#workshop-1-open-in-colab" id="toc-workshop-1-open-in-colab" class="nav-link active" data-scroll-target="#workshop-1-open-in-colab"><em>Workshop 1</em> <img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a>
+  <ul class="collapse">
+  <li><a href="#aims" id="toc-aims" class="nav-link" data-scroll-target="#aims">Aims</a></li>
+  </ul></li>
   <li><a href="#registering-a-github-account" id="toc-registering-a-github-account" class="nav-link" data-scroll-target="#registering-a-github-account">Registering a GitHub account</a></li>
   <li><a href="#using-python" id="toc-using-python" class="nav-link" data-scroll-target="#using-python">Using Python</a></li>
   <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
   <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
   <li><a href="#where-is-my-data" id="toc-where-is-my-data" class="nav-link" data-scroll-target="#where-is-my-data">Where is my data?</a></li>
-  <li><a href="#flow" id="toc-flow" class="nav-link" data-scroll-target="#flow">Flow</a></li>
-  <li><a href="#downloading-data" id="toc-downloading-data" class="nav-link" data-scroll-target="#downloading-data">Downloading Data</a></li>
-  <li><a href="#storing-and-importing-data" id="toc-storing-and-importing-data" class="nav-link" data-scroll-target="#storing-and-importing-data">Storing and importing data</a></li>
+  <li><a href="#flow" id="toc-flow" class="nav-link" data-scroll-target="#flow">Flow</a>
+  <ul class="collapse">
+  <li><a href="#exercise-setting-up-variables" id="toc-exercise-setting-up-variables" class="nav-link" data-scroll-target="#exercise-setting-up-variables">Exercise: setting up variables</a></li>
+  </ul></li>
+  <li><a href="#lists-and-dictionaries" id="toc-lists-and-dictionaries" class="nav-link" data-scroll-target="#lists-and-dictionaries">Lists and dictionaries</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul></li>
+  <li><a href="#loops-conditions-and-functions" id="toc-loops-conditions-and-functions" class="nav-link" data-scroll-target="#loops-conditions-and-functions">Loops, conditions and functions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise</a></li>
+  </ul></li>
+  <li><a href="#dataframes-with-pandas" id="toc-dataframes-with-pandas" class="nav-link" data-scroll-target="#dataframes-with-pandas">Dataframes with pandas</a>
+  <ul class="collapse">
+  <li><a href="#exercise-spot-the-problem" id="toc-exercise-spot-the-problem" class="nav-link" data-scroll-target="#exercise-spot-the-problem">Exercise: spot the problem</a></li>
+  <li><a href="#exercise-a-second-dataset" id="toc-exercise-a-second-dataset" class="nav-link" data-scroll-target="#exercise-a-second-dataset">Exercise: a second dataset</a></li>
+  </ul></li>
   <li><a href="#supplementary-kaggle-exercises" id="toc-supplementary-kaggle-exercises" class="nav-link" data-scroll-target="#supplementary-kaggle-exercises">Supplementary: Kaggle exercises</a></li>
-  <li><a href="#assessed-question" id="toc-assessed-question" class="nav-link" data-scroll-target="#assessed-question">Assessed Question</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/oballinger/BASC0005/blob/main/notebooks/W01. Python Recap.ipynb" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -429,246 +445,192 @@ ga('send', {
 
 <section id="workshop-1-open-in-colab" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-1-open-in-colab"><em>Workshop 1</em> <a href="https://colab.research.google.com/github/oballinger/BASC0005/blob/main/notebooks/W01.%20Python%20Recap.ipynb"><img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></h2>
+<p>This workshop sets up the tools for the term and revisits the Python you covered in the prerequisites. If it is all familiar, go straight to the Kaggle exercises at the end.</p>
+<section id="aims" class="level3">
+<h3 class="anchored" data-anchor-id="aims">Aims</h3>
+<ul>
+<li>Set up GitHub and save a copy of a Colab notebook to it</li>
+<li>Revisit variables, types, lists, dictionaries, loops, conditions and functions</li>
+<li>Understand how a notebook executes (and how running cells out of order can mislead you)</li>
+<li>Load a CSV from a URL with pandas, sort it and make a first plot</li>
+<li>Start checking whether the data <em>means</em> what it appears to mean</li>
+</ul>
+</section>
 </section>
 <section id="registering-a-github-account" class="level2">
 <h2 class="anchored" data-anchor-id="registering-a-github-account">Registering a GitHub account</h2>
-<p>Before we get started, we need to set a few things up. GitHub is a platform for software development and version control using Git, allowing developers to store and manage their code. Think of it as google docs but for code– it will be very useful for collaborating on your group projects later in the term, and in your future as a data analyst.</p>
+<p>GitHub is a platform for storing and sharing code with version control (Git). Think of it as Google Docs for code. You will use it for your group projects later in the term, and very likely in any future job involving data.</p>
 <ol type="1">
-<li>Use <a href="https://github.com/join">this link</a> to register for a GitHub account if you don’t already have one.</li>
-<li>Once that’s done, <a href="https://github.com/new">create a new github repository</a> called “QM2”.</li>
+<li>Use <a href="https://github.com/join">this link</a> to register for a GitHub account if you do not already have one.</li>
+<li><a href="https://github.com/new">Create a new repository</a> called “QM2”.</li>
 <li>In this notebook, click “File” and then “Save a copy in GitHub”.</li>
 </ol>
-<p>Voila! You now have a version of this notebook saved to your own GitHub account. <em>You will need to do step 3 for all the workshops!</em> Now, on to python.</p>
+<p>You now have a copy of this notebook in your own GitHub account. <em>Do step 3 for every workshop.</em></p>
 </section>
 <section id="using-python" class="level2">
 <h2 class="anchored" data-anchor-id="using-python">Using Python</h2>
-<p>In this course, we’ll make extensive use of <em>Python</em>, a programming language used widely in scientific computing and on the web. We will be using Python as a way to manipulate, plot and analyse data. This isn’t a course about learning Python, it’s about working with data - but we’ll learning a little bit of programming along the way.</p>
-<p>By now, you should have done the prerequisites for the module, and understand a bit about how Python is structured, what different commands do, and so on - this is a bit of a refresher to remind you of what we need at the beginning of term.</p>
-<p>The particular flavour of Python we’re using is <em>iPython</em>, which, as we’ve seen, allows us to combine text, code, images, equations and figures in a <em>Notebook</em>. This is a <em>cell</em>, written in <em>markdown</em> - a way of writing nice text. Contrast this with <em>code</em> cell, which executes a bit of Python:</p>
-<div class="cell" data-outputid="0cc186d1-9160-43dc-bd44-eb66f8267edc" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We use <em>Python</em>, a programming language widely used in science, industry and on the web, to manipulate, plot and analyse data. This is a course about working with data rather than about programming, but we will learn some programming along the way.</p>
+<p>A notebook mixes text cells (like this one) and code cells. Click on the cell below and press <strong>Shift+Enter</strong> to run it:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.246960Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.246897Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.249587Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.249214Z&quot;}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4</code></pre>
 </div>
 </div>
-<p>The Notebook format allows you to engage in what Don Knuth describes as <a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a>:</p>
-<blockquote class="blockquote">
-<p>[…] Instead of writing code containing documentation, the literate programmer writes documentation containing code. No longer does the English commentary injected into a program have to be hidden in comment delimiters at the top of the file, or under procedure headings, or at the end of lines. Instead, it is wrenched into the daylight and made the main focus. The “program” then becomes primarily a document directed at humans, with the code being herded between “code delimiters” from where it can be extracted and shuffled out sideways to the language system by literate programming tools. <a href="http://www.literateprogramming.com/lpquotes.html">Ross Williams</a></p>
-</blockquote>
+<p>The notebook format lets you practise what Donald Knuth called <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>: writing <em>documentation containing code</em> rather than code containing documentation. Use the text cells to explain what you are doing and why. Your future self, your group members and your markers will thank you.</p>
 </section>
 <section id="libraries" class="level2">
 <h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
-<p>We will work with a number of <em>libraries</em>, which provide additional functions and techniques to help us to carry out our tasks.</p>
-<p>These include:</p>
-<p><em>Pandas:</em> we’ll use this a lot to slice and dice data</p>
-<p><em>matplotlib</em>: this is our basic graphing software, and we’ll also use it for mapping</p>
-<p><em>nltk</em>: The Natural Language Tool Kit will help us work with text</p>
-<p>We aren’t doing all this to learn to program. We could spend a whole term learning how to use Python and never look at any data, maps, graphs, or visualisations. But we do need to understand a few basics to use Python for working with data. So let’s revisit a few concepts that you should have covered in your prerequisites.</p>
+<p><em>Libraries</em> (also called packages) add functions to Python. The main ones this term:</p>
+<ul>
+<li><strong>pandas</strong>: tables of data (“dataframes”): loading, slicing, cleaning, summarising</li>
+<li><strong>matplotlib</strong> and <strong>seaborn</strong>: plotting</li>
+<li><strong>geopandas</strong>: maps and spatial data (Week 3)</li>
+<li><strong>spaCy</strong>: working with text (Week 4)</li>
+<li><strong>statsmodels</strong> and <strong>scikit-learn</strong>: statistics and machine learning (Weeks 5-10)</li>
+</ul>
+<p>All of these come preinstalled on Colab. Let us revisit the basics first.</p>
 </section>
 <section id="variables" class="level2">
 <h2 class="anchored" data-anchor-id="variables">Variables</h2>
-<p>Python can broadly be divided in verbs and nouns: things which <em>do</em> things, and things which <em>are</em> things. In Python, the verbs can be <em>commands</em>, <em>functions</em>, or <em>methods</em>. We won’t worry too much about the distinction here - suffice it to say, they are the parts of code which manipulate data, calculate values, or show things on the screen.</p>
-<p>The simplest proper noun object in Python is the <em>variable</em>. Variables are given names and store information. This can be, for example, numeric, text, or boolean (true/false). These are all statements setting up variables:</p>
-<p>n = 1</p>
-<p>t = “hi”</p>
-<p>b = True</p>
-<p>Now let’s try this in code:</p>
-<div class="cell">
+<p>Python code can be divided into <em>verbs</em> and <em>nouns</em>: things that <strong>do</strong> things (commands, functions, methods) and things that <strong>are</strong> things. The simplest noun is a <strong>variable</strong>: a name that stores a value. Values can be numbers, text or booleans (True/False):</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.250570Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.250514Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.252001Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.251653Z&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="st">"hi"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="va">True</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="st">"hi"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="va">True</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that each command is on a new line; other than that, the <em>syntax</em> of Python should be fairly clear. We’re setting these variables equal to the letters and numbers and phrases and booleans. <strong>What’s a boolean?</strong></p>
-<p>The value of this is we now have values tied to these variables - so every time we want to use it, we can refer to the variable:</p>
-<div class="cell" data-outputid="051cd0e7-16c5-40dc-b916-24b82e1595cc">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>1</code></pre>
-</div>
-</div>
-<div class="cell" data-outputid="66d2ac01-d43a-410e-916c-e4d1da81ea5d">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>'hi'</code></pre>
+<p>Every value has a <strong>type</strong>. <code>type()</code> tells you which one. Keep types in mind: next week we will see that many data problems are really <em>type</em> problems.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.253101Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.253032Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.254755Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.254344Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n, <span class="bu">type</span>(n))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t, <span class="bu">type</span>(t))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b, <span class="bu">type</span>(b))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="fl">2.5</span>, <span class="bu">type</span>(<span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 &lt;class 'int'&gt;
+hi &lt;class 'str'&gt;
+True &lt;class 'bool'&gt;
+2.5 &lt;class 'float'&gt;</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="2112c8eb-4e79-4e0f-cdae-3375d77e6c76">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>Because we’ve defined these variables in the early part of the notebook, we can use them later on.</p>
-<p><em><strong>Advanced</strong>: where do <strong>classes</strong> fit into this noun/verb picture of variables and commands?</em></p>
 </section>
 <section id="where-is-my-data" class="level2">
 <h2 class="anchored" data-anchor-id="where-is-my-data">Where is my data?</h2>
-<p>When we work in excel and text editors, we’re used to seeing the data onscreen - and if we manipulate the data in some way (averaging or summing up), we see both the inputs and outputs on screen. The big difference in working with Python is that we don’t see our variables all of the time, or the effect we’re having on them. They’re there in the background, but it’s usually worth checking in on them from time to time, to see whether our processes are doing what we think they’re doing.</p>
-<p>This is pretty easy to do - we can just type the variable name, or “print(<em>variable name</em>)”:</p>
-<div class="cell" data-outputid="4d01b9d9-1ce7-4037-8ab4-5587507fddaf">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In Excel you always see your data. In Python, variables live in the background, and you only see them when you ask. Check on them often, to make sure your code is doing what you think it is doing:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.255686Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.255637Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.257099Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.256853Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> n <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2
-hi
-True</code></pre>
+<pre><code>2</code></pre>
 </div>
 </div>
 </section>
 <section id="flow" class="level2">
 <h2 class="anchored" data-anchor-id="flow">Flow</h2>
-<p>Python, in common with all programming languages, executes commands in a sequence - we might refer to this as the “ineluctable march of the machines”, but it’s more common referred to as the <em>flow</em> of the code (we’ll use the word “code” a lot - it just means commands written in the programming language). In most cases, code just executes in the order it’s written. This is true within each <em>cell</em> (each block of text in the notebook), and it’s true when we execute the cells in order; that’s why we can refer back to the variables we defined earlier:</p>
-<div class="cell" data-outputid="e035e3bd-4eae-4ad8-a577-abe28736a0c4">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Python runs the commands in a cell from top to bottom. A notebook, however, lets you run cells in <strong>any</strong> order, and Python remembers the variables from every cell you have run, not just from the cells above.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.257923Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.257868Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.259293Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.258963Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2</code></pre>
 </div>
 </div>
-<p>If we make a change to one of these variables, say n:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.260194Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.260148Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.261809Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.261186Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and execute the above “print n” command, you’ll see that it has changed n to 3. So if we go out of order, the obvious flow of the code is confused. For this reason, try to write your code so it executes in order, one cell at a time. At least for the moment, this will make it easier to follow the logic of what you’re doing to data.</p>
-<p><em>Advanced</em>: what happens to this flow when you write <em>functions</em> to automate common tasks?</p>
-<p><strong><em>Exercise - Setting up variables</em></strong>:</p>
+<p>Now go back and re-run the <code>print(n)</code> cell above. It prints 3, although the cell right above it says <code>n = n + 1</code>. Out-of-order execution is the most common source of “but it worked a minute ago” bugs. Before you submit anything, use <strong>Runtime → Restart and run all</strong> to check that the notebook works from top to bottom.</p>
+<section id="exercise-setting-up-variables" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-setting-up-variables">Exercise: setting up variables</h3>
 <ol type="1">
-<li><p>Create a new cell.</p></li>
-<li><p>Create the variables “name”, and assign your name to it.</p></li>
-<li><p>Create a variable “Python” and assign a score out of 10 to how much you like Python.</p></li>
-<li><p>Create a variable “prior” and if you’ve used Python before, assign True; otherwise assign False to the variable</p></li>
-<li><p>Print these out to the screen</p></li>
+<li>Create a variable <code>name</code> and assign your name to it.</li>
+<li>Create a variable <code>python_score</code> with a score out of 10 for how much you like Python.</li>
+<li>Create a variable <code>prior</code> that is <code>True</code> if you have used Python before and <code>False</code> otherwise.</li>
+<li>Print all three, and print the type of each.</li>
 </ol>
-</section>
-<section id="downloading-data" class="level2">
-<h2 class="anchored" data-anchor-id="downloading-data">Downloading Data</h2>
-<p>Lets fetch the data we will be using for this session. There are two ways in which you can upload data to the Colab notebook. You can use the following code to upload a CSV or similar data file.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> files</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>uploaded <span class="op">=</span> files.upload()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Or you can use the following cell to fetch the data directly from the QM2 server.</p>
-<p>Let’s create a folder that we can store all our data for this session</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="a31a3ce2-190e-4100-c98c-5f77ffba4e31">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir .<span class="op">/</span>data<span class="op">/</span>wk1</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl https:<span class="op">//</span>s3.eu<span class="op">-</span>west<span class="op">-</span><span class="fl">2.</span><span class="er">amazonaws</span>.com<span class="op">/</span>qm2<span class="op">/</span>wk1<span class="op">/</span>data.csv <span class="op">-</span>o .<span class="op">/</span>data<span class="op">/</span>wk1<span class="op">/</span>data.csv</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl https:<span class="op">//</span>s3.eu<span class="op">-</span>west<span class="op">-</span><span class="fl">2.</span><span class="er">amazonaws</span>.com<span class="op">/</span>qm2<span class="op">/</span>wk1<span class="op">/</span>sample_group.csv <span class="op">-</span>o .<span class="op">/</span>data<span class="op">/</span>wk1<span class="op">/</span>sample_group.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   203  100   203    0     0   2872      0 --:--:-- --:--:-- --:--:--  3029
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   297  100   297    0     0   1844      0 --:--:-- --:--:-- --:--:--  1879</code></pre>
-</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.263109Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.263022Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.264454Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.264161Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="storing-and-importing-data" class="level2">
-<h2 class="anchored" data-anchor-id="storing-and-importing-data">Storing and importing data</h2>
-<p>Typically, data we look at won’t be just one number, or one bit of text. Python has a lot of different ways of dealing with a bunch of numbers: for example, a list of values is called a <strong>list</strong>:</p>
-<div class="cell" data-outputid="790c2028-72a6-424c-e4ae-7e0ecd584ac4">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>listy <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">9</span>]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(listy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="lists-and-dictionaries" class="level2">
+<h2 class="anchored" data-anchor-id="lists-and-dictionaries">Lists and dictionaries</h2>
+<p>A <strong>list</strong> is an ordered sequence of values, in square brackets:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.265376Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.265333Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.266808Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.266560Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>heights <span class="op">=</span> [<span class="dv">6</span>, <span class="fl">5.5</span>, <span class="dv">6</span>, <span class="fl">5.5</span>, <span class="fl">7.5</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(heights)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(heights[<span class="dv">0</span>])      <span class="co"># Python counts from 0</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(heights[<span class="op">-</span><span class="dv">1</span>])     <span class="co"># negative indices count from the end</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(heights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1, 2, 3, 6, 9]</code></pre>
+<pre><code>[6, 5.5, 6, 5.5, 7.5]
+6
+7.5
+5</code></pre>
 </div>
 </div>
-<p>A set of values <em>linked</em> to an index (or key) is called a <strong>dictionary</strong>; for example:</p>
-<div class="cell" data-outputid="3762e43a-66fe-473d-c808-20fcf407179e">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dicty <span class="op">=</span> {<span class="st">'Bob'</span>: <span class="fl">1.2</span>, <span class="st">'Mike'</span>: <span class="fl">1.2</span>, <span class="st">'Coop'</span>: <span class="fl">1.1</span>, <span class="st">'Maddy'</span>: <span class="fl">1.3</span>, <span class="st">'Giant'</span>: <span class="fl">2.1</span>}</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dicty)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A <strong>dictionary</strong> links <strong>keys</strong> to <strong>values</strong>, in curly brackets. You look values up by key, not by position:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.267624Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.267581Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.268909Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.268686Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>first_appearance <span class="op">=</span> {<span class="st">"Bob"</span>: <span class="fl">1.2</span>, <span class="st">"Mike"</span>: <span class="fl">1.2</span>, <span class="st">"Coop"</span>: <span class="fl">1.1</span>, <span class="st">"Maddy"</span>: <span class="fl">1.3</span>, <span class="st">"Giant"</span>: <span class="fl">2.1</span>}</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(first_appearance[<span class="st">"Coop"</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(first_appearance.keys())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'Bob': 1.2, 'Mike': 1.2, 'Coop': 1.1, 'Maddy': 1.3, 'Giant': 2.1}</code></pre>
+<pre><code>1.1
+dict_keys(['Bob', 'Mike', 'Coop', 'Maddy', 'Giant'])</code></pre>
 </div>
 </div>
-<p>Notice that the list uses square brackets with values separated by commas, and the dict uses curly brackets with pairs separated by commas, and colons (:) to link a <em>key</em> (index or address) with a value.</p>
-<p>(You might notice that they haven’t printed out in the order you entered them)</p>
-<p>*<strong>Advanced</strong>: Print out 1) The third element of <strong>listy</strong>, and 2) The element of <strong>dicty</strong> relating to Giant</p>
-<p>We’ll discuss different ways of organising data again soon, but for now we’ll look at <em>dataframes</em> - the way our data-friendly <em>library</em> <strong>Pandas</strong> works with data. We’ll be using Pandas a lot this term, so it’s good to get started with it early.</p>
-<p>Let’s start by importing pandas. We’ll also import another library, but we’re not going to worry about that too much at the moment.</p>
-<p>If you see a warning about ‘Building Font Cache’ don’t worry - this is normal.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<p>Print (1) the third element of <code>heights</code>, and (2) the value in <code>first_appearance</code> for Giant. Then add a new entry for “Donna” with value 1.1.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.269816Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.269750Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.271066Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.270799Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s import a simple dataset and show it in pandas. We’ll use a pre-prepared “.csv” file, which needs to be in the same folder as our code.</p>
-<div class="cell" data-outputid="5afa1660-809a-4d96-9273-1009406e7b5f">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pandas.read_csv(<span class="st">'./data/wk1/data.csv'</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Name</th>
-<th data-quarto-table-cell-role="th">First Appearance</th>
-<th data-quarto-table-cell-role="th">Approx height</th>
-<th data-quarto-table-cell-role="th">Gender</th>
-<th data-quarto-table-cell-role="th">Law Enforcement</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Bob</td>
-<td>1.2</td>
-<td>6.0</td>
-<td>Male</td>
-<td>False</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Mike</td>
-<td>1.2</td>
-<td>5.5</td>
-<td>Male</td>
-<td>False</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Coop</td>
-<td>1.1</td>
-<td>6.0</td>
-<td>Male</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Maddy</td>
-<td>1.3</td>
-<td>5.5</td>
-<td>Female</td>
-<td>False</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Giant</td>
-<td>2.1</td>
-<td>7.5</td>
-<td>Male</td>
-<td>False</td>
-</tr>
-</tbody>
-</table>
-
+</section>
+</section>
+<section id="loops-conditions-and-functions" class="level2">
+<h2 class="anchored" data-anchor-id="loops-conditions-and-functions">Loops, conditions and functions</h2>
+<p>A <code>for</code> loop repeats code for each item in a list; <code>if</code> runs code only when a condition is True:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.271899Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.271848Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.273363Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.273098Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, episode <span class="kw">in</span> first_appearance.items():</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> episode <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(name, <span class="st">"first appears in season 2"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(name, <span class="st">"first appears in season 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bob first appears in season 1
+Mike first appears in season 1
+Coop first appears in season 1
+Maddy first appears in season 1
+Giant first appears in season 2</code></pre>
 </div>
 </div>
+<p>A <strong>function</strong> packages code so that you can reuse it. <code>def</code> defines it and <code>return</code> sends the result back:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.274191Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.274143Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.275607Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.275349Z&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> feet_to_metres(feet):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> feet <span class="op">*</span> <span class="fl">0.3048</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(feet_to_metres(<span class="dv">6</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([<span class="bu">round</span>(feet_to_metres(h), <span class="dv">2</span>) <span class="cf">for</span> h <span class="kw">in</span> heights])   <span class="co"># a "list comprehension": a loop in one line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.8288000000000002
+[1.83, 1.68, 1.83, 1.68, 2.29]</code></pre>
 </div>
-<p>What we’ve done here is read in a .csv file into a dataframe, the object pandas uses to work with data, and one that has lots of methods for slicing and dicing data, as we will see over the coming weeks. The head() command tells iPython to show the first few columns/rows of the data, so we can start to get a sense of what the data looks like and what sort of type of objects is represents.</p>
-<p>A common first step for exploring our data is to sort it. In Pandas, this can be done easily with the <code>sort_values()</code> function. We can specify which column to sort the data by, and whether we want to sort in ascending or descending order, using the optional arguments <code>by</code> and <code>ascending</code>, respectively. In the example below, we’re sorting in <em>descending</em> order of height:</p>
-<div class="cell" data-outputid="ab460449-1c0f-43af-c4d2-9d5c92f4e31a">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data.sort_values(by<span class="op">=</span><span class="st">'Approx height'</span>, ascending<span class="op">=</span><span class="va">False</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise</h3>
+<p>Write a function <code>mean(values)</code> that returns the average of a list of numbers (hint: <code>sum()</code> and <code>len()</code>), and use it on <code>heights</code>. What happens if you call it on an empty list <code>[]</code>? What <em>should</em> happen?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.276483Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.276421Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.277642Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.277415Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="dataframes-with-pandas" class="level2">
+<h2 class="anchored" data-anchor-id="dataframes-with-pandas">Dataframes with pandas</h2>
+<p>Real data is rarely a single list. <strong>pandas</strong> stores data in <em>dataframes</em>: tables with named columns and an index. We import it with the conventional short name <code>pd</code>.</p>
+<p><code>pd.read_csv</code> can read a file straight from a URL, so there is nothing to download. (On Colab you can also upload your own file: click the folder icon in the left sidebar, then the upload button.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.278461Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.278418Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.653364Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.652805Z&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"https://s3.eu-west-2.amazonaws.com/qm2/wk1/data.csv"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
@@ -686,6 +648,95 @@ True</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Bob</td>
+<td>1.2</td>
+<td>6.0</td>
+<td>Male</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Mike</td>
+<td>1.2</td>
+<td>5.5</td>
+<td>Male</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Coop</td>
+<td>1.1</td>
+<td>6.0</td>
+<td>Male</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Maddy</td>
+<td>1.3</td>
+<td>5.5</td>
+<td>Female</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Giant</td>
+<td>2.1</td>
+<td>7.5</td>
+<td>Male</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Donna</td>
+<td>1.1</td>
+<td>5.5</td>
+<td>Female</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>data.head()</code> shows the first five rows. <code>data.shape</code> gives (rows, columns), and <code>data.dtypes</code> gives the type pandas chose for each column:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.655199Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.655099Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.658125Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.657467Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.shape)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(6, 5)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>Name                    str
+First Appearance    float64
+Approx height       float64
+Gender                  str
+Law Enforcement        bool
+dtype: object</code></pre>
+</div>
+</div>
+<p>A common first step is to <strong>sort</strong>. <code>sort_values</code> takes the column to sort by, and <code>ascending=False</code> sorts in descending order:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.659482Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.659411Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.663338Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.662760Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data.sort_values(by<span class="op">=</span><span class="st">"Approx height"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">First Appearance</th>
+<th data-quarto-table-cell-role="th">Approx height</th>
+<th data-quarto-table-cell-role="th">Gender</th>
+<th data-quarto-table-cell-role="th">Law Enforcement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>Giant</td>
 <td>2.1</td>
@@ -725,25 +776,59 @@ True</code></pre>
 <td>Female</td>
 <td>False</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Donna</td>
+<td>1.1</td>
+<td>5.5</td>
+<td>Female</td>
+<td>False</td>
+</tr>
 </tbody>
 </table>
 
 </div>
 </div>
 </div>
-</section>
-<section id="supplementary-kaggle-exercises" class="level1">
-<h1>Supplementary: Kaggle exercises</h1>
-<p>If you’ve gotten this far, congratulations! To further hone your skills, try working your way through the five <a href="https://www.kaggle.com/learn/intro-to-programming">intro to programming notebooks on Kaggle</a>. These cover a range of skills that we’ll be using throughout the term. Kaggle is a very useful resource for learning data science, so making an account may not be a bad idea!</p>
-</section>
-<section id="assessed-question" class="level1">
-<h1>Assessed Question</h1>
-<p>The URL below contains a dataset of the most streamed songs on spotify in 2023: https://storage.googleapis.com/qm2/wk1/spotify-2023.csv</p>
-<p>Note that the file may have been corrupted over the years of running BASC0005; some column names might have been switched around, so make sure to sense check your results.</p>
-<p>QUESTION: How many streams does the most danceable song in the dataset have?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use this code cell to answer the question</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And a first plot. pandas dataframes have a <code>.plot()</code> method built on matplotlib:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.664652Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.664578Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.714490Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.713764Z&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data.plot.barh(x<span class="op">=</span><span class="st">"Name"</span>, y<span class="op">=</span><span class="st">"Approx height"</span>, legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Approximate height (feet)"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character heights"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W01. Python Recap_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
+</div>
+<section id="exercise-spot-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-spot-the-problem">Exercise: spot the problem</h3>
+<p><code>First Appearance</code> records the season and episode in which each character first appears: <code>1.2</code> means season 1, episode 2. pandas stored it as a <code>float64</code>.</p>
+<ol type="1">
+<li>What would happen to a character who first appears in season 1, episode <strong>10</strong>? (Try <code>float("1.10")</code>.)</li>
+<li>Sort the dataframe by <code>First Appearance</code>. Would the order be right if the data contained episode 1.10?</li>
+<li>How <em>should</em> this variable be stored? Write code that splits it into two integer columns, <code>season</code> and <code>episode</code>. (Hint: read the file again with <code>dtype={"First Appearance": str}</code>, then use <code>.str.split(".", expand=True)</code>.)</li>
+</ol>
+<p>A number is only a number if arithmetic on it makes sense. Keep this in mind all term.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.715995Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.715890Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.717366Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.717048Z&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-a-second-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-a-second-dataset">Exercise: a second dataset</h3>
+<p>A second file, <code>https://s3.eu-west-2.amazonaws.com/qm2/wk1/sample_group.csv</code>, has scores for the same (and more) characters on three dimensions: <code>Context</code>, <code>Data</code> and <code>Design</code>.</p>
+<ol type="1">
+<li>Load it into a dataframe called <code>group</code> and look at it.</li>
+<li>Which character has the highest <code>Data</code> score? (Use <code>sort_values</code>.) Are there ties?</li>
+<li>Make a bar chart of the mean of each of the three columns (hint: <code>group[["Context", "Data", "Design"]].mean().plot(kind="bar")</code>), with a title and axis labels.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:43.718865Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:43.718807Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:43.720344Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:43.720052Z&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="supplementary-kaggle-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="supplementary-kaggle-exercises">Supplementary: Kaggle exercises</h2>
+<p>To practise further, work through the <a href="https://www.kaggle.com/learn/intro-to-programming">Intro to Programming</a> and <a href="https://www.kaggle.com/learn/pandas">Pandas</a> courses on Kaggle. They cover skills we use throughout the term.</p>
 
 
 </section>

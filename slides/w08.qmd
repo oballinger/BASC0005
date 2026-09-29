@@ -12,7 +12,6 @@ repo-actions: false
 
 ::: {.slides-bar}
 [Open full screen ↗](../lectures/w08.html){.btn .btn-primary target="_blank"}
-[DiD workshop →](../notebooks/W08.%20Diff-in-Diff.html){.btn .btn-outline-secondary}
-[RDD workshop →](../notebooks/W09.%20Regression%20Discontinuity.html){.btn .btn-outline-secondary}
+[Week 8 workshop →](../notebooks/W08.%20Causal%20Inference.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::

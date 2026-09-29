@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.326">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>BASC0005 - Clustering</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/w10.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-154866877-2', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/w10.html">Week 10 · Clustering</a></li><li class="breadcrumb-item"><a href="../notebooks/W10. Clustering.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Workshop: Clustering</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logo2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">BASC0005</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/oballinger/BASC0005/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Week 1 · Introduction</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W01. Python Recap.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Python Recap</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Week 2 · Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w02.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W02. Pandas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Pandas</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Week 3 · Spatial &amp; Networks</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w03.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W03. Spatial Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Spatial Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Week 4 · Text as Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w04.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W04. Natural Language Processing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Natural Language Processing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Week 5 · Sampling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w05.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W05. Distributions and Basic Statistics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Distributions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Reading Week</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/RW. Merging and Joining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Merging and Joining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Week 6 · Hypothesis Testing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w06.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W06. Hypothesis Testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Hypothesis Testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Week 7 · Regression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w07.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W07. Linear Regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Linear Regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Week 8 · Causal Inference</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w08.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W08. Causal Inference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Causal Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Week 9 · Prediction</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w09.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W09. Supervised Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Supervised Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+ <span class="menu-text">Week 10 · Clustering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W10. Clustering.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Workshop: Clustering</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#workshop-10-open-in-colab" id="toc-workshop-10-open-in-colab" class="nav-link active" data-scroll-target="#workshop-10-open-in-colab"><em>Workshop 10</em> <img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a>
+  <ul class="collapse">
+  <li><a href="#aims" id="toc-aims" class="nav-link" data-scroll-target="#aims">Aims</a></li>
+  </ul></li>
+  <li><a href="#finding-oil-rigs-from-space" id="toc-finding-oil-rigs-from-space" class="nav-link" data-scroll-target="#finding-oil-rigs-from-space">1. Finding oil rigs from space</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1.1" id="toc-exercise-1.1" class="nav-link" data-scroll-target="#exercise-1.1">Exercise 1.1</a></li>
+  </ul></li>
+  <li><a href="#k-means" id="toc-k-means" class="nav-link" data-scroll-target="#k-means">2. K-means</a>
+  <ul class="collapse">
+  <li><a href="#how-k-means-works" id="toc-how-k-means-works" class="nav-link" data-scroll-target="#how-k-means-works">2.1 How k-means works</a></li>
+  <li><a href="#case-study-london-geodemographics" id="toc-case-study-london-geodemographics" class="nav-link" data-scroll-target="#case-study-london-geodemographics">2.2 Case study: London geodemographics</a></li>
+  <li><a href="#spot-the-problem-forgetting-to-scale" id="toc-spot-the-problem-forgetting-to-scale" class="nav-link" data-scroll-target="#spot-the-problem-forgetting-to-scale">2.3 Spot the problem: forgetting to scale</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2.1" id="toc-exercise-2.1" class="nav-link" data-scroll-target="#exercise-2.1">Exercise 2.1</a></li>
+  </ul></li>
+  <li><a href="#choosing-k" id="toc-choosing-k" class="nav-link" data-scroll-target="#choosing-k">2.4 Choosing k</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2.2" id="toc-exercise-2.2" class="nav-link" data-scroll-target="#exercise-2.2">Exercise 2.2</a></li>
+  </ul></li>
+  <li><a href="#what-makes-each-cluster-different" id="toc-what-makes-each-cluster-different" class="nav-link" data-scroll-target="#what-makes-each-cluster-different">2.5 What makes each cluster different?</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2.3" id="toc-exercise-2.3" class="nav-link" data-scroll-target="#exercise-2.3">Exercise 2.3</a></li>
+  <li><a href="#exercise-2.4-random-starts" id="toc-exercise-2.4-random-starts" class="nav-link" data-scroll-target="#exercise-2.4-random-starts">Exercise 2.4: random starts</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#hierarchical-clustering" id="toc-hierarchical-clustering" class="nav-link" data-scroll-target="#hierarchical-clustering">3. Hierarchical clustering</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3.1" id="toc-exercise-3.1" class="nav-link" data-scroll-target="#exercise-3.1">Exercise 3.1</a></li>
+  </ul></li>
+  <li><a href="#dbscan" id="toc-dbscan" class="nav-link" data-scroll-target="#dbscan">4. DBSCAN</a>
+  <ul class="collapse">
+  <li><a href="#when-k-means-fails" id="toc-when-k-means-fails" class="nav-link" data-scroll-target="#when-k-means-fails">4.1 When k-means fails</a></li>
+  <li><a href="#air-quality-sensors-in-california" id="toc-air-quality-sensors-in-california" class="nav-link" data-scroll-target="#air-quality-sensors-in-california">4.2 Air-quality sensors in California</a>
+  <ul class="collapse">
+  <li><a href="#exercise-4.1" id="toc-exercise-4.1" class="nav-link" data-scroll-target="#exercise-4.1">Exercise 4.1</a></li>
+  </ul></li>
+  <li><a href="#back-to-the-oil-rigs" id="toc-back-to-the-oil-rigs" class="nav-link" data-scroll-target="#back-to-the-oil-rigs">4.3 Back to the oil rigs</a>
+  <ul class="collapse">
+  <li><a href="#exercise-4.2" id="toc-exercise-4.2" class="nav-link" data-scroll-target="#exercise-4.2">Exercise 4.2</a></li>
+  <li><a href="#exercise-4.3-choosing-ε" id="toc-exercise-4.3-choosing-ε" class="nav-link" data-scroll-target="#exercise-4.3-choosing-ε">Exercise 4.3: choosing ε</a></li>
+  <li><a href="#optional-extension-whats-new-since-2019" id="toc-optional-extension-whats-new-since-2019" class="nav-link" data-scroll-target="#optional-extension-whats-new-since-2019">Optional extension: what’s new since 2019?</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#using-clusters-responsibly" id="toc-using-clusters-responsibly" class="nav-link" data-scroll-target="#using-clusters-responsibly">5. Using clusters responsibly</a>
+  <ul class="collapse">
+  <li><a href="#spot-the-problem-clustering-always-finds-clusters" id="toc-spot-the-problem-clustering-always-finds-clusters" class="nav-link" data-scroll-target="#spot-the-problem-clustering-always-finds-clusters">5.1 Spot the problem: clustering always finds clusters</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.1" id="toc-exercise-5.1" class="nav-link" data-scroll-target="#exercise-5.1">Exercise 5.1</a></li>
+  </ul></li>
+  <li><a href="#labels-stick-to-people" id="toc-labels-stick-to-people" class="nav-link" data-scroll-target="#labels-stick-to-people">5.2 Labels stick to people</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.2-discussion" id="toc-exercise-5.2-discussion" class="nav-link" data-scroll-target="#exercise-5.2-discussion">Exercise 5.2 (discussion)</a></li>
+  </ul></li>
+  <li><a href="#which-method" id="toc-which-method" class="nav-link" data-scroll-target="#which-method">5.3 Which method?</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.3" id="toc-exercise-5.3" class="nav-link" data-scroll-target="#exercise-5.3">Exercise 5.3</a></li>
+  </ul></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/oballinger/BASC0005/blob/main/notebooks/W10. Clustering.ipynb" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Clustering</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="workshop-10-open-in-colab" class="level2">
+<h2 class="anchored" data-anchor-id="workshop-10-open-in-colab"><em>Workshop 10</em> <a href="https://colab.research.google.com/github/oballinger/BASC0005/blob/main/notebooks/W10.%20Clustering.ipynb"><img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></h2>
+<p>Last week every observation came with a label (did this passenger survive?). This week there are <strong>no labels</strong>. We want to find groups we didn’t know to look for: which London neighbourhoods are alike, which satellite detections belong to the same oil platform. That is <strong>unsupervised learning</strong>, and the most common version of it is <strong>clustering</strong>.</p>
+<p>The workshop follows the lecture:</p>
+<ol type="1">
+<li><strong>Finding oil rigs from space</strong>: a first look at the problem</li>
+<li><strong>K-means</strong>: building a mini geodemographic classification of London’s 624 wards</li>
+<li><strong>Hierarchical clustering</strong>: London’s 32 boroughs as a family tree</li>
+<li><strong>DBSCAN</strong>: air-quality sensors in California, then back to the oil rigs</li>
+<li><strong>Using clusters responsibly</strong>: clustering always finds clusters</li>
+</ol>
+<section id="aims" class="level3">
+<h3 class="anchored" data-anchor-id="aims">Aims</h3>
+<ul>
+<li>Build a feature matrix, standardise it, and explain why standardising matters</li>
+<li>Run k-means, choose k with elbow and silhouette plots, and profile (and name) the clusters</li>
+<li>Read a dendrogram and cut it into clusters</li>
+<li>Run DBSCAN with a radius that has a real-world meaning (km, metres), and explain when it beats k-means</li>
+<li>Critically assess a clustering: is the structure real, and are the labels fair?</li>
+</ul>
+<p><strong>Data.</strong> Offshore infrastructure locations: <a href="https://globalfishingwatch.org/datasets-and-code/offshore-infrastructure/">Global Fishing Watch</a> (CC BY-NC 4.0). London ward populations and areas: ONS / London Datastore (the same file as the lecture). California air quality: US EPA (Week 3).</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:55.504802Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:55.504700Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:56.753320Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:56.752893Z&quot;}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans, DBSCAN</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score, adjusted_rand_score</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs, make_moons</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.cluster.hierarchy <span class="im">import</span> linkage, dendrogram, fcluster</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>, context<span class="op">=</span><span class="st">"notebook"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>PAL <span class="op">=</span> [<span class="st">"#2a78d6"</span>, <span class="st">"#eb6834"</span>, <span class="st">"#1baf7a"</span>, <span class="st">"#eda100"</span>, <span class="st">"#e87ba4"</span>, <span class="st">"#008300"</span>, <span class="st">"#4a3aa7"</span>, <span class="st">"#e34948"</span>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>sns.set_palette(PAL)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>R_EARTH_KM <span class="op">=</span> <span class="dv">6371</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="finding-oil-rigs-from-space" class="level1">
+<h1>1. Finding oil rigs from space</h1>
+<p>Global Fishing Watch maps offshore oil platforms and wind turbines worldwide from <strong>Sentinel-1 radar</strong> and <strong>Sentinel-2 optical</strong> imagery. Every image produces thousands of detections of bright objects at sea. Most are ships, which we can remove because they broadcast their position (AIS). What’s left is a noisy mix of fixed structures, unmatched vessels and artefacts.</p>
+<p>The key insight: <strong>ships move, platforms don’t</strong>. A platform is detected at the same spot, pass after pass. So we look for places where detections <strong>pile up</strong>. That’s a clustering problem.</p>
+<p>We’ll work in the <strong>southern North Sea</strong> (between East Anglia, the Netherlands and Belgium): old gas platforms plus some of the world’s biggest wind farms.</p>
+<p>First, the answer key: GFW’s published list of structures in this box.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:56.754667Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:56.754548Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:56.789131Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:56.788850Z&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>BASE <span class="op">=</span> <span class="st">"https://storage.googleapis.com/qm2/2627/w10/"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>structures <span class="op">=</span> pd.read_csv(BASE <span class="op">+</span> <span class="st">"structures.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"first_seen"</span>, <span class="st">"last_seen"</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(structures.shape)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>structures.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(2371, 8)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">structure_id</th>
+<th data-quarto-table-cell-role="th">lat</th>
+<th data-quarto-table-cell-role="th">lon</th>
+<th data-quarto-table-cell-role="th">label</th>
+<th data-quarto-table-cell-role="th">first_seen</th>
+<th data-quarto-table-cell-role="th">last_seen</th>
+<th data-quarto-table-cell-role="th">n_months</th>
+<th data-quarto-table-cell-role="th">eez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2709</td>
+<td>51.666971</td>
+<td>2.745049</td>
+<td>wind</td>
+<td>2019-11-01</td>
+<td>2022-01-01</td>
+<td>27</td>
+<td>Belgium</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2757</td>
+<td>53.986850</td>
+<td>1.733612</td>
+<td>wind</td>
+<td>2020-10-01</td>
+<td>2022-01-01</td>
+<td>16</td>
+<td>United Kingdom</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2784</td>
+<td>51.592786</td>
+<td>2.980317</td>
+<td>wind</td>
+<td>2017-09-01</td>
+<td>2022-01-01</td>
+<td>53</td>
+<td>Belgium</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2794</td>
+<td>51.695871</td>
+<td>3.049368</td>
+<td>wind</td>
+<td>2020-04-01</td>
+<td>2022-01-01</td>
+<td>22</td>
+<td>Netherlands</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>3296</td>
+<td>53.893745</td>
+<td>1.784230</td>
+<td>wind</td>
+<td>2018-12-01</td>
+<td>2022-01-01</td>
+<td>38</td>
+<td>United Kingdom</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:56.790224Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:56.790160Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:56.792501Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:56.792229Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>structures[<span class="st">"label"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>label
+wind       2105
+oil         225
+unknown      41
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:56.793400Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:56.793346Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:56.875974Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:56.875515Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">7</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (lab, g) <span class="kw">in</span> <span class="bu">enumerate</span>(structures.groupby(<span class="st">"label"</span>)):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    ax.scatter(g.lon, g.lat, s<span class="op">=</span><span class="dv">4</span>, color<span class="op">=</span>PAL[i], label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>lab<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">len</span>(g)<span class="sc">:,}</span><span class="ss">)"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Longitude"</span>, ylabel<span class="op">=</span><span class="st">"Latitude"</span>, title<span class="op">=</span><span class="st">"Offshore structures in the southern North Sea (GFW)"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="dv">1</span> <span class="op">/</span> np.cos(np.radians(<span class="fl">52.7</span>)))   <span class="co"># so a km east looks as long as a km north</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ax.legend(markerscale<span class="op">=</span><span class="dv">4</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The lines and grids are wind farms; the scattered points further north are mostly gas platforms.</p>
+<p><strong>Where do these locations come from?</strong> GFW’s public table holds one cleaned location per structure. It doesn’t include the raw satellite detections that went into finding them. So, to practise the method, we’ve <strong>simulated</strong> those raw detections (script: <code>notebooks/data_prep/w10_offshore.py</code>):</p>
+<ul>
+<li>each structure present in a 6-month window is detected on about 15 of ~30 radar passes, each time a few tens of metres off (radar pixels are 10 m and positions are noisy)</li>
+<li>15,000 detections of <strong>unmatched vessels</strong> are scattered at random across the box</li>
+<li>40 <strong>anchored vessels</strong> swing around a fixed spot, producing loose pile-ups (these are the tricky ones)</li>
+</ul>
+<p>The structure locations are real; the detections are made up but realistic in spirit. There are two windows, the first half of 2019 and the first half of 2021.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:56.877192Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:56.877101Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.001754Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.001425Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>det <span class="op">=</span> pd.read_csv(BASE <span class="op">+</span> <span class="st">"detections_sim.csv"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(det[<span class="st">"window"</span>].value_counts())</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>det21 <span class="op">=</span> det[det[<span class="st">"window"</span>] <span class="op">==</span> <span class="st">"2021H1"</span>].copy()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">7</span>))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(det21.lon, det21.lat, s<span class="op">=</span><span class="fl">0.3</span>, color<span class="op">=</span><span class="st">"#444444"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Longitude"</span>, ylabel<span class="op">=</span><span class="st">"Latitude"</span>, title<span class="op">=</span><span class="st">"6 months of detections with no AIS match (simulated, 2021 H1)"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="dv">1</span> <span class="op">/</span> np.cos(np.radians(<span class="fl">52.7</span>)))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>window
+2021H1    48336
+2019H1    42417
+Name: count, dtype: int64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>At this scale the structures and the noise blur together. Zoom into a small patch, about 7 km across, off the Belgian coast:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.003405Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.003314Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.037256Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.036933Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> zoom(df, lon<span class="op">=</span>(<span class="fl">2.75</span>, <span class="fl">2.85</span>), lat<span class="op">=</span>(<span class="fl">51.70</span>, <span class="fl">51.76</span>)):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[df.lon.between(<span class="op">*</span>lon) <span class="op">&amp;</span> df.lat.between(<span class="op">*</span>lat)]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> zoom(det21)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">6</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(z.lon, z.lat, s<span class="op">=</span><span class="dv">6</span>, color<span class="op">=</span><span class="st">"#444444"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Longitude"</span>, ylabel<span class="op">=</span><span class="st">"Latitude"</span>, title<span class="op">=</span><span class="ss">f"Zoomed in: </span><span class="sc">{</span><span class="bu">len</span>(z)<span class="sc">}</span><span class="ss"> detections"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="dv">1</span> <span class="op">/</span> np.cos(np.radians(<span class="fl">51.7</span>)))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="exercise-1.1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1.1">Exercise 1.1</h3>
+<p>Look at the zoomed plot. Roughly <strong>how many structures</strong> do you think are in this patch? How did you decide which points belong together, and which are noise? Write down your answer; we’ll get the algorithm to do the same in Section 4.</p>
+<p><em>Your answer here.</em></p>
+<p>Keep your answer in mind: what you just did by eye used <strong>features</strong> (the position of each point), a <strong>distance</strong> (how close points are), and a <strong>scale</strong> (what counts as “close”). Every clustering method needs all three.</p>
+</section>
+</section>
+<section id="k-means" class="level1">
+<h1>2. K-means</h1>
+<section id="how-k-means-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-k-means-works">2.1 How k-means works</h2>
+<p>K-means tries to make each cluster as <strong>tight</strong> as possible: it minimises the total squared distance from each point to its cluster’s centre (the <em>centroid</em>).</p>
+<ol type="1">
+<li>Drop k centroids at random</li>
+<li>Assign each point to its nearest centroid</li>
+<li>Move each centroid to the mean of its points</li>
+<li>Repeat 2–3 until nothing changes</li>
+</ol>
+<p>Let’s watch it work on data where the answer is obvious (the lecture’s “how many groups do you see?” example).</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.038503Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.038432Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.192573Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.191845Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Xb, _ <span class="op">=</span> make_blobs(n_samples<span class="op">=</span><span class="dv">300</span>, centers<span class="op">=</span>[(<span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">2</span>), (<span class="dv">0</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)], cluster_std<span class="op">=</span><span class="fl">1.1</span>, random_state<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, n_iter <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">20</span>]):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># init='random' + one start + a few iterations lets us watch the algorithm mid-way</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, init<span class="op">=</span><span class="st">"random"</span>, n_init<span class="op">=</span><span class="dv">1</span>, max_iter<span class="op">=</span>n_iter, random_state<span class="op">=</span><span class="dv">4</span>).fit(Xb)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    ax.scatter(Xb[:, <span class="dv">0</span>], Xb[:, <span class="dv">1</span>], s<span class="op">=</span><span class="dv">12</span>, c<span class="op">=</span>[PAL[l] <span class="cf">for</span> l <span class="kw">in</span> km.labels_], alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    ax.scatter(<span class="op">*</span>km.cluster_centers_.T, s<span class="op">=</span><span class="dv">250</span>, marker<span class="op">=</span><span class="st">"X"</span>, c<span class="op">=</span>PAL[:<span class="dv">3</span>], edgecolors<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"after </span><span class="sc">{</span>n_iter<span class="sc">}</span><span class="ss"> iteration(s)</span><span class="ch">\n</span><span class="ss">inertia = </span><span class="sc">{</span>km<span class="sc">.</span>inertia_<span class="sc">:.0f}</span><span class="ss">"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Inertia</strong> is the thing k-means minimises: the total squared distance from points to their centroids. It falls as the centroids settle.</p>
+<p>The fine print (from the lecture):</p>
+<ul>
+<li><strong>You must choose k</strong> before you start</li>
+<li><strong>Random starts</strong> can land in a bad solution, so scikit-learn runs it <code>n_init</code> times and keeps the best</li>
+<li>It assumes clusters are <strong>round and similar in size</strong></li>
+<li><strong>Every point</strong> is assigned to a cluster, even outliers</li>
+</ul>
+</section>
+<section id="case-study-london-geodemographics" class="level2">
+<h2 class="anchored" data-anchor-id="case-study-london-geodemographics">2.2 Case study: London geodemographics</h2>
+<p><strong>Geodemographics</strong> classifies neighbourhoods by who lives there. The UK’s Output Area Classification, developed at UCL with the ONS, uses k-means on census variables to group every small area in the country. It is used in retail, public health and policy.</p>
+<p>We’ll build a mini version for London’s <strong>624 wards</strong>. The file has the population of each ward in 5-year age bands, plus its area in hectares.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.194454Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.194361Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.422650Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.422151Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wards <span class="op">=</span> pd.read_csv(<span class="st">"https://qm2.s3.eu-west-2.amazonaws.com/wk9/borough_density.csv"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>age_cols <span class="op">=</span> [<span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>, <span class="st">"15-19"</span>, <span class="st">"20-24"</span>, <span class="st">"25-29"</span>, <span class="st">"30-34"</span>, <span class="st">"35-39"</span>, <span class="st">"40-44"</span>, <span class="st">"45-49"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">"50-54"</span>, <span class="st">"55-59"</span>, <span class="st">"60-64"</span>, <span class="st">"65-69"</span>, <span class="st">"70-74"</span>, <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85-89"</span>, <span class="st">"90plus"</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wards.shape)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>wards[[<span class="st">"NAME"</span>, <span class="st">"Local Authority"</span>, <span class="st">"All Ages"</span>, <span class="st">"HECTARES"</span>] <span class="op">+</span> age_cols[:<span class="dv">6</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(624, 41)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">NAME</th>
+<th data-quarto-table-cell-role="th">Local Authority</th>
+<th data-quarto-table-cell-role="th">All Ages</th>
+<th data-quarto-table-cell-role="th">HECTARES</th>
+<th data-quarto-table-cell-role="th">0-4</th>
+<th data-quarto-table-cell-role="th">5-9</th>
+<th data-quarto-table-cell-role="th">10-14</th>
+<th data-quarto-table-cell-role="th">15-19</th>
+<th data-quarto-table-cell-role="th">20-24</th>
+<th data-quarto-table-cell-role="th">25-29</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Chessington South Ward</td>
+<td>Kingston upon Thames</td>
+<td>10246.0</td>
+<td>755.173</td>
+<td>761</td>
+<td>616</td>
+<td>630</td>
+<td>621</td>
+<td>590</td>
+<td>695</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Tolworth and Hook Rise Ward</td>
+<td>Kingston upon Thames</td>
+<td>9848.0</td>
+<td>259.464</td>
+<td>713</td>
+<td>573</td>
+<td>579</td>
+<td>638</td>
+<td>629</td>
+<td>724</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Berrylands Ward</td>
+<td>Kingston upon Thames</td>
+<td>9475.0</td>
+<td>145.390</td>
+<td>674</td>
+<td>461</td>
+<td>396</td>
+<td>411</td>
+<td>773</td>
+<td>820</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Alexandra Ward</td>
+<td>Kingston upon Thames</td>
+<td>9263.0</td>
+<td>268.506</td>
+<td>611</td>
+<td>575</td>
+<td>632</td>
+<td>549</td>
+<td>588</td>
+<td>565</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Beverley Ward</td>
+<td>Kingston upon Thames</td>
+<td>10123.0</td>
+<td>187.821</td>
+<td>740</td>
+<td>628</td>
+<td>609</td>
+<td>613</td>
+<td>634</td>
+<td>707</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>Features.</strong> We describe each ward with 7 numbers: the share of residents in 6 age bands, and population density.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.423801Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.423723Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.434872Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.434159Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>bands <span class="op">=</span> {<span class="st">"Children (0-14)"</span>:      [<span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>],</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Young adults (15-24)"</span>: [<span class="st">"15-19"</span>, <span class="st">"20-24"</span>],</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"25-34"</span>:                [<span class="st">"25-29"</span>, <span class="st">"30-34"</span>],</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"35-49"</span>:                [<span class="st">"35-39"</span>, <span class="st">"40-44"</span>, <span class="st">"45-49"</span>],</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"50-64"</span>:                [<span class="st">"50-54"</span>, <span class="st">"55-59"</span>, <span class="st">"60-64"</span>],</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">"65+"</span>:                  [<span class="st">"65-69"</span>, <span class="st">"70-74"</span>, <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85-89"</span>, <span class="st">"90plus"</span>]}</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame({band: wards[cols].<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> wards[<span class="st">"All Ages"</span>] <span class="cf">for</span> band, cols <span class="kw">in</span> bands.items()})</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"Density (people/ha)"</span>] <span class="op">=</span> wards[<span class="st">"All Ages"</span>] <span class="op">/</span> wards[<span class="st">"HECTARES"</span>]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>X.index <span class="op">=</span> wards[<span class="st">"NAME"</span>]</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>X.describe().<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Children (0-14)</th>
+<th data-quarto-table-cell-role="th">Young adults (15-24)</th>
+<th data-quarto-table-cell-role="th">25-34</th>
+<th data-quarto-table-cell-role="th">35-49</th>
+<th data-quarto-table-cell-role="th">50-64</th>
+<th data-quarto-table-cell-role="th">65+</th>
+<th data-quarto-table-cell-role="th">Density (people/ha)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>624.000</td>
+<td>624.000</td>
+<td>624.000</td>
+<td>624.000</td>
+<td>624.000</td>
+<td>624.000</td>
+<td>624.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.186</td>
+<td>0.132</td>
+<td>0.197</td>
+<td>0.225</td>
+<td>0.146</td>
+<td>0.114</td>
+<td>80.319</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.035</td>
+<td>0.031</td>
+<td>0.063</td>
+<td>0.020</td>
+<td>0.030</td>
+<td>0.039</td>
+<td>47.224</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.070</td>
+<td>0.067</td>
+<td>0.071</td>
+<td>0.169</td>
+<td>0.074</td>
+<td>0.035</td>
+<td>1.761</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.166</td>
+<td>0.114</td>
+<td>0.147</td>
+<td>0.212</td>
+<td>0.123</td>
+<td>0.083</td>
+<td>45.298</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.184</td>
+<td>0.130</td>
+<td>0.191</td>
+<td>0.224</td>
+<td>0.142</td>
+<td>0.107</td>
+<td>68.600</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.206</td>
+<td>0.145</td>
+<td>0.240</td>
+<td>0.237</td>
+<td>0.168</td>
+<td>0.138</td>
+<td>107.920</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>0.309</td>
+<td>0.330</td>
+<td>0.390</td>
+<td>0.289</td>
+<td>0.236</td>
+<td>0.237</td>
+<td>265.061</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.436126Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.436037Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.487810Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.487439Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>X.boxplot(ax<span class="op">=</span>ax, vert<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"The raw features are on wildly different scales"</span>, xlabel<span class="op">=</span><span class="st">"value"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="spot-the-problem-forgetting-to-scale" class="level2">
+<h2 class="anchored" data-anchor-id="spot-the-problem-forgetting-to-scale">2.3 Spot the problem: forgetting to scale</h2>
+<p>A colleague runs k-means straight on this table and reports five neighbourhood types. Here are their results.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.488823Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.488752Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.519100Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.518579Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>km_raw <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">5</span>, n_init<span class="op">=</span><span class="dv">20</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(X)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X.groupby(km_raw.labels_).mean().<span class="bu">round</span>(<span class="dv">3</span>).assign(n_wards<span class="op">=</span>pd.Series(km_raw.labels_).value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Children (0-14)</th>
+<th data-quarto-table-cell-role="th">Young adults (15-24)</th>
+<th data-quarto-table-cell-role="th">25-34</th>
+<th data-quarto-table-cell-role="th">35-49</th>
+<th data-quarto-table-cell-role="th">50-64</th>
+<th data-quarto-table-cell-role="th">65+</th>
+<th data-quarto-table-cell-role="th">Density (people/ha)</th>
+<th data-quarto-table-cell-role="th">n_wards</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.176</td>
+<td>0.140</td>
+<td>0.250</td>
+<td>0.226</td>
+<td>0.124</td>
+<td>0.084</td>
+<td>124.914</td>
+<td>89</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.193</td>
+<td>0.129</td>
+<td>0.171</td>
+<td>0.226</td>
+<td>0.156</td>
+<td>0.124</td>
+<td>54.912</td>
+<td>197</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.168</td>
+<td>0.143</td>
+<td>0.261</td>
+<td>0.223</td>
+<td>0.120</td>
+<td>0.084</td>
+<td>172.690</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.187</td>
+<td>0.125</td>
+<td>0.139</td>
+<td>0.219</td>
+<td>0.175</td>
+<td>0.155</td>
+<td>26.189</td>
+<td>124</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.189</td>
+<td>0.132</td>
+<td>0.219</td>
+<td>0.228</td>
+<td>0.135</td>
+<td>0.097</td>
+<td>86.842</td>
+<td>140</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.520937Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.520813Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.579557Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.578816Z&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>X[<span class="st">"Density (people/ha)"</span>], y<span class="op">=</span>X[<span class="st">"65+"</span>], hue<span class="op">=</span>km_raw.labels_, palette<span class="op">=</span>PAL[:<span class="dv">5</span>], s<span class="op">=</span><span class="dv">20</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Unscaled k-means, k = 5"</span>, ylabel<span class="op">=</span><span class="st">"Share aged 65+"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>ax.legend(title<span class="op">=</span><span class="st">"cluster"</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="exercise-2.1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2.1">Exercise 2.1</h3>
+<p>Look at the table and the plot. <strong>What are these five “neighbourhood types” really based on?</strong> Why did this happen? (Hint: k-means uses Euclidean distance, <span class="math inline">\(d(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2 + \dots}\)</span>. How big is a typical difference in density compared with a typical difference in the share aged 65+?)</p>
+<p><em>Your answer here.</em></p>
+<p><strong>The fix</strong> has two parts:</p>
+<ol type="1">
+<li>Density is very skewed (a few wards are extremely dense), so take its <strong>log</strong>.</li>
+<li><strong>Standardise</strong> every feature to mean 0 and standard deviation 1, so each counts equally in the distance.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.581633Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.581468Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.589951Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.589485Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"Density (people/ha)"</span>] <span class="op">=</span> np.log(X[<span class="st">"Density (people/ha)"</span>])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.rename(columns<span class="op">=</span>{<span class="st">"Density (people/ha)"</span>: <span class="st">"Log density"</span>})</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> StandardScaler().fit_transform(X)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> pd.DataFrame(Z, columns<span class="op">=</span>X.columns, index<span class="op">=</span>X.index)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Z.describe().<span class="bu">round</span>(<span class="dv">2</span>).loc[[<span class="st">"mean"</span>, <span class="st">"std"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Children (0-14)</th>
+<th data-quarto-table-cell-role="th">Young adults (15-24)</th>
+<th data-quarto-table-cell-role="th">25-34</th>
+<th data-quarto-table-cell-role="th">35-49</th>
+<th data-quarto-table-cell-role="th">50-64</th>
+<th data-quarto-table-cell-role="th">65+</th>
+<th data-quarto-table-cell-role="th">Log density</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>-0.0</td>
+<td>-0.0</td>
+<td>-0.0</td>
+<td>-0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">std</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="choosing-k" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-k">2.4 Choosing k</h2>
+<p>There’s no right answer to check against, so we use two diagnostics:</p>
+<ul>
+<li><strong>Elbow:</strong> plot inertia against k and look for where adding clusters stops helping much</li>
+<li><strong>Silhouette:</strong> for each point, how much closer it is to its own cluster than to the next nearest one, averaged (−1 to 1; higher is better)</li>
+</ul>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.591723Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.591597Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:57.933606Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:57.933012Z&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">11</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>inertia, sil <span class="op">=</span> [], []</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> ks:</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, n_init<span class="op">=</span><span class="dv">20</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(Z)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    inertia.append(km.inertia_)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    sil.append(silhouette_score(Z, km.labels_))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(<span class="bu">list</span>(ks), inertia, <span class="st">"o-"</span>, color<span class="op">=</span>PAL[<span class="dv">0</span>])<span class="op">;</span> axes[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Elbow: inertia"</span>, xlabel<span class="op">=</span><span class="st">"k"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(<span class="bu">list</span>(ks), sil, <span class="st">"o-"</span>, color<span class="op">=</span>PAL[<span class="dv">1</span>])<span class="op">;</span> axes[<span class="dv">1</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Silhouette (higher = better)"</span>, xlabel<span class="op">=</span><span class="st">"k"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>pd.Series(sil, index<span class="op">=</span>ks, name<span class="op">=</span><span class="st">"silhouette"</span>).<span class="bu">round</span>(<span class="dv">3</span>).to_frame().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">2</th>
+<th data-quarto-table-cell-role="th">3</th>
+<th data-quarto-table-cell-role="th">4</th>
+<th data-quarto-table-cell-role="th">5</th>
+<th data-quarto-table-cell-role="th">6</th>
+<th data-quarto-table-cell-role="th">7</th>
+<th data-quarto-table-cell-role="th">8</th>
+<th data-quarto-table-cell-role="th">9</th>
+<th data-quarto-table-cell-role="th">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">silhouette</td>
+<td>0.283</td>
+<td>0.277</td>
+<td>0.267</td>
+<td>0.265</td>
+<td>0.239</td>
+<td>0.218</td>
+<td>0.216</td>
+<td>0.204</td>
+<td>0.215</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="exercise-2.2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2.2">Exercise 2.2</h3>
+<ol type="1">
+<li>Is there a clear elbow?</li>
+<li>Silhouette is highest at k = 2. Why might we still prefer k = 5? What would a two-cluster London probably look like?</li>
+</ol>
+<p><em>Your answer here.</em></p>
+<p>Choosing k is a <strong>judgement call</strong>, not a calculation. Like the lecture, we’ll go with <strong>k = 5</strong>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:57.934888Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:57.934822Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.011045Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.010628Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>km5 <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">5</span>, n_init<span class="op">=</span><span class="dv">50</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(Z)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>wards[<span class="st">"cluster"</span>] <span class="op">=</span> km5.labels_</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"silhouette:"</span>, <span class="bu">round</span>(silhouette_score(Z, km5.labels_), <span class="dv">3</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>wards[<span class="st">"cluster"</span>].value_counts().sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>silhouette: 0.265</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>cluster
+0    164
+1    131
+2    111
+3     60
+4    158
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>Each ward’s boundary is stored as text (WKT) in the <code>geometry</code> column, so we can map the clusters.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.012463Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.012319Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.316487Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.316072Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gwards <span class="op">=</span> gpd.GeoDataFrame(wards, geometry<span class="op">=</span>gpd.GeoSeries.from_wkt(wards[<span class="st">"geometry"</span>]), crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    gwards[gwards.cluster <span class="op">==</span> k].plot(ax<span class="op">=</span>ax, color<span class="op">=</span>PAL[k], edgecolor<span class="op">=</span><span class="st">"white"</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>, label<span class="op">=</span><span class="ss">f"cluster </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>[plt.Rectangle((<span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">1</span>, <span class="dv">1</span>, color<span class="op">=</span>PAL[k]) <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)],</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>          labels<span class="op">=</span>[<span class="ss">f"cluster </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)], loc<span class="op">=</span><span class="st">"lower left"</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()<span class="op">;</span> ax.set_title(<span class="st">"London wards clustered on age structure and density (k = 5)"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="what-makes-each-cluster-different" class="level2">
+<h2 class="anchored" data-anchor-id="what-makes-each-cluster-different">2.5 What makes each cluster different?</h2>
+<p>The algorithm outputs numbers 0–4. To interpret them we <strong>profile</strong> each cluster: compare its average features with the London average. The standardised means are handy here: +1 means “one standard deviation above the typical ward”.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.318860Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.318778Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.396378Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.395978Z&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> Z.groupby(wards[<span class="st">"cluster"</span>].values).mean()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(profile, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".1f"</span>, cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, center<span class="op">=</span><span class="dv">0</span>, vmin<span class="op">=-</span><span class="dv">2</span>, vmax<span class="op">=</span><span class="dv">2</span>, ax<span class="op">=</span>ax,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            cbar_kws<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"standard deviations from the London mean"</span>})</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"cluster"</span>, title<span class="op">=</span><span class="st">"Cluster profiles"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.397421Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.397349Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.401779Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.401467Z&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Back in real units: the average ward in each cluster</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> X.groupby(wards[<span class="st">"cluster"</span>].values).mean()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>real[<span class="st">"People per ha"</span>] <span class="op">=</span> np.exp(real.pop(<span class="st">"Log density"</span>))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>real.<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Children (0-14)</th>
+<th data-quarto-table-cell-role="th">Young adults (15-24)</th>
+<th data-quarto-table-cell-role="th">25-34</th>
+<th data-quarto-table-cell-role="th">35-49</th>
+<th data-quarto-table-cell-role="th">50-64</th>
+<th data-quarto-table-cell-role="th">65+</th>
+<th data-quarto-table-cell-role="th">People per ha</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.224</td>
+<td>0.144</td>
+<td>0.180</td>
+<td>0.217</td>
+<td>0.137</td>
+<td>0.097</td>
+<td>66.467</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.156</td>
+<td>0.124</td>
+<td>0.277</td>
+<td>0.233</td>
+<td>0.123</td>
+<td>0.086</td>
+<td>118.633</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.181</td>
+<td>0.105</td>
+<td>0.193</td>
+<td>0.250</td>
+<td>0.153</td>
+<td>0.118</td>
+<td>71.476</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.168</td>
+<td>0.193</td>
+<td>0.256</td>
+<td>0.200</td>
+<td>0.108</td>
+<td>0.074</td>
+<td>105.019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.180</td>
+<td>0.123</td>
+<td>0.129</td>
+<td>0.217</td>
+<td>0.184</td>
+<td>0.166</td>
+<td>31.832</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="exercise-2.3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2.3">Exercise 2.3</h3>
+<ol type="1">
+<li>Give each cluster a short <strong>name</strong> based on its profile (e.g.&nbsp;“older outer suburbs”). Which boroughs are most common in each cluster? (Hint: <code>wards.groupby("cluster")["Local Authority"].agg(lambda s: s.value_counts().index[:3].tolist())</code>)</li>
+<li>Remember: <strong>the names are ours</strong>, not the algorithm’s. For which cluster was naming hardest? Which of your names carry a judgement about the people who live there?</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.402770Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.402713Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.404026Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.403760Z&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2.4-random-starts" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2.4-random-starts">Exercise 2.4: random starts</h3>
+<p>K-means starts from random centroids. Run <code>KMeans(n_clusters=5, init="random", n_init=1, random_state=s)</code> for <code>s</code> in <code>range(10)</code>. For each run, record the inertia and the <strong>adjusted Rand index</strong> against <code>km5.labels_</code> (<code>adjusted_rand_score(km5.labels_, labels)</code>: 1 = identical groupings, whatever the cluster numbers are called).</p>
+<p>Do all runs find the same solution? What does this tell you about why <code>n_init</code> exists?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.404947Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.404899Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.406106Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.405859Z&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="hierarchical-clustering" class="level1">
+<h1>3. Hierarchical clustering</h1>
+<p><strong>Agglomerative</strong> clustering builds a family tree from the bottom up:</p>
+<ol type="1">
+<li>Start with every observation as its own cluster</li>
+<li>Merge the two closest clusters</li>
+<li>Repeat until everything is one cluster</li>
+</ol>
+<p><strong>Linkage</strong> decides what “closest” means for groups: nearest members (<code>single</code>), furthest members (<code>complete</code>), <code>average</code>, or <code>ward</code> (the merge that increases within-cluster spread the least; the same idea as k-means’ inertia). You don’t choose k up front: you cut the tree wherever you like. It’s slow for big data, so it suits tens to thousands of observations.</p>
+<p>With 624 wards the tree would be unreadable, so let’s do London’s <strong>32 boroughs</strong> with the same 7 features.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.406994Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.406938Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.535602Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.535291Z&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> wards.groupby(<span class="st">"Local Authority"</span>)[age_cols <span class="op">+</span> [<span class="st">"All Ages"</span>, <span class="st">"HECTARES"</span>]].<span class="bu">sum</span>()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> pd.DataFrame({band: counts[cols].<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> counts[<span class="st">"All Ages"</span>] <span class="cf">for</span> band, cols <span class="kw">in</span> bands.items()})</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>B[<span class="st">"Log density"</span>] <span class="op">=</span> np.log(counts[<span class="st">"All Ages"</span>] <span class="op">/</span> counts[<span class="st">"HECTARES"</span>])</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>ZB <span class="op">=</span> StandardScaler().fit_transform(B)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(B.shape)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> linkage(ZB, method<span class="op">=</span><span class="st">"ward"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>cut <span class="op">=</span> <span class="fl">0.55</span> <span class="op">*</span> L[:, <span class="dv">2</span>].<span class="bu">max</span>()</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">5</span>))</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>dendrogram(L, labels<span class="op">=</span>B.index.tolist(), leaf_rotation<span class="op">=</span><span class="dv">90</span>, color_threshold<span class="op">=</span>cut, above_threshold_color<span class="op">=</span><span class="st">"#888888"</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>ax.axhline(cut, color<span class="op">=</span><span class="st">"black"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"distance at merge"</span>, title<span class="op">=</span><span class="st">"London boroughs, Ward linkage"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(32, 7)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Reading a dendrogram:</strong> the height of each join shows how different the two merged groups are. Boroughs that join low down are very alike. The dotted line cuts the tree into clusters; every branch it crosses is one cluster.</p>
+<p><code>fcluster</code> does the cut for us:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.536584Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.536531Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.539711Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.539458Z&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>B[<span class="st">"tree_cluster"</span>] <span class="op">=</span> fcluster(L, t<span class="op">=</span><span class="dv">3</span>, criterion<span class="op">=</span><span class="st">"maxclust"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>B.groupby(<span class="st">"tree_cluster"</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> d: <span class="st">", "</span>.join(d.index))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>tree_cluster
+1    Barking and Dagenham, Barnet, Bexley, Bromley,...
+2                                Newham, Tower Hamlets
+3    Brent, Camden, Ealing, Greenwich, Hackney, Ham...
+dtype: str</code></pre>
+</div>
+</div>
+<section id="exercise-3.1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3.1">Exercise 3.1</h3>
+<ol type="1">
+<li>Which two boroughs are the most similar (the lowest join)? Which borough or group joins the rest <strong>last</strong>, and what does its profile look like?</li>
+<li>Redraw the dendrogram with <code>method="single"</code>. How does the tree’s shape change? Single linkage is known for “chaining”: explain what you see.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.540630Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.540574Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.541842Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.541598Z&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="dbscan" class="level1">
+<h1>4. DBSCAN</h1>
+<p><strong>DBSCAN</strong> (Density-Based Spatial Clustering of Applications with Noise) has two settings: a radius <strong>ε</strong> (<code>eps</code>) and a minimum number of points (<code>min_samples</code>).</p>
+<ul>
+<li><strong>Core</strong> points have at least <code>min_samples</code> neighbours within ε; clusters grow outwards from them</li>
+<li><strong>Border</strong> points are within ε of a core point but don’t have enough neighbours themselves</li>
+<li>Everything else is <strong>noise</strong> (label <code>-1</code>)</li>
+</ul>
+<p>The number of clusters is <strong>discovered</strong>, not chosen.</p>
+<section id="when-k-means-fails" class="level2">
+<h2 class="anchored" data-anchor-id="when-k-means-fails">4.1 When k-means fails</h2>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.542604Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.542559Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.607412Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.606953Z&quot;}" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Xm, _ <span class="op">=</span> make_moons(<span class="dv">400</span>, noise<span class="op">=</span><span class="fl">0.07</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Xm <span class="op">=</span> np.vstack([Xm, np.random.default_rng(<span class="dv">7</span>).uniform([<span class="op">-</span><span class="fl">1.3</span>, <span class="op">-</span><span class="fl">0.8</span>], [<span class="fl">2.3</span>, <span class="fl">1.3</span>], (<span class="dv">25</span>, <span class="dv">2</span>))])</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>lab_km <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">2</span>, n_init<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit_predict(Xm)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>lab_db <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.18</span>, min_samples<span class="op">=</span><span class="dv">6</span>).fit_predict(Xm)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].scatter(<span class="op">*</span>Xm.T, s<span class="op">=</span><span class="dv">12</span>, c<span class="op">=</span>[PAL[l] <span class="cf">for</span> l <span class="kw">in</span> lab_km])<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"k-means (k = 2)"</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].scatter(<span class="op">*</span>Xm.T, s<span class="op">=</span><span class="dv">12</span>, c<span class="op">=</span>[<span class="st">"black"</span> <span class="cf">if</span> l <span class="op">==</span> <span class="op">-</span><span class="dv">1</span> <span class="cf">else</span> PAL[l] <span class="cf">for</span> l <span class="kw">in</span> lab_db])<span class="op">;</span> axes[<span class="dv">1</span>].set_title(<span class="st">"DBSCAN (noise in black)"</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>k-means draws <strong>straight boundaries</strong> between centroids, so it can’t follow curved shapes, and it forces every stray point into a cluster. DBSCAN follows the density of points, and flags the strays as noise.</p>
+</section>
+<section id="air-quality-sensors-in-california" class="level2">
+<h2 class="anchored" data-anchor-id="air-quality-sensors-in-california">4.2 Air-quality sensors in California</h2>
+<p>Week 3’s air-quality data has daily readings from sensor sites across California. We want to find the groups of sensors that sit together (metropolitan areas) without telling the algorithm where the cities are.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.608998Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.608904Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.814727Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.814384Z&quot;}" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>aqi <span class="op">=</span> pd.read_csv(<span class="st">"https://qm2.s3.eu-west-2.amazonaws.com/wk3/california_aqi.csv"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sites <span class="op">=</span> (aqi.groupby(<span class="st">"Site ID"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>            .agg(name<span class="op">=</span>(<span class="st">"Site Name"</span>, <span class="st">"first"</span>), lat<span class="op">=</span>(<span class="st">"latitude"</span>, <span class="st">"first"</span>), lon<span class="op">=</span>(<span class="st">"longitude"</span>, <span class="st">"first"</span>),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                 county<span class="op">=</span>(<span class="st">"COUNTY"</span>, <span class="st">"first"</span>), aqi<span class="op">=</span>(<span class="st">"AQI"</span>, <span class="st">"mean"</span>))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>            .dropna(subset<span class="op">=</span>[<span class="st">"lat"</span>, <span class="st">"lon"</span>, <span class="st">"aqi"</span>]))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(sites), <span class="st">"sensor sites"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>sites.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>166 sensor sites</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">lat</th>
+<th data-quarto-table-cell-role="th">lon</th>
+<th data-quarto-table-cell-role="th">county</th>
+<th data-quarto-table-cell-role="th">aqi</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Site ID</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60010007</td>
+<td>Livermore</td>
+<td>37.687526</td>
+<td>-121.784217</td>
+<td>Alameda</td>
+<td>35.656425</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60010009</td>
+<td>Oakland</td>
+<td>37.743065</td>
+<td>-122.169935</td>
+<td>Alameda</td>
+<td>39.560773</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60010011</td>
+<td>Oakland West</td>
+<td>37.814781</td>
+<td>-122.282347</td>
+<td>Alameda</td>
+<td>34.912429</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60010012</td>
+<td>Laney College</td>
+<td>37.793624</td>
+<td>-122.263376</td>
+<td>Alameda</td>
+<td>35.131868</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60010013</td>
+<td>Berkeley- Aquatic Park</td>
+<td>37.864767</td>
+<td>-122.302741</td>
+<td>Alameda</td>
+<td>41.784916</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>Distance on a globe.</strong> Latitude and longitude aren’t a flat grid, so we use <strong>haversine</strong> (great-circle) distance. scikit-learn’s haversine works in <strong>radians</strong> on a unit sphere, so ε has to be a distance divided by the Earth’s radius: 30 km → <code>30 / 6371</code>.</p>
+<p>A 30 km radius has a real-world meaning: roughly the size of a metropolitan area.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.815753Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.815678Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.890498Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.890107Z&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>coords <span class="op">=</span> np.radians(sites[[<span class="st">"lat"</span>, <span class="st">"lon"</span>]])</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="dv">30</span> <span class="op">/</span> R_EARTH_KM, min_samples<span class="op">=</span><span class="dv">4</span>, metric<span class="op">=</span><span class="st">"haversine"</span>).fit(coords)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>sites[<span class="st">"dbscan"</span>] <span class="op">=</span> db.labels_</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"clusters:"</span>, sites.dbscan.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span>, <span class="st">"| noise sites:"</span>, (sites.dbscan <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>).<span class="bu">sum</span>())</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_sites(col, title, ax):</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> sites[sites[col] <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    ax.scatter(noise.lon, noise.lat, marker<span class="op">=</span><span class="st">"x"</span>, s<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">"#888888"</span>, label<span class="op">=</span><span class="ss">f"noise (</span><span class="sc">{</span><span class="bu">len</span>(noise)<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">sorted</span>(<span class="bu">set</span>(sites[col]) <span class="op">-</span> {<span class="op">-</span><span class="dv">1</span>}):</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> sites[sites[col] <span class="op">==</span> k]</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        ax.scatter(s.lon, s.lat, s<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span>PAL[k <span class="op">%</span> <span class="bu">len</span>(PAL)], label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>s<span class="sc">.</span>county<span class="sc">.</span>mode()[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">len</span>(s)<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(title<span class="op">=</span>title, xlabel<span class="op">=</span><span class="st">"Longitude"</span>, ylabel<span class="op">=</span><span class="st">"Latitude"</span>)<span class="op">;</span> ax.set_aspect(<span class="fl">1.2</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    ax.legend(fontsize<span class="op">=</span><span class="dv">7</span>, frameon<span class="op">=</span><span class="va">False</span>, loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">8</span>))</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>plot_sites(<span class="st">"dbscan"</span>, <span class="st">"DBSCAN, ε = 30 km, min 4 sensors</span><span class="ch">\n</span><span class="st">(legend: most common county)"</span>, ax)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>clusters: 9 | noise sites: 87</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-27-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Colours repeat after 8 clusters, so use the legend’s cluster numbers and counties.</p>
+<section id="exercise-4.1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4.1">Exercise 4.1</h3>
+<ol type="1">
+<li>Run k-means with <code>k = 9</code> on the same sites (use <code>sites[["lat", "lon"]]</code>; for a small area that’s an OK approximation) and plot it with <code>plot_sites</code>. What happens to the isolated rural sensors?</li>
+<li>Try ε = 20 km and ε = 50 km with DBSCAN. How do the number of clusters and the number of noise sites change? Which radius would you defend, and why?</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.891487Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.891417Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:58.892828Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:58.892562Z&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="back-to-the-oil-rigs" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-the-oil-rigs">4.3 Back to the oil rigs</h2>
+<p>Now the problem from Section 1. GFW’s Infrastructure pipeline runs DBSCAN on six months of unmatched detections with a <strong>75 m</strong> radius: tight enough that two turbines a few hundred metres apart stay separate, loose enough to absorb the positional error of each detection.</p>
+<p>Why DBSCAN here?</p>
+<ul>
+<li>Nobody knows in advance how many structures there are, and new ones appear every month</li>
+<li>Most detections are <strong>noise</strong>, and DBSCAN is designed to discard it</li>
+<li>The radius has a <strong>physical meaning</strong> (metres) that we can reason about</li>
+</ul>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:58.893694Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:58.893642Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.166522Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.166209Z&quot;}" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>R_EARTH_M <span class="op">=</span> <span class="dv">6_371_000</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>db21 <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="dv">75</span> <span class="op">/</span> R_EARTH_M, min_samples<span class="op">=</span><span class="dv">5</span>, metric<span class="op">=</span><span class="st">"haversine"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>det21[<span class="st">"cluster"</span>] <span class="op">=</span> db21.fit_predict(np.radians(det21[[<span class="st">"lat"</span>, <span class="st">"lon"</span>]]))</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> det21.cluster.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(det21)<span class="sc">:,}</span><span class="ss"> detections -&gt; </span><span class="sc">{</span>n_clusters<span class="sc">:,}</span><span class="ss"> clusters, </span><span class="sc">{</span>(det21.cluster <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>)<span class="sc">.</span>mean()<span class="sc">:.0%}</span><span class="ss"> noise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>48,336 detections -&gt; 2,215 clusters, 32% noise</code></pre>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.167737Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.167676Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.229383Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.229104Z&quot;}" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> zoom(det21)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].scatter(z.lon, z.lat, s<span class="op">=</span><span class="dv">6</span>, color<span class="op">=</span><span class="st">"#444444"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"Detections"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> z[z.cluster <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].scatter(noise.lon, noise.lat, s<span class="op">=</span><span class="dv">6</span>, marker<span class="op">=</span><span class="st">"x"</span>, color<span class="op">=</span><span class="st">"#aaaaaa"</span>, label<span class="op">=</span><span class="st">"noise"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>clus <span class="op">=</span> z[z.cluster <span class="op">&gt;=</span> <span class="dv">0</span>]</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].scatter(clus.lon, clus.lat, s<span class="op">=</span><span class="dv">8</span>, c<span class="op">=</span>[PAL[c <span class="op">%</span> <span class="bu">len</span>(PAL)] <span class="cf">for</span> c <span class="kw">in</span> clus.cluster], label<span class="op">=</span><span class="st">"clustered (colour = cluster)"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="ss">f"DBSCAN, ε = 75 m: </span><span class="sc">{</span>clus<span class="sc">.</span>cluster<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> clusters in this patch"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes: ax.set_aspect(<span class="dv">1</span> <span class="op">/</span> np.cos(np.radians(<span class="fl">51.7</span>)))</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>How does that compare with your guess in Exercise 1.1?</p>
+<p>Each cluster becomes one <strong>candidate structure</strong>, located at the mean of its detections. Because the structure list is real, we can check how well we did: for each true structure, is there a cluster centre within 150 m? And for each cluster, is there a true structure nearby?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.230560Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.230485Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.257848Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.257503Z&quot;}" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> BallTree</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>cands <span class="op">=</span> (det21[det21.cluster <span class="op">&gt;=</span> <span class="dv">0</span>].groupby(<span class="st">"cluster"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>         .agg(lat<span class="op">=</span>(<span class="st">"lat"</span>, <span class="st">"mean"</span>), lon<span class="op">=</span>(<span class="st">"lon"</span>, <span class="st">"mean"</span>), n_det<span class="op">=</span>(<span class="st">"lat"</span>, <span class="st">"size"</span>)))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>present <span class="op">=</span> structures[(structures.first_seen <span class="op">&lt;=</span> <span class="st">"2021-06-01"</span>) <span class="op">&amp;</span> (structures.last_seen <span class="op">&gt;=</span> <span class="st">"2021-01-01"</span>)]</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nearest_m(from_df, to_df):</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> BallTree(np.radians(to_df[[<span class="st">"lat"</span>, <span class="st">"lon"</span>]]), metric<span class="op">=</span><span class="st">"haversine"</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    dist, _ <span class="op">=</span> tree.query(np.radians(from_df[[<span class="st">"lat"</span>, <span class="st">"lon"</span>]]), k<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dist[:, <span class="dv">0</span>] <span class="op">*</span> R_EARTH_M</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>present <span class="op">=</span> present.assign(dist_to_cluster<span class="op">=</span>nearest_m(present, cands))</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>cands[<span class="st">"dist_to_structure"</span>] <span class="op">=</span> nearest_m(cands, present)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"true structures: </span><span class="sc">{</span><span class="bu">len</span>(present)<span class="sc">:,}</span><span class="ss">   candidate clusters: </span><span class="sc">{</span><span class="bu">len</span>(cands)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"structures recovered (cluster within 150 m): </span><span class="sc">{</span>(present.dist_to_cluster <span class="op">&lt;</span> <span class="dv">150</span>)<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"clusters with no structure within 150 m:     </span><span class="sc">{</span>(cands.dist_to_structure <span class="op">&gt;</span> <span class="dv">150</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>true structures: 2,208   candidate clusters: 2,215
+structures recovered (cluster within 150 m): 100.0%
+clusters with no structure within 150 m:     10</code></pre>
+</div>
+</div>
+<section id="exercise-4.2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4.2">Exercise 4.2</h3>
+<ol type="1">
+<li>Every structure was recovered, but a few clusters contain <strong>two</strong> structures. Find them (hint: which pairs of structures in <code>present</code> are less than 75 m apart? <code>BallTree.query(..., k=2)</code> gives each point’s nearest <em>other</em> point). Why does DBSCAN merge them, and what would a smaller ε do to the rest of the detections?</li>
+<li>Look at the clusters with <strong>no</strong> structure nearby (<code>cands[cands.dist_to_structure &gt; 150]</code>). How do their number of detections (<code>n_det</code>) compare with the real ones? From Section 1, what are they? This is why GFW follows clustering with a <strong>supervised classifier</strong> (oil / wind / noise): clustering first, then classification.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.258911Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.258852Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.260230Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.259916Z&quot;}" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-4.3-choosing-ε" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4.3-choosing-ε">Exercise 4.3: choosing ε</h3>
+<p>Re-run DBSCAN on <code>det21</code> with ε = 10 m, 75 m, 300 m and 1,000 m (keep <code>min_samples=5</code>) and record the number of clusters and the share of noise for each. Plot the zoomed square for ε = 1,000 m. What goes wrong at each extreme? (Wind turbines are typically spaced 500–1,000 m apart.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.261121Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.261063Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.262348Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.262049Z&quot;}" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="optional-extension-whats-new-since-2019" class="level3">
+<h3 class="anchored" data-anchor-id="optional-extension-whats-new-since-2019">Optional extension: what’s new since 2019?</h3>
+<p>The lecture’s pipeline runs DBSCAN on every 6-month window, then joins the windows together. Cluster the <strong>2019 H1</strong> detections the same way, then find the 2021 candidate structures with <strong>no</strong> 2019 cluster within 150 m. Map them. Can you identify the wind farms that were built between 2019 and 2021? (Compare with <code>structures.first_seen</code>.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.263220Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.263151Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.264508Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.264172Z&quot;}" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="using-clusters-responsibly" class="level1">
+<h1>5. Using clusters responsibly</h1>
+<section id="spot-the-problem-clustering-always-finds-clusters" class="level2">
+<h2 class="anchored" data-anchor-id="spot-the-problem-clustering-always-finds-clusters">5.1 Spot the problem: clustering always finds clusters</h2>
+<p>A marketing consultancy sends you this slide: <em>“Our segmentation of 400 customers finds <strong>five distinct segments</strong> (silhouette = 0.40, higher than the London geodemographic classification).”</em> Here are their data and their clusters.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.265341Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.265295Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.315316Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.314964Z&quot;}" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">7</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>customers <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">400</span>, <span class="dv">2</span>))       <span class="co"># the consultancy's 'data'</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>seg <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">5</span>, n_init<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(customers)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">5.5</span>))</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(<span class="op">*</span>customers.T, s<span class="op">=</span><span class="dv">14</span>, c<span class="op">=</span>[PAL[l] <span class="cf">for</span> l <span class="kw">in</span> seg.labels_])</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>ax.scatter(<span class="op">*</span>seg.cluster_centers_.T, s<span class="op">=</span><span class="dv">250</span>, marker<span class="op">=</span><span class="st">"X"</span>, c<span class="op">=</span>PAL[:<span class="dv">5</span>], edgecolors<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Five 'segments'? silhouette = </span><span class="sc">{</span>silhouette_score(customers, seg.labels_)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"London wards, k = 5:"</span>, <span class="bu">round</span>(silhouette_score(Z, km5.labels_), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W10. Clustering_files/figure-html/cell-35-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>London wards, k = 5: 0.265</code></pre>
+</div>
+</div>
+<p>The “customers” are <strong>pure random noise</strong>, drawn uniformly. Yet k-means returns five tidy segments, with a silhouette score <strong>higher</strong> than our real London wards. An algorithm will always return groups. Whether they <strong>mean anything</strong> is up to you to show.</p>
+<section id="exercise-5.1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5.1">Exercise 5.1</h3>
+<p>A fairer test: compare the London silhouette with what you’d get from data that has the <strong>same features but no structure</strong>. Shuffle each column of <code>Z</code> independently (<code>Z.apply(lambda c: rng.permutation(c.values))</code>), which keeps every feature’s distribution but destroys the relationships between features. Run k-means with k = 5, and compute the silhouette. Repeat 20 times and plot a histogram, with a line at the real London score.</p>
+<p>Is London’s structure real? What does this tell you about using a silhouette score on its own?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:59:59.316859Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:59:59.316802Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:59:59.318433Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:59:59.318001Z&quot;}" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="labels-stick-to-people" class="level2">
+<h2 class="anchored" data-anchor-id="labels-stick-to-people">5.2 Labels stick to people</h2>
+<p>Geodemographic labels are used to set insurance premiums, target advertising, allocate policing and public services. Historically, <strong>redlining</strong> in 1930s US cities graded neighbourhoods by “risk”, largely by race, and shaped lending for decades.</p>
+<section id="exercise-5.2-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5.2-discussion">Exercise 5.2 (discussion)</h3>
+<ol type="1">
+<li>Your cluster names from Exercise 2.3 describe an <strong>area average</strong>. Pick one ward in your “older” cluster and check the share of residents aged under 35. What would it mean to treat every resident as “old”? (This is the <strong>ecological fallacy</strong>.)</li>
+<li>Suppose a council used your five clusters to decide where to put new youth services. Who chose the features? Who named the clusters? Who is affected? What feature that we <em>didn’t</em> include might change the answer?</li>
+</ol>
+<p><em>Your answer here.</em></p>
+</section>
+</section>
+<section id="which-method" class="level2">
+<h2 class="anchored" data-anchor-id="which-method">5.3 Which method?</h2>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>K-means</th>
+<th>Hierarchical</th>
+<th>DBSCAN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Choose k in advance?</td>
+<td>Yes</td>
+<td>No (cut the tree)</td>
+<td>No (choose ε and min points)</td>
+</tr>
+<tr class="even">
+<td>Cluster shapes</td>
+<td>Round, similar size</td>
+<td>Depends on linkage</td>
+<td>Any shape</td>
+</tr>
+<tr class="odd">
+<td>Handles noise?</td>
+<td>No: every point assigned</td>
+<td>No</td>
+<td>Yes: labels outliers</td>
+</tr>
+<tr class="even">
+<td>Speed on big data</td>
+<td>Fast</td>
+<td>Slow</td>
+<td>Fast with spatial indexing</td>
+</tr>
+<tr class="odd">
+<td>Good for</td>
+<td>Segmenting areas or customers</td>
+<td>Small data; seeing structure</td>
+<td>Spatial points; finding hotspots</td>
+</tr>
+</tbody>
+</table>
+<section id="exercise-5.3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-5.3">Exercise 5.3</h3>
+<p>For each task, which method would you use, and what would your features, distance and scale be?</p>
+<ol type="1">
+<li>Grouping 30,000 GPS pings from fishing vessels into fishing grounds</li>
+<li>Grouping the 27 EU countries by their economic indicators, to show how they relate</li>
+<li>Segmenting 2 million supermarket loyalty-card holders by spending</li>
+</ol>
+<p><em>Your answer here.</em></p>
+<p><strong>Beyond points on a map.</strong> Clustering works on anything you can turn into a vector of numbers. In Week 4 we turned words and documents into <strong>embeddings</strong>; cluster those and you get groups of similar texts. The lecture’s example does the same with satellite image patches of rare-earth mines in Myanmar.</p>
+</section>
+</section>
+<section id="recap" class="level2">
+<h2 class="anchored" data-anchor-id="recap">Recap</h2>
+<ol type="1">
+<li>Clustering is <strong>unsupervised</strong>: finding groups without labels</li>
+<li>Choose features carefully and <strong>standardise</strong> them</li>
+<li><strong>K-means</strong>: fast, needs k, assumes round clusters</li>
+<li><strong>Hierarchical</strong>: builds a tree; cut it where it makes sense</li>
+<li><strong>DBSCAN</strong>: finds dense regions of any shape and flags noise; ideal for spatial points</li>
+<li>Algorithms <strong>always</strong> find clusters. Validate them, and be careful how you name them</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../slides/w10.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lecture slides</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

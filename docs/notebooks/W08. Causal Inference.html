@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.326">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>BASC0005 - Causal Inference: Difference-in-Differences &amp; Regression Discontinuity</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/w09.html" rel="next">
+<link href="../slides/w08.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-154866877-2', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../slides/w08.html">Week 8 · Causal Inference</a></li><li class="breadcrumb-item"><a href="../notebooks/W08. Causal Inference.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Workshop: Causal Inference</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logo2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">BASC0005</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/oballinger/BASC0005/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Week 1 · Introduction</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W01. Python Recap.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Python Recap</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Week 2 · Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w02.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W02. Pandas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Pandas</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Week 3 · Spatial &amp; Networks</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w03.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W03. Spatial Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Spatial Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Week 4 · Text as Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w04.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W04. Natural Language Processing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Natural Language Processing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Week 5 · Sampling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w05.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W05. Distributions and Basic Statistics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Distributions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Reading Week</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/RW. Merging and Joining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Merging and Joining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Week 6 · Hypothesis Testing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w06.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W06. Hypothesis Testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Hypothesis Testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Week 7 · Regression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w07.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W07. Linear Regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Linear Regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">Week 8 · Causal Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w08.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W08. Causal Inference.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Workshop: Causal Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Week 9 · Prediction</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w09.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W09. Supervised Learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Supervised Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">Week 10 · Clustering</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/w10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lecture slides</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/W10. Clustering.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Workshop: Clustering</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#workshop-8-open-in-colab" id="toc-workshop-8-open-in-colab" class="nav-link active" data-scroll-target="#workshop-8-open-in-colab"><em>Workshop 8</em> <img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a>
+  <ul class="collapse">
+  <li><a href="#aims" id="toc-aims" class="nav-link" data-scroll-target="#aims">Aims:</a></li>
+  </ul></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
+  <li><a href="#why-correlation-isnt-enough" id="toc-why-correlation-isnt-enough" class="nav-link" data-scroll-target="#why-correlation-isnt-enough">1. Why correlation isn’t enough</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul></li>
+  <li><a href="#difference-in-differences" id="toc-difference-in-differences" class="nav-link" data-scroll-target="#difference-in-differences">2. Difference-in-Differences</a>
+  <ul class="collapse">
+  <li><a href="#why-not-just-compare-before-and-after" id="toc-why-not-just-compare-before-and-after" class="nav-link" data-scroll-target="#why-not-just-compare-before-and-after">2.1 Why not just compare before and after?</a></li>
+  <li><a href="#the-2x2-table-by-hand" id="toc-the-2x2-table-by-hand" class="nav-link" data-scroll-target="#the-2x2-table-by-hand">2.2 The 2x2 table by hand</a></li>
+  <li><a href="#exercise-the-mariel-boatlift-by-hand" id="toc-exercise-the-mariel-boatlift-by-hand" class="nav-link" data-scroll-target="#exercise-the-mariel-boatlift-by-hand">Exercise: the Mariel boatlift by hand</a></li>
+  <li><a href="#did-as-a-regression" id="toc-did-as-a-regression" class="nav-link" data-scroll-target="#did-as-a-regression">2.3 DiD as a regression</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise</a></li>
+  <li><a href="#more-data-the-county-panel-and-fixed-effects" id="toc-more-data-the-county-panel-and-fixed-effects" class="nav-link" data-scroll-target="#more-data-the-county-panel-and-fixed-effects">2.4 More data: the county panel and fixed effects</a></li>
+  <li><a href="#parallel-trends-the-event-study-plot" id="toc-parallel-trends-the-event-study-plot" class="nav-link" data-scroll-target="#parallel-trends-the-event-study-plot">2.5 Parallel trends: the event-study plot</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise</a></li>
+  <li><a href="#placebo-tests" id="toc-placebo-tests" class="nav-link" data-scroll-target="#placebo-tests">2.6 Placebo tests</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">Exercise</a></li>
+  <li><a href="#optional-sensitivity-to-the-time-window" id="toc-optional-sensitivity-to-the-time-window" class="nav-link" data-scroll-target="#optional-sensitivity-to-the-time-window"><em>Optional</em>: sensitivity to the time window</a></li>
+  </ul></li>
+  <li><a href="#regression-discontinuity" id="toc-regression-discontinuity" class="nav-link" data-scroll-target="#regression-discontinuity">3. Regression Discontinuity</a>
+  <ul class="collapse">
+  <li><a href="#is-alcohol-killing-you" id="toc-is-alcohol-killing-you" class="nav-link" data-scroll-target="#is-alcohol-killing-you">Is alcohol killing you?</a></li>
+  <li><a href="#linear-different-slopes" id="toc-linear-different-slopes" class="nav-link" data-scroll-target="#linear-different-slopes">3.1 Linear, different slopes</a></li>
+  <li><a href="#exercise-a-non-linear-specification" id="toc-exercise-a-non-linear-specification" class="nav-link" data-scroll-target="#exercise-a-non-linear-specification">Exercise: a non-linear specification</a></li>
+  <li><a href="#bandwidth-how-close-is-close" id="toc-bandwidth-how-close-is-close" class="nav-link" data-scroll-target="#bandwidth-how-close-is-close">3.2 Bandwidth: how close is “close”?</a></li>
+  <li><a href="#validity-checks" id="toc-validity-checks" class="nav-link" data-scroll-target="#validity-checks">3.3 Validity checks</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4">Exercise</a></li>
+  </ul></li>
+  <li><a href="#optional-fuzzy-rdd-and-the-sheepskin-effect" id="toc-optional-fuzzy-rdd-and-the-sheepskin-effect" class="nav-link" data-scroll-target="#optional-fuzzy-rdd-and-the-sheepskin-effect"><em>Optional</em>: fuzzy RDD and the sheepskin effect</a>
+  <ul class="collapse">
+  <li><a href="#optional-exercise" id="toc-optional-exercise" class="nav-link" data-scroll-target="#optional-exercise"><em>Optional</em> Exercise</a></li>
+  </ul></li>
+  <li><a href="#audit-a-causal-claim" id="toc-audit-a-causal-claim" class="nav-link" data-scroll-target="#audit-a-causal-claim">4. Audit a causal claim</a>
+  <ul class="collapse">
+  <li><a href="#claim-a" id="toc-claim-a" class="nav-link" data-scroll-target="#claim-a">Claim A</a></li>
+  <li><a href="#claim-b" id="toc-claim-b" class="nav-link" data-scroll-target="#claim-b">Claim B</a></li>
+  <li><a href="#exercise-write-the-audit" id="toc-exercise-write-the-audit" class="nav-link" data-scroll-target="#exercise-write-the-audit">Exercise: write the audit</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/oballinger/BASC0005/blob/main/notebooks/W08. Causal Inference.ipynb" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Causal Inference: Difference-in-Differences &amp; Regression Discontinuity</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="workshop-8-open-in-colab" class="level2">
+<h2 class="anchored" data-anchor-id="workshop-8-open-in-colab"><em>Workshop 8</em> <a href="https://colab.research.google.com/github/oballinger/BASC0005/blob/main/notebooks/W08.%20Causal%20Inference.ipynb"><img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></h2>
+<section id="aims" class="level3">
+<h3 class="anchored" data-anchor-id="aims">Aims:</h3>
+<p>This workshop follows the lecture. We practise the two designs it covers, and the checks that tell you whether to believe them.</p>
+<ol type="1">
+<li><strong>Why correlation isn’t enough</strong>: a cross-state correlation between minimum wages and unemployment, and why it is endogenous</li>
+<li><strong>Difference-in-Differences (DiD)</strong>: New Jersey’s 2014 minimum wage rise, with Pennsylvania as the control
+<ul>
+<li>the 2x2 table by hand, then the same number from a regression with an interaction</li>
+<li>county fixed effects and clustered standard errors (only as much as DiD needs)</li>
+<li>parallel trends: an event-study plot and placebo tests</li>
+</ul></li>
+<li><strong>Regression Discontinuity (RDD)</strong>: does being allowed to drink at 21 kill people?
+<ul>
+<li>plot the discontinuity, fit a linear model with different slopes</li>
+<li>bandwidth sensitivity, a placebo outcome, and a manipulation (McCrary) check</li>
+<li><em>optional</em>: fuzzy RDD and the “sheepskin effect”</li>
+</ul></li>
+<li><strong>Audit a causal claim</strong>: two flawed analyses to diagnose with the lecture’s checklist</li>
+</ol>
+<p>Timing guide for the 2 hours: Part 1 about 10 min, Part 2 about 45 min, Part 3 about 40 min, Part 4 about 20 min. Sections marked <em>optional</em> are extensions.</p>
+</section>
+</section>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:46.436527Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:46.436439Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:47.475615Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:47.475225Z&quot;}" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">'whitegrid'</span>, font_scale<span class="op">=</span><span class="fl">1.1</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We use three datasets, all already hosted:</p>
+<ul>
+<li><code>state_data.csv</code>: monthly unemployment rate (%) for every U.S. state 1976–2022, plus the state minimum wage (<strong>in 2020 dollars</strong>, so it drifts down with inflation between rises) and state GDP (from 1997). Sources: BLS, Vaghul &amp; Zipperer’s minimum wage series, BEA.</li>
+<li><code>county_labor.csv</code>: annual unemployment rate and population (thousands) for every U.S. county 2008–2021 (BLS Local Area Unemployment Statistics).</li>
+<li><code>drinking.csv</code> and <code>sheepskin.csv</code>: the RDD examples, from Carpenter &amp; Dobkin (2009) and Clark &amp; Martorell (2014).</li>
+</ul>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:47.476890Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:47.476790Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:47.600846Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:47.600437Z&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>states <span class="op">=</span> pd.read_csv(<span class="st">'https://storage.googleapis.com/qm2/wk10/state_data.csv'</span>, parse_dates<span class="op">=</span>[<span class="st">'date'</span>])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>counties <span class="op">=</span> pd.read_csv(<span class="st">'https://storage.googleapis.com/qm2/wk10/county_labor.csv'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>counties[<span class="st">'county_fips'</span>] <span class="op">=</span> counties[<span class="st">'county_fips'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.zfill(<span class="dv">5</span>)  <span class="co"># 5-digit FIPS code: first 2 digits = state</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># annual state averages are enough for most of what we do</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>states_yr <span class="op">=</span> states.groupby([<span class="st">'state'</span>, <span class="st">'year'</span>], as_index<span class="op">=</span><span class="va">False</span>)[[<span class="st">'unemployment'</span>, <span class="st">'minwage'</span>, <span class="st">'fedminwage'</span>, <span class="st">'gdp'</span>]].mean()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>states_yr.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">state</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">unemployment</th>
+<th data-quarto-table-cell-role="th">minwage</th>
+<th data-quarto-table-cell-role="th">fedminwage</th>
+<th data-quarto-table-cell-role="th">gdp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>alabama</td>
+<td>1976</td>
+<td>6.700000</td>
+<td>0.0</td>
+<td>10.00</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>alabama</td>
+<td>1977</td>
+<td>7.150000</td>
+<td>0.0</td>
+<td>9.39</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>alabama</td>
+<td>1978</td>
+<td>6.408333</td>
+<td>0.0</td>
+<td>8.73</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>alabama</td>
+<td>1979</td>
+<td>7.225000</td>
+<td>0.0</td>
+<td>10.33</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>alabama</td>
+<td>1980</td>
+<td>8.816667</td>
+<td>0.0</td>
+<td>9.73</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="why-correlation-isnt-enough" class="level2">
+<h2 class="anchored" data-anchor-id="why-correlation-isnt-enough">1. Why correlation isn’t enough</h2>
+<p>Politicians argue about minimum wages all the time. One side says higher minimum wages lift workers out of poverty; the other says they price low-skilled workers out of jobs. Let’s start the way a naive analyst would: pool every state and every year from 2000 to 2019, and see whether higher minimum wages go with higher unemployment.</p>
+<p>Note that some states have <strong>no state minimum wage</strong> at all. They are coded <code>0</code> in <code>minwage</code>, but workers there are still covered by the federal minimum. So the wage that actually binds is the larger of the two. (Always check what a <code>0</code> means before you run a regression on it.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:47.601909Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:47.601842Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:47.715226Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:47.714887Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>states_yr[<span class="st">'eff_minwage'</span>] <span class="op">=</span> states_yr[[<span class="st">'minwage'</span>, <span class="st">'fedminwage'</span>]].<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># the minimum wage that actually binds</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pooled <span class="op">=</span> states_yr[states_yr[<span class="st">'year'</span>].between(<span class="dv">2000</span>, <span class="dv">2019</span>) <span class="op">&amp;</span> <span class="op">~</span>states_yr[<span class="st">'state'</span>].isin([<span class="st">'los angeles county'</span>, <span class="st">'new york city'</span>])]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sns.regplot(data<span class="op">=</span>pooled, x<span class="op">=</span><span class="st">'eff_minwage'</span>, y<span class="op">=</span><span class="st">'unemployment'</span>, scatter_kws<span class="op">=</span>{<span class="st">'alpha'</span>: <span class="fl">0.3</span>, <span class="st">'s'</span>: <span class="dv">12</span>}, line_kws<span class="op">=</span>{<span class="st">'color'</span>: <span class="st">'C3'</span>})</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Effective minimum wage (2020 $)'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Unemployment rate (%)'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'US states, 2000-2019: one dot per state-year'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(smf.ols(<span class="st">'unemployment ~ eff_minwage'</span>, pooled).fit().summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>===============================================================================
+                  coef    std err          t      P&gt;|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+Intercept       3.1030      0.463      6.701      0.000       2.194       4.012
+eff_minwage     0.2934      0.056      5.249      0.000       0.184       0.403
+===============================================================================</code></pre>
+</div>
+</div>
+<p>The slope is positive and “highly significant”: each extra dollar of minimum wage goes with about 0.3 points more unemployment. We still <strong>cannot</strong> read that as the causal effect of the minimum wage. (Also notice that 1,020 state-years are not 1,020 independent observations, which is one reason the p-value is so small.) The problem is <strong>endogeneity</strong>: the minimum wage is correlated with other things that also drive unemployment (in regression terms, <span class="math inline">\(X\)</span> is correlated with the error term).</p>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<p>For the plot above, write one concrete story for each of the three sources of endogeneity from the lecture:</p>
+<ol type="1">
+<li><strong>Omitted variable</strong>: something that raises minimum wages <em>and</em> changes unemployment.</li>
+<li><strong>Simultaneity / reverse causality</strong>: how unemployment might cause minimum wage policy.</li>
+<li><strong>Selection</strong>: why the states that choose high minimum wages might not be comparable to those that don’t.</li>
+</ol>
+<p><em>Your answer here (markdown).</em></p>
+<hr>
+</section>
+</section>
+<section id="difference-in-differences" class="level2">
+<h2 class="anchored" data-anchor-id="difference-in-differences">2. Difference-in-Differences</h2>
+<p>We would like to see the <strong>counterfactual</strong>: New Jersey’s unemployment <em>with</em> the policy compared with New Jersey’s unemployment <em>without</em> it. We only ever see one of these. DiD builds a stand-in: a <strong>control group</strong> whose <em>change</em> over time shows what would have happened to the treated group without treatment.</p>
+<p><strong>The natural experiment.</strong> In 2014 New Jersey raised its minimum wage from $7.25 to $8.25 and indexed it to inflation. Neighbouring Pennsylvania stayed at the federal $7.25. This is the same pair of states Card &amp; Krueger used in their classic 1994 study.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:47.716307Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:47.716243Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:47.768696Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:47.768368Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nj_pa <span class="op">=</span> states_yr[states_yr[<span class="st">'state'</span>].isin([<span class="st">'new jersey'</span>, <span class="st">'pennsylvania'</span>])]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>nj_pa[nj_pa[<span class="st">'year'</span>].between(<span class="dv">2005</span>, <span class="dv">2020</span>)], x<span class="op">=</span><span class="st">'year'</span>, y<span class="op">=</span><span class="st">'minwage'</span>, hue<span class="op">=</span><span class="st">'state'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">2014</span>, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'NJ rise (2014)'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Minimum wage (2020 $)'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Minimum wages in New Jersey and Pennsylvania'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The lines slope down between rises because the series is inflation-adjusted. Apart from 2006–07, when New Jersey moved first, the two states track each other exactly until 2014. Then New Jersey moves up. (There is a second, much bigger NJ rise in 2019, and then COVID in 2020. We keep our window to <strong>2010–2018</strong> so neither gets mixed in with the 2014 treatment. The lecture calls this “no simultaneous treatment”.)</p>
+<p>Before any regression, map the outcome. Below is the change in county unemployment from 2013 (the year before the rise) to 2016.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:47.769822Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:47.769748Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.123635Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.123124Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shp <span class="op">=</span> gpd.read_file(<span class="st">'https://storage.googleapis.com/qm2/wk10/geojson-counties-fips.json'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>shp <span class="op">=</span> shp[shp[<span class="st">'STATE'</span>].isin([<span class="st">'34'</span>, <span class="st">'42'</span>])]  <span class="co"># 34 = New Jersey, 42 = Pennsylvania</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>wide <span class="op">=</span> counties.pivot(index<span class="op">=</span><span class="st">'county_fips'</span>, columns<span class="op">=</span><span class="st">'year'</span>, values<span class="op">=</span><span class="st">'unemployment'</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>chg <span class="op">=</span> (wide[<span class="dv">2016</span>] <span class="op">-</span> wide[<span class="dv">2013</span>]).rename(<span class="st">'chg'</span>).reset_index()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> shp.merge(chg, left_on<span class="op">=</span><span class="st">'id'</span>, right_on<span class="op">=</span><span class="st">'county_fips'</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>m.plot(column<span class="op">=</span><span class="st">'chg'</span>, cmap<span class="op">=</span><span class="st">'RdBu_r'</span>, vmin<span class="op">=-</span><span class="dv">5</span>, vmax<span class="op">=</span><span class="dv">5</span>, legend<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       legend_kwds<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">'Change in unemployment, 2013→2016 (pp)'</span>})</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>m.dissolve(<span class="st">'STATE'</span>).boundary.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Pennsylvania (left) and New Jersey (right)'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Unemployment fell (blue) almost everywhere, because the economy was recovering from the 2008 crisis. That is exactly why we can’t just look at New Jersey before and after.</p>
+<section id="why-not-just-compare-before-and-after" class="level3">
+<h3 class="anchored" data-anchor-id="why-not-just-compare-before-and-after">2.1 Why not just compare before and after?</h3>
+<p>Two naive comparisons, and what goes wrong with each:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.125291Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.125155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.130343Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.129879Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>did <span class="op">=</span> nj_pa[nj_pa[<span class="st">'year'</span>].between(<span class="dv">2010</span>, <span class="dv">2018</span>)].copy()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>did[<span class="st">'treat'</span>] <span class="op">=</span> (did[<span class="st">'state'</span>] <span class="op">==</span> <span class="st">'new jersey'</span>).astype(<span class="bu">int</span>)  <span class="co"># 1 = New Jersey (treated), 0 = Pennsylvania (control)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>did[<span class="st">'post'</span>] <span class="op">=</span> (did[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">2014</span>).astype(<span class="bu">int</span>)          <span class="co"># 1 = after the rise</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>nj <span class="op">=</span> did[did[<span class="st">'treat'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Naive 1, NJ after minus NJ before :'</span>, <span class="bu">round</span>(nj.loc[nj.post <span class="op">==</span> <span class="dv">1</span>, <span class="st">'unemployment'</span>].mean() <span class="op">-</span> nj.loc[nj.post <span class="op">==</span> <span class="dv">0</span>, <span class="st">'unemployment'</span>].mean(), <span class="dv">2</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>post <span class="op">=</span> did[did[<span class="st">'post'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Naive 2, NJ minus PA, after only  :'</span>, <span class="bu">round</span>(post.loc[post.treat <span class="op">==</span> <span class="dv">1</span>, <span class="st">'unemployment'</span>].mean() <span class="op">-</span> post.loc[post.treat <span class="op">==</span> <span class="dv">0</span>, <span class="st">'unemployment'</span>].mean(), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Naive 1, NJ after minus NJ before : -4.02
+Naive 2, NJ minus PA, after only  : -0.04</code></pre>
+</div>
+</div>
+<p>Naive 1 credits the policy with the whole post-recession recovery. Naive 2 mixes the policy up with permanent differences between the two states (industry mix, proximity to New York, and so on). DiD <strong>subtracts one from the other</strong>: New Jersey’s change, minus Pennsylvania’s change.</p>
+</section>
+<section id="the-2x2-table-by-hand" class="level3">
+<h3 class="anchored" data-anchor-id="the-2x2-table-by-hand">2.2 The 2x2 table by hand</h3>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.132110Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.131968Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.140181Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.139536Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> did.pivot_table(index<span class="op">=</span><span class="st">'post'</span>, columns<span class="op">=</span><span class="st">'treat'</span>, values<span class="op">=</span><span class="st">'unemployment'</span>, aggfunc<span class="op">=</span><span class="st">'mean'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>table.index <span class="op">=</span> [<span class="st">'Before (2010-13)'</span>, <span class="st">'After (2014-18)'</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>table.columns <span class="op">=</span> [<span class="st">'PA (control)'</span>, <span class="st">'NJ (treated)'</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>table[<span class="st">'NJ - PA'</span>] <span class="op">=</span> table[<span class="st">'NJ (treated)'</span>] <span class="op">-</span> table[<span class="st">'PA (control)'</span>]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>table.loc[<span class="st">'After - Before'</span>] <span class="op">=</span> table.loc[<span class="st">'After (2014-18)'</span>] <span class="op">-</span> table.loc[<span class="st">'Before (2010-13)'</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>table.<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">PA (control)</th>
+<th data-quarto-table-cell-role="th">NJ (treated)</th>
+<th data-quarto-table-cell-role="th">NJ - PA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Before (2010-13)</td>
+<td>7.67</td>
+<td>9.20</td>
+<td>1.53</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">After (2014-18)</td>
+<td>5.22</td>
+<td>5.18</td>
+<td>-0.04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">After - Before</td>
+<td>-2.45</td>
+<td>-4.02</td>
+<td>-1.57</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.141977Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.141865Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.190976Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.190485Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>did_by_hand <span class="op">=</span> table.loc[<span class="st">'After - Before'</span>, <span class="st">'NJ - PA'</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Difference-in-differences: </span><span class="sc">{</span>did_by_hand<span class="sc">:.2f}</span><span class="ss"> percentage points'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the picture from the lecture: the dashed line is NJ's counterfactual (PA's change added to NJ's starting point)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> table.loc[<span class="st">'Before (2010-13)'</span>]<span class="op">;</span> a <span class="op">=</span> table.loc[<span class="st">'After (2014-18)'</span>]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [b[<span class="st">'PA (control)'</span>], a[<span class="st">'PA (control)'</span>]], <span class="st">'o-'</span>, label<span class="op">=</span><span class="st">'PA (control)'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [b[<span class="st">'NJ (treated)'</span>], a[<span class="st">'NJ (treated)'</span>]], <span class="st">'o-'</span>, label<span class="op">=</span><span class="st">'NJ (treated)'</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [b[<span class="st">'NJ (treated)'</span>], b[<span class="st">'NJ (treated)'</span>] <span class="op">+</span> (a[<span class="st">'PA (control)'</span>] <span class="op">-</span> b[<span class="st">'PA (control)'</span>])], <span class="st">'o--'</span>, color<span class="op">=</span><span class="st">'grey'</span>, label<span class="op">=</span><span class="st">'NJ counterfactual'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">''</span>, xy<span class="op">=</span>(<span class="dv">1</span>, a[<span class="st">'NJ (treated)'</span>]), xytext<span class="op">=</span>(<span class="dv">1</span>, b[<span class="st">'NJ (treated)'</span>] <span class="op">+</span> a[<span class="st">'PA (control)'</span>] <span class="op">-</span> b[<span class="st">'PA (control)'</span>]),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>             arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">'&lt;-&gt;'</span>, color<span class="op">=</span><span class="st">'red'</span>))</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="fl">1.02</span>, (a[<span class="st">'NJ (treated)'</span>] <span class="op">+</span> b[<span class="st">'NJ (treated)'</span>] <span class="op">+</span> a[<span class="st">'PA (control)'</span>] <span class="op">-</span> b[<span class="st">'PA (control)'</span>]) <span class="op">/</span> <span class="dv">2</span>, <span class="ss">f'DiD = </span><span class="sc">{</span>did_by_hand<span class="sc">:.2f}</span><span class="ss">'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Before'</span>, <span class="st">'After'</span>])<span class="op">;</span> plt.xlim(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">1.4</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean unemployment (%)'</span>)<span class="op">;</span> plt.legend()<span class="op">;</span> plt.title(<span class="st">'Difference-in-differences, 2x2'</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Difference-in-differences: -1.57 percentage points</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="exercise-the-mariel-boatlift-by-hand" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-the-mariel-boatlift-by-hand">Exercise: the Mariel boatlift by hand</h3>
+<p>In the lecture’s case study (Card, 1990), Miami is the treated city and four comparison cities are the control. Unemployment rates (%) were:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>1979</th>
+<th>1981</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Miami, Black workers</td>
+<td>8.3</td>
+<td>9.6</td>
+</tr>
+<tr class="even">
+<td>Comparison cities, Black workers</td>
+<td>10.3</td>
+<td>12.6</td>
+</tr>
+</tbody>
+</table>
+<p>Compute the DiD estimate in the cell below. The standard error on it is 2.8. What do you conclude about the effect of the boatlift on Black workers’ unemployment?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.192203Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.192120Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.193773Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.193316Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="did-as-a-regression" class="level3">
+<h3 class="anchored" data-anchor-id="did-as-a-regression">2.3 DiD as a regression</h3>
+<p>The same number comes out of a regression with an <strong>interaction</strong>:</p>
+<p><span class="math display">\[Unemployment_{it} = \beta_0 + \beta_1 Post_t + \beta_2 Treat_i + \beta_3 (Treat_i \times Post_t) + \varepsilon_{it}\]</span></p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Control (PA)</th>
+<th>Treated (NJ)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Before</strong></td>
+<td><span class="math inline">\(\beta_0\)</span></td>
+<td><span class="math inline">\(\beta_0 + \beta_2\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>After</strong></td>
+<td><span class="math inline">\(\beta_0 + \beta_1\)</span></td>
+<td><span class="math inline">\(\beta_0 + \beta_1 + \beta_2 + \beta_3\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>In a formula, <code>treat * post</code> expands to <code>treat + post + treat:post</code>. The coefficient on <code>treat:post</code> is <span class="math inline">\(\beta_3\)</span>, the DiD estimate. The regression also gives us a standard error.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.195139Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.195054Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.202650Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.202253Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>did_ols <span class="op">=</span> smf.ols(<span class="st">'unemployment ~ treat * post'</span>, data<span class="op">=</span>did).fit()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(did_ols.summary().tables[<span class="dv">1</span>])</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">beta_3 = </span><span class="sc">{</span>did_ols<span class="sc">.</span>params[<span class="st">'treat:post'</span>]<span class="sc">:.2f}</span><span class="ss">   (by hand: </span><span class="sc">{</span>did_by_hand<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      7.6667      0.362     21.194      0.000       6.891       8.443
+treat          1.5312      0.512      2.993      0.010       0.434       2.628
+post          -2.4483      0.485     -5.045      0.000      -3.489      -1.407
+treat:post    -1.5712      0.686     -2.289      0.038      -3.043      -0.099
+==============================================================================
+
+beta_3 = -1.57   (by hand: -1.57)</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise</h3>
+<p>Using only the coefficients in the table above (not the data), rebuild each of the four cells of the 2x2 table. Check that they match <code>table</code>.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.203786Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.203723Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.205153Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.204826Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here  (hint: did_ols.params['Intercept'], did_ols.params['post'], ...)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="more-data-the-county-panel-and-fixed-effects" class="level3">
+<h3 class="anchored" data-anchor-id="more-data-the-county-panel-and-fixed-effects">2.4 More data: the county panel and fixed effects</h3>
+<p>The state regression has only 18 rows (2 states x 9 years). The county file gives us 88 counties x 9 years. That is <strong>panel data</strong>: the same units <span class="math inline">\(i\)</span> observed at several times <span class="math inline">\(t\)</span>. Two things change.</p>
+<ol type="1">
+<li><strong>Fixed effects.</strong> Counties differ in permanent ways (Philadelphia is not rural Potter County). A <strong>county fixed effect</strong> gives every county its own intercept <code>C(county_fips)</code>, so each county acts as its own control. A <strong>year fixed effect</strong> <code>C(year)</code> absorbs shocks common to everyone in a year, such as the national recovery. These replace <code>treat</code> and <code>post</code>, and only the interaction <code>treat_post</code> is left to estimate. This is called <em>two-way fixed effects</em> (TWFE) DiD.</li>
+<li><strong>Clustered standard errors.</strong> One county’s nine yearly observations are not nine independent pieces of information. Clustering by county lets the errors be correlated within a county. Without it the standard errors are too small.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.206073Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.206019Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.224567Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.224195Z&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>panel <span class="op">=</span> counties[counties[<span class="st">'state'</span>].isin([<span class="dv">34</span>, <span class="dv">42</span>]) <span class="op">&amp;</span> counties[<span class="st">'year'</span>].between(<span class="dv">2008</span>, <span class="dv">2018</span>)].copy()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>panel[<span class="st">'treat'</span>] <span class="op">=</span> (panel[<span class="st">'state'</span>] <span class="op">==</span> <span class="dv">34</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>panel[<span class="st">'treat_post'</span>] <span class="op">=</span> panel[<span class="st">'treat'</span>] <span class="op">*</span> (panel[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">2014</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> panel[panel[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">2010</span>]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>twfe <span class="op">=</span> smf.ols(<span class="st">'unemployment ~ treat_post + C(county_fips) + C(year)'</span>, data<span class="op">=</span>p).fit(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    cov_type<span class="op">=</span><span class="st">'cluster'</span>, cov_kwds<span class="op">=</span>{<span class="st">'groups'</span>: p[<span class="st">'county_fips'</span>]})</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"TWFE DiD estimate: </span><span class="sc">{</span>twfe<span class="sc">.</span>params[<span class="st">'treat_post'</span>]<span class="sc">:.2f}</span><span class="ss"> pp  (clustered SE </span><span class="sc">{</span>twfe<span class="sc">.</span>bse[<span class="st">'treat_post'</span>]<span class="sc">:.2f}</span><span class="ss">, p = </span><span class="sc">{</span>twfe<span class="sc">.</span>pvalues[<span class="st">'treat_post'</span>]<span class="sc">:.3g}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TWFE DiD estimate: -1.68 pp  (clustered SE 0.16, p = 5.01e-25)</code></pre>
+</div>
+</div>
+<p>A large, “highly significant” drop in unemployment. Before you believe it, remember that clustered standard errors only account for noise <em>within</em> counties. All 21 treated counties are in <strong>one</strong> state, and anything else that happened to New Jersey after 2014 would hit every one of them. The p-value can’t warn you about that. Only the design checks can. That is the next section.</p>
+</section>
+<section id="parallel-trends-the-event-study-plot" class="level3">
+<h3 class="anchored" data-anchor-id="parallel-trends-the-event-study-plot">2.5 Parallel trends: the event-study plot</h3>
+<p>DiD assumes that <strong>without the policy, NJ and PA would have moved in parallel</strong>. We can never test this after 2014, but we can check whether they moved in parallel <em>before</em> 2014. First, the raw data:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.225585Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.225524Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.354143Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.353837Z&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>panel, x<span class="op">=</span><span class="st">'year'</span>, y<span class="op">=</span><span class="st">'unemployment'</span>, hue<span class="op">=</span>panel[<span class="st">'treat'</span>].<span class="bu">map</span>({<span class="dv">1</span>: <span class="st">'NJ counties'</span>, <span class="dv">0</span>: <span class="st">'PA counties'</span>}), marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">2013.5</span>, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean county unemployment (%)'</span>)<span class="op">;</span> plt.title(<span class="st">'Unemployment in NJ and PA counties'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>An <strong>event-study</strong> regression makes the pre-trend check precise. Instead of one <code>treat_post</code> dummy, we give NJ a separate dummy for <em>every year</em> except a reference year (2013, the last pre-treatment year). Each coefficient is the NJ–PA gap in that year <em>relative to the 2013 gap</em>.</p>
+<ul>
+<li>Pre-treatment coefficients close to 0 support parallel trends.</li>
+<li>Post-treatment coefficients trace out the effect over time.</li>
+</ul>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.355427Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.355363Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.417820Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.417501Z&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> [y <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2008</span>, <span class="dv">2019</span>) <span class="cf">if</span> y <span class="op">!=</span> <span class="dv">2013</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> y <span class="kw">in</span> years:</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    panel[<span class="ss">f'nj_</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> ((panel[<span class="st">'year'</span>] <span class="op">==</span> y) <span class="op">&amp;</span> (panel[<span class="st">'treat'</span>] <span class="op">==</span> <span class="dv">1</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> <span class="st">'unemployment ~ '</span> <span class="op">+</span> <span class="st">' + '</span>.join(<span class="ss">f'nj_</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> y <span class="kw">in</span> years) <span class="op">+</span> <span class="st">' + C(county_fips) + C(year)'</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>es <span class="op">=</span> smf.ols(formula, data<span class="op">=</span>panel).fit(cov_type<span class="op">=</span><span class="st">'cluster'</span>, cov_kwds<span class="op">=</span>{<span class="st">'groups'</span>: panel[<span class="st">'county_fips'</span>]})</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> pd.DataFrame({<span class="st">'year'</span>: years,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                      <span class="st">'b'</span>: [es.params[<span class="ss">f'nj_</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">'</span>] <span class="cf">for</span> y <span class="kw">in</span> years],</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                      <span class="st">'se'</span>: [es.bse[<span class="ss">f'nj_</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">'</span>] <span class="cf">for</span> y <span class="kw">in</span> years]})</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> pd.concat([coefs, pd.DataFrame({<span class="st">'year'</span>: [<span class="dv">2013</span>], <span class="st">'b'</span>: [<span class="fl">0.0</span>], <span class="st">'se'</span>: [<span class="fl">0.0</span>]})]).sort_values(<span class="st">'year'</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>plt.errorbar(coefs[<span class="st">'year'</span>], coefs[<span class="st">'b'</span>], yerr<span class="op">=</span><span class="fl">1.96</span> <span class="op">*</span> coefs[<span class="st">'se'</span>], fmt<span class="op">=</span><span class="st">'o-'</span>, capsize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">2013.5</span>, color<span class="op">=</span><span class="st">'red'</span>, ls<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'NJ minimum wage rise'</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'NJ - PA gap relative to 2013 (pp)'</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Event study: effect of NJ 2014 minimum wage rise on county unemployment'</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">Exercise</h3>
+<p>Look carefully at the pre-2014 coefficients.</p>
+<ol type="1">
+<li>Are the pre-treatment trends parallel? Describe what happened to the NJ–PA gap between 2008 and 2012.</li>
+<li>Suggest an economic reason for that pattern. (Hint: which state was hit harder by the 2008 financial crisis? What usually happens to a place that falls further in a recession, once the recovery comes?)</li>
+<li>Given this, is the TWFE estimate from 2.4 more likely to <em>overstate</em> or <em>understate</em> the job-creating effect of the minimum wage? Why?</li>
+</ol>
+<p><em>Your answer here.</em></p>
+</section>
+<section id="placebo-tests" class="level3">
+<h3 class="anchored" data-anchor-id="placebo-tests">2.6 Placebo tests</h3>
+<p>The lecture listed ways to check the equal-trend assumption beyond looking at a plot. Two of them are easy here.</p>
+<p><strong>(a) Fake treatment date.</strong> Use only the pre-treatment years and pretend the policy happened in 2012. There was no policy then, so a real design should find ~0.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.418953Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.418882Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.427074Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.426674Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pre <span class="op">=</span> panel[panel[<span class="st">'year'</span>].between(<span class="dv">2010</span>, <span class="dv">2013</span>)].copy()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pre[<span class="st">'fake_post'</span>] <span class="op">=</span> pre[<span class="st">'treat'</span>] <span class="op">*</span> (pre[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">2012</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>placebo <span class="op">=</span> smf.ols(<span class="st">'unemployment ~ fake_post + C(county_fips) + C(year)'</span>, data<span class="op">=</span>pre).fit(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    cov_type<span class="op">=</span><span class="st">'cluster'</span>, cov_kwds<span class="op">=</span>{<span class="st">'groups'</span>: pre[<span class="st">'county_fips'</span>]})</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Placebo (fake 2012 treatment): </span><span class="sc">{</span>placebo<span class="sc">.</span>params[<span class="st">'fake_post'</span>]<span class="sc">:.2f}</span><span class="ss"> pp, p = </span><span class="sc">{</span>placebo<span class="sc">.</span>pvalues[<span class="st">'fake_post'</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Placebo (fake 2012 treatment): 0.09 pp, p = 0.375</code></pre>
+</div>
+</div>
+<p>This window passes, because 2010–2013 is the flat part of the event-study plot. If you move the window earlier, into 2008–2011, it would not.</p>
+<p><strong>(b) Fake treatment group.</strong> Most states did not change their minimum wage in 2014. If we run the <em>same</em> state-level DiD with Pennsylvania as control but a <strong>different, untreated state</strong> as the “treated” group, we should get roughly zero. If lots of untreated states show “effects” as big as New Jersey’s, then NJ’s estimate is not special.</p>
+</section>
+<section id="exercise-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3">Exercise</h3>
+<ol type="1">
+<li>Write a loop over every state in <code>states_yr</code> except Pennsylvania (and the two city rows, <code>'los angeles county'</code> and <code>'new york city'</code>). For each one, build the same 2010–2018 dataset as in 2.3 with that state as <code>treat = 1</code>, fit <code>unemployment ~ treat * post</code>, and store the <code>treat:post</code> coefficient.</li>
+<li>Plot a histogram of the placebo estimates, with a vertical line at New Jersey’s estimate (<code>did_ols.params['treat:post']</code>).</li>
+<li>Roughly what share of states show a drop at least as large as New Jersey’s? What does that say about how much we should trust the NJ result? (Many of those states did not raise their minimum wage at all in 2014. What else do the states with big “effects” have in common?)</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.428083Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.428025Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.429583Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.429297Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>placebo_effects <span class="op">=</span> {}</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> st <span class="kw">in</span> states_yr[<span class="st">'state'</span>].unique():</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># your code here</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="optional-sensitivity-to-the-time-window" class="level3">
+<h3 class="anchored" data-anchor-id="optional-sensitivity-to-the-time-window"><em>Optional</em>: sensitivity to the time window</h3>
+<p>The window 2010–2018 was our choice. Re-estimate the state-level DiD for windows of ±1, ±2, …, ±6 years around 2014, and plot the estimate (with a 95% CI) against the window width. Does the answer depend on the choice?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.430439Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.430379Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.431720Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.431426Z&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="regression-discontinuity" class="level2">
+<h2 class="anchored" data-anchor-id="regression-discontinuity">3. Regression Discontinuity</h2>
+<p>DiD needs a before and an after. RDD needs a <strong>cutoff</strong> instead: treatment is switched on when a continuous <em>running variable</em> crosses a known threshold. Units just below and just above the cutoff are alike in every other way, so comparing them gives the effect of treatment <strong>at the cutoff</strong>.</p>
+<section id="is-alcohol-killing-you" class="level3">
+<h3 class="anchored" data-anchor-id="is-alcohol-killing-you">Is alcohol killing you?</h3>
+<p>In the U.S. the legal drinking age is 21. People who are 20 years and 11 months old are, on average, the same as people who are 21 years and 1 month old, except that the second group can drink legally. Carpenter &amp; Dobkin (2009) used this to estimate the effect of alcohol access on mortality. Each row below is a one-month age cell. The outcomes are deaths per 100,000 person-years: all causes (<code>all</code>), motor vehicle accidents (<code>mva</code>), suicide (<code>suicide</code>), and internal causes such as disease (<code>internal</code>).</p>
+<p>We <strong>centre</strong> the running variable at the cutoff (age − 21). The cutoff is then at 0, and regression intercepts become values <em>at</em> the cutoff.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.432604Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.432544Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.450553Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.450244Z&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>drinking <span class="op">=</span> pd.read_csv(<span class="st">'https://storage.googleapis.com/qm2/rdd/drinking.csv'</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>drinking[<span class="st">'age'</span>] <span class="op">=</span> drinking[<span class="st">'agecell'</span>] <span class="op">-</span> <span class="dv">21</span>            <span class="co"># running variable, centred at the cutoff</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>drinking[<span class="st">'over21'</span>] <span class="op">=</span> (drinking[<span class="st">'age'</span>] <span class="op">&gt;=</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)  <span class="co"># treatment: legally allowed to drink</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>drinking[[<span class="st">'agecell'</span>, <span class="st">'age'</span>, <span class="st">'over21'</span>, <span class="st">'all'</span>, <span class="st">'mva'</span>, <span class="st">'suicide'</span>, <span class="st">'internal'</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">agecell</th>
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">over21</th>
+<th data-quarto-table-cell-role="th">all</th>
+<th data-quarto-table-cell-role="th">mva</th>
+<th data-quarto-table-cell-role="th">suicide</th>
+<th data-quarto-table-cell-role="th">internal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>19.068493</td>
+<td>-1.931507</td>
+<td>0</td>
+<td>92.825400</td>
+<td>35.829327</td>
+<td>11.203714</td>
+<td>16.617590</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>19.150684</td>
+<td>-1.849316</td>
+<td>0</td>
+<td>95.100740</td>
+<td>35.639256</td>
+<td>12.193368</td>
+<td>18.327684</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>19.232876</td>
+<td>-1.767124</td>
+<td>0</td>
+<td>92.144295</td>
+<td>34.205650</td>
+<td>11.715812</td>
+<td>18.911053</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>19.315070</td>
+<td>-1.684930</td>
+<td>0</td>
+<td>88.427760</td>
+<td>32.278957</td>
+<td>11.275010</td>
+<td>16.101770</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>19.397260</td>
+<td>-1.602740</td>
+<td>0</td>
+<td>88.704940</td>
+<td>32.650967</td>
+<td>10.984314</td>
+<td>17.363520</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.451518Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.451462Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.547252Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.546873Z&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">4</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, col, title <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="st">'all'</span>, <span class="st">'mva'</span>, <span class="st">'suicide'</span>], [<span class="st">'All causes'</span>, <span class="st">'Motor vehicle accidents'</span>, <span class="st">'Suicide'</span>]):</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    ax.scatter(drinking[<span class="st">'age'</span>], drinking[col], c<span class="op">=</span>drinking[<span class="st">'over21'</span>], cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)<span class="op">;</span> ax.set_xlabel(<span class="st">'Age - 21 (years)'</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Deaths per 100,000'</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>There is a visible jump at 21. The two assumptions from the lecture are what make it causal:</p>
+<ol type="1">
+<li><strong>No manipulation of the running variable.</strong> People can’t choose their age. We check the density in 3.4.</li>
+<li><strong>Everything else is continuous at the cutoff.</strong> Nothing else changes exactly at 21 that would also affect deaths. We test this indirectly with a placebo outcome in 3.4.</li>
+</ol>
+</section>
+<section id="linear-different-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="linear-different-slopes">3.1 Linear, different slopes</h3>
+<p>Fit one line below the cutoff and another above, and measure the gap between them <em>at</em> the cutoff:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1\, age_i + \beta_2\, \mathbb{1}\{age_i \ge 0\} + \beta_3\, \mathbb{1}\{age_i \ge 0\} \times age_i + \varepsilon_i\]</span></p>
+<p><span class="math inline">\(\beta_0\)</span> is the predicted value just below 21, <span class="math inline">\(\beta_0 + \beta_2\)</span> just above, and <strong><span class="math inline">\(\beta_2\)</span> is the jump</strong>, our treatment effect. The interaction lets the slope differ on each side.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.548378Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.548313Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.554842Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.554495Z&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>rdd <span class="op">=</span> smf.ols(<span class="st">'all ~ age * over21'</span>, data<span class="op">=</span>drinking).fit()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rdd.summary().tables[<span class="dv">1</span>])</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>jump <span class="op">=</span> rdd.params[<span class="st">'over21'</span>]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Jump at 21: </span><span class="sc">{</span>jump<span class="sc">:.2f}</span><span class="ss"> deaths per 100,000  (</span><span class="sc">{</span><span class="dv">100</span> <span class="op">*</span> jump <span class="op">/</span> rdd<span class="sc">.</span>params[<span class="st">'Intercept'</span>]<span class="sc">:.1f}</span><span class="ss">% of the just-under-21 rate)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     93.6184      0.932    100.399      0.000      91.739      95.498
+age            0.8270      0.819      1.010      0.318      -0.823       2.477
+over21         7.6627      1.319      5.811      0.000       5.005      10.320
+age:over21    -3.6034      1.158     -3.111      0.003      -5.937      -1.269
+==============================================================================
+
+Jump at 21: 7.66 deaths per 100,000  (8.2% of the just-under-21 rate)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.555927Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.555847Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.601880Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.601497Z&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> drinking.dropna(subset<span class="op">=</span>[<span class="st">'all'</span>]).assign(fit<span class="op">=</span>rdd.fittedvalues)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(d[<span class="st">'age'</span>], d[<span class="st">'all'</span>], color<span class="op">=</span><span class="st">'grey'</span>, s<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> side <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>]:</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> d[d[<span class="st">'over21'</span>] <span class="op">==</span> side]</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    plt.plot(s[<span class="st">'age'</span>], s[<span class="st">'fit'</span>], lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span>[<span class="st">'C0'</span>, <span class="st">'C3'</span>][side])</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Age - 21 (years)'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Deaths per 100,000 (all causes)'</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'RDD at the drinking age: jump = </span><span class="sc">{</span>jump<span class="sc">:.2f}</span><span class="ss">  (p = </span><span class="sc">{</span>rdd<span class="sc">.</span>pvalues[<span class="st">"over21"</span>]<span class="sc">:.1g}</span><span class="ss">)'</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="exercise-a-non-linear-specification" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-a-non-linear-specification">Exercise: a non-linear specification</h3>
+<p>The lecture also showed a <strong>non-linear</strong> design. Add a squared term on each side (<code>age + I(age**2)</code> interacted with <code>over21</code>) and re-estimate the jump for <code>all</code>. Plot the fitted curves as above. Does the estimate move much? Why can high-order polynomials be risky in RDD? (Think about what happens to a curve at the <em>edge</em> of the data, which is exactly where the cutoff is.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.602875Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.602803Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.604271Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.603950Z&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="bandwidth-how-close-is-close" class="level3">
+<h3 class="anchored" data-anchor-id="bandwidth-how-close-is-close">3.2 Bandwidth: how close is “close”?</h3>
+<p>The design is most credible <em>near</em> the cutoff: a 19-year-old and a 23-year-old differ in many ways. The <strong>bandwidth</strong> <span class="math inline">\(h\)</span> restricts the sample to <span class="math inline">\(|age| \le h\)</span>. A smaller <span class="math inline">\(h\)</span> means more comparable units (less bias) but fewer observations (more noise). A common refinement is a <strong>triangular kernel</strong>, which down-weights points further from the cutoff:</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.605162Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.605106Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.647873Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.647551Z&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> triangular(r, h):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># weight = 1 at the cutoff, falling linearly to 0 at distance h</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.clip(<span class="dv">1</span> <span class="op">-</span> np.<span class="bu">abs</span>(r) <span class="op">/</span> h, <span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">400</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> [<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>]:</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    plt.plot(r, triangular(r, h), label<span class="op">=</span><span class="ss">f'h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Age - 21'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Weight'</span>)<span class="op">;</span> plt.title(<span class="st">'Triangular kernel weights'</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>A robust result should not depend much on the bandwidth. The loop below re-estimates the jump for a range of bandwidths, using weighted least squares (<code>smf.wls</code>) with triangular weights, and plots the estimates with 95% confidence intervals.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.648932Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.648868Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.711009Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.710666Z&quot;}" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rdd_jump(outcome, h, data<span class="op">=</span>drinking):</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> data.dropna(subset<span class="op">=</span>[outcome])</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> s[s[<span class="st">'age'</span>].<span class="bu">abs</span>() <span class="op">&lt;=</span> h]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> smf.wls(<span class="ss">f'</span><span class="sc">{</span>outcome<span class="sc">}</span><span class="ss"> ~ age * over21'</span>, data<span class="op">=</span>s, weights<span class="op">=</span>triangular(s[<span class="st">'age'</span>], h)).fit()</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m.params[<span class="st">'over21'</span>], m.bse[<span class="st">'over21'</span>], <span class="bu">len</span>(s)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>bws <span class="op">=</span> [<span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">1.0</span>, <span class="fl">1.25</span>, <span class="fl">1.5</span>, <span class="fl">1.75</span>, <span class="fl">2.0</span>]</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> pd.DataFrame([(h, <span class="op">*</span>rdd_jump(<span class="st">'all'</span>, h)) <span class="cf">for</span> h <span class="kw">in</span> bws], columns<span class="op">=</span>[<span class="st">'h'</span>, <span class="st">'jump'</span>, <span class="st">'se'</span>, <span class="st">'n'</span>])</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>plt.errorbar(res[<span class="st">'h'</span>], res[<span class="st">'jump'</span>], yerr<span class="op">=</span><span class="fl">1.96</span> <span class="op">*</span> res[<span class="st">'se'</span>], fmt<span class="op">=</span><span class="st">'o-'</span>, capsize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bandwidth h (years either side of 21)'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Jump in deaths per 100,000'</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bandwidth sensitivity: all-cause mortality'</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>res.<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">h</th>
+<th data-quarto-table-cell-role="th">jump</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.40</td>
+<td>10.25</td>
+<td>2.48</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.60</td>
+<td>9.32</td>
+<td>2.01</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.80</td>
+<td>9.54</td>
+<td>1.55</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1.00</td>
+<td>9.70</td>
+<td>1.53</td>
+<td>24</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1.25</td>
+<td>9.65</td>
+<td>1.39</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>1.50</td>
+<td>9.29</td>
+<td>1.27</td>
+<td>36</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>1.75</td>
+<td>8.79</td>
+<td>1.19</td>
+<td>42</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2.00</td>
+<td>8.38</td>
+<td>1.12</td>
+<td>48</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notice the trade-off: at small <span class="math inline">\(h\)</span> the confidence intervals widen because each side has only a handful of age cells.</p>
+</section>
+<section id="validity-checks" class="level3">
+<h3 class="anchored" data-anchor-id="validity-checks">3.3 Validity checks</h3>
+<p><strong>(a) Placebo outcome.</strong> If the jump really comes from alcohol, it should show up in deaths alcohol plausibly causes (accidents, alcohol poisoning), and <strong>not</strong> in deaths it doesn’t (e.g.&nbsp;<code>internal</code> causes such as cancer and other diseases). If “internal” deaths also jumped at 21, we would suspect something else changes at that age.</p>
+</section>
+<section id="exercise-4" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4">Exercise</h3>
+<p>Use <code>rdd_jump</code> to run the bandwidth loop for <code>internal</code> and for <code>mva</code>, and plot all three outcomes (<code>all</code>, <code>mva</code>, <code>internal</code>) on one figure. Then answer:</p>
+<ol type="1">
+<li>Which outcome behaves like a good placebo?</li>
+<li>Does the <code>internal</code> estimate stay near zero at <em>every</em> bandwidth? What would you tell a reader about any exceptions?</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.712062Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.711997Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.713386Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.713083Z&quot;}" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>(b) Manipulation: the McCrary density test.</strong> If units can move themselves across the cutoff, the people just above it are no longer comparable to those just below. The signature is <strong>bunching</strong>: too many observations just on the “good” side. Age can’t be manipulated, so we use the lecture’s other example, an exam.</p>
+<p>In Texas, students must pass a last-chance exit exam to receive a high-school diploma. <code>sheepskin.csv</code> groups students by their score relative to the pass mark (<code>minscore</code>, where 0 = the pass mark). <code>n</code> is the number of students in each score cell, and that is the density we check. A spike at 0 would mean teachers nudging marginal students over the line.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.714369Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.714302Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.779197Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.778904Z&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sheepskin <span class="op">=</span> pd.read_csv(<span class="st">'https://storage.googleapis.com/qm2/rdd/sheepskin.csv'</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sheepskin[<span class="st">'passed'</span>] <span class="op">=</span> (sheepskin[<span class="st">'minscore'</span>] <span class="op">&gt;=</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)  <span class="co"># a score of exactly 0 is a pass</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>plt.bar(sheepskin[<span class="st">'minscore'</span>], sheepskin[<span class="st">'n'</span>], color<span class="op">=</span>np.where(sheepskin[<span class="st">'passed'</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">'C3'</span>, <span class="st">'C0'</span>))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="op">-</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Exam score relative to pass mark'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Number of students'</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Density of the running variable (McCrary check)'</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># a simple version of McCrary's test: fit a line to log(count) on each side of the cutoff and measure the jump</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>near <span class="op">=</span> sheepskin[sheepskin[<span class="st">'minscore'</span>].<span class="bu">abs</span>() <span class="op">&lt;=</span> <span class="dv">10</span>]</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>dens <span class="op">=</span> smf.ols(<span class="st">'np.log(n) ~ minscore * passed'</span>, data<span class="op">=</span>near).fit()</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Jump in log density at the pass mark: </span><span class="sc">{</span>dens<span class="sc">.</span>params[<span class="st">'passed'</span>]<span class="sc">:.3f}</span><span class="ss"> (about </span><span class="sc">{</span><span class="dv">100</span> <span class="op">*</span> dens<span class="sc">.</span>params[<span class="st">'passed'</span>]<span class="sc">:.0f}</span><span class="ss">%), p = </span><span class="sc">{</span>dens<span class="sc">.</span>pvalues[<span class="st">'passed'</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jump in log density at the pass mark: -0.037 (about -4%), p = 0.66</code></pre>
+</div>
+</div>
+<p>The density is smooth across the pass mark. The estimated jump is small, not significant, and if anything <em>negative</em>, when manipulation would produce a spike just above the line. If markers had been rounding up students who scored −1 or −2, you would see a dip just left of the line and a spike just right of it.</p>
+<hr>
+</section>
+</section>
+<section id="optional-fuzzy-rdd-and-the-sheepskin-effect" class="level2">
+<h2 class="anchored" data-anchor-id="optional-fuzzy-rdd-and-the-sheepskin-effect"><em>Optional</em>: fuzzy RDD and the sheepskin effect</h2>
+<p>Does a diploma raise earnings because school made you more productive, or because the certificate itself (the “sheepskin”) signals quality to employers? Students who barely passed and barely failed the exam have nearly the same skills, but only one group gets the certificate.</p>
+<p>Here passing does <strong>not</strong> fully determine treatment. Some students who fail still get a diploma later, and some who pass don’t. This is a <strong>fuzzy</strong> RDD: the cutoff causes a jump in the <em>probability</em> of treatment, not a jump from 0 to 1.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.780414Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.780339Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.853271Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.852953Z&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">4</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, col, lab <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="st">'receivehsd'</span>, <span class="st">'avgearnings'</span>], [<span class="st">'Share receiving a diploma'</span>, <span class="st">'Average annual earnings ($)'</span>]):</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    ax.scatter(sheepskin[<span class="st">'minscore'</span>], sheepskin[col], c<span class="op">=</span>sheepskin[<span class="st">'passed'</span>], cmap<span class="op">=</span><span class="st">'coolwarm'</span>, s<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    ax.axvline(<span class="op">-</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'black'</span>, ls<span class="op">=</span><span class="st">'--'</span>)<span class="op">;</span> ax.set_xlabel(<span class="st">'Exam score relative to pass mark'</span>)<span class="op">;</span> ax.set_ylabel(lab)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'First stage: sharp or fuzzy?'</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_title(<span class="st">'Outcome: any jump in earnings?'</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="W08. Causal Inference_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The fuzzy-RDD estimate (a <em>Wald</em> or instrumental-variables estimator) divides the jump in the outcome by the jump in the treatment probability:</p>
+<p><span class="math display">\[\text{effect of a diploma} = \frac{\text{jump in earnings at the cutoff}}{\text{jump in P(diploma) at the cutoff}}\]</span></p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.854491Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.854426Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.862060Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.861682Z&quot;}" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fuzzy_jump(data, h<span class="op">=</span><span class="dv">15</span>):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> data[data[<span class="st">'minscore'</span>].<span class="bu">abs</span>() <span class="op">&lt;=</span> h]</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> triangular(s[<span class="st">'minscore'</span>], h) <span class="op">*</span> s[<span class="st">'n'</span>]  <span class="co"># kernel weight x cell size</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> smf.wls(<span class="st">'avgearnings ~ minscore * passed'</span>, data<span class="op">=</span>s, weights<span class="op">=</span>w).fit().params[<span class="st">'passed'</span>]</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    den <span class="op">=</span> smf.wls(<span class="st">'receivehsd ~ minscore * passed'</span>, data<span class="op">=</span>s, weights<span class="op">=</span>w).fit().params[<span class="st">'passed'</span>]</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> num, den, num <span class="op">/</span> den</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>num, den, wald <span class="op">=</span> fuzzy_jump(sheepskin)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Jump in earnings (reduced form): $</span><span class="sc">{</span>num<span class="sc">:,</span><span class="fl">.0</span><span class="er">f</span><span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Jump in P(diploma) (first stage): </span><span class="sc">{</span>den<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Fuzzy RDD effect of a diploma:    $</span><span class="sc">{</span>wald<span class="sc">:,</span><span class="fl">.0</span><span class="er">f</span><span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jump in earnings (reduced form): $14
+Jump in P(diploma) (first stage): 0.43
+Fuzzy RDD effect of a diploma:    $32</code></pre>
+</div>
+</div>
+<section id="optional-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="optional-exercise"><em>Optional</em> Exercise</h3>
+<p>Get a 95% confidence interval for the Wald estimate by bootstrapping: resample the rows of <code>sheepskin</code> with replacement 500 times (<code>sheepskin.sample(frac=1, replace=True)</code>), recompute <code>fuzzy_jump</code> each time, and take the 2.5th and 97.5th percentiles. Plot the bootstrap distribution. Is there a sheepskin effect?</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.863228Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.863161Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.864624Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.864294Z&quot;}" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="audit-a-causal-claim" class="level2">
+<h2 class="anchored" data-anchor-id="audit-a-causal-claim">4. Audit a causal claim</h2>
+<p>You will increasingly be asked to <em>judge</em> analyses rather than write them: a think-tank report, a newspaper chart, code an AI assistant produced. Below are two analyses that run without errors and report significant p-values. <strong>Both are flawed.</strong> Use the lecture’s checklist:</p>
+<ul>
+<li><strong>What is the counterfactual</strong>, and why should I believe it?</li>
+<li><strong>DiD</strong>: were pre-treatment trends parallel? Does a placebo group or fake date show an “effect”? Did anything else change at the same time?</li>
+<li><strong>RDD</strong>: could people manipulate the running variable? Do other characteristics jump at the cutoff? Does the estimate survive a different bandwidth or functional form?</li>
+<li><strong>Who does it apply to?</strong> DiD: the treated group. RDD: only units near the cutoff.</li>
+</ul>
+<section id="claim-a" class="level3">
+<h3 class="anchored" data-anchor-id="claim-a">Claim A</h3>
+<blockquote class="blockquote">
+<p><em>“New Jersey’s January 2020 minimum wage increase to $11 destroyed jobs. Using a two-way fixed-effects difference-in-differences design on all 88 counties of New Jersey and Pennsylvania (2016–2021), with county and year fixed effects and clustered standard errors, we find the increase raised county unemployment by 1.3 percentage points (p &lt; 0.001).”</em></p>
+</blockquote>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.865450Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.865394Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.874875Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.874476Z&quot;}" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the analysis behind Claim A (it runs fine; the problem is the design)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>claim <span class="op">=</span> counties[counties[<span class="st">'state'</span>].isin([<span class="dv">34</span>, <span class="dv">42</span>]) <span class="op">&amp;</span> counties[<span class="st">'year'</span>].between(<span class="dv">2016</span>, <span class="dv">2021</span>)].copy()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>claim[<span class="st">'treat_post'</span>] <span class="op">=</span> ((claim[<span class="st">'state'</span>] <span class="op">==</span> <span class="dv">34</span>) <span class="op">&amp;</span> (claim[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">2020</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>claim_a <span class="op">=</span> smf.ols(<span class="st">'unemployment ~ treat_post + C(county_fips) + C(year)'</span>, data<span class="op">=</span>claim).fit(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    cov_type<span class="op">=</span><span class="st">'cluster'</span>, cov_kwds<span class="op">=</span>{<span class="st">'groups'</span>: claim[<span class="st">'county_fips'</span>]})</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate: </span><span class="sc">{</span>claim_a<span class="sc">.</span>params[<span class="st">'treat_post'</span>]<span class="sc">:.2f}</span><span class="ss"> pp, p = </span><span class="sc">{</span>claim_a<span class="sc">.</span>pvalues[<span class="st">'treat_post'</span>]<span class="sc">:.1g}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimate: 1.30 pp, p = 1e-06</code></pre>
+</div>
+</div>
+</section>
+<section id="claim-b" class="level3">
+<h3 class="anchored" data-anchor-id="claim-b">Claim B</h3>
+<blockquote class="blockquote">
+<p><em>“Crossing the drinking age raises suicides by 15%. Therefore raising the U.S. drinking age from 21 to 25 would cut suicides among 21–24-year-olds by 15%.”</em></p>
+</blockquote>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.875939Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.875883Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.881123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.880817Z&quot;}" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the analysis behind Claim B: the analyst tried several bandwidths and reported this one</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> drinking.dropna(subset<span class="op">=</span>[<span class="st">'suicide'</span>])</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>claim_b <span class="op">=</span> smf.ols(<span class="st">'suicide ~ age * over21'</span>, data<span class="op">=</span>s).fit()  <span class="co"># all data, |age| &lt;= 2</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Jump: </span><span class="sc">{</span>claim_b<span class="sc">.</span>params[<span class="st">'over21'</span>]<span class="sc">:.2f}</span><span class="ss">  = </span><span class="sc">{</span><span class="dv">100</span> <span class="op">*</span> claim_b<span class="sc">.</span>params[<span class="st">'over21'</span>] <span class="op">/</span> claim_b<span class="sc">.</span>params[<span class="st">'Intercept'</span>]<span class="sc">:.0f}</span><span class="ss">% increase, p = </span><span class="sc">{</span>claim_b<span class="sc">.</span>pvalues[<span class="st">'over21'</span>]<span class="sc">:.1g}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jump: 1.79  = 15% increase, p = 0.0003</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-write-the-audit" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-write-the-audit">Exercise: write the audit</h3>
+<p>For <strong>each</strong> claim:</p>
+<ol type="1">
+<li>Go through the checklist and identify <strong>at least two</strong> problems. For each, say whether it would make the estimate too big, too small, or just uninterpretable.</li>
+<li>Run <strong>one</strong> piece of code that provides evidence for one of your problems. Ideas: an event-study plot for Claim A (which years are pre-treatment? what happened in 2020?); <code>rdd_jump('suicide', h)</code> across bandwidths for Claim B.</li>
+<li>Rewrite the claim as one honest sentence that the evidence <em>does</em> support.</li>
+</ol>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.882253Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.882186Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.883633Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.883370Z&quot;}" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Claim A: your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:57:51.884540Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:57:51.884489Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:57:51.885784Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:57:51.885525Z&quot;}" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Claim B: your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Your audit here.</em></p>
+<hr>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Card, D. &amp; Krueger, A. (1994). <a href="https://davidcard.berkeley.edu/papers/njmin-aer.pdf">Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania</a>. <em>American Economic Review</em>.</li>
+<li>Card, D. (1990). The Impact of the Mariel Boatlift on the Miami Labor Market. <em>Industrial and Labor Relations Review</em>.</li>
+<li>Carpenter, C. &amp; Dobkin, C. (2009). <a href="https://www.aeaweb.org/articles?id=10.1257/app.1.1.164">The Effect of Alcohol Consumption on Mortality: Regression Discontinuity Evidence from the Minimum Drinking Age</a>. <em>AEJ: Applied Economics</em>.</li>
+<li>Clark, D. &amp; Martorell, P. (2014). The Signaling Value of a High School Diploma. <em>Journal of Political Economy</em>.</li>
+<li>The RDD section adapts Chapter 16 of Matheus Facure’s <a href="https://github.com/matheusfacure/python-causality-handbook">Causal Inference for the Brave and True</a> (MIT licence).</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../slides/w08.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lecture slides</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../slides/w09.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Lecture slides</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
