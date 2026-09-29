@@ -2,44 +2,44 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Quantitative Methods 2",
+    "title": "BASC0005",
     "section": "",
-    "text": "Welcome"
+    "text": "Welcome\nThis course teaches quantitative skills, with an emphasis on the context and use of data. Students learn to focus on datasets which will allow them to explore questions in society – in arts, humanities, sports, criminal justice, economics, inequality, or policy. Students are expected to work with Python to carry out data manipulation (cleaning and segmentation), analysis (for example, deriving descriptive statistics) and visualisation (graphing, mapping and other forms of visualisation). They will engage with literatures around a topic and connect their datasets and analyses to explore and decide wider arguments, and link their results to these contextual considerations."
   },
   {
-    "objectID": "index.html#welcome-to-basc0005---quantitative-methods-data-science-and-visualisation",
-    "href": "index.html#welcome-to-basc0005---quantitative-methods-data-science-and-visualisation",
-    "title": "Quantitative Methods 2",
-    "section": "Welcome to BASC0005 - Quantitative Methods: Data Science and Visualisation",
-    "text": "Welcome to BASC0005 - Quantitative Methods: Data Science and Visualisation\nThis course teaches quantitative skills, with an emphasis on the context and use of data. Students learn to focus on datasets which will allow them to explore questions in society – in arts, humanities, sports, criminal justice, economics, inequality, or policy. Students are expected to work with Python to carry out data manipulation (cleaning and segmentation), analysis (for example, deriving descriptive statistics) and visualisation (graphing, mapping and other forms of visualisation). They will engage with literatures around a topic and connect their datasets and analyses to explore and decide wider arguments, and link their results to these contextual considerations. Below is an outline of the course:\n\n\n\nWeek\nLecture\nTheme\nWorkshop\n\n\n\n\n1\nIntroduction\nQuestion\nPython Recap\n\n\n2\nData\nData Acquisition\nPandas\n\n\n3\nSpatial & Network Data\nData Acquisition\nSpatial Data\n\n\n4\nText as Data\nData Acquisition\nNatural Language Processing\n\n\n5\nSampling & Distributions\nExploration\nDistributions and Basic Statistics\n\n\n6\nHypothesis Testing: Frequentist & Bayesian\nExploration\nHypothesis Testing\n\n\n7\nRegression\nModelling\nLinear Regression\n\n\n8\nCausal Inference I: Difference-in-Differences\nModelling\nDifference-in-Differences\n\n\n9\nCausal Inference II: Regression Discontinuity\nModelling\nRegression Discontinuity\n\n\n10\nSupervised & Unsupervised Learning\nModelling\nMachine Learning"
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "BASC0005",
+    "section": "Schedule",
+    "text": "Schedule\n\n1IntroductionWorkshop: Python RecapQuestion\n2DataWorkshop: PandasData acquisition\n3Spatial & Network DataWorkshop: Spatial DataData acquisition\n4Text as DataWorkshop: Natural Language ProcessingData acquisition\n5Sampling & DistributionsWorkshop: Distributions and Basic StatisticsExploration\nRWReading weekWorkshop: Merging and JoiningReading week\n6Hypothesis Testing: Frequentist & BayesianslidesWorkshop: Hypothesis TestingExploration\n7RegressionslidesWorkshop: Linear RegressionModelling\n8Causal Inference I: Difference-in-DifferencesslidesWorkshop: Difference-in-DifferencesModelling\n9Causal Inference II: Regression DiscontinuityslidesWorkshop: Regression DiscontinuityModelling\n10Supervised & Unsupervised LearningWorkshop: Machine LearningModelling"
   },
   {
     "objectID": "slides/w06.html",
     "href": "slides/w06.html",
-    "title": "Week 6 – Hypothesis Testing: Frequentist & Bayesian",
+    "title": "Hypothesis Testing: Frequentist & Bayesian",
     "section": "",
-    "text": "Open the slides full screen · press F for full screen, S for speaker view, ? for all shortcuts."
+    "text": "Open full screen ↗ Week 6 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "slides/w07.html",
     "href": "slides/w07.html",
-    "title": "Week 7 – Regression",
+    "title": "Regression",
     "section": "",
-    "text": "Open the slides full screen · press F for full screen, S for speaker view, ? for all shortcuts."
+    "text": "Open full screen ↗ Week 7 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "slides/w08.html",
     "href": "slides/w08.html",
-    "title": "Week 8 – Causal Inference I: Difference-in-Differences",
+    "title": "Causal Inference I: Difference-in-Differences",
     "section": "",
-    "text": "Open the slides full screen · press F for full screen, S for speaker view, ? for all shortcuts."
+    "text": "Open full screen ↗ Week 8 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "slides/w09.html",
     "href": "slides/w09.html",
-    "title": "Week 9 – Causal Inference II: Regression Discontinuity",
+    "title": "Causal Inference II: Regression Discontinuity",
     "section": "",
-    "text": "Open the slides full screen · press F for full screen, S for speaker view, ? for all shortcuts."
+    "text": "Open full screen ↗ Week 9 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "notebooks/W01. Python Recap.html",

@@ -1,7 +1,17 @@
-# Week 10 – Supervised & Unsupervised Learning {.unnumbered}
+---
+title: "Supervised & Unsupervised Learning"
+subtitle: "Week 10 lecture"
+page-layout: full
+toc: false
+repo-actions: false
+---
 
-<div class="slides-embed">
-<iframe src="../lectures/w10.html" title="Week 10 lecture slides" allowfullscreen loading="lazy"></iframe>
-</div>
+::: {.slides-embed}
+<iframe src="../lectures/w10.html" title="Week 10 lecture slides" allowfullscreen></iframe>
+:::
 
-[Open the slides full screen](../lectures/w10.html){target="_blank"} · press **F** for full screen, **S** for speaker view, **?** for all shortcuts.
+::: {.slides-bar}
+[Open full screen ↗](../lectures/w10.html){.btn .btn-primary target="_blank"}
+[Week 10 workshop →](../notebooks/W10.%20Machine%20Learning.html){.btn .btn-outline-secondary}
+<span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
+:::

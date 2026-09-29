@@ -1,7 +1,17 @@
-# Week 7 – Regression {.unnumbered}
+---
+title: "Regression"
+subtitle: "Week 7 lecture"
+page-layout: full
+toc: false
+repo-actions: false
+---
 
-<div class="slides-embed">
-<iframe src="../lectures/w07.html" title="Week 7 lecture slides" allowfullscreen loading="lazy"></iframe>
-</div>
+::: {.slides-embed}
+<iframe src="../lectures/w07.html" title="Week 7 lecture slides" allowfullscreen></iframe>
+:::
 
-[Open the slides full screen](../lectures/w07.html){target="_blank"} · press **F** for full screen, **S** for speaker view, **?** for all shortcuts.
+::: {.slides-bar}
+[Open full screen ↗](../lectures/w07.html){.btn .btn-primary target="_blank"}
+[Week 7 workshop →](../notebooks/W07.%20Linear%20Regression.html){.btn .btn-outline-secondary}
+<span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
+:::

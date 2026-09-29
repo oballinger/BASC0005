@@ -1,7 +1,17 @@
-# Week 2 – Data {.unnumbered}
+---
+title: "Data"
+subtitle: "Week 2 lecture"
+page-layout: full
+toc: false
+repo-actions: false
+---
 
-<div class="slides-embed">
-<iframe src="../lectures/w02.html" title="Week 2 lecture slides" allowfullscreen loading="lazy"></iframe>
-</div>
+::: {.slides-embed}
+<iframe src="../lectures/w02.html" title="Week 2 lecture slides" allowfullscreen></iframe>
+:::
 
-[Open the slides full screen](../lectures/w02.html){target="_blank"} · press **F** for full screen, **S** for speaker view, **?** for all shortcuts.
+::: {.slides-bar}
+[Open full screen ↗](../lectures/w02.html){.btn .btn-primary target="_blank"}
+[Week 2 workshop →](../notebooks/W02.%20Pandas.html){.btn .btn-outline-secondary}
+<span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
+:::

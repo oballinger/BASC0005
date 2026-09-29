@@ -7,46 +7,59 @@ project:
     - "slides/*.qmd"
 
 book:
-  title: "Quantitative Methods 2"
+  title: "BASC0005"
+  subtitle: "Quantitative Methods 2: Data Science and Visualisation"
   author: "Ollie Ballinger"
-  date: "10/10/2024"
   google-analytics: UA-154866877-2
   chapters:
     - index.qmd
-    - part: "Lecture slides"
+    - part: "Lectures"
       chapters:
-        - slides/w06.qmd
-        - slides/w07.qmd
-        - slides/w08.qmd
-        - slides/w09.qmd
+        - href: slides/w06.qmd
+          text: "W6 · Hypothesis Testing"
+        - href: slides/w07.qmd
+          text: "W7 · Regression"
+        - href: slides/w08.qmd
+          text: "W8 · Diff-in-Diff"
+        - href: slides/w09.qmd
+          text: "W9 · Reg. Discontinuity"
     - part: "Workshops"
       chapters:
-        - ./notebooks/W01. Python Recap.ipynb
-        - ./notebooks/W02. Pandas.ipynb
-        - ./notebooks/W03. Spatial Data.ipynb
-        - ./notebooks/W04. Natural Language Processing.ipynb
-        - ./notebooks/W05. Distributions and Basic Statistics.ipynb
-        - ./notebooks/RW. Merging and Joining.ipynb
-        - ./notebooks/W06. Hypothesis Testing.ipynb
-        - ./notebooks/W07. Linear Regression.ipynb
-        - ./notebooks/W08. Diff-in-Diff.ipynb
-        - ./notebooks/W09. Regression Discontinuity.ipynb
-        - ./notebooks/W10. Machine Learning.ipynb
+        - href: "./notebooks/W01. Python Recap.ipynb"
+          text: "W1 · Python Recap"
+        - href: "./notebooks/W02. Pandas.ipynb"
+          text: "W2 · Pandas"
+        - href: "./notebooks/W03. Spatial Data.ipynb"
+          text: "W3 · Spatial Data"
+        - href: "./notebooks/W04. Natural Language Processing.ipynb"
+          text: "W4 · Text & NLP"
+        - href: "./notebooks/W05. Distributions and Basic Statistics.ipynb"
+          text: "W5 · Distributions"
+        - href: "./notebooks/RW. Merging and Joining.ipynb"
+          text: "RW · Merging and Joining"
+        - href: "./notebooks/W06. Hypothesis Testing.ipynb"
+          text: "W6 · Hypothesis Testing"
+        - href: "./notebooks/W07. Linear Regression.ipynb"
+          text: "W7 · Linear Regression"
+        - href: "./notebooks/W08. Diff-in-Diff.ipynb"
+          text: "W8 · Diff-in-Diff"
+        - href: "./notebooks/W09. Regression Discontinuity.ipynb"
+          text: "W9 · Reg. Discontinuity"
+        - href: "./notebooks/W10. Machine Learning.ipynb"
+          text: "W10 · Machine Learning"
 
   repo-url: https://github.com/oballinger/BASC0005/
   repo-actions: [edit]
-  downloads: [pdf, epub]
-  sharing: [twitter, facebook]
   sidebar:
     logo: logo2.png
 bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, theme.scss]
     css: styles.css
-  pdf:
-    documentclass: scrreprt
+    number-sections: false
+    toc-title: "On this page"
 
 
 

@@ -1,7 +1,17 @@
-# Week 3 – Spatial & Network Data {.unnumbered}
+---
+title: "Spatial & Network Data"
+subtitle: "Week 3 lecture"
+page-layout: full
+toc: false
+repo-actions: false
+---
 
-<div class="slides-embed">
-<iframe src="../lectures/w03.html" title="Week 3 lecture slides" allowfullscreen loading="lazy"></iframe>
-</div>
+::: {.slides-embed}
+<iframe src="../lectures/w03.html" title="Week 3 lecture slides" allowfullscreen></iframe>
+:::
 
-[Open the slides full screen](../lectures/w03.html){target="_blank"} · press **F** for full screen, **S** for speaker view, **?** for all shortcuts.
+::: {.slides-bar}
+[Open full screen ↗](../lectures/w03.html){.btn .btn-primary target="_blank"}
+[Week 3 workshop →](../notebooks/W03.%20Spatial%20Data.html){.btn .btn-outline-secondary}
+<span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
+:::
