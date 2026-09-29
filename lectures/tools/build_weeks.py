@@ -35,7 +35,26 @@ WEEKS = {
     "w08": dict(title="Causal Inference I: Difference-in-Differences",
                 pieces=[("w08", "2-999")]),
     "w09": dict(title="Causal Inference II: Regression Discontinuity",
-                pieces=[("w09", "2-18,24-50")]),        # DiD recap 19-23 cut
+                pieces=[("w09", "2-18,24-50")],         # DiD recap 19-23 cut
+                slide_fixes={("w09", 43): [(r"^## Example 2", "## Example 3")]}),
+    # --- waiting for the source decks (see merge plan) ---
+    "w02": dict(title="Data",
+                pieces=[("w02", "2-46,57-999")]),       # Pandas section 47-56 cut
+    "w03": dict(title="Spatial & Network Data",
+                pieces=[("w03", "2-30,31,33,36,40,42-51"),  # sensor showcase trimmed; 52-62 cut
+                        ("networks", "8-20,30-34")],
+                slide_fixes={("w03", 46): [(r"\b1984\b", "1854")],
+                             ("networks", 31): [(r"Like clustering, but using \*\*connections\*\*, not features",
+                                                 "Groups nodes by their **connections**, not their features "
+                                                 "(feature-based clustering comes in Week 10)")]}),
+    "w04": dict(title="Text as Data",
+                pieces=[("w04", "2-43,59-999"),         # regex 47-58 cut, Twitter election trimmed
+                        ("embeddings", "8-21")]),
+    "w05": dict(title="Sampling & Distributions",
+                pieces=[("w05", "2-43,61-999")]),       # pay-gap section 44-60 cut
+    "w10": dict(title="Supervised & Unsupervised Learning",
+                pieces=[("w10", "2-12,19-33,39-999"),   # Titanic repeats cut
+                        ("clustering", "7-17,21-27")]),
 }
 
 
@@ -47,7 +66,7 @@ def parse(spec):
     return out
 
 
-def slides_of(deck):
+def slides_of(deck, slide_fixes=None):
     text = (STAGE / f"{deck}.qmd").read_text()
     body = text.split("---\n", 2)[2]
     blocks = re.split(r"(?=<!-- src: )", body)
@@ -61,7 +80,12 @@ def slides_of(deck):
             # heading first: an HTML comment before the first heading makes an empty slide
             if head.startswith("## ") and not body.strip() and "{" not in head:
                 head += " {.center}"      # question / title-only slides
-            out[int(m.group(1))] = "\n".join([head, comment, body]).rstrip()
+            n = int(m.group(1))
+            out[n] = "\n".join([head, comment, body]).rstrip()
+            for pat, rep in (slide_fixes or {}).get((deck, n), []):
+                out[n], k = re.subn(pat, rep, out[n], flags=re.M)
+                if not k:
+                    print(f"  ! slide fix not applied: {deck}:{n} {pat!r}")
     return out
 
 
@@ -74,7 +98,7 @@ def build(wk):
     img_dir.mkdir(parents=True)
     chunks, missing = [], []
     for deck, spec in cfg["pieces"]:
-        have = slides_of(deck)
+        have = slides_of(deck, cfg.get("slide_fixes"))
         for n in parse(spec):
             if n in have:
                 chunks.append(have[n])

@@ -342,7 +342,7 @@ Slide text: Non-Linear
     - 50%±4%
     - If we compare districts where candidates of that party narrowly won against those where they narrowly lost, those districts are very similar in terms of their **unobserved characteristics**
 
-## Example 2
+## Example 3
 <!-- src: Week 9 - Causal Inference II.pptx slide 43 -->
 
 - **Question**: Does an income-based cash transfer program decrease infant mortality?
