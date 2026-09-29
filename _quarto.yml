@@ -1,6 +1,10 @@
 project:
   type: book
   output-dir: docs
+  render:
+    - index.qmd
+    - "notebooks/*.ipynb"
+    - "slides/*.qmd"
 
 book:
   title: "Quantitative Methods 2"
@@ -9,17 +13,25 @@ book:
   google-analytics: UA-154866877-2
   chapters:
     - index.qmd
-    - ./notebooks/W01. Python Recap.ipynb
-    - ./notebooks/W02. Pandas.ipynb
-    - ./notebooks/W03. Spatial Data.ipynb
-    - ./notebooks/W04. Natural Language Processing.ipynb
-    - ./notebooks/W05. Distributions and Basic Statistics.ipynb
-    - ./notebooks/RW. Merging and Joining.ipynb
-    - ./notebooks/W06. Hypothesis Testing.ipynb
-    - ./notebooks/W07. Linear Regression.ipynb
-    - ./notebooks/W08. Diff-in-Diff.ipynb
-    - ./notebooks/W09. Regression Discontinuity.ipynb
-    - ./notebooks/W10. Machine Learning.ipynb
+    - part: "Lecture slides"
+      chapters:
+        - slides/w06.qmd
+        - slides/w07.qmd
+        - slides/w08.qmd
+        - slides/w09.qmd
+    - part: "Workshops"
+      chapters:
+        - ./notebooks/W01. Python Recap.ipynb
+        - ./notebooks/W02. Pandas.ipynb
+        - ./notebooks/W03. Spatial Data.ipynb
+        - ./notebooks/W04. Natural Language Processing.ipynb
+        - ./notebooks/W05. Distributions and Basic Statistics.ipynb
+        - ./notebooks/RW. Merging and Joining.ipynb
+        - ./notebooks/W06. Hypothesis Testing.ipynb
+        - ./notebooks/W07. Linear Regression.ipynb
+        - ./notebooks/W08. Diff-in-Diff.ipynb
+        - ./notebooks/W09. Regression Discontinuity.ipynb
+        - ./notebooks/W10. Machine Learning.ipynb
 
   repo-url: https://github.com/oballinger/BASC0005/
   repo-actions: [edit]
@@ -32,6 +44,7 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
+    css: styles.css
   pdf:
     documentclass: scrreprt
 

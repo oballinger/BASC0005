@@ -1,0 +1,5 @@
+_staging/
+private/
+tools/.venv/
+
+/.quarto/

@@ -1,0 +1,7 @@
+# Week 8 – Causal Inference I: Difference-in-Differences {.unnumbered}
+
+<div class="slides-embed">
+<iframe src="../lectures/w08.html" title="Week 8 lecture slides" allowfullscreen loading="lazy"></iframe>
+</div>
+
+[Open the slides full screen](../lectures/w08.html){target="_blank"} · press **F** for full screen, **S** for speaker view, **?** for all shortcuts.

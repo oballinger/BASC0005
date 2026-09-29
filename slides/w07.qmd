@@ -1,0 +1,7 @@
+# Week 7 – Regression {.unnumbered}
+
+<div class="slides-embed">
+<iframe src="../lectures/w07.html" title="Week 7 lecture slides" allowfullscreen loading="lazy"></iframe>
+</div>
+
+[Open the slides full screen](../lectures/w07.html){target="_blank"} · press **F** for full screen, **S** for speaker view, **?** for all shortcuts.

@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="w06_files/libs/clipboard/clipboard.min.js"></script>
+<script src="w06_files/libs/quarto-html/tabby.min.js"></script>
+<script src="w06_files/libs/quarto-html/popper.min.js"></script>
+<script src="w06_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="w06_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="w06_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="w06_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="w06_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.326">
+
+  <meta name="author" content="Ollie Ballinger">
+  <title>Hypothesis Testing: Frequentist &amp; Bayesian</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="w06_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="w06_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="w06_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="w06_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="w06_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="w06_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="w06_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Hypothesis Testing: Frequentist &amp; Bayesian</h1>
+  <p class="subtitle">BASC0005 Quantitative Methods 2: Data Science and Visualisation</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Ollie Ballinger 
+</div>
+</div>
+</div>
+
+</section>
+<section id="section" class="slide level2 fallback" data-background-image="img/w06/w06_slide_002.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 2 -->
+<aside class="notes">
+<p>Slide text: The Data Science Process: · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results · Build a model · Fit the model · Validate the model</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="problem" class="slide level2">
+<h2>Problem</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 3 -->
+<ul>
+<li>Satellite imagery is used extensively to detect damaged buildings. The highest levels of accuracy are generally achieved using Deep Learning and Very High Resolution optical satellite imagery. However, such approaches have significant limitations:</li>
+<li>Financially and computationally expensive
+<ul>
+<li>$23/km2, so <strong>$13.9 million</strong> for all of Ukraine</li>
+</ul></li>
+<li>Optical imagery is not consistently available
+<ul>
+<li>High-resolution imagery must be tasked</li>
+<li>Clouds.</li>
+</ul></li>
+<li>Neural Networks require retraining to be accurate in different geographies.</li>
+</ul>
+</section>
+<section id="section-1" class="slide level2 fallback" data-background-image="img/w06/w06_slide_005.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 5 -->
+<aside class="notes">
+<p>Slide text: Detecting Damage from Space · Sentinel-1 SAR imagery is free, has a high revisit rate, and can penetrate clouds. Static structures are highly consistent in multitemporal imagery. A destructive event results in a change in backscatter amplitude, but relatively low variance in pixel values in both the pre- and post- shock periods for damaged buildings. A standard T-test can be used to calculate the ratio of the change in amplitude to general pixel variance, detecting collapsed buildings.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-2" class="slide level2" data-background-image="img/w06/w06_bc7b83f38b.png" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 6 -->
+</section>
+<section id="section-3" class="slide level2" data-background-image="img/w06/w06_568321a454.png" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 8 -->
+</section>
+<section id="section-4" class="slide level2" data-background-image="img/w06/w06_3eae8586fa.png" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 9 -->
+</section>
+<section id="section-5" class="slide level2" data-background-image="img/w06/w06_9f14aee4cb.png" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 12 -->
+</section>
+<section id="section-6" class="slide level2 fallback" data-background-image="img/w06/w06_slide_015.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 15 -->
+<aside class="notes">
+<p>Slide text: Model Output · The result is a damage probability raster, in which each pixel value reflects the average of four T-values. On the right, the PWTT algorithm is applied to Beirut following the explosion in August 2020.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-7" class="slide level2 fallback" data-background-image="img/w06/w06_slide_020.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 20 -->
+<aside class="notes">
+<p>2022- present</p>
+<p>Abstract:</p>
+<p>In the context of recent, highly destructive conflicts in Gaza and Ukraine, reliable estimates of building damage are essential for an informed public discourse, human rights monitoring, and humanitarian aid provision. Given the contentious nature of conflict damage assessment, these estimates must be fully reproducible, explainable, and derived from open access data. This paper introduces a new method for building damage detection– the Pixel-Wise T-Test (PWTT)– that satisfies these conditions. Using a combination of freely-available synthetic aperture radar imagery and statistical change detection, the PWTT generates accurate conflict damage estimates across a wide area at regular time intervals. Accuracy is assessed using an original dataset of over half a million labeled building footprints spanning 12 cities across Ukraine, Palestine, Syria, and Iraq. Despite being simple and lightweight, the algorithm achieves building-level accuracy statistics (AUC=0.88 across Ukraine, 0.81 in Gaza) rivalling state of the art methods that use deep learning and high resolution imagery. The workflow is open source and deployed entirely within the Google Earth Engine environment, allowing for the generation of interactive Battle Damage Dashboards for Ukraine and Gaza that update in near-real time, allowing the public and humanitarian practitioners to immediately get estimates of damaged buildings in a given area.</p>
+<p>Slide text: Open Access Battle Damage Detection via Pixel-Wise T-Test on Sentinel-1 Imagery</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 21 -->
+<ol type="1">
+<li>Case Study</li>
+<li>Confidence Intervals</li>
+<li>The T-Test</li>
+<li>Bayesian Inference</li>
+</ol>
+</section>
+<section>
+<section id="confidence-intervals" class="title-slide slide level1 center">
+<h1>2. Confidence Intervals</h1>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 22 -->
+</section>
+<section id="section-8" class="slide level2 fallback" data-background-image="img/w06/w06_slide_023.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 23 -->
+<aside class="notes">
+<p>Slide text: Is there a gender pay gap? · I have a random sample of 1000 people’s income data, of which 505 are men and 495 women</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-9" class="slide level2 fallback" data-background-image="img/w06/w06_slide_024.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 24 -->
+</section>
+<section id="sampling-error" class="slide level2">
+<h2>Sampling Error</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 25 -->
+<ul>
+<li>If multiple samples are taken from the same population, there still will be some difference between the sample means.</li>
+<li>This difference is called <strong>sampling error</strong></li>
+<li>The hypothesis test provides a standardized, formal procedure for determining whether the mean difference obtained in a research study is significantly greater than can be explained by sampling error</li>
+</ul>
+</section>
+<section id="section-10" class="slide level2" data-background-image="img/w06/w06_98cd28422f.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 26 -->
+</section>
+<section id="section-11" class="slide level2" data-background-image="img/w06/w06_bf85d88862.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 27 -->
+</section>
+<section id="section-12" class="slide level2" data-background-image="img/w06/w06_7ee7b5908e.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 28 -->
+</section>
+<section id="section-13" class="slide level2" data-background-image="img/w06/w06_054c641c1c.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 29 -->
+</section>
+<section id="section-14" class="slide level2" data-background-image="img/w06/w06_e50bccdb01.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 30 -->
+</section>
+<section id="section-15" class="slide level2" data-background-image="img/w06/w06_579306f0bd.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 31 -->
+</section>
+<section id="clt-recap" class="slide level2">
+<h2>CLT Recap</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 32 -->
+<ul>
+<li>If you take a big enough (usually n&gt;30) random sample, you can safely assume that 95% of the time,
+<ul>
+<li><strong>The</strong> <strong>population mean</strong> <strong>will lie within two standard errors of the observed</strong> <strong>sample mean.</strong></li>
+</ul></li>
+<li>If you have <strong>one sufficiently large random sample, you can ASSUME</strong> that the distribution of sample means will be normally distributed.
+<ul>
+<li>You can ASSUME that the mean of your sample has a 95% chance of falling within 2 <strong>standard errors</strong> of the population mean</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-16" class="slide level2 fallback" data-background-image="img/w06/w06_slide_033.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 33 -->
+<aside class="notes">
+<p>Slide text: Standard Error</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-17" class="slide level2 fallback" data-background-image="img/w06/w06_slide_034.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 34 -->
+<aside class="notes">
+<p>Slide text: Calculate the standard deviation</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-18" class="slide level2 fallback" data-background-image="img/w06/w06_slide_035.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 35 -->
+</section>
+<section id="section-19" class="slide level2 fallback" data-background-image="img/w06/w06_slide_036.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 36 -->
+<aside class="notes">
+<p>Slide text: Building a Confidence Interval</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-20" class="slide level2 fallback" data-background-image="img/w06/w06_slide_037.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 37 -->
+<aside class="notes">
+<p>Slide text: 95% Confidence Interval,Men</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-21" class="slide level2 notitle">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 38 -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_d9c3b6c405.jpg"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_e01f3b758b.jpg"></p>
+</div>
+</div>
+</section>
+<section id="section-22" class="slide level2 fallback" data-background-image="img/w06/w06_slide_039.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 39 -->
+<aside class="notes">
+<p>Slide text: 95% Confidence Interval,Women</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-23" class="slide level2 notitle">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 40 -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_591d275ab4.jpg"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_e7c8e4e254.jpg"></p>
+</div>
+</div>
+</section>
+<section id="section-24" class="slide level2" data-background-image="img/w06/w06_1245ab5910.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 41 -->
+</section>
+<section id="section-25" class="slide level2 fallback" data-background-image="img/w06/w06_slide_042.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 42 -->
+</section></section>
+<section>
+<section id="the-t-test" class="title-slide slide level1 center">
+<h1>3. The T-Test</h1>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 43 -->
+</section>
+<section id="independent-measures-designs" class="slide level2">
+<h2>Independent-Measures Designs</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 44 -->
+<ul>
+<li>The independent-measures design is used in situations where a researcher has no prior knowledge about either of the two populations (or treatments) being compared.</li>
+<li>In particular, the population means and standard deviations are all unknown.</li>
+<li>Because the population variances are not known, these values must be estimated from the sample data.</li>
+<li>The purpose of a T-test is to determine
+<ul>
+<li><strong>whether the sample mean difference indicates a real mean difference between the two populations</strong> or</li>
+<li><strong>whether the obtained difference is simply the result of sampling error.</strong></li>
+</ul></li>
+</ul>
+</section>
+<section id="section-26" class="slide level2 fallback" data-background-image="img/w06/w06_slide_046.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 46 -->
+<aside class="notes">
+<p>Slide text: The Student’s T-Test · Developed by William Sealy Gosset in 1908, who worked for Guinness at the time · “How can we&nbsp;determine, to a reasonable degree of scientific&nbsp;certainty, if one variety of barley yields more than another?”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-27" class="slide level2 fallback" data-background-image="img/w06/w06_slide_047.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 47 -->
+<aside class="notes">
+<p>Slide text: T-Test Formula</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-28" class="slide level2 fallback" data-background-image="img/w06/w06_slide_048.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 48 -->
+<aside class="notes">
+<p>Slide text: T-Test</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-29" class="slide level2 fallback" data-background-image="img/w06/w06_slide_049.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 49 -->
+<aside class="notes">
+<p>Slide text: T-Test</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-30" class="slide level2 fallback" data-background-image="img/w06/w06_slide_050.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 50 -->
+<aside class="notes">
+<p>Slide text: T-Test</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-31" class="slide level2 fallback" data-background-image="img/w06/w06_slide_051.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 51 -->
+<aside class="notes">
+<p>Slide text: Is there a gender pay gap?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-32" class="slide level2 fallback" data-background-image="img/w06/w06_slide_052.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 52 -->
+<aside class="notes">
+<p>Slide text: Hypothesis Test steps</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-33" class="slide level2 fallback" data-background-image="img/w06/w06_slide_053.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 53 -->
+<aside class="notes">
+<p>Slide text: 1. The Null and Alternative Hypotheses</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-34" class="slide level2 fallback" data-background-image="img/w06/w06_slide_054.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 54 -->
+<aside class="notes">
+<p>Slide text: 2. Select a Critical Value · If we want to test the null hypothesis at the 95% confidence level, we would select a critical value of 1.96. · If our T-statistic exceeds this value, we reject the null hypothesis that there is no difference between the group means.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-35" class="slide level2" data-background-image="img/w06/w06_5be88f4e2fc.png" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 55 -->
+</section>
+<section id="section-36" class="slide level2 fallback" data-background-image="img/w06/w06_slide_056.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 56 -->
+<aside class="notes">
+<p>Slide text: 3. Calculate the test statistic</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="make-a-decision" class="slide level2">
+<h2>4. Make a Decision</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 57 -->
+<ul>
+<li>The T-statistic from our T test is 6.4, which exceeds the critical value of 1.96.</li>
+<li>Therefore, we can <strong>reject</strong> the null hypothesis that there is no difference in means between male and female income at 95% confidence.</li>
+<li>Interpretation:
+<ul>
+<li>In a sample of 505 men and 495 women, the mean income for men was $13,600 higher than for women. The difference in these means is statistically significant at the 95% confidence level.</li>
+<li>i.e., there is less than a 5% chance of observing a such an extreme difference in means between these two groups due to random chance alone.</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-37" class="slide level2 fallback" data-background-image="img/w06/w06_slide_058.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 58 -->
+<aside class="notes">
+<p>Slide text: Summary of key terms</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a-note-of-caution" class="slide level2">
+<h2>A Note of Caution</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 59 -->
+<div class="columns">
+<div class="column" style="width:53%;">
+<ul>
+<li>Hypothesis testing is the basis of modern scientific research.</li>
+<li>They allow us to evaluate the likelihood of our test results being attributable to random chance.</li>
+<li>But, statistically significant results can be misleading
+<ul>
+<li><strong>Publication bias</strong> (a form of selection bias in academic publishing) is a real threat.</li>
+<li><strong>Bayes’</strong> <strong>Theorem</strong> suggests that many statistically significant research findings may be false.</li>
+</ul></li>
+</ul>
+<p>Source: <a href="https://agbarnett.github.io/talks/TRI/slides">Adrian Barnett</a></p>
+</div><div class="column" style="width:47%;">
+<p><img data-src="img/w06/w06_365bda55b8.png"></p>
+</div>
+</div>
+</section>
+<section id="where-do-null-findings-go" class="slide level2">
+<h2>Where do null findings go?</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 60 -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_c599a40e0e.jpg"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_92f73e5394.png"></p>
+</div>
+</div>
+</section>
+<section id="section-38" class="slide level2 notitle">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 61 -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_65a9b13d88.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/w06/w06_697ddabbb0.png"></p>
+</div>
+</div>
+</section>
+<section id="section-39" class="slide level2" data-background-image="img/w06/w06_8b947f61c4.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 62 -->
+</section></section>
+<section>
+<section id="bayes-theorem" class="title-slide slide level1 center">
+<h1>4. Bayes’ Theorem</h1>
+<!-- src: Week X - Bayesian Statistics.pptx slide 6 -->
+</section>
+<section id="section-40" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_007.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 7 -->
+<aside class="notes">
+<p>Gigerenzer found most doctors answer close to 90%. The answer is about 9%. Adapted from Gigerenzer &amp; Hoffrage (1995) on natural frequencies.</p>
+<p>Slide text: A Quick Question · A disease affects 1% of people. A test catches 90% of people who have it, but also wrongly flags 9% of healthy people. · · You test positive. What’s the chance you have the disease? · 90% · 81% · 50% · 9% · Go to menti</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-41" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_008.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 8 -->
+<aside class="notes">
+<p>Slide text: Think in People, Not Percentages · Of 1,000 people: · 10 are sick; 9 of them test positive · 990 are healthy; 89 of them test positive anyway · 9 / (9 + 89) = · 9% · Most positives are false, because healthy people vastly outnumber sick ones</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-42" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_009.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 9 -->
+<aside class="notes">
+<p>Slide text: Bayes’ Theorem · P(A | B) = P(B | A) × P(A) / P(B) · Posterior · P(A | B) · What we believe after seeing the data · Likelihood · P(B | A) · How probable the data are if A is true · Prior · P(A) · What we believed before seeing the data · Evidence · P(B) · How probable the data are overall · Posterior ∝ Likelihood × Prior</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="plugging-in" class="slide level2">
+<h2>Plugging In</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 10 -->
+<ul>
+<li>A = you have the disease; B = you test positive
+<ul>
+<li>Prior: P(sick) = 0.01</li>
+<li>Likelihood: P(positive | sick) = 0.90</li>
+<li>Evidence: P(positive) = 0.90 × 0.01 + 0.09 × 0.99 = 0.098</li>
+</ul></li>
+<li>Posterior: P(sick | positive) = 0.90 × 0.01 / 0.098 = <strong>0.092</strong></li>
+<li>P(positive | sick) = 90% but P(sick | positive) = 9%. <strong>Flipping the conditional changes everything</strong></li>
+<li>A second, independent positive test? Use 9% as the <strong>new prior</strong> and you get about 50%</li>
+</ul>
+<aside class="notes">
+<p>Second test: 0.9<em>0.092 / (0.9</em>0.092 + 0.09*0.908) = 0.0828/0.1645 ≈ 0.50.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a-very-old-idea" class="slide level2">
+<h2>A Very Old Idea</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 11 -->
+<ul>
+<li><strong>Rev.&nbsp;Thomas Bayes</strong> (c.1701–1761), a Presbyterian minister, worked out how to reason backwards from effects to causes
+<ul>
+<li>His essay was published after his death by Richard Price in <strong>1763</strong>. Bayes is buried in Bunhill Fields, a 20-minute walk from here</li>
+</ul></li>
+<li><strong>Pierre-Simon Laplace</strong> independently developed and generalised the idea from 1774, using it on everything from astronomy to birth ratios</li>
+<li>For most of the 20th century, <strong>frequentism</strong> (Fisher, Neyman, Pearson) dominated. Priors were seen as too subjective for science</li>
+<li>Since the 1990s, cheap computing (<strong>MCMC</strong>) has made Bayesian methods practical for complex models</li>
+</ul>
+</section>
+<section id="are-most-published-findings-false" class="slide level2">
+<h2>Are Most Published Findings False?</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 13 -->
+<ul>
+<li>Ioannidis (2005), one of the most-cited papers in the history of PLoS Medicine</li>
+<li>Earlier today we rejected the null if p &lt; 0.05. But how often is a ‘significant’ result actually <strong>true</strong>?</li>
+<li>Imagine a field that tests <strong>1,000 hypotheses</strong>:
+<ul>
+<li>Only <strong>10%</strong> of them are actually true (the prior)</li>
+<li>Studies have <strong>80% power</strong>: they detect a true effect 80% of the time</li>
+<li>α = 0.05: <strong>5%</strong> of false hypotheses come out significant by chance</li>
+</ul></li>
+<li>What share of significant findings are false?</li>
+</ul>
+</section>
+<section id="section-43" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_014.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 14 -->
+<aside class="notes">
+<p>Slide text: Are Most Published Findings False? · 125 significant results: · 80 true effects · 45 false positives · 36% · of ‘discoveries’ are false · With 20% power (common in small studies) it’s 45 / 65 = 69%</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-p-value-trap" class="slide level2">
+<h2>The p-value Trap</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 15 -->
+<ul>
+<li>A p-value is <strong>P(data this extreme | null is true)</strong></li>
+<li>It is <strong>not</strong> P(null is true | data), though it’s constantly reported that way</li>
+<li>Confusing the two is called the <strong>prosecutor’s fallacy</strong>
+<ul>
+<li><strong>Sally Clark</strong> (1999) was convicted of murdering her two baby sons after an expert claimed two cot deaths in one family had a ‘1 in 73 million’ chance</li>
+<li>That’s P(evidence | innocent). The jury needed P(innocent | evidence), and double murder is also extremely rare</li>
+<li>The conviction was overturned in 2003</li>
+</ul></li>
+<li>Bayes’ theorem is the only correct way to <strong>flip</strong> a conditional probability</li>
+</ul>
+</section></section>
+<section>
+<section id="priors-likelihoods-and-posteriors" class="title-slide slide level1 center">
+<h1>5. Priors, Likelihoods and Posteriors</h1>
+<!-- src: Week X - Bayesian Statistics.pptx slide 16 -->
+</section>
+<section id="estimating-union-membership-again" class="slide level2">
+<h2>Estimating Union Membership, Again</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 17 -->
+<ul>
+<li>In Week 5 we asked: what share of American workers are in a union?</li>
+<li>Suppose we sample <strong>7 people</strong> and <strong>none</strong> of them are union members
+<ul>
+<li>Frequentist estimate: 0 / 7 = <strong>0%</strong></li>
+<li>A 95% confidence interval based on the normal approximation: 0% to 0%</li>
+</ul></li>
+<li>Does anyone in this room believe union membership in the US is <strong>0%</strong>?</li>
+<li>We knew something <strong>before</strong> we saw the data. Frequentist methods have no place to put that knowledge. Bayesian methods do: the <strong>prior</strong></li>
+</ul>
+</section>
+<section id="section-44" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_018.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 18 -->
+<aside class="notes">
+<p>Slide text: Three Ingredients · Prior · p(θ) · What we believe about θ before seeing data, written as a probability distribution · ‘Union membership is probably somewhere between 5% and 40%’ · Likelihood · p(data | θ) · How probable the data we observed would be, for each possible value of θ · ‘If θ were 50%, getting 0 of 7 would be very unlikely’ · Posterior · p(θ | data) · Updated beliefs: the prior reweighted by the likelihood · ‘Given what we knew and what we saw, θ is probably around 12%’ · Posterior ∝ Likelihood × Prior</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-beta-distribution" class="slide level2">
+<h2>The Beta Distribution</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 19 -->
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li>We need a distribution for a <strong>proportion</strong>: something that lives between 0 and 1</li>
+<li><strong>Beta(a, b)</strong> is the standard choice
+<ul>
+<li>Think of a − 1 as prior ‘successes’ and b − 1 as prior ‘failures’</li>
+<li>Mean = a / (a + b)</li>
+</ul></li>
+<li>Beta(1, 1) is <strong>flat</strong>: every value equally likely</li>
+<li>Beta(2, 8) says ‘probably low, but I’m not sure’</li>
+<li>Beta(20, 80) says ‘about 20%, and I’m fairly confident’</li>
+</ul>
+</div><div class="column" style="width:55%;">
+<p><img data-src="img/w06/bayes_ce290e144e.png"></p>
+</div>
+</div>
+</section>
+<section id="section-45" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_020.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 20 -->
+<aside class="notes">
+<p>Slide text: Updating Is Just Counting · With a Beta prior and k successes out of n: · Beta(a, b) + k of n → Beta(a + k, b + n − k) · Prior: Beta(2, 8): mean 20%, ‘probably low’ · Data: 0 union members out of 7 · Posterior: Beta(2 + 0, 8 + 7) = Beta(2, 15): mean 11.8%, 95% interval 1.6% to 30.2% · Small sample, so the prior still does a lot of the work, and the estimate is far more sensible than 0%</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="prior-likelihood-posterior" class="slide level2">
+<h2>Prior × Likelihood = Posterior</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 21 -->
+<div class="columns">
+<div class="column" style="width:39%;">
+<ul>
+<li>The <strong>likelihood</strong> (dashed) peaks at 0%: that’s all the data alone can say</li>
+<li>The <strong>prior</strong> pulls the estimate towards plausible values</li>
+<li>The <strong>posterior</strong> is a compromise, weighted by how much information each carries</li>
+<li>The true rate in our CPS data (22%) sits comfortably inside the posterior</li>
+</ul>
+</div><div class="column" style="width:61%;">
+<p><img data-src="img/w06/bayes_35fb85e82d.png"></p>
+</div>
+</div>
+</section>
+<section id="more-data-less-prior" class="slide level2">
+<h2>More Data, Less Prior</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 22 -->
+<div class="columns">
+<div class="column" style="width:39%;">
+<ul>
+<li>A random sample of 1,000 people from the CPS: <strong>237</strong> are union members</li>
+<li>The likelihood is now sharp and <strong>overwhelms</strong> the prior</li>
+<li>95% interval: <strong>21.1% to 26.3%</strong></li>
+<li>Sound familiar? Just like the CLT, uncertainty shrinks as n grows</li>
+</ul>
+</div><div class="column" style="width:61%;">
+<p><img data-src="img/w06/bayes_6be194cf8f.png"></p>
+</div>
+</div>
+</section>
+<section id="todays-posterior-is-tomorrows-prior" class="slide level2">
+<h2>Today’s Posterior Is Tomorrow’s Prior</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 23 -->
+<div class="columns">
+<div class="column" style="width:37%;">
+<ul>
+<li>We can update <strong>one observation at a time</strong></li>
+<li>Start flat, Beta(1, 1), and feed in CPS respondents one by one</li>
+<li>Each posterior becomes the prior for the next batch</li>
+<li>The answer is the same whether you update in one go or one at a time</li>
+<li>This is how search-and-rescue, spam filters and election models learn as data arrive</li>
+</ul>
+</div><div class="column" style="width:63%;">
+<p><img data-src="img/w06/bayes_5e0c3b09b0.png"></p>
+</div>
+</div>
+</section>
+<section id="does-the-prior-matter" class="slide level2">
+<h2>Does the Prior Matter?</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 24 -->
+<div class="columns">
+<div class="column" style="width:34%;">
+<ul>
+<li>With <strong>20</strong> observations, the three priors give quite different answers</li>
+<li>With <strong>1,000</strong>, even a strong, wrong prior (centred on 50%) is mostly overwhelmed</li>
+<li><strong>Rule of thumb:</strong> priors matter when data are scarce, which is exactly when we most need extra information</li>
+</ul>
+</div><div class="column" style="width:66%;">
+<p><img data-src="img/w06/bayes_07ff5f27d2.png"></p>
+</div>
+</div>
+</section>
+<section id="section-46" class="slide level2 fallback" data-background-image="img/w06/bayes_slide_025.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 25 -->
+<aside class="notes">
+<p>Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely. Lets the data speak, but can give silly answers with tiny samples. · Weakly informative · Beta(2, 8) · Rules out absurd values without committing to much. The usual default. · Informative · Beta(20, 80) · Encodes real prior evidence, e.g.&nbsp;last year’s survey or a meta-analysis. · The critique: ‘priors are subjective, so you can get any answer you want’ · The response: every model makes subjective choices (which controls? which sample? α = 0.05?). Priors are at least written down. Report them, and show that your conclusions survive reasonable alternatives (a sensitivity analysis)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="credible-intervals" class="slide level2">
+<h2>Credible Intervals</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 26 -->
+<div class="columns">
+<div class="column" style="width:41%;">
+<ul>
+<li>Because the posterior is a probability distribution <strong>for θ</strong>, we can make direct probability statements about θ</li>
+<li>‘There is a <strong>95% probability</strong> that the union membership rate is between <strong>21.1% and 26.3%</strong>’</li>
+<li>This is the sentence everyone <strong>wants</strong> to say about a confidence interval, but can’t</li>
+</ul>
+</div><div class="column" style="width:59%;">
+<p><img data-src="img/w06/bayes_a6a283ada3.png"></p>
+</div>
+</div>
+</section>
+<section id="confidence-vs.-credible-intervals" class="slide level2">
+<h2>Confidence vs.&nbsp;Credible Intervals</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 27 -->
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>95% Confidence interval</th>
+<th>95% Credible interval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>θ is…</td>
+<td>A fixed, unknown number</td>
+<td>A random variable with a distribution</td>
+</tr>
+<tr class="even">
+<td>Randomness comes from</td>
+<td>The sampling process</td>
+<td>Our uncertainty about θ</td>
+</tr>
+<tr class="odd">
+<td>Correct interpretation</td>
+<td>If we repeated the study many times, 95% of intervals would contain θ</td>
+<td>Given the data and prior, there’s a 95% probability θ is in this interval</td>
+</tr>
+<tr class="even">
+<td>Needs a prior?</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>With lots of data and a flat prior</td>
+<td>Nearly identical numbers</td>
+<td>Nearly identical numbers</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="bayes-vs.-frequentism" class="title-slide slide level1 center">
+<h1>6. Bayes vs.&nbsp;Frequentism</h1>
+<!-- src: Week X - Bayesian Statistics.pptx slide 35 -->
+</section>
+<section id="two-schools" class="slide level2">
+<h2>Two Schools</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 36 -->
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Frequentist</th>
+<th>Bayesian</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Probability means</td>
+<td>Long-run frequency of events</td>
+<td>Degree of belief</td>
+</tr>
+<tr class="even">
+<td>Parameters (θ) are</td>
+<td>Fixed but unknown</td>
+<td>Uncertain, with a distribution</td>
+</tr>
+<tr class="odd">
+<td>Prior knowledge</td>
+<td>Not formally used</td>
+<td>Encoded in the prior</td>
+</tr>
+<tr class="even">
+<td>Main output</td>
+<td>Point estimate, p-value, confidence interval</td>
+<td>Posterior distribution</td>
+</tr>
+<tr class="odd">
+<td>Answers</td>
+<td>P(data | hypothesis)</td>
+<td>P(hypothesis | data)</td>
+</tr>
+<tr class="even">
+<td>Main criticism</td>
+<td>Answers a question nobody asked</td>
+<td>Priors are subjective</td>
+</tr>
+<tr class="odd">
+<td>Computation</td>
+<td>Usually fast, closed-form</td>
+<td>Often needs MCMC</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="which-should-you-use" class="slide level2">
+<h2>Which Should You Use?</h2>
+<!-- src: Week X - Bayesian Statistics.pptx slide 37 -->
+<ul>
+<li>It’s not a religion. With lots of data and weak priors, the two approaches give <strong>nearly identical numbers</strong></li>
+<li>Bayesian methods shine when:
+<ul>
+<li>Samples are <strong>small</strong>, or some groups are tiny (e.g.&nbsp;estimating rates for small areas or rare subgroups)</li>
+<li>You have genuine <strong>prior information</strong> worth using</li>
+<li>Data arrive <strong>sequentially</strong> and decisions can’t wait (search, trials, forecasting)</li>
+<li>You want to say how <strong>probable</strong> a hypothesis is, not just whether to reject it</li>
+</ul></li>
+<li>Whichever you use: state your assumptions, visualise uncertainty, and never report a p-value as the probability your hypothesis is true</li>
+</ul>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 63 -->
+<ul>
+<li>The purpose of a T-test is to determine
+<ul>
+<li><strong>whether the sample mean difference indicates a real mean difference between the two populations</strong> or</li>
+<li><strong>whether the obtained difference is simply the result of sampling error.</strong></li>
+</ul></li>
+<li>Hypothesis testing has 4 steps:
+<ol type="1">
+<li>State the hypotheses.</li>
+<li>Select an α level (e.g.&nbsp;95%, 99%) and locate the critical region.</li>
+<li>Compute the test statistic.</li>
+<li>Make a decision</li>
+</ol></li>
+<li>The hypothesis testing procedure, and the T-Test, are foundational to empirical research from medicine to social and physical sciences.</li>
+<li>But, just because a result is statistically significant, doesn’t mean it’s true!</li>
+</ul>
+</section>
+<section id="any-questions" class="slide level2">
+<h2>Any Questions?</h2>
+<!-- src: Week 6 - Hypothesis Testing.pptx slide 64 -->
+<p><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></p>
+<div class="footer footer-default">
+<p>BASC0005 Quantitative Methods 2</p>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="w06_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="w06_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="w06_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="w06_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

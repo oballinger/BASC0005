@@ -4,4 +4,20 @@
 
 This course teaches quantitative skills, with an emphasis on the context and use of data. Students learn to focus on datasets which will allow them to explore questions in society – in arts, humanities, sports, criminal justice, economics, inequality, or policy. Students are expected to work with Python to carry out data manipulation (cleaning and segmentation), analysis (for example, deriving descriptive statistics) and visualisation (graphing, mapping and other forms of visualisation). They will engage with literatures around a topic and connect their datasets and analyses to explore and decide wider arguments, and link their results to these contextual considerations. Below is an outline of the course: 
 
-![](outline.png) 
+```{=html}
+<table class="schedule">
+<thead><tr><th>Week</th><th>Lecture</th><th>Theme</th><th>Workshop</th></tr></thead>
+<tbody>
+<tr class="question"><td>1</td><td>Introduction</td><td>Question</td><td><a href="notebooks/W01.%20Python%20Recap.html">Python Recap</a></td></tr>
+<tr class="acquisition"><td>2</td><td>Data</td><td>Data Acquisition</td><td><a href="notebooks/W02.%20Pandas.html">Pandas</a></td></tr>
+<tr class="acquisition"><td>3</td><td>Spatial &amp; Network Data</td><td>Data Acquisition</td><td><a href="notebooks/W03.%20Spatial%20Data.html">Spatial Data</a></td></tr>
+<tr class="acquisition"><td>4</td><td>Text as Data</td><td>Data Acquisition</td><td><a href="notebooks/W04.%20Natural%20Language%20Processing.html">Natural Language Processing</a></td></tr>
+<tr class="exploration"><td>5</td><td>Sampling &amp; Distributions</td><td>Exploration</td><td><a href="notebooks/W05.%20Distributions%20and%20Basic%20Statistics.html">Distributions and Basic Statistics</a></td></tr>
+<tr class="exploration"><td>6</td><td><a href="slides/w06.html">Hypothesis Testing: Frequentist &amp; Bayesian</a></td><td>Exploration</td><td><a href="notebooks/W06.%20Hypothesis%20Testing.html">Hypothesis Testing</a></td></tr>
+<tr class="modelling"><td>7</td><td><a href="slides/w07.html">Regression</a></td><td>Modelling</td><td><a href="notebooks/W07.%20Linear%20Regression.html">Linear Regression</a></td></tr>
+<tr class="modelling"><td>8</td><td><a href="slides/w08.html">Causal Inference I: Difference-in-Differences</a></td><td>Modelling</td><td><a href="notebooks/W08.%20Diff-in-Diff.html">Difference-in-Differences</a></td></tr>
+<tr class="modelling"><td>9</td><td><a href="slides/w09.html">Causal Inference II: Regression Discontinuity</a></td><td>Modelling</td><td><a href="notebooks/W09.%20Regression%20Discontinuity.html">Regression Discontinuity</a></td></tr>
+<tr class="modelling"><td>10</td><td>Supervised &amp; Unsupervised Learning</td><td>Modelling</td><td><a href="notebooks/W10.%20Machine%20Learning.html">Machine Learning</a></td></tr>
+</tbody>
+</table>
+``` 

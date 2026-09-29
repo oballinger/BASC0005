@@ -1,0 +1,23 @@
+project:
+  type: default
+  output-dir: ../docs/lectures
+  render:
+    - "w*.qmd"
+    - "!private/"
+    - "!_staging/"
+
+format:
+  revealjs:
+    theme: [default, qm2.scss]
+    width: 1600
+    height: 900
+    margin: 0.06
+    slide-number: c/t
+    hash: true
+    center: false
+    transition: none
+    background-transition: none
+    footer: "BASC0005 Quantitative Methods 2"
+    preview-links: auto
+    fig-align: center
+    auto-stretch: true
