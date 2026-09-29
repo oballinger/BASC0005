@@ -21,7 +21,7 @@ book:
     - ./notebooks/W09. Regression Discontinuity.ipynb
     - ./notebooks/W10. Machine Learning.ipynb
 
-  repo-url: https://github.com/oballinger/QM2/
+  repo-url: https://github.com/oballinger/BASC0005/
   repo-actions: [edit]
   downloads: [pdf, epub]
   sharing: [twitter, facebook]
