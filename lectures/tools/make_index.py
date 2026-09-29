@@ -12,11 +12,11 @@ ROWS = [
  ("RW","10 Nov","Reading week","Reading week","Merging and Joining","RW. Merging and Joining"),
  ("6","17 Nov","Hypothesis Testing: Frequentist & Bayesian","Exploration","Hypothesis Testing","W06. Hypothesis Testing"),
  ("7","24 Nov","Regression","Modelling","Linear Regression","W07. Linear Regression"),
- ("8","1 Dec","Causal Inference I: Difference-in-Differences","Modelling","Difference-in-Differences","W08. Diff-in-Diff"),
- ("9","8 Dec","Causal Inference II: Regression Discontinuity","Modelling","Regression Discontinuity","W09. Regression Discontinuity"),
+ ("8","1 Dec","Causal Inference: Difference-in-Differences & Regression Discontinuity","Modelling","Difference-in-Differences","W08. Diff-in-Diff"),
+ ("9","8 Dec","To be confirmed","Modelling","Regression Discontinuity","W09. Regression Discontinuity"),
  ("10","15 Dec","Supervised & Unsupervised Learning","Modelling","Machine Learning","W10. Machine Learning"),
 ]
-READY = {"6","7","8","9"}
+READY = {"6","7","8"}
 esc = lambda s: s.replace("&", "&amp;")
 nb_href = lambda nb: "notebooks/" + nb.replace(" ", "%20") + ".html"
 def lec_html(w, lec, cls="lec"):

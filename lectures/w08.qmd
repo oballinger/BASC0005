@@ -1,16 +1,17 @@
 ---
-title: "Causal Inference I: Difference-in-Differences"
+title: "Causal Inference: Difference-in-Differences & Regression Discontinuity"
 subtitle: "BASC0005 Quantitative Methods 2: Data Science and Visualisation"
 author: "Ollie Ballinger"
 ---
 
 ## Outline
-<!-- src: Week 8 - Causal Inference I.pptx slide 2 -->
 
-1. Panel Regression
-1. Case Study 1: The Mariel Boatlift
-1. Difference in Differences
-1. Case Study 2: Driving Bans in China
+1. Why correlation isn't enough
+1. Difference-in-Differences
+1. Case Study: The Mariel Boatlift
+1. Regression Discontinuity
+1. Case Study: Irrigation and Insurgency
+1. Auditing a causal claim
 
 ## {background-image="img/w08/w08_c951146b87.jpg" background-size="contain"}
 <!-- src: Week 8 - Causal Inference I.pptx slide 3 -->
@@ -21,66 +22,6 @@ author: "Ollie Ballinger"
 
 ::: notes
 Slide text: $2.13/hr
-:::
-
-# Panel Regression
-<!-- src: Week 8 - Causal Inference I.pptx slide 5 -->
-
-## {background-image="img/w08/w08_slide_006.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 6 -->
-
-
-::: notes
-Slide text: Panel Data · Each point represents the employment rate of a state in a given year. How would you model the relationship between the two? · Employment · Minimum Wage
-:::
-
-## {background-image="img/w08/w08_slide_007.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 7 -->
-
-
-::: notes
-Slide text: Pooled OLS · Employment · Minimum Wage
-:::
-
-## {background-image="img/w08/w08_slide_008.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 8 -->
-
-
-::: notes
-Slide text: Fixed Individual-Level Effects · Points are now colored by state and labeled by year. How would you model the relationship between minimum wage and employment now? · Employment · Minimum Wage · 2018 · 2019 · 2020 · 2021 · 2018 · 2019 · 2020 · 2021 · 2018 · 2019 · 2020 · 2021 · 2018 · 2019 · 2020 · 2021 · 2018 · 2019 · 2020 · 2021 · California · New Jersey · Pennsylvania · Alaska · New York
-:::
-
-## Fixed-Effects Panel Regression
-<!-- src: Week 8 - Causal Inference I.pptx slide 9 -->
-
-- **Fixed effects** are [variables](https://www.statisticshowto.com/variable/) that are **constant across individuals**;
-    - E.g. sex or ethnicity for individuals
-    - Geographic size or terrain for countries/states
-- These variables don’t change or **change at a constant rate over time**.
-- They have fixed effects; in other words, any change they cause to an individual is the same.
-
-## {background-image="img/w08/w08_slide_010.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 10 -->
-
-
-::: notes
-Slide text: Fixed Effects · Employment · Minimum Wage
-:::
-
-## {background-image="img/w08/w08_slide_011.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 11 -->
-
-
-::: notes
-Slide text: The Fixed Effects Estimator · Employment · Minimum Wage
-:::
-
-## {background-image="img/w08/w08_slide_012.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 12 -->
-
-
-::: notes
-Slide text: Interpretation · When we have panel data (repeat observations of the same individuals i over multiple time periods t), there are two components to the variation: · Within  · Between · A fixed effects model allowsus to control for variation between groups due to time-invariant characteristics, and focus on identifying meaningfulvariation within groups. · Employment · Minimum Wage
 :::
 
 ## Correlation vs. Causation
@@ -119,97 +60,17 @@ Slide text: Interpretation · When we have panel data (repeat observations of th
 ::::
 :::
 
-# Case Study 1: Immigration and Employment
-<!-- src: Week 8 - Causal Inference I.pptx slide 16 -->
+## The Counterfactual Problem
 
-## Does immigration increase unemployment
-<!-- src: Week 8 - Causal Inference I.pptx slide 17 -->
-
-::: {.columns}
-:::: {.column width="66%"}
-- Many argue that immigration is undesirable because low-skilled immigrants may displace low-skilled or less-educated US citizens in the labor market.
-- Anecdotal evidence for this claim includes newspaper accounts of hostility between immigrants and natives in some cities, but the empirical evidence is inconclusive.
-- [Card’s (1990)](https://www.sciencedirect.com/science/article/pii/S1573446399030047#bb0280) study of the effect of immigration on the employment of American citizens, using a Difference in Differences design and the Mariel Boatlift.
-::::
-:::: {.column width="34%"}
-![](img/w08/w08_292121534e.jpg)
-::::
-:::
-
-## §
-<!-- src: Week 8 - Causal Inference I.pptx slide 18 -->
-
-![](img/w08/w08_83e7b7c48d.jpg){.r-stretch fig-align="center"}
-
-## {background-image="img/w08/w08_82ecaf348c.jpg" background-size="contain"}
-<!-- src: Week 8 - Causal Inference I.pptx slide 19 -->
-
-## {background-image="img/w08/w08_slide_020.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 20 -->
-
-
-::: notes
-Slide text: The Mariel Boatlift · In 1980 there was a mass emigration of Cubans to the United States.  · The exodus was driven by a stagnant economy that had weakened under the grip of a U.S. trade embargo.
-:::
-
-## {background-image="img/w08/w08_slide_021.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 21 -->
-
-
-::: notes
-Slide text: “Those who have no revolutionary genes, those who have no revolutionary blood...we do not want them, we do not need them,”  · Castro declared in a May 1, 1980 speech. In a stance that reversed the government’s closed emigration policy, Castro told Cubans who wanted to leave Cuba to leave, and directed would-be emigrants to go to the Port of Mariel. · The Mariel Boatlift
-:::
-
-## Experimental Design
-<!-- src: Week 8 - Causal Inference I.pptx slide 22 -->
-
-- **Data**: Current Population Survey (CPS), same data we’ve been using in the workshops
-- **Treatment Group**: Miami
-- **Control Group**: Atlanta, Los Angeles, Houston, and Tampa-St. Petersburg. These cities were chosen because, like Miami, they have large Black and Hispanic populations and because discussions of the impact of immigrants often focuses on the consequences for minorities. Most importantly, these cities appear to have employment trends similar to those in Miami at least since 1976.
-- **Treatment period**: pre/post 1980
-
-## {.notitle}
-<!-- src: Week 8 - Causal Inference I.pptx slide 23 -->
-
-::: {.columns}
-:::: {.column width="50%"}
-![](img/w08/w08_51a962fa0cc.png)
-::::
-:::: {.column width="50%"}
-![](img/w08/w08_51a962fa0cc.png)
-::::
-:::
-
-## {background-image="img/w08/w08_slide_024.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 24 -->
-
-
-::: notes
-Slide text: Results · Unemployment
-:::
-
-## Results
-<!-- src: Week 8 - Causal Inference I.pptx slide 25 -->
-
-- Between 1981 and 1979, the unemployment rate for Blacks in Miami rose by about 1.3%, though this change is not significant.
-- Unemployment rates in the comparisons cities rose even more, by 2.3%. The difference in these two changes, − 1.0%, is a DD estimate of the effect of the Mariel immigrants on the unemployment rate of Blacks in Miami.
-- In this case, the estimated effect on the unemployment rate is actually negative, though not significantly different from zero.
-
-## Findings
-<!-- src: Week 8 - Causal Inference I.pptx slide 26 -->
-
-- The Mariel immigrants increased the Miami labor force by 7%, and the percentage increase in labor supply to less-skilled occupations and industries was even greater because most of the immigrants were relatively unskilled.
-- **The Mariel influx appears to have had virtually no effect on the wages or unemployment rates of less-skilled workers, even among Cubans who had immigrated earlier.**
-- The author suggests that the ability of Miami's labor market to rapidly absorb the Mariel immigrants was largely owing to its adjustment to other large waves of immigrants in the two decades before the Mariel Boatlift.
+- The causal effect is the outcome **with** the treatment minus the outcome **without** it, for the same units
+- We only ever observe one of the two
+- A randomised experiment solves this: treated and control groups are alike on average
+- Without randomisation we need a design that builds a credible stand-in for the missing counterfactual:
+    - **Difference-in-Differences**: a group that would have followed the same trend
+    - **Regression Discontinuity**: units just the other side of a cutoff
 
 # Difference-in-Differences
 <!-- src: Week 8 - Causal Inference I.pptx slide 27 -->
-
-## What is Difference-in-Differences?
-<!-- src: Week 8 - Causal Inference I.pptx slide 28 -->
-
-- Differences-in-differences strategies are simple panel-data methods applied to sets of group means in cases when certain groups are exposed to the causing variable of interest and others are not.
-- This approach, which is transparent and often at least superficially plausible, is well-suited to estimating the effect of sharp changes in the economic environment or changes in government policy.
 
 ## Counterfactuals
 <!-- src: Week 8 - Causal Inference I.pptx slide 29 -->
@@ -229,7 +90,7 @@ Slide text: Results · Unemployment
 - New Jersey experiences the wage increase but not in Pennsylvania.
 - David and Krueger run two rounds of survey right before and after the rise.
 
-## Correlation versus Causation
+## Why Not Just Compare Before and After?
 <!-- src: Week 8 - Causal Inference I.pptx slide 31 -->
 
 - We cannot draw **causal** conclusions by observing simple before-and-after changes in outcomes, as factors other than the treatment may influence the outcome over time.
@@ -237,52 +98,65 @@ Slide text: Results · Unemployment
 - We cannot simply compare NJ and PA directly due to differences in unobservable characteristics between the states.
     - E.g. geographic size, economic structure, population, governance, etc.
 
-## {background-image="img/w08/w08_slide_032.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 32 -->
+## Difference-in-Differences
 
+Compare the **before-and-after change** in the treated group with the change in the control group:
 
-::: notes
-Slide text: Difference-in-differences · Difference-in-differences combines these two methods to compare the before-and-after changes in outcomes for treatment and control groups and estimate the overall impact of the treatment.
-:::
+$$Y_{it} = \beta_0 + \beta_1 Post_t + \beta_2 Treat_i + \beta_3 (Treat_i \times Post_t) + \varepsilon_{it}$$
 
-## Do Minimum Wages Decrease Poverty?
-<!-- src: Week 8 - Causal Inference I.pptx slide 33 -->
+|            | Control           | Treatment                               |
+|------------|-------------------|-----------------------------------------|
+| **Before** | $\beta_0$           | $\beta_0 + \beta_2$                     |
+| **After**  | $\beta_0 + \beta_1$ | $\beta_0 + \beta_1 + \beta_2 + \beta_3$ |
+
+$\beta_3$ is the difference-in-differences: the treatment effect.
+
+## Do Minimum Wages Decrease Poverty? {.smaller}
 
 ::: {.columns}
-:::: {.column width="25%"}
-| State | Year | Treatment | Post | Poverty |
+:::: {.column width="42%"}
+| State | Year | Treat | Post | Poverty (%) |
 |---|---|---|---|---|
-| NJ | 1989 | 1 | 0 | 0.1 |
-| NJ | 1990 | 1 | 0 | 0.2 |
-| NJ | 1991 | 1 | 0 | 0.3 |
-| NJ | 1992 | 1 | 1 | 0.25 |
-| NJ | 1993 | 1 | 1 | 0.2 |
-| NJ | 1994 | 1 | 1 | 0.15 |
-| PA | 1989 | 0 | 0 | 0.2 |
-| PA | 1990 | 0 | 0 | 0.3 |
-| PA | 1991 | 0 | 0 | 0.4 |
-| PA | 1992 | 0 | 1 | 0.5 |
-| PA | 1993 | 0 | 1 | 0.6 |
-| PA | 1994 | 0 | 1 | 0.7 |
+| NJ | 1989 | 1 | 0 | 1.5 |
+| NJ | 1990 | 1 | 0 | 2.1 |
+| NJ | 1991 | 1 | 0 | 2.7 |
+| NJ | 1992 | 1 | 1 | 2.3 |
+| NJ | 1993 | 1 | 1 | 2.9 |
+| NJ | 1994 | 1 | 1 | 3.5 |
+| PA | 1989 | 0 | 0 | 3.0 |
+| PA | 1990 | 0 | 0 | 3.6 |
+| PA | 1991 | 0 | 0 | 4.2 |
+| PA | 1992 | 0 | 1 | 4.8 |
+| PA | 1993 | 0 | 1 | 5.4 |
+| PA | 1994 | 0 | 1 | 6.0 |
 ::::
-:::: {.column width="75%"}
-![](img/w08/w08_39abe66a0c.jpg)
+:::: {.column width="58%"}
+![](img/causal/did_data.png)
 ::::
 :::
-
-## {background-image="img/w08/w08_slide_034.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 34 -->
-
 
 ::: notes
-Slide text: The Four Scenarios
+Illustrative numbers, not real poverty rates. They are generated by tools/causal_figs.py.
 :::
 
-## {background-image="img/w08/w08_slide_035.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 35 -->
+## Reading Off the Effect {.smaller}
 
-## {background-image="img/w08/w08_slide_036.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 36 -->
+::: {.columns}
+:::: {.column width="48%"}
+Mean poverty rate (%), before (1989–91) and after (1992–94):
+
+|                    | PA (control)       | NJ (treated)                   | NJ − PA            |
+|--------------------|--------------------|--------------------------------|--------------------|
+| **Before**         | 3.6 = $\beta_0$       | 2.1 = $\beta_0+\beta_2$           | −1.5 = $\beta_2$      |
+| **After**          | 5.4 = $\beta_0+\beta_1$ | 2.9 = $\beta_0+\beta_1+\beta_2+\beta_3$ | −2.5 = $\beta_2+\beta_3$ |
+| **After − Before** | 1.8 = $\beta_1$       | 0.8 = $\beta_1+\beta_3$           | **−1.0 = $\beta_3$**  |
+
+The policy lowered poverty in NJ by **1 percentage point** relative to the trend it would have followed.
+::::
+:::: {.column width="52%"}
+![](img/causal/did_beta3.png)
+::::
+:::
 
 ## Parallel Trends Assumption
 <!-- src: Week 8 - Causal Inference I.pptx slide 37 -->
@@ -305,158 +179,243 @@ Slide text: The Four Scenarios
 1. Perform a placebo test using a fake outcome. A placebo test that reveals zero impact supports the equal-trend assumption.
 1. Perform the difference-in-differences estimation using different comparison groups. Similar estimates of the impact of program confirms the equal-trend assumption.
 
-# Case Study 2: Air quality and Driving Restrictions
-<!-- src: Week 8 - Causal Inference I.pptx slide 39 -->
+# Case Study: The Mariel Boatlift
+<!-- src: Week 8 - Causal Inference I.pptx slide 16 -->
 
-## Exercise
-<!-- src: Week 8 - Causal Inference I.pptx slide 40 -->
-
-- Let’s think about how we would explore the relationship between air quality and driving restrictions in China.
-- Seven Chinese cities have recently instituted driving bans; these cities are
-    - Tianjin, Nanchang, Hangzhou, Lanzhou, Guiyang, Chengdu, and Changchun
-- Suppose we have some data on the daily amount of traffic in these cities, and some data on pollution
-
-## Air Quality Data
-<!-- src: Week 8 - Causal Inference I.pptx slide 41 -->
+## Does immigration increase unemployment
+<!-- src: Week 8 - Causal Inference I.pptx slide 17 -->
 
 ::: {.columns}
-:::: {.column width="38%"}
-- Pollution dropped significantly during the coronavirus pandemic
-- Air quality was measured using satellite-borne sensors of various pollutants such as Nitrogen Dioxide (NO2).
+:::: {.column width="66%"}
+- Many argue that immigration is undesirable because low-skilled immigrants may displace low-skilled or less-educated US citizens in the labor market.
+- Anecdotal evidence for this claim includes newspaper accounts of hostility between immigrants and natives in some cities, but the empirical evidence is inconclusive.
+- [Card’s (1990)](https://www.sciencedirect.com/science/article/pii/S1573446399030047#bb0280) study of the effect of immigration on the employment of American citizens, using a Difference in Differences design and the Mariel Boatlift.
 ::::
-:::: {.column width="62%"}
-![](img/w08/w08_e1a9c9a00d.jpg)
+:::: {.column width="34%"}
+![](img/w08/w08_292121534e.jpg)
 ::::
 :::
 
-## {background-image="img/w08/w08_slide_042.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 42 -->
-
-
-::: notes
-Slide text: Design a Panel Regression
-:::
-
-## Omitted Variables
-<!-- src: Week 8 - Causal Inference I.pptx slide 43 -->
-
-- Air quality metrics like AQI are closely related to other atmospheric variables like moisture and temperature.
-    - The restrictions came in to effect in July, when it tends to be hot and humid.
-- Are cars the only source of air pollution?
-
-## Simultaneity
-<!-- src: Week 8 - Causal Inference I.pptx slide 44 -->
-
-![](img/w08/w08_1e4a9eedd1.png){.r-stretch fig-align="center"}
-
-## Selection Bias
-<!-- src: Week 8 - Causal Inference I.pptx slide 45 -->
-
-- It has been argued that compositional changes in monitoring stations over time may reflect systematic government decisions to close stations in highly polluted places to improve air quality statistics with out actually improving air quality
-    - E.g. Andrews, S. Q. (2008). “Inconsistencies in Air Quality Metrics: ‘Blue Sky’ Days and PM10 Concentrations in Beijing,” Environmental Research Letters, 3, 1 – 14.
-
-## Driving Restrictions
-<!-- src: Week 8 - Causal Inference I.pptx slide 46 -->
-
-- [Viard](https://www.aeaweb.org/conference/2014/retrieve.php?pdfid=138) [and Fu, 2013](https://www.aeaweb.org/conference/2014/retrieve.php?pdfid=138)
-- Driving restrictions are used in numerous cities around the world to reduce pollution and congestion.
-- Such restrictions may be ineffective either due to non-compliance or compensating responses such as inter-temporal substitution of driving or adding second vehicles.
-- If effective, they may lower economic activity by increasing commute costs and reducing workers’ willingness to supply labor for given compensation.
-
-## Motivation
-<!-- src: Week 8 - Causal Inference I.pptx slide 47 -->
-
-- There is little empirical evidence of driving restrictions’ effect on pollution and none about their effect on economic activity.
-- We examine both effects under driving restrictions imposed by the Beijing government since July 20, 2008. The restrictions, based on license plate numbers, initially prevented driving every other day and later one day per week.
-
-## {background-image="img/w08/w08_slide_048.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 48 -->
-
-## {background-image="img/w08/w08_f308a59efb.png" background-size="contain"}
-<!-- src: Week 8 - Causal Inference I.pptx slide 49 -->
+## {background-image="img/w08/w08_82ecaf348c.jpg" background-size="contain"}
+<!-- src: Week 8 - Causal Inference I.pptx slide 19 -->
 
 ## Experimental Design
-<!-- src: Week 8 - Causal Inference I.pptx slide 50 -->
+<!-- src: Week 8 - Causal Inference I.pptx slide 22 -->
 
-- **Question: What is the effect of driving restrictions on air quality in Beijing?**
-- **Data**: A panel dataset with daily measures of Beijing air pollution at the individual monitoring-station level, spanning January 1, 2007 to December 31, 2009.
-- **Treatment Group**: Air quality monitoring stations near roads
-- **Control Group**: Air quality monitoring stations far from roads
-- **Treatment period**: After the implementation of the driving restriction.
+- **Data**: Current Population Survey (CPS), same data we’ve been using in the workshops
+- **Treatment Group**: Miami
+- **Control Group**: Atlanta, Los Angeles, Houston, and Tampa-St. Petersburg. These cities were chosen because, like Miami, they have large Black and Hispanic populations and because discussions of the impact of immigrants often focuses on the consequences for minorities. Most importantly, these cities appear to have employment trends similar to those in Miami at least since 1976.
+- **Treatment period**: pre/post 1980
 
-## {background-image="img/w08/w08_slide_051.jpg" background-size="contain" .fallback}
-<!-- src: Week 8 - Causal Inference I.pptx slide 51 -->
+## Results {.smaller}
+
+Unemployment rates (%), standard errors in brackets:
+
+|                                  | 1979       | 1981        | 1981 − 1979 |
+|----------------------------------|------------|-------------|-------------|
+| ***Whites***                     |            |             |             |
+| Miami                            | 5.1 (1.1)  | 3.9 (0.9)   | −1.2 (1.4)  |
+| Comparison cities                | 4.4 (0.3)  | 4.3 (0.3)   | −0.1 (0.4)  |
+| **Miami − comparison**           | 0.7 (1.1)  | −0.4 (0.95) | **−1.1 (1.5)** |
+| ***Blacks***                     |            |             |             |
+| Miami                            | 8.3 (1.7)  | 9.6 (1.8)   | 1.3 (2.5)   |
+| Comparison cities                | 10.3 (0.8) | 12.6 (0.9)  | 2.3 (1.2)   |
+| **Miami − comparison**           | −2.0 (1.9) | −3.0 (2.0)  | **−1.0 (2.8)** |
+
+Source: Card (1990), *Industrial and Labor Relations Review*.
+
+## Findings
+<!-- src: Week 8 - Causal Inference I.pptx slide 26 -->
+
+- The Mariel immigrants increased the Miami labor force by 7%, and the percentage increase in labor supply to less-skilled occupations and industries was even greater because most of the immigrants were relatively unskilled.
+- **The Mariel influx appears to have had virtually no effect on the wages or unemployment rates of less-skilled workers, even among Cubans who had immigrated earlier.**
+- The author suggests that the ability of Miami's labor market to rapidly absorb the Mariel immigrants was largely owing to its adjustment to other large waves of immigrants in the two decades before the Mariel Boatlift.
+
+# Regression Discontinuity
+<!-- src: Week 9 - Causal Inference II.pptx slide 18 -->
+
+## Regression Discontinuity Design
+<!-- src: Week 9 - Causal Inference II.pptx slide 24 -->
+
+- Regression Discontinuity Design (RDD) is a quasi-experimental evaluation option that measures the impact of an intervention, or treatment, by applying a treatment assignment mechanism based on a cutoff point in a continuous eligibility index.
+- RDD estimates local average treatment effects around the cutoff point, where treatment and comparison units are most similar.
+[Source: World Bank](https://dimewiki.worldbank.org/Regression_Discontinuity#:~:text=Regression%20Discontinuity%20Design%20(RDD)%20is,who%20is%20eligible%20to%20participate.)
+
+## Conditions
+<!-- src: Week 9 - Causal Inference II.pptx slide 26 -->
+
+1. A continuous eligibility index
+    - A continuous measure on which the population of interest is ranked (i.e. test score, poverty score, age).
+1. A clearly defined cutoff point
+    - A point on the index above or below which the population is determined to be eligible for the program.
+    - For example, students with a test score of at least 80 of 100 might be eligible for a scholarship, households with a poverty score less than 60 out of 100 might be eligible for food stamps, and individuals age 67 and older might be eligible for pension. The cutoff points in these examples are 80, 60, and 67, respectively. The cutoff point may also be referred to as the threshold.
+
+## {background-image="img/w08/w09_slide_027.jpg" background-size="contain" .fallback}
+<!-- src: Week 9 - Causal Inference II.pptx slide 27 -->
 
 
 ::: notes
-where S APIst is the daily API at station s on day t. 
-
-a: station fixed effects. that control for time-constant unobserved factors that cause some stations to have higher pollution levels. This includes nearby stationary pollution sources as well as the baseline effect of distance to a major road. These fixed effects prevent the estimate of the treatment effect from being biased upward by the fact that stations closer to a major road have higher pollution levels, both before and after the treatment, than do stations further away.
-
-m: month-ofyear dummies to capture seasonality, 
-WE: weekend and 
-HO: holiday dummies to allow for differential effects, 
-
-BR: dummies during the break between the two policies. 
-
-OE: odd even policy 
-OD: One Day policy
-
-The BR , OE , OD , and OD WE * terms prevent the estimate of the treatment effect from being biased by the fact that all monitoring stations, regardless of distance from a major road, may be affected by the driving restrictions.
-
-The control variables Zst  include the same daily weather controls as before as well as station-level indicators for days when the API is below 50 or sulfur dioxide is the worst pollutant. 
-
-which captures the effect of the driving restrictions as a function of distance Dists  between each station and the nearest major road.
-
-DDst  which captures the effect of the driving restrictions as a function of distance Dists  between each station and the nearest major road. 
-
-f
-
-Slide text: Experimental Design · “Particulate matter’s ambient properties dictate that it is deposited within a few kilometers of its release. We exploit this to develop a differences-in-differences (DD) approach that combines time-series variation with spatial variation in monitoring stations’ locations to eliminate other explanations besides cars for the pollution reduction.”
+Slide text: Assumption 1 · The eligibility index should be continuous around the cutoff point. There should be no jumps in the eligibility index at the cutoff point or any other sign of individuals manipulating their eligibility index in order to increase their chances of being included in or excluded from the program. · Heaping around the cutoff · Continuous distribution
 :::
 
-## Identifying Assumptions
-<!-- src: Week 8 - Causal Inference I.pptx slide 52 -->
+## Assumption 2
+<!-- src: Week 9 - Causal Inference II.pptx slide 28 -->
 
-- The identifying assumption for our DD estimation is that, conditional on the other covariates, station-specific unobserved factors affecting the API are uncorrelated with the treatment.
-- That is, **unobserved factors do not vary systematically with distance from a major road during the policy periods relative to before.**
-- This assumption may not hold if stations closer to a major road have different long-term pollution trends than those further away. This might be the case if, for example, traffic patterns changed differently over time on major roads relative to smaller roads.
+- Individuals close to the cutoff point should be very similar, on average, in observed and unobserved characteristics.
+    - In the RDD framework, this means that the distribution of the **observed and unobserved variables should be continuous around the threshold.**
+    - Even though researchers can check similarity between observed covariates, the similarity between unobserved characteristics must be assumed. This is considered a plausible assumption to make for individuals very close to the cutoff point, that is, for a relatively narrow window.
 
-## Results
-<!-- src: Week 8 - Causal Inference I.pptx slide 53 -->
+## {background-image="img/w08/w09_slide_031.jpg" background-size="contain" .fallback}
+<!-- src: Week 9 - Causal Inference II.pptx slide 31 -->
+
+
+::: notes
+Slide text: Treatment Assignment
+:::
+
+## Observed Outcomes
+<!-- src: Week 9 - Causal Inference II.pptx slide 32 -->
+
+::: {.columns}
+:::: {.column width="40%"}
+There appears to be a jump in the observed values of the outcome variable (earnings) around the cutoff (scholarship eligibility)
+::::
+:::: {.column width="60%"}
+![](img/w08/w09_d19263f6a9.png)
+::::
+:::
+
+## Potential Outcomes
+<!-- src: Week 9 - Causal Inference II.pptx slide 33 -->
 
 ::: {.columns}
 :::: {.column width="41%"}
-- The effects are highly significant with either a 45- and 60-day window showing declines of
-    - 12% and 19% for “far” stations
-    - 16% and 23% for “near” stations.
+We can use the discontinuity created by the treatment to estimate the effect of D on Y at the threshold
 ::::
 :::: {.column width="59%"}
-![](img/w08/w08_d3a35977b6c.png)
-![](img/w08/w08_d3a35977b6c.png)
+![](img/w08/w09_7bbc95c0ff.png)
 ::::
 :::
 
-## Detailed Results
-<!-- src: Week 8 - Causal Inference I.pptx slide 54 -->
+## {background-image="img/w08/w09_slide_036.jpg" background-size="contain" .fallback}
+<!-- src: Week 9 - Causal Inference II.pptx slide 36 -->
+
+
+::: notes
+Slide text: Linear, Different Slopes
+:::
+
+## {background-image="img/w08/w09_slide_037.jpg" background-size="contain" .fallback}
+<!-- src: Week 9 - Causal Inference II.pptx slide 37 -->
+
+
+::: notes
+Slide text: Non-Linear
+:::
+
+# Case Study: Irrigation and Insurgency
+
+## Does irrigation reduce insurgent recruitment in Southeastern Turkey? {.center}
+<!-- src: Week 9 - Causal Inference II.pptx slide 7 -->
+
+## Kurdish Insurgency
+<!-- src: Week 9 - Causal Inference II.pptx slide 3 -->
 
 ::: {.columns}
-:::: {.column width="46%"}
-Instead of just using a binary near/far cutoff, these results use continuous distance
+:::: {.column width="41%"}
+- 44% of the population in Southeast living on less than US$1.1/day
+- “The Kurdish identity question was expressed in terms of regional economic inequalities and suggested a socialist solution” (Yavuz, 2001: 10)
+- Originally a “peasant movement”, recruiting largely from farming communities (Yavuz, 2001: 10)
 ::::
-:::: {.column width="54%"}
-![](img/w08/w08_570b4a41b1.png)
+:::: {.column width="59%"}
+![](img/w08/w09_c98a2e9ebf.png)
 ::::
 :::
 
-## Findings
-<!-- src: Week 8 - Causal Inference I.pptx slide 55 -->
+## Southeastern Anatolia Project(GAP)
+<!-- src: Week 9 - Causal Inference II.pptx slide 4 -->
 
-- Pollution drops more at stations closer to a major road. This means confounding factors are related to proximity to a major road and therefore traffic flow. We consider, and rule out, changes in gasoline prices, parking rates, number of taxis, emissions standards, and government-imposed working hours.
-- **The** **OddEven** **policy reduces the API by 12.5%**
-- **The** **OneDay** **policy reduces the API by 16.0%**
+::: {.columns}
+:::: {.column width="55%"}
+- Infrastructural development project started in 1985
+- Goals:
+    - 19 dams
+    - 22 hydropower plants
+    - 1.8 million hectares of irrigation
+- Income gains associated with switch to irrigated farming: 3-7x (Tokdemir et. al., 2016)
+- Government hoped it would reduce appeal of PKK
+::::
+:::: {.column width="45%"}
+![](img/w08/w09_a077989a1b.gif)
+::::
+:::
+
+## RDD Framework
+<!-- src: Week 9 - Causal Inference II.pptx slide 12 -->
+
+- **Question**: Does irrigation reduce recruitment?
+- **Endogenous variable**:
+    - Irrigation– a village in the mountains is very different from a village in the lowlands, in ways that probably affect PKK recruitment
+- **Exogenous cutoff**:
+    - Dam elevation
+- **Bandwidth**:
+    - If we compare *just* above and *just* below the altitude of a dam, they’re probably going to be pretty similar in terms of demographics, politics, economy.
+    - We could even make a plausible argument that the main difference between them is the ability to access irrigation
+
+## {background-image="img/w08/w09_slide_014.jpg" background-size="contain" .fallback}
+<!-- src: Week 9 - Causal Inference II.pptx slide 14 -->
+
+
+::: notes
+Slide text: Terrain and Irrigation · 5km x 5km cells · 3. Empirical Strategy
+:::
+
+## {.notitle}
+<!-- src: Week 9 - Causal Inference II.pptx slide 15 -->
+
+![](img/w08/w09_1215dadf6c.png){.r-stretch fig-align="center"}
+
+## Main Findings
+<!-- src: Week 9 - Causal Inference II.pptx slide 17 -->
+
+- Irrigation is negatively related to conflict incidence and recruitment.
+- Panel models indicate that a **27km****2** **increase in irrigated area leads to a 49% drop in the probability of conflict.**
+- Cross-sectional models suggest that **a fully irrigated 25km² area is 58% less likely than the average cell to experience a conflict event** involving Kurdish rebels during the 2016-2019 period
+
+## Where RDD Shows Up: Close Elections
+<!-- src: Week 9 - Causal Inference II.pptx slide 42 -->
+
+- **Question**: Do members of Party A curtail women’s rights?
+- **Running variable**:
+    - Vote share– districts that are strongholds for Party A will be different in terms of their social, economic and cultural factors compared to strongholds of Party B.
+- **Exogenous cutoff**:
+    - Sharp, victory/loss (assuming a 2 party system, 50% vote share)
+- **Bandwidth**:
+    - 50%±4%
+    - If we compare districts where candidates of that party narrowly won against those where they narrowly lost, those districts are very similar in terms of their **unobserved characteristics**
+
+## Fuzzy Regression Discontinuity
+<!-- src: Week 9 - Causal Inference II.pptx slide 45 -->
+
+- Threshold may not perfectly determine treatment exposure, but **it creates a discontinuity in the probability of treatment exposure**
+- Incentives to participate in a program may change discontinuously at a threshold, but the incentives are not powerful enough to move all units from non-participation to participation
+- We can use such discontinuities to produce instrumental variable estimators of the effect of the treatment (close to the discontinuity)
+
+## Sharp vs. Fuzzy RDD
+<!-- src: Week 9 - Causal Inference II.pptx slide 46 -->
+
+![](img/w08/w09_ed2e21f188.png){.r-stretch fig-align="center"}
+
+## Auditing a Causal Claim
+
+Questions to ask of any DiD or RDD, including one an AI wrote for you:
+
+- **What is the counterfactual**, and why should I believe it?
+- **DiD**: were pre-treatment trends parallel? Does a placebo group or a fake treatment date show an "effect"? Did anything else change at the same time?
+- **RDD**: could people manipulate the running variable (heaping at the cutoff)? Do other characteristics jump at the cutoff? Does the estimate survive a different bandwidth or functional form?
+- **Who does it apply to?** DiD: the treated group. RDD: only units near the cutoff.
 
 ## Any Questions?
-<!-- src: Week 8 - Causal Inference I.pptx slide 56 -->
+<!-- src: Week 9 - Causal Inference II.pptx slide 50 -->
 
 [o.ballinger@ucl.ac.uk](mailto:o.ballinger@ucl.ac.uk)

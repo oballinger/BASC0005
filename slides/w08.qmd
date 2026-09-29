@@ -1,5 +1,5 @@
 ---
-title: "Causal Inference I: Difference-in-Differences"
+title: "Causal Inference: Difference-in-Differences & Regression Discontinuity"
 subtitle: "Week 8 lecture"
 page-layout: full
 toc: false

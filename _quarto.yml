@@ -49,16 +49,14 @@ book:
           text: "Lecture slides"
         - href: "./notebooks/W07. Linear Regression.ipynb"
           text: "Workshop: Linear Regression"
-    - part: "Week 8 · Diff-in-Diff"
+    - part: "Week 8 · Causal Inference"
       chapters:
         - href: slides/w08.qmd
           text: "Lecture slides"
         - href: "./notebooks/W08. Diff-in-Diff.ipynb"
           text: "Workshop: Diff-in-Diff"
-    - part: "Week 9 · Regression Discontinuity"
+    - part: "Week 9 · To be confirmed"
       chapters:
-        - href: slides/w09.qmd
-          text: "Lecture slides"
         - href: "./notebooks/W09. Regression Discontinuity.ipynb"
           text: "Workshop: Regression Discontinuity"
     - part: "Week 10 · ML"
