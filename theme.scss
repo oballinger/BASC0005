@@ -1,40 +1,28 @@
 /*-- scss:defaults --*/
-$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-$font-family-monospace: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-monospace: "SF Mono", Menlo, Consolas, monospace;
 $font-size-root: 17px;
-$line-height-base: 1.65;
+$line-height-base: 1.5;
+$body-color: #111;
+$headings-color: #111;
 $headings-font-weight: 700;
-$headings-color: #15121c;
-$body-color: #2b2833;
-$primary: #5b2a86;
-$link-color: #5b2a86;
-$code-color: #7a2e8e;
-$code-block-bg: #f6f5f9;
-$sidebar-fg: #4a4655;
-$sidebar-hl: #5b2a86;
-$toc-color: #5b2a86;
-$border-radius: 8px;
-
+$link-color: #111;
+$primary: #111;
+$code-block-bg: #f4f4f4;
+$sidebar-bg: #fff;
+$sidebar-fg: #111;
+$sidebar-hl: #e30613;
+$border-radius: 0;
 /*-- scss:rules --*/
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
-
-h1, h2, h3, .title { letter-spacing: -0.015em; }
-h2 { border-bottom: none; margin-top: 2.2rem; }
-.quarto-title .title { font-weight: 800; }
-
-/* sidebar */
-.sidebar-logo { max-width: 140px; margin: 0 auto .5rem; }
-.sidebar-title { font-weight: 700; font-size: 1.05rem; color: #15121c; }
-.sidebar-item-section > .sidebar-item-container .sidebar-item-text {
-  font-size: .9rem; font-weight: 650; color: #15121c;
-}
-.sidebar-item .sidebar-link { font-size: .9rem; padding: .18rem 0; }
-.sidebar-link.active { font-weight: 600; }
-.sidebar-section .sidebar-item .sidebar-link { color: #6b6677; }
-.sidebar-section .sidebar-item .sidebar-link.active { color: #5b2a86; }
-#quarto-sidebar { border-right: 1px solid #eeecf2; }
-
-/* code */
-div.sourceCode, pre.sourceCode { border: 1px solid #ebe9f0; border-radius: 8px; }
-.cell-output pre { font-size: .82rem; color: #555; }
-table { font-size: .9rem; }
+a { text-decoration-color: #e30613; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: #e30613; }
+h1, h2, h3 { letter-spacing: -.02em; }
+h2 { border-bottom: 3px solid #000; padding-bottom: .3rem; margin-top: 3rem; }
+.sidebar-logo { max-width: 120px; filter: grayscale(1); }
+.sidebar-title { font-weight: 700; font-size: 1.2rem; letter-spacing: -.01em; }
+.sidebar-item-section > .sidebar-item-container .sidebar-item-text { font-weight: 700; font-size: .92rem; }
+.sidebar-item .sidebar-link { font-size: .9rem; }
+.sidebar-section .sidebar-link { color: #555; }
+.sidebar-link.active { color: #e30613 !important; font-weight: 700; }
+#quarto-sidebar { border-right: 3px solid #000; }
+div.sourceCode { border: none; }
