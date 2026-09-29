@@ -37,6 +37,8 @@ book:
           text: "Workshop: Natural Language Processing"
     - part: "Week 5 · Sampling"
       chapters:
+        - href: slides/w05.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W05. Distributions and Basic Statistics.ipynb"
           text: "Workshop: Distributions"
     - part: "Reading Week"

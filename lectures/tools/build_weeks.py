@@ -341,7 +341,11 @@ WEEKS = {
                                                    "which we'll meet again for prediction in Week 9, used"),
                                                   (r"same labelled ship", "same labelled item")]}),
     "w05": dict(title="Sampling & Distributions",
-                pieces=[("w05", "2-43,61-999")]),       # pay-gap section 44-60 cut
+                pieces=[("w05", "2-5,7-9"),             # QR code slide 6 cut
+                        ("w05", "11-27,29-38"),         # basic statistics, CLT, union demo; 28 repeats 68-95-99.7
+                        ("w05", "40-44"),               # 39 repeats the 68-95-99.7 slide
+                        ("w05", "60,63")],              # pay-gap section 45-59 cut (W6 has its own)
+                slide_fixes={("w05", 29): [(r"98% chance of falling within 3", "99.7% chance of falling within 3")]}),
     # W9/W10: the old W10 (ML) split in two, using the freed week
     "w09": dict(title="Prediction: Supervised Learning",   # from the old W10 Machine Learning deck
                 pieces=[("w10", "2"), ("md", W9_OUTLINE),
