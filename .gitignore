@@ -1,3 +1,4 @@
 
 /.quarto/
 /notebooks_master*
+__pycache__/
