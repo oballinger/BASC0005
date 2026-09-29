@@ -71,6 +71,67 @@ SNOW = """
 ::::
 :::
 """
+W4_OUTLINE = """
+## Outline
+
+1. Case Study: The Grammar of Police Shootings
+1. Natural Language Processing
+1. Analysing Text
+1. Embeddings: Text as Numbers
+"""
+COSINE = """
+## Cosine Similarity
+
+Measure the **angle** between two vectors, ignoring their length:
+
+$$\\cos(a, b) = \\frac{a \\cdot b}{|a|\\,|b|}$$
+
+- $a \\cdot b$: multiply matching elements and add them up; $|a|$, $|b|$: the length of each vector
+- **1** = same direction, **0** = unrelated, **−1** = opposite
+
+![](img/extra/cosine_arrows.jpg){fig-align="center" width="70%"}
+
+::: {.columns}
+:::: {.column width="33%"}
+[similar: cos ≈ 0.97]{style="display:block;text-align:center"}
+::::
+:::: {.column width="33%"}
+[unrelated: cos = 0]{style="display:block;text-align:center"}
+::::
+:::: {.column width="33%"}
+[opposite: cos ≈ −1]{style="display:block;text-align:center"}
+::::
+:::
+"""
+W9_OUTLINE = """
+## Outline
+
+1. The Machine Learning Pipeline
+1. Predicting Survival on the Titanic
+1. Accuracy Assessment
+1. Overfitting and Testing
+1. Case Study: Monitoring War Damage from Space
+"""
+TRAIN_TEST = """
+## Testing on Data the Model Hasn't Seen
+
+- A model scored on its **own training data** will look better than it is: it can memorise
+- **Train/test split**: fit on one part (say 80%), score on the held-out 20%
+- **Cross-validation**: split into k folds, hold each out in turn, average the k scores
+    - Uses all the data for testing, and shows how much the score varies
+- Choosing settings (tree depth, number of features) by test score leaks the test set into training: keep a **final** test set you look at once
+"""
+LEAKAGE = """
+## Leakage: When the Answer Sneaks In
+
+- **Leakage**: the model has access to information it wouldn't have when making a real prediction
+- Examples:
+    - A feature recorded **after** the outcome (e.g. "treatment given" when predicting diagnosis)
+    - **Duplicates** or near-duplicates in both training and test sets
+    - Spatial or temporal neighbours split across train and test: nearby cells and consecutive days look alike
+- Kapoor & Narayanan (2023, *Patterns*) found leakage in **294 papers** across 17 fields using machine learning
+- Ask of any impressive accuracy: *could the model have seen the answer?*
+"""
 W3_OUTLINE = """
 ## Outline
 
@@ -264,17 +325,32 @@ WEEKS = {
                                                  "(feature-based clustering comes in Week 10)"),
                                                 (r"- Tube:", "- London Underground:")]}),
     "w04": dict(title="Text as Data",
-                pieces=[("w04", "2-43,59-999"),         # regex 47-58 cut, Twitter election trimmed
-                        ("embeddings", "8-14,16-19")],          # 15, 20, 21 show unpublished GhostShip work
-                slide_fixes={("embeddings", 14): [(r" We'll ask the same of GhostShip", "")],
+                pieces=[("w04", "2"), ("md", W4_OUTLINE), ("w04", "4,5"),
+                        ("w04", "6-9,11-17"),                  # police-shootings grammar case study
+                        ("w04", "18,19,22-28,31,34"),          # NLP pipeline (coreference, spaCy internals cut)
+                        ("w04", "35-39"),                      # analytical approaches
+                        ("w04", "42,47"),                      # Twitter election: first and last slide only; regex 48-59 cut
+                        ("embeddings", "8-14,16"), ("md", COSINE),  # 17 rebuilt (mentioned GhostShip)
+                        ("embeddings", "18,19"),               # 15, 20, 21 show unpublished GhostShip work
+                        ("w04", "60")],
+                fixes=[(r"^# \d\. (What Is an Embedding\?|Measuring Similarity)", r"# \1")],
+                slide_fixes={("embeddings", 9): [(r"Every model we've built so far takes", "Statistical models take"),
+                                                 (r"In Week 4 \(NLP\) we turned text into numbers", "Earlier today we turned text into numbers")],
+                             ("embeddings", 14): [(r" We'll ask the same of GhostShip", "")],
                              ("embeddings", 19): [(r"which you met in the Machine Learning lecture, used",
                                                    "which we'll meet again for prediction in Week 9, used"),
                                                   (r"same labelled ship", "same labelled item")]}),
     "w05": dict(title="Sampling & Distributions",
                 pieces=[("w05", "2-43,61-999")]),       # pay-gap section 44-60 cut
     # W9/W10: the old W10 (ML) split in two, using the freed week
-    "w09": dict(title="Prediction: Supervised Learning",   # waiting for the W10 source deck
-                pieces=[("w10", "2-12,19-33,39-999")]),   # Titanic repeats cut; add train/test, CV, leakage, logistic
+    "w09": dict(title="Prediction: Supervised Learning",   # from the old W10 Machine Learning deck
+                pieces=[("w10", "2"), ("md", W9_OUTLINE),
+                        ("w10", "4-9"),                        # pipeline, models, trees, random forests
+                        ("w10", "10-13,17"),                   # Titanic; repeated trees 14-16, 18 cut
+                        ("w10", "19-24,26,28-33"),             # accuracy, precision, recall, F1
+                        ("w10", "38-42"),                      # full Titanic model; per-variable repeats 34-37 cut
+                        ("md", TRAIN_TEST), ("md", LEAKAGE),   # new: prediction hygiene
+                        ("w10", "43,44,46-49")]),              # war-damage case study
     "w10": dict(title="Unsupervised Learning: Clustering",
                 pieces=[("clustering", "2-25,27-34")],    # 26 (TfL police-vehicle embeddings) held back
                 slide_fixes={("clustering", 27): [(r"More on embeddings in a later lecture", "We met embeddings in Week 4")]}),

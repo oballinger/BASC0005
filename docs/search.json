@@ -280,6 +280,13 @@
     "text": "Extension\nNow, to save some hassle we can package all the code we used to generate this map into one clean function. Because we’re effectively just changing the date, we can configure this function so that we can feed it a different date, and it will grab a satellite image and filter our dataframe for values occuring on that day. Then, we can draw a new map in one line of code.\n\ndef satellite_plot(date):\n  \n  ymd=datetime.strptime(date, '%d-%m-%Y').strftime('%Y-%m-%d')\n\n  satellite_map = Map(\n    basemap=basemap_to_tiles(\n      basemaps.NASAGIBS.ModisTerraTrueColorCR, ymd\n    ),\n    center=(36.77, -119.41),\n    zoom=6,\n  )\n\n  satellite_map.layout.height = '700px'\n\n  one_day=df[df['Date']==date]\n\n  for index, row in one_day.iterrows():\n    color=matplotlib.colors.rgb2hex(aqi_colors(row['AQI']))\n    point=Circle(location=(row['latitude'],row['longitude']), color=color)\n    point.popup = HTML(str(row['Site Name']))    \n    satellite_map.add_layer(point)\n  return satellite_map\n\nNow, we can simply change the date in the function and view both satellite imagery and AQI sensor data from a given day. Look at this clear day from February 3rd.\n\nsatellite_plot('02-03-2020')\n\n\n\n\nAll the AQI sensors are showing green values, indicating generally good air quality. The satellite image shows a few wispy clouds, but no thick yellow smoke. Now change the date to September 15th, and see what happens!"
   },
   {
+    "objectID": "slides/w04.html",
+    "href": "slides/w04.html",
+    "title": "Text as Data",
+    "section": "",
+    "text": "Open full screen ↗ Week 4 workshop → F full screen · S speaker notes · ? shortcuts"
+  },
+  {
     "objectID": "notebooks/W04. Natural Language Processing.html",
     "href": "notebooks/W04. Natural Language Processing.html",
     "title": "Natural Language Processing",
@@ -733,6 +740,13 @@
     "title": "Regression Discontinuity",
     "section": "Contribute",
     "text": "Contribute\nCausal Inference for the Brave and True is an open-source material on causal inference, the statistics of science. It uses only free software, based in Python. Its goal is to be accessible monetarily and intellectually. If you found this book valuable and you want to support it, please go to Patreon. If you are not ready to contribute financially, you can also help by fixing typos, suggesting edits or giving feedback on passages you didn’t understand. Just go to the book’s repository and open an issue. Finally, if you liked this content, please share it with others who might find it useful and give it a star on GitHub."
+  },
+  {
+    "objectID": "slides/w09.html",
+    "href": "slides/w09.html",
+    "title": "Prediction: Supervised Learning",
+    "section": "",
+    "text": "Open full screen ↗ Week 9 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "notebooks/W10. Machine Learning.html",

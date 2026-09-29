@@ -31,6 +31,8 @@ book:
           text: "Workshop: Spatial Data"
     - part: "Week 4 · Text as Data"
       chapters:
+        - href: slides/w04.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W04. Natural Language Processing.ipynb"
           text: "Workshop: Natural Language Processing"
     - part: "Week 5 · Sampling"
@@ -63,6 +65,8 @@ book:
           text: "Workshop: Regression Discontinuity"
     - part: "Week 9 · Prediction"
       chapters:
+        - href: slides/w09.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W10. Machine Learning.ipynb"
           text: "Workshop: Machine Learning"
     - part: "Week 10 · Clustering"
