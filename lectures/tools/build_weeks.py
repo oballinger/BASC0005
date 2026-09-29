@@ -178,12 +178,23 @@ WEEKS = {
                                                  "(feature-based clustering comes in Week 10)")]}),
     "w04": dict(title="Text as Data",
                 pieces=[("w04", "2-43,59-999"),         # regex 47-58 cut, Twitter election trimmed
-                        ("embeddings", "8-21")]),
+                        ("embeddings", "8-14,16-19")],          # 15, 20, 21 show unpublished GhostShip work
+                slide_fixes={("embeddings", 14): [(r" We'll ask the same of GhostShip", "")],
+                             ("embeddings", 19): [(r"which you met in the Machine Learning lecture, used",
+                                                   "which we'll meet again for prediction in Week 9, used"),
+                                                  (r"same labelled ship", "same labelled item")]}),
     "w05": dict(title="Sampling & Distributions",
                 pieces=[("w05", "2-43,61-999")]),       # pay-gap section 44-60 cut
-    "w10": dict(title="Supervised & Unsupervised Learning",
-                pieces=[("w10", "2-12,19-33,39-999"),   # Titanic repeats cut
-                        ("clustering", "7-17,21-27")]),
+    # W9/W10: the old W10 (ML) split in two, using the freed week
+    "w09": dict(title="Prediction: Supervised Learning",   # waiting for the W10 source deck
+                pieces=[("w10", "2-12,19-33,39-999")]),   # Titanic repeats cut; add train/test, CV, leakage, logistic
+    "w10": dict(title="Unsupervised Learning: Clustering",
+                pieces=[("clustering", "2-25,27-34")],    # 26 (TfL police-vehicle embeddings) held back
+                slide_fixes={("clustering", 27): [(r"More on embeddings in a later lecture", "We met embeddings in Week 4")]}),
+    "w10_private": dict(title="Unsupervised Learning: Clustering", private=True,
+                pieces=[("clustering", "2-32"),
+                        ("embeddings", "27-29,34-42"),    # unpublished GhostShip material
+                        ("clustering", "33-34")]),
 }
 
 

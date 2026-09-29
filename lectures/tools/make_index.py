@@ -12,11 +12,12 @@ ROWS = [
  ("RW","10 Nov","Reading week","Reading week","Merging and Joining","RW. Merging and Joining"),
  ("6","17 Nov","Hypothesis Testing: Frequentist & Bayesian","Exploration","Hypothesis Testing","W06. Hypothesis Testing"),
  ("7","24 Nov","Regression","Modelling","Linear Regression","W07. Linear Regression"),
- ("8","1 Dec","Causal Inference: Difference-in-Differences & Regression Discontinuity","Modelling","Difference-in-Differences","W08. Diff-in-Diff"),
- ("9","8 Dec","To be confirmed","Modelling","Regression Discontinuity","W09. Regression Discontinuity"),
- ("10","15 Dec","Supervised & Unsupervised Learning","Modelling","Machine Learning","W10. Machine Learning"),
+ ("8","1 Dec","Causal Inference: Difference-in-Differences & Regression Discontinuity","Modelling",
+  ["Difference-in-Differences","Regression Discontinuity"],["W08. Diff-in-Diff","W09. Regression Discontinuity"]),
+ ("9","8 Dec","Prediction: Supervised Learning","Modelling","Machine Learning","W10. Machine Learning"),
+ ("10","15 Dec","Unsupervised Learning: Clustering","Modelling",[],[]),
 ]
-READY = {"6","7","8"}
+READY = {"6","7","8","10"}
 esc = lambda s: s.replace("&", "&amp;")
 nb_href = lambda nb: "notebooks/" + nb.replace(" ", "%20") + ".html"
 def lec_html(w, lec, cls="lec"):
@@ -29,10 +30,17 @@ LOGISTICS = [("Lectures","Tuesdays 13:00–14:00 · Harrie Massey LT, 25 Gordon 
 MOODLE = "https://moodle.ucl.ac.uk/course/view.php?id=58956"
 GH = "https://github.com/oballinger/BASC0005"
 items = []
+def workshops(ws, nb):
+    """One or more workshop links; an empty list means the notebook isn't written yet."""
+    ws, nb = ([ws], [nb]) if isinstance(ws, str) else (ws, nb)
+    if not ws:
+        return '<span class="ws">Workshop — to come</span>'
+    return "".join(f'<a class="ws" href="{nb_href(n)}">Workshop — {esc(t)}</a>' for t, n in zip(ws, nb))
+
 for w,d,lec,ph,ws,nb in ROWS:
     ready = " ready" if w in READY else ""
     items.append(f'<div class="wk{ready}"><div class="n">{w}</div><div class="t">{lec_html(w,lec)}'
-                 f'<a class="ws" href="{nb_href(nb)}">Workshop — {esc(ws)}</a></div>'
+                 + workshops(ws, nb) + '</div>'
                  f'<div class="side"><span class="d">{d}</span>{ph}</div></div>')
 meta = "".join(f"<div><b>{k}</b>{v}</div>" for k,v in LOGISTICS)
 print(f'''---

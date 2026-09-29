@@ -55,14 +55,16 @@ book:
           text: "Lecture slides"
         - href: "./notebooks/W08. Diff-in-Diff.ipynb"
           text: "Workshop: Diff-in-Diff"
-    - part: "Week 9 · To be confirmed"
-      chapters:
         - href: "./notebooks/W09. Regression Discontinuity.ipynb"
           text: "Workshop: Regression Discontinuity"
-    - part: "Week 10 · ML"
+    - part: "Week 9 · Prediction"
       chapters:
         - href: "./notebooks/W10. Machine Learning.ipynb"
           text: "Workshop: Machine Learning"
+    - part: "Week 10 · Clustering"
+      chapters:
+        - href: slides/w10.qmd
+          text: "Lecture slides"
 
   repo-url: https://github.com/oballinger/BASC0005/
   repo-actions: [edit]
