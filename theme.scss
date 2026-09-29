@@ -26,10 +26,12 @@ h2 { border-bottom: none; margin-top: 2.2rem; }
 .sidebar-logo { max-width: 140px; margin: 0 auto .5rem; }
 .sidebar-title { font-weight: 700; font-size: 1.05rem; color: #15121c; }
 .sidebar-item-section > .sidebar-item-container .sidebar-item-text {
-  text-transform: uppercase; letter-spacing: .06em; font-size: .72rem; font-weight: 700; color: #8a8595;
+  font-size: .9rem; font-weight: 650; color: #15121c;
 }
 .sidebar-item .sidebar-link { font-size: .9rem; padding: .18rem 0; }
 .sidebar-link.active { font-weight: 600; }
+.sidebar-section .sidebar-item .sidebar-link { color: #6b6677; }
+.sidebar-section .sidebar-item .sidebar-link.active { color: #5b2a86; }
 #quarto-sidebar { border-right: 1px solid #eeecf2; }
 
 /* code */

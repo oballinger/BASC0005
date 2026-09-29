@@ -13,45 +13,64 @@ book:
   google-analytics: UA-154866877-2
   chapters:
     - index.qmd
-    - part: "Lectures"
-      chapters:
-        - href: slides/w06.qmd
-          text: "W6 · Hypothesis Testing"
-        - href: slides/w07.qmd
-          text: "W7 · Regression"
-        - href: slides/w08.qmd
-          text: "W8 · Diff-in-Diff"
-        - href: slides/w09.qmd
-          text: "W9 · Reg. Discontinuity"
-    - part: "Workshops"
+    - part: "Week 1 · Introduction"
       chapters:
         - href: "./notebooks/W01. Python Recap.ipynb"
-          text: "W1 · Python Recap"
+          text: "Workshop: Python Recap"
+    - part: "Week 2 · Data"
+      chapters:
         - href: "./notebooks/W02. Pandas.ipynb"
-          text: "W2 · Pandas"
+          text: "Workshop: Pandas"
+    - part: "Week 3 · Spatial & Networks"
+      chapters:
         - href: "./notebooks/W03. Spatial Data.ipynb"
-          text: "W3 · Spatial Data"
+          text: "Workshop: Spatial Data"
+    - part: "Week 4 · Text as Data"
+      chapters:
         - href: "./notebooks/W04. Natural Language Processing.ipynb"
-          text: "W4 · Text & NLP"
+          text: "Workshop: Natural Language Processing"
+    - part: "Week 5 · Sampling"
+      chapters:
         - href: "./notebooks/W05. Distributions and Basic Statistics.ipynb"
-          text: "W5 · Distributions"
+          text: "Workshop: Distributions"
+    - part: "Reading Week"
+      chapters:
         - href: "./notebooks/RW. Merging and Joining.ipynb"
-          text: "RW · Merging and Joining"
+          text: "Workshop: Merging and Joining"
+    - part: "Week 6 · Hypothesis Testing"
+      chapters:
+        - href: slides/w06.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W06. Hypothesis Testing.ipynb"
-          text: "W6 · Hypothesis Testing"
+          text: "Workshop: Hypothesis Testing"
+    - part: "Week 7 · Regression"
+      chapters:
+        - href: slides/w07.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W07. Linear Regression.ipynb"
-          text: "W7 · Linear Regression"
+          text: "Workshop: Linear Regression"
+    - part: "Week 8 · Diff-in-Diff"
+      chapters:
+        - href: slides/w08.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W08. Diff-in-Diff.ipynb"
-          text: "W8 · Diff-in-Diff"
+          text: "Workshop: Diff-in-Diff"
+    - part: "Week 9 · Regression Discontinuity"
+      chapters:
+        - href: slides/w09.qmd
+          text: "Lecture slides"
         - href: "./notebooks/W09. Regression Discontinuity.ipynb"
-          text: "W9 · Reg. Discontinuity"
+          text: "Workshop: Regression Discontinuity"
+    - part: "Week 10 · ML"
+      chapters:
         - href: "./notebooks/W10. Machine Learning.ipynb"
-          text: "W10 · Machine Learning"
+          text: "Workshop: Machine Learning"
 
   repo-url: https://github.com/oballinger/BASC0005/
   repo-actions: [edit]
   sidebar:
     logo: logo2.png
+    collapse-level: 1
 bibliography: references.bib
 
 format:
