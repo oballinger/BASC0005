@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.326">
 
   <meta name="author" content="Ollie Ballinger">
-  <title>Unsupervised Learning: Clustering</title>
+  <title>Supervised &amp; Unsupervised Learning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -325,7 +325,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Unsupervised Learning: Clustering</h1>
+  <h1 class="title">Supervised &amp; Unsupervised Learning</h1>
   <p class="subtitle">BASC0005 Quantitative Methods 2: Data Science and Visualisation</p>
 
 <div class="quarto-title-authors">
@@ -337,11 +337,11 @@ Ollie Ballinger
 </div>
 
 </section>
-<section id="section" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_002.jpg" data-background-size="contain">
+<section id="section" class="slide level2 fallback" data-background-image="img/w10/w10_slide_002.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week X - Clustering.pptx slide 2 -->
+<!-- src: Week 10 - Machine Learning.pptx slide 2 -->
 <aside class="notes">
-<p>Slide text: The Data Science Process: · Generate summary statistics · Plot the data · Are there patterns? · Are there groups we didn’t know to look for? · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results</p>
+<p>Slide text: The Data Science Process: · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results · Build a model · Fit the model · Validate the model</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -414,29 +414,20 @@ Ollie Ballinger
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
-<!-- src: Week X - Clustering.pptx slide 6 -->
-<ul>
-<li><ol type="1">
-<li>What Is Clustering?</li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>K-Means</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li>Hierarchical Clustering</li>
-</ol></li>
-<li><ol start="4" type="1">
-<li>DBSCAN</li>
-</ol></li>
-<li><ol start="5" type="1">
-<li>Using Clusters Responsibly</li>
-</ol></li>
-</ul>
+<ol type="1">
+<li>Supervised vs Unsupervised Learning</li>
+<li>Supervised Learning: Trees and Forests</li>
+<li>Accuracy Assessment</li>
+<li>Overfitting and Testing</li>
+<li>Case Study: Monitoring War Damage from Space</li>
+<li>Unsupervised Learning: Clustering</li>
+<li>Using Machine Learning Responsibly</li>
+</ol>
 </section>
 <section>
-<section id="what-is-clustering" class="title-slide slide level1 center">
-<h1>1. What Is Clustering?</h1>
-<!-- src: Week X - Clustering.pptx slide 7 -->
+<section id="supervised-vs-unsupervised-learning" class="title-slide slide level1 center">
+<h1>1. Supervised vs Unsupervised Learning</h1>
+
 </section>
 <section id="how-many-groups-do-you-see" class="slide level2">
 <h2>How Many Groups Do You See?</h2>
@@ -453,11 +444,174 @@ Ollie Ballinger
 </div>
 </div>
 </section>
-<section id="section-2" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_009.jpg" data-background-size="contain">
+<section id="supervised-vs.-unsupervised-learning" class="slide level2">
+<h2>Supervised vs.&nbsp;Unsupervised Learning</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="supervised">Supervised</h3>
+<ul>
+<li>We have <strong>labels</strong></li>
+<li>Learn to <strong>predict</strong> a known outcome</li>
+<li>e.g.&nbsp;Titanic: did this passenger survive?</li>
+<li>Accuracy can be checked against the truth</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="unsupervised">Unsupervised</h3>
+<ul>
+<li><strong>No labels</strong></li>
+<li>Find <strong>structure</strong> hidden in the data</li>
+<li>e.g.&nbsp;which London neighbourhoods are alike? Which detections belong together?</li>
+<li>There is no ‘right answer’ to check against</li>
+</ul>
+</div>
+</div>
+<p>The oil-rig map uses both: <strong>cluster</strong> detections into structures, then <strong>classify</strong> each one as oil, wind or noise</p>
+</section>
+<section id="what-is-a-model" class="slide level2">
+<h2>What is a “Model”?</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 5 -->
+<ul>
+<li>A model defines the relationship between <strong>features</strong> and <strong>label</strong>. For example, a spam detection model might associate certain features strongly with “spam”. Let’s highlight two phases of a model’s life:
+<ul>
+<li><strong>Training</strong> means creating or <strong>learning</strong> the model. That is, you show the model labeled examples and enable the model to gradually learn the relationships between features and label.</li>
+<li><strong>Inference</strong> means applying the trained model to unlabeled examples. That is, you use the trained model to make useful predictions (y’).</li>
+</ul></li>
+</ul>
+</section>
+<section id="regression-vs.-classification" class="slide level2">
+<h2>Regression vs.&nbsp;Classification</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 6 -->
+<ul>
+<li>A <strong>regression</strong> model predicts continuous values. For example, regression models make predictions that answer questions like the following:
+<ul>
+<li>What is the value of a house in California?</li>
+<li>What is the probability that a user will click on this ad?</li>
+</ul></li>
+<li>A <strong>classification</strong> model predicts discrete values. For example, classification models make predictions that answer questions like the following:
+<ul>
+<li>Is a given email message spam or not spam?</li>
+<li>Is this an image of a dog, a cat, or a hamster?</li>
+</ul></li>
+</ul>
+</section>
+<section id="machine-learning-workflow" class="slide level2">
+<h2>Machine Learning Workflow</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 7 -->
+
+<img data-src="img/w10/w10_6f834b8aa0.jpg" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="supervised-learning-trees-and-forests" class="title-slide slide level1 center">
+<h1>2. Supervised Learning: Trees and Forests</h1>
+
+</section>
+<section id="the-decision-tree" class="slide level2">
+<h2>The Decision Tree</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 8 -->
+<p>A <strong>decision</strong> <strong>tree</strong> is a non-parametric supervised learning algorithm, which is utilized for both classification and regression tasks. It has a hierarchical, tree structure, which consists of a root node, branches, internal nodes and leaf nodes.</p>
+
+<img data-src="img/w10/w10_1ac59bd542.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="the-random-forest-algorithm" class="slide level2">
+<h2>The Random Forest Algorithm</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 9 -->
+<p>The random forest algorithm is made up of a collection of decision trees, and each tree in the ensemble is comprised of a data sample drawn from a training set with replacement, called the bootstrap sample.</p>
+
+<img data-src="img/w10/w10_4a480383af.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="section-2" class="slide level2 notitle">
 <h2></h2>
-<!-- src: Week X - Clustering.pptx slide 9 -->
+<!-- src: Week 10 - Machine Learning.pptx slide 10 -->
+
+<img data-src="img/w10/w10_7a4056bca4.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="predicting-survival-on-the-titanic" class="slide level2">
+<h2>Predicting Survival on the Titanic</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 11 -->
+<div class="columns">
+<div class="column" style="width:27%;">
+<ul>
+<li>Survived:
+<ul>
+<li>1: survived</li>
+<li>0: didn’t survive</li>
+</ul></li>
+<li>Pclass:
+<ul>
+<li>1: First Class</li>
+<li>2: Second Class</li>
+<li>3: Third Class</li>
+</ul></li>
+<li>Embarked:
+<ul>
+<li>C: Cherbourg</li>
+<li>Q: Queenstown</li>
+<li>S: Southampton</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:73%;">
+<p><img data-src="img/w10/w10_8b5e8d8403.jpg" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+</section>
+<section id="descriptive-statistics" class="slide level2">
+<h2>Descriptive Statistics</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 12 -->
+
+<img data-src="img/w10/w10_0dd1618f53.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="a-random-forest-with-one-feature" class="slide level2">
+<h2>A random forest with one feature</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 13 -->
+<div class="columns">
+<div class="column" style="width:22%;">
+<ul>
+<li>Sex_int
+<ul>
+<li>0 for male</li>
+<li>1 for female</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:78%;">
+<p><img data-src="img/w10/w10_557787949f.jpg" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+</section>
+<section id="age-sex-class" class="slide level2">
+<h2>Age, Sex, Class</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 17 -->
+
+<img data-src="img/w10/w10_3aa81f48a9.png" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="accuracy-assessment" class="title-slide slide level1 center">
+<h1>3. Accuracy Assessment</h1>
+
+</section>
+<section id="accuracy-the-boy-who-cried-wolf" class="slide level2">
+<h2>Accuracy: The boy who cried wolf</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 20 -->
+<ul>
+<li><strong>An</strong> <strong>Aesop’s</strong> <strong>Fable:</strong> <strong>The</strong> <strong>Boy</strong> <strong>Who</strong> <strong>Cried</strong> <strong>Wolf</strong> <strong>(compressed)</strong></li>
+<li>A shepherd boy gets bored tending the town’s flock. To have some fun, he cries out, “Wolf!” even though no wolf is in sight. The villagers run to protect the flock, but then get really mad when they realize the boy was playing a joke on them.</li>
+<li>[Iterate previous paragraph <em>N</em> times.]</li>
+<li>One night, the shepherd boy sees a real wolf approaching the flock and calls out, “Wolf!” The villagers refuse to be fooled again and stay in their houses. The hungry wolf turns the flock into lamb chops. The town goes hungry. Panic ensues.</li>
+</ul>
+</section>
+<section id="accuracy-the-boy-who-cried-wolf-1" class="slide level2">
+<h2>Accuracy: The boy who cried wolf</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 21 -->
+<ul>
+<li>Let’s make the following definitions:
+<ul>
+<li>“Wolf” is a <strong>positive</strong> <strong>class</strong>.</li>
+<li>“No wolf” is a <strong>negative</strong> <strong>class</strong>.</li>
+</ul></li>
+<li>A <strong>true</strong> <strong>positive</strong> is an outcome where the</li>
+<li>model <em>correctly</em> predicts the <em>positive</em> class. Similarly, a <strong>true</strong> <strong>negative</strong> is an outcome where the model <em>correctly</em> predicts the <em>negative</em> class.</li>
+<li>A <strong>false</strong> <strong>positive</strong> is an outcome where the</li>
+<li>model <em>incorrectly</em> predicts the <em>positive</em> class. And a <strong>false</strong> <strong>negative</strong> is an outcome where the model <em>incorrectly</em> predicts the <em>negative</em> class.</li>
+</ul>
+</section>
+<section id="section-3" class="slide level2 fallback" data-background-image="img/w10/w10_slide_022.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 22 -->
 <aside class="notes">
-<p>Slide text: Supervised vs.&nbsp;Unsupervised Learning · Supervised · We have labels · Learn to predict a known outcome. · · e.g.&nbsp;Titanic: did this passenger survive? (Machine Learning lecture) · · Accuracy can be checked against the truth. · Unsupervised · No labels · Find structure hidden in the data. · · e.g.&nbsp;which London neighbourhoods are alike? Which detections belong together? · · There is no ‘right answer’ to check against.</p>
+<p>Slide text: Accuracy: The boy who cried wolf · PREDICTED · OBSERVED · WOLF · WOLF · NO WOLF · NO WOLF</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -470,7 +624,244 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-3" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_010.jpg" data-background-size="contain">
+<section id="section-4" class="slide level2 fallback" data-background-image="img/w10/w10_slide_023.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 23 -->
+<aside class="notes">
+<p>Slide text: Accuracy · Accuracy is one metric for evaluating classification models. Informally, accuracy is the fraction of predictions our model got right. Formally, accuracy has the following definition: · TP = True Positives · TN = True Negatives · FP = False Positives · FN = False Negatives.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="accuracy-tumor-example" class="slide level2">
+<h2>Accuracy: Tumor example</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 24 -->
+
+<img data-src="img/w10/w10_790c2762ca.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="section-5" class="slide level2 fallback" data-background-image="img/w10/w10_slide_026.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 26 -->
+<aside class="notes">
+<p>Slide text: Accuracy: Tumor example · PREDICTED · OBSERVED · CANCER · CANCER · NO CANCER · NO CANCER · Let’s try calculating accuracy for the following model that classified 100 tumors as malignant (the positive class) or benign (the negative class):</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="how-accurate-is-accuracy" class="slide level2">
+<h2>How accurate is accuracy?</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 28 -->
+<ul>
+<li>Accuracy comes out to 91% (91 correct predictions out of 100 total examples). That means our tumor classifier is doing a great job of identifying malignancies, right?</li>
+<li>let’s do a closer analysis of positives and negatives
+<ul>
+<li>Of the 100 tumor examples
+<ul>
+<li>91 are benign (90 TNs and 1 FP)</li>
+<li>9 are malignant (1 TP and 8 FNs).</li>
+</ul></li>
+</ul></li>
+<li>Of the 91 benign tumors, the model correctly identifies 90 as benign. That’s good. However, of the 9 malignant tumors, the model only correctly identifies 1 as malignant—a terrible outcome, as <strong>8</strong> <strong>out</strong> <strong>of</strong> <strong>9</strong> <strong>malignancies</strong> <strong>go</strong> <strong>undiagnosed!</strong></li>
+</ul>
+</section>
+<section id="how-accurate-is-accuracy-1" class="slide level2">
+<h2>How accurate is accuracy?</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 29 -->
+<ul>
+<li>While 91% accuracy may seem good at first glance, <strong>another</strong> <strong>tumor-classifier</strong> <strong>model</strong> <strong>that</strong> <strong>always</strong> <strong>predicts</strong> <strong>benign</strong> <strong>would</strong> <strong>achieve</strong> <strong>the</strong> <strong>exact</strong> <strong>same</strong> <strong>accuracy</strong> (91/100 correct predictions) on our examples.
+<ul>
+<li>In other words, <strong>our</strong> <strong>model</strong> <strong>is</strong> <strong>no</strong> <strong>better</strong> <strong>than</strong> <strong>one</strong> <strong>that</strong> <strong>has</strong> <strong>zero</strong></li>
+</ul></li>
+<li><strong>predictive</strong> <strong>ability</strong> to distinguish malignant tumors from benign tumors.</li>
+<li>Accuracy alone doesn’t tell the full story when you’re working with a <strong>class-imbalanced</strong> <strong>data</strong> <strong>set</strong>, like this one, where there is a significant disparity between the number of positive and negative labels.</li>
+<li>Let’s look at two better metrics for evaluating class-imbalanced problems: precision and recall.</li>
+</ul>
+</section>
+<section id="section-6" class="slide level2 fallback" data-background-image="img/w10/w10_slide_030.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 30 -->
+<aside class="notes">
+<p>Slide text: Precision · What proportion of positive identifications was actually correct? · Our model has a precision of 0.5—in other words, when it predicts a tumor is malignant, it is correct 50% of the time.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-7" class="slide level2 fallback" data-background-image="img/w10/w10_slide_031.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 31 -->
+<aside class="notes">
+<p>Slide text: Recall · What proportion of actual positives was identified correctly? · Our model has a recall of 0.11—in other words, it correctly identifies 11% of the malignant tumors. (in other other words, it misses 89% of malignant tumors).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-8" class="slide level2 fallback" data-background-image="img/w10/w10_slide_032.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 32 -->
+<aside class="notes">
+<p>Slide text: F1 Score · The F1 score is a measure of accuracy that is the harmonic mean of precision and recall, particularly useful in class- imbalanced contexts (like the tumor example). · The F1 score of our tumor detection model is 0.18, which is very low– this is because it’s not taking true negatives into account</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="back-to-titanic" class="slide level2">
+<h2>Back to Titanic</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 33 -->
+<p>Lets evaluate the Random Forest Models we trained earlier using these metrics</p>
+
+<img data-src="img/w10/w10_30c466974b.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="all-variables" class="slide level2">
+<h2>All variables</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 38 -->
+<div class="columns">
+<div class="column" style="width:23%;">
+<ul>
+<li>Accuracy: 82</li>
+<li>Precision: 80</li>
+<li>Recall: 77</li>
+<li>F1 Score: 78</li>
+</ul>
+</div><div class="column" style="width:77%;">
+<p><img data-src="img/w10/w10_61243d8186.jpg" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="overfitting-and-testing" class="title-slide slide level1 center">
+<h1>4. Overfitting and Testing</h1>
+
+</section>
+<section id="the-full-model" class="slide level2">
+<h2>The full model</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 40 -->
+<p>Even with a relatively small dataset and a handful of variables, we’ve ended up with quite a complex model</p>
+
+<img data-src="img/w10/w10_354bf8fa71.png" class="r-stretch quarto-figure-center"></section>
+<section id="overfitting" class="slide level2">
+<h2>Overfitting</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 42 -->
+
+<img data-src="img/w10/w10_c310129b45.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="testing-on-data-the-model-hasnt-seen" class="slide level2">
+<h2>Testing on Data the Model Hasn’t Seen</h2>
+<ul>
+<li>A model scored on its <strong>own training data</strong> will look better than it is: it can memorise</li>
+<li><strong>Train/test split</strong>: fit on one part (say 80%), score on the held-out 20%</li>
+<li><strong>Cross-validation</strong>: split into k folds, hold each out in turn, average the k scores
+<ul>
+<li>Uses all the data for testing, and shows how much the score varies</li>
+</ul></li>
+<li>Choosing settings (tree depth, number of features) by test score leaks the test set into training: keep a <strong>final</strong> test set you look at once</li>
+</ul>
+</section>
+<section id="leakage-when-the-answer-sneaks-in" class="slide level2">
+<h2>Leakage: When the Answer Sneaks In</h2>
+<ul>
+<li><strong>Leakage</strong>: the model has access to information it wouldn’t have when making a real prediction</li>
+<li>Examples:
+<ul>
+<li>A feature recorded <strong>after</strong> the outcome (e.g.&nbsp;“treatment given” when predicting diagnosis)</li>
+<li><strong>Duplicates</strong> or near-duplicates in both training and test sets</li>
+<li>Spatial or temporal neighbours split across train and test: nearby cells and consecutive days look alike</li>
+</ul></li>
+<li>Kapoor &amp; Narayanan (2023, <em>Patterns</em>) found leakage in <strong>294 papers</strong> across 17 fields using machine learning</li>
+<li>Ask of any impressive accuracy: <em>could the model have seen the answer?</em></li>
+</ul>
+</section></section>
+<section>
+<section id="case-study-monitoring-war-damage-from-space" class="title-slide slide level1 center">
+<h1>5. Case Study: Monitoring War Damage from Space</h1>
+
+</section>
+<section id="section-9" class="slide level2 notitle">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 43 -->
+
+<img data-src="img/w10/w10_d9f499c917.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="damage-labels" class="slide level2">
+<h2>Damage Labels</h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 44 -->
+
+<img data-src="img/w10/w10_8c2d243de6.jpg" class="r-stretch quarto-figure-center"></section>
+<section id="section-10" class="slide level2 fallback" data-background-image="img/w10/w10_slide_047.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 47 -->
+<aside class="notes">
+<p>Slide text: Model Performance</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-11" class="slide level2 fallback" data-background-image="img/w10/w10_slide_048.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week 10 - Machine Learning.pptx slide 48 -->
+<aside class="notes">
+<p>Slide text: Model Performance · When a model is trained only on imagery of Aleppo, it performs significantly worse in other cities in Syria · The model is learning what damage in Aleppo looks like, but damage may look different in different cities. · Imagine what would happen if we tried to use this model in Gaza, or Ukraine!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="unsupervised-learning-clustering" class="title-slide slide level1 center">
+<h1>6. Unsupervised Learning: Clustering</h1>
+
+</section>
+<section id="section-12" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_010.jpg" data-background-size="contain">
 <h2></h2>
 <!-- src: Week X - Clustering.pptx slide 10 -->
 <aside class="notes">
@@ -486,11 +877,6 @@ Ollie Ballinger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section></section>
-<section>
-<section id="k-means" class="title-slide slide level1 center">
-<h1>2. K-Means</h1>
-<!-- src: Week X - Clustering.pptx slide 11 -->
 </section>
 <section id="the-k-means-algorithm" class="slide level2">
 <h2>The K-Means Algorithm</h2>
@@ -539,7 +925,7 @@ Ollie Ballinger
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_016.jpg" data-background-size="contain">
+<section id="section-13" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_016.jpg" data-background-size="contain">
 <h2></h2>
 <!-- src: Week X - Clustering.pptx slide 16 -->
 <aside class="notes">
@@ -561,14 +947,9 @@ Ollie Ballinger
 <!-- src: Week X - Clustering.pptx slide 17 -->
 
 <img data-src="img/w10/clustering_740534de78.png" class="r-stretch quarto-figure-center"><p>The algorithm outputs numbers 0–4. <strong>The names are ours</strong>: an interpretation of these profiles, not a fact about the data</p>
-</section></section>
-<section>
-<section id="hierarchical-clustering" class="title-slide slide level1 center">
-<h1>3. Hierarchical Clustering</h1>
-<!-- src: Week X - Clustering.pptx slide 18 -->
 </section>
-<section id="building-a-family-tree" class="slide level2">
-<h2>Building a Family Tree</h2>
+<section id="hierarchical-clustering-a-family-tree" class="slide level2">
+<h2>Hierarchical Clustering: A Family Tree</h2>
 <!-- src: Week X - Clustering.pptx slide 19 -->
 <ul>
 <li><strong>Agglomerative</strong> clustering builds clusters from the bottom up:
@@ -587,14 +968,9 @@ Ollie Ballinger
 <!-- src: Week X - Clustering.pptx slide 20 -->
 
 <img data-src="img/w10/clustering_e7388236bd.png" class="r-stretch quarto-figure-center"><p>32 boroughs, same 7 features. The height of each join shows how different the merged groups are. The dotted line cuts the tree into 3 clusters</p>
-</section></section>
-<section>
-<section id="dbscan" class="title-slide slide level1 center">
-<h1>4. DBSCAN</h1>
-<!-- src: Week X - Clustering.pptx slide 21 -->
 </section>
-<section id="density-based-clustering" class="slide level2">
-<h2>Density-Based Clustering</h2>
+<section id="dbscan-density-based-clustering" class="slide level2">
+<h2>DBSCAN: Density-Based Clustering</h2>
 <!-- src: Week X - Clustering.pptx slide 22 -->
 <div class="columns">
 <div class="column" style="width:43%;">
@@ -659,27 +1035,11 @@ Ollie Ballinger
 </ul></li>
 <li>Each structure is then classified as <strong>oil</strong>, <strong>wind</strong> or <strong>noise</strong> with a supervised model. Clustering first, then classification</li>
 </ul>
-</section>
-<section id="similar-things-land-together" class="slide level2">
-<h2>Similar Things Land Together</h2>
-<!-- src: Week X - Clustering.pptx slide 27 -->
-<div class="columns">
-<div class="column" style="width:46%;">
-<ul>
-<li>Rare-earth mining in Myanmar: satellite image patches turned into <strong>embeddings</strong></li>
-<li>Projected to 2D with <strong>UMAP</strong>, the known mines (red) sit in their <strong>own region</strong></li>
-<li>Patches near that region are candidate unreported mines</li>
-<li>We met embeddings in Week 4</li>
-</ul>
-</div><div class="column" style="width:54%;">
-<p><img data-src="img/w10/clustering_a263939396.png" class="pic" style="max-height:700px"></p>
-</div>
-</div>
 </section></section>
 <section>
-<section id="using-clusters-responsibly" class="title-slide slide level1 center">
-<h1>5. Using Clusters Responsibly</h1>
-<!-- src: Week X - Clustering.pptx slide 28 -->
+<section id="using-machine-learning-responsibly" class="title-slide slide level1 center">
+<h1>7. Using Machine Learning Responsibly</h1>
+
 </section>
 <section id="clustering-always-finds-clusters" class="slide level2">
 <h2>Clustering Always Finds Clusters</h2>
@@ -759,46 +1119,16 @@ Ollie Ballinger
 </tbody>
 </table>
 </section>
-<section id="section-5" class="slide level2 fallback" data-background-image="img/w10/clustering_slide_032.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week X - Clustering.pptx slide 32 -->
-<aside class="notes">
-<p>Slide text: In Python · from sklearn.preprocessing import StandardScaler · from sklearn.cluster import KMeans, DBSCAN · from sklearn.metrics import silhouette_score · · X = StandardScaler().fit_transform(wards[features]) # scale first! · · km = KMeans(n_clusters=5, n_init=20, random_state=0).fit(X) · wards[“cluster”] = km.labels_ · print(silhouette_score(X, km.labels_)) · · db = DBSCAN(eps=30 / 6371, min_samples=4, metric=“haversine”) · sites[“cluster”] = db.fit_predict(np.radians(sites[[“lat”, “lon”]])) # -1 = noise · Haversine distance works in radians, so ε = 30 km ÷ Earth’s radius (6,371 km)</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
-<!-- src: Week X - Clustering.pptx slide 33 -->
-<ul>
-<li><ol type="1">
-<li>Clustering is <strong>unsupervised</strong>: finding groups without labels</li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>Choose features carefully and <strong>standardise</strong> them</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li><strong>K-means</strong>: fast, needs k, assumes round clusters</li>
-</ol></li>
-<li><ol start="4" type="1">
-<li><strong>Hierarchical</strong>: builds a tree; cut it where it makes sense</li>
-</ol></li>
-<li><ol start="5" type="1">
-<li><strong>DBSCAN</strong>: finds dense regions of any shape and flags noise; ideal for spatial points</li>
-</ol></li>
-<li><ol start="6" type="1">
-<li>Algorithms <strong>always</strong> find clusters. Validate them, and be careful how you name them</li>
-</ol></li>
-</ul>
+<ol type="1">
+<li><strong>Supervised</strong> learning predicts a known label; <strong>unsupervised</strong> learning finds structure without one</li>
+<li><strong>Decision trees</strong> split the data on features; <strong>random forests</strong> average many trees</li>
+<li>Accuracy misleads on imbalanced data: check <strong>precision</strong>, <strong>recall</strong> and <strong>F1</strong></li>
+<li>Score models on data they <strong>haven’t seen</strong>, and watch for <strong>leakage</strong>; a model trained on one city may fail in the next</li>
+<li><strong>K-means</strong>: fast, needs k, assumes round clusters. <strong>Hierarchical</strong>: a tree you cut. <strong>DBSCAN</strong>: dense regions of any shape, flags noise</li>
+<li><strong>Standardise</strong> features first. Algorithms <strong>always</strong> find clusters: validate them, and be careful how you name them</li>
+</ol>
 </section>
 <section id="any-questions" class="slide level2">
 <h2>Any Questions?</h2>

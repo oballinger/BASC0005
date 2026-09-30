@@ -1,5 +1,5 @@
 ---
-title: "Unsupervised Learning: Clustering"
+title: "Supervised & Unsupervised Learning"
 subtitle: "Week 10 lecture"
 page-layout: full
 toc: false
@@ -12,6 +12,7 @@ repo-actions: false
 
 ::: {.slides-bar}
 [Open full screen ↗](../lectures/w10.html){.btn .btn-primary target="_blank"}
-[Week 10 workshop →](../notebooks/W10.%20Clustering.html){.btn .btn-outline-secondary}
+[Supervised workshop →](../notebooks/W09.%20Supervised%20Learning.html){.btn .btn-outline-secondary}
+[Clustering workshop →](../notebooks/W10.%20Clustering.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::

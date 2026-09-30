@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.326">
 
   <meta name="author" content="Ollie Ballinger">
-  <title>Prediction: Supervised Learning</title>
+  <title>Embeddings</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -325,7 +325,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Prediction: Supervised Learning</h1>
+  <h1 class="title">Embeddings</h1>
   <p class="subtitle">BASC0005 Quantitative Methods 2: Data Science and Visualisation</p>
 
 <div class="quarto-title-authors">
@@ -337,11 +337,11 @@ Ollie Ballinger
 </div>
 
 </section>
-<section id="section" class="slide level2 fallback" data-background-image="img/w09/w10_slide_002.jpg" data-background-size="contain">
+<section id="section" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_002.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 2 -->
+<!-- src: Week X - Embeddings.pptx slide 2 -->
 <aside class="notes">
-<p>Slide text: The Data Science Process: · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results · Build a model · Fit the model · Validate the model</p>
+<p>Slide text: The Data Science Process: · Collect raw data: text, images, tracks · Turn it into vectors a model can use · Search, cluster, classify · Validate the model · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -353,378 +353,153 @@ Ollie Ballinger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="ships-that-go-dark" class="slide level2">
+<h2>Ships That Go Dark</h2>
+<!-- src: Week X - Embeddings.pptx slide 3 -->
+<ul>
+<li>Large ships broadcast their identity and position by radio: the <strong>Automatic Identification System (AIS)</strong></li>
+<li>But AIS can be <strong>switched off, spoofed or never fitted</strong>. A ship that isn’t broadcasting is ‘dark’</li>
+<li>Dark vessels are linked to illegal fishing, sanctions evasion and smuggling</li>
+<li>Global Fishing Watch estimates that about <strong>75% of the world’s industrial fishing vessels</strong> are not publicly tracked (Paolo et al., Nature, 2024)</li>
+<li>Satellites can <strong>see</strong> dark ships. The question is: <strong>which ship is it?</strong></li>
+</ul>
+<aside class="notes">
+<p>Hook: AIS is a legal requirement for large ships but it is self-reported. Paolo et al.&nbsp;(2024) combined Sentinel-1 radar with AIS.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="one-idea-behind-modern-ai" class="slide level2">
+<h2>One Idea Behind Modern AI</h2>
+<ul>
+<li>Your phone recognises your face by turning each photo into a list of numbers: an <strong>embedding</strong></li>
+<li>Photos of the <strong>same face</strong> get <strong>similar</strong> numbers; different faces get different numbers</li>
+<li>‘Who is this?’ becomes ‘which stored photos have the <strong>closest numbers</strong>?’</li>
+<li>The same trick works for words, documents, songs, places on Earth, and in principle ships seen from space</li>
+<li><strong>Turning things into vectors so that similar things are close</strong> powers search engines, recommendation systems, ChatGPT and much of modern AI</li>
+</ul>
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
 <ol type="1">
-<li>The Machine Learning Pipeline</li>
-<li>Predicting Survival on the Titanic</li>
-<li>Accuracy Assessment</li>
-<li>Overfitting and Testing</li>
-<li>Case Study: Monitoring War Damage from Space</li>
+<li>What Is an Embedding?</li>
+<li>Measuring Similarity</li>
+<li>Where Embeddings Come From</li>
+<li>Visualising Embeddings</li>
+<li>Using Embeddings Well</li>
 </ol>
 </section>
-<section id="the-machine-learning-pipeline" class="slide level2 center">
-<h2>The Machine Learning Pipeline</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 4 -->
+<section>
+<section id="what-is-an-embedding" class="title-slide slide level1 center">
+<h1>1. What Is an Embedding?</h1>
+<!-- src: Week X - Embeddings.pptx slide 8 -->
 </section>
-<section id="what-is-a-model" class="slide level2">
-<h2>What is a “Model”?</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 5 -->
+<section id="computers-need-numbers" class="slide level2">
+<h2>Computers Need Numbers</h2>
+<!-- src: Week X - Embeddings.pptx slide 9 -->
 <ul>
-<li>A model defines the relationship between <strong>features</strong> and <strong>label</strong>. For example, a spam detection model might associate certain features strongly with “spam”. Let’s highlight two phases of a model’s life:
+<li>Every model we’ve built so far takes a table of numbers as input</li>
+<li>Some data is <strong>already numeric</strong>: income, age, air quality</li>
+<li>Much of the interesting data <strong>isn’t</strong>: words, documents, photos, satellite images, songs, people</li>
+<li>In Week 4 we turned text into numbers by <strong>counting words</strong> and using spaCy’s sentiment scores</li>
+<li>An <strong>embedding</strong> is a more powerful answer: a learned list of numbers (a <strong>vector</strong>) that captures what something <strong>means</strong>
 <ul>
-<li><strong>Training</strong> means creating or <strong>learning</strong> the model. That is, you show the model labeled examples and enable the model to gradually learn the relationships between features and label.</li>
-<li><strong>Inference</strong> means applying the trained model to unlabeled examples. That is, you use the trained model to make useful predictions (y’).</li>
+<li><strong>Similar meaning → nearby vectors</strong></li>
 </ul></li>
 </ul>
 </section>
-<section id="regression-vs.-classification" class="slide level2">
-<h2>Regression vs.&nbsp;Classification</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 6 -->
-<ul>
-<li>A <strong>regression</strong> model predicts continuous values. For example, regression models make predictions that answer questions like the following:
-<ul>
-<li>What is the value of a house in California?</li>
-<li>What is the probability that a user will click on this ad?</li>
-</ul></li>
-<li>A <strong>classification</strong> model predicts discrete values. For example, classification models make predictions that answer questions like the following:
-<ul>
-<li>Is a given email message spam or not spam?</li>
-<li>Is this an image of a dog, a cat, or a hamster?</li>
-</ul></li>
-</ul>
-</section>
-<section id="machine-learning-workflow" class="slide level2">
-<h2>Machine Learning Workflow</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 7 -->
-
-<img data-src="img/w09/w10_6f834b8aa0.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="the-decision-tree" class="slide level2">
-<h2>The Decision Tree</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 8 -->
-<p>A <strong>decision</strong> <strong>tree</strong> is a non-parametric supervised learning algorithm, which is utilized for both classification and regression tasks. It has a hierarchical, tree structure, which consists of a root node, branches, internal nodes and leaf nodes.</p>
-
-<img data-src="img/w09/w10_1ac59bd542.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="the-random-forest-algorithm" class="slide level2">
-<h2>The Random Forest Algorithm</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 9 -->
-<p>The random forest algorithm is made up of a collection of decision trees, and each tree in the ensemble is comprised of a data sample drawn from a training set with replacement, called the bootstrap sample.</p>
-
-<img data-src="img/w09/w10_4a480383af.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="section-1" class="slide level2 notitle">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 10 -->
-
-<img data-src="img/w09/w10_7a4056bca4.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="predicting-survival-on-the-titanic" class="slide level2">
-<h2>Predicting Survival on the Titanic</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 11 -->
+<section id="attempt-1-one-hot-encoding" class="slide level2">
+<h2>Attempt 1: One-Hot Encoding</h2>
+<!-- src: Week X - Embeddings.pptx slide 10 -->
 <div class="columns">
-<div class="column" style="width:27%;">
+<div class="column" style="width:43%;">
 <ul>
-<li>Survived:
+<li>Give every word its own column</li>
+<li>A vocabulary of 50,000 words → vectors with <strong>50,000 dimensions</strong>, almost all zeros</li>
+<li>Every word is <strong>equally different</strong> from every other word
 <ul>
-<li>1: survived</li>
-<li>0: didn’t survive</li>
+<li>‘ship’ is as far from ‘boat’ as it is from ‘banana’</li>
 </ul></li>
-<li>Pclass:
-<ul>
-<li>1: First Class</li>
-<li>2: Second Class</li>
-<li>3: Third Class</li>
-</ul></li>
-<li>Embarked:
-<ul>
-<li>C: Cherbourg</li>
-<li>Q: Queenstown</li>
-<li>S: Southampton</li>
-</ul></li>
+<li>This is what dummy variables do in a regression</li>
 </ul>
-</div><div class="column" style="width:73%;">
-<p><img data-src="img/w09/w10_8b5e8d8403.jpg" class="pic" style="max-height:700px"></p>
+</div><div class="column" style="width:57%;">
+<p><img data-src="img/w09/embeddings_468dd8513a.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
-<section id="descriptive-statistics" class="slide level2">
-<h2>Descriptive Statistics</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 12 -->
-
-<img data-src="img/w09/w10_0dd1618f53.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="a-random-forest-with-one-feature" class="slide level2">
-<h2>A random forest with one feature</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 13 -->
+<section id="attempt-2-dense-vectors" class="slide level2">
+<h2>Attempt 2: Dense Vectors</h2>
+<!-- src: Week X - Embeddings.pptx slide 11 -->
 <div class="columns">
-<div class="column" style="width:22%;">
+<div class="column" style="width:37%;">
 <ul>
-<li>Sex_int
+<li>Give each word a <strong>short list of real numbers</strong>, e.g.&nbsp;100</li>
+<li>No single number means anything on its own. <strong>Meaning is in the pattern</strong></li>
+<li>Now similarity is measurable (GloVe):
 <ul>
-<li>0 for male</li>
-<li>1 for female</li>
+<li>ship · boat: <strong>0.83</strong></li>
+<li>banana · apple: <strong>0.51</strong></li>
+<li>ship · banana: <strong>0.18</strong></li>
 </ul></li>
 </ul>
-</div><div class="column" style="width:78%;">
-<p><img data-src="img/w09/w10_557787949f.jpg" class="pic" style="max-height:700px"></p>
+</div><div class="column" style="width:63%;">
+<p><img data-src="img/w09/embeddings_08e5c8df48.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
+<aside class="notes">
+<p>Values are cosine similarities from the pretrained GloVe model glove-wiki-gigaword-100 (Pennington et al.&nbsp;2014), computed in src/figs.py. We define cosine similarity properly in Section 2.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="age-sex-class" class="slide level2">
-<h2>Age, Sex, Class</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 17 -->
-
-<img data-src="img/w09/w10_3aa81f48a9.png" class="r-stretch quarto-figure-center"></section>
-<section id="accuracy-assessment" class="slide level2 center">
-<h2>Accuracy Assessment</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 19 -->
-</section>
-<section id="accuracy-the-boy-who-cried-wolf" class="slide level2">
-<h2>Accuracy: The boy who cried wolf</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 20 -->
+<section id="where-do-the-numbers-come-from" class="slide level2">
+<h2>Where Do the Numbers Come From?</h2>
+<!-- src: Week X - Embeddings.pptx slide 12 -->
 <ul>
-<li><strong>An</strong> <strong>Aesop’s</strong> <strong>Fable:</strong> <strong>The</strong> <strong>Boy</strong> <strong>Who</strong> <strong>Cried</strong> <strong>Wolf</strong> <strong>(compressed)</strong></li>
-<li>A shepherd boy gets bored tending the town’s flock. To have some fun, he cries out, “Wolf!” even though no wolf is in sight. The villagers run to protect the flock, but then get really mad when they realize the boy was playing a joke on them.</li>
-<li>[Iterate previous paragraph <em>N</em> times.]</li>
-<li>One night, the shepherd boy sees a real wolf approaching the flock and calls out, “Wolf!” The villagers refuse to be fooled again and stay in their houses. The hungry wolf turns the flock into lamb chops. The town goes hungry. Panic ensues.</li>
+<li><strong>‘You shall know a word by the company it keeps’</strong> (J.R. Firth, 1957)</li>
+<li>Words that appear in <strong>similar contexts</strong> tend to have <strong>similar meanings</strong>
+<ul>
+<li>‘The ___ sailed into port’: ship, boat, vessel, ferry…</li>
+</ul></li>
+<li><strong>word2vec</strong> (Mikolov et al., Google, 2013) learns vectors by training a small neural network to <strong>predict a word’s neighbours</strong> in billions of sentences</li>
+<li>Nobody tells it what words mean. The vectors are a <strong>by-product</strong> of getting good at the prediction task</li>
+<li>GloVe, the model in these slides, does something similar using word co-occurrence counts</li>
 </ul>
 </section>
-<section id="accuracy-the-boy-who-cried-wolf-1" class="slide level2">
-<h2>Accuracy: The boy who cried wolf</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 21 -->
-<ul>
-<li>Let’s make the following definitions:
-<ul>
-<li>“Wolf” is a <strong>positive</strong> <strong>class</strong>.</li>
-<li>“No wolf” is a <strong>negative</strong> <strong>class</strong>.</li>
-</ul></li>
-<li>A <strong>true</strong> <strong>positive</strong> is an outcome where the</li>
-<li>model <em>correctly</em> predicts the <em>positive</em> class. Similarly, a <strong>true</strong> <strong>negative</strong> is an outcome where the model <em>correctly</em> predicts the <em>negative</em> class.</li>
-<li>A <strong>false</strong> <strong>positive</strong> is an outcome where the</li>
-<li>model <em>incorrectly</em> predicts the <em>positive</em> class. And a <strong>false</strong> <strong>negative</strong> is an outcome where the model <em>incorrectly</em> predicts the <em>negative</em> class.</li>
-</ul>
-</section>
-<section id="section-2" class="slide level2 fallback" data-background-image="img/w09/w10_slide_022.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 22 -->
-<aside class="notes">
-<p>Slide text: Accuracy: The boy who cried wolf · PREDICTED · OBSERVED · WOLF · WOLF · NO WOLF · NO WOLF</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-3" class="slide level2 fallback" data-background-image="img/w09/w10_slide_023.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 23 -->
-<aside class="notes">
-<p>Slide text: Accuracy · Accuracy is one metric for evaluating classification models. Informally, accuracy is the fraction of predictions our model got right. Formally, accuracy has the following definition: · TP = True Positives · TN = True Negatives · FP = False Positives · FN = False Negatives.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="accuracy-tumor-example" class="slide level2">
-<h2>Accuracy: Tumor example</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 24 -->
-
-<img data-src="img/w09/w10_790c2762ca.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="section-4" class="slide level2 fallback" data-background-image="img/w09/w10_slide_026.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 26 -->
-<aside class="notes">
-<p>Slide text: Accuracy: Tumor example · PREDICTED · OBSERVED · CANCER · CANCER · NO CANCER · NO CANCER · Let’s try calculating accuracy for the following model that classified 100 tumors as malignant (the positive class) or benign (the negative class):</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="how-accurate-is-accuracy" class="slide level2">
-<h2>How accurate is accuracy?</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 28 -->
-<ul>
-<li>Accuracy comes out to 91% (91 correct predictions out of 100 total examples). That means our tumor classifier is doing a great job of identifying malignancies, right?</li>
-<li>let’s do a closer analysis of positives and negatives
-<ul>
-<li>Of the 100 tumor examples
-<ul>
-<li>91 are benign (90 TNs and 1 FP)</li>
-<li>9 are malignant (1 TP and 8 FNs).</li>
-</ul></li>
-</ul></li>
-<li>Of the 91 benign tumors, the model correctly identifies 90 as benign. That’s good. However, of the 9 malignant tumors, the model only correctly identifies 1 as malignant—a terrible outcome, as <strong>8</strong> <strong>out</strong> <strong>of</strong> <strong>9</strong> <strong>malignancies</strong> <strong>go</strong> <strong>undiagnosed!</strong></li>
-</ul>
-</section>
-<section id="how-accurate-is-accuracy-1" class="slide level2">
-<h2>How accurate is accuracy?</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 29 -->
-<ul>
-<li>While 91% accuracy may seem good at first glance, <strong>another</strong> <strong>tumor-classifier</strong> <strong>model</strong> <strong>that</strong> <strong>always</strong> <strong>predicts</strong> <strong>benign</strong> <strong>would</strong> <strong>achieve</strong> <strong>the</strong> <strong>exact</strong> <strong>same</strong> <strong>accuracy</strong> (91/100 correct predictions) on our examples.
-<ul>
-<li>In other words, <strong>our</strong> <strong>model</strong> <strong>is</strong> <strong>no</strong> <strong>better</strong> <strong>than</strong> <strong>one</strong> <strong>that</strong> <strong>has</strong> <strong>zero</strong></li>
-</ul></li>
-<li><strong>predictive</strong> <strong>ability</strong> to distinguish malignant tumors from benign tumors.</li>
-<li>Accuracy alone doesn’t tell the full story when you’re working with a <strong>class-imbalanced</strong> <strong>data</strong> <strong>set</strong>, like this one, where there is a significant disparity between the number of positive and negative labels.</li>
-<li>Let’s look at two better metrics for evaluating class-imbalanced problems: precision and recall.</li>
-</ul>
-</section>
-<section id="section-5" class="slide level2 fallback" data-background-image="img/w09/w10_slide_030.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 30 -->
-<aside class="notes">
-<p>Slide text: Precision · What proportion of positive identifications was actually correct? · Our model has a precision of 0.5—in other words, when it predicts a tumor is malignant, it is correct 50% of the time.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-6" class="slide level2 fallback" data-background-image="img/w09/w10_slide_031.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 31 -->
-<aside class="notes">
-<p>Slide text: Recall · What proportion of actual positives was identified correctly? · Our model has a recall of 0.11—in other words, it correctly identifies 11% of the malignant tumors. (in other other words, it misses 89% of malignant tumors).</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-7" class="slide level2 fallback" data-background-image="img/w09/w10_slide_032.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 32 -->
-<aside class="notes">
-<p>Slide text: F1 Score · The F1 score is a measure of accuracy that is the harmonic mean of precision and recall, particularly useful in class- imbalanced contexts (like the tumor example). · The F1 score of our tumor detection model is 0.18, which is very low– this is because it’s not taking true negatives into account</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="back-to-titanic" class="slide level2">
-<h2>Back to Titanic</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 33 -->
-<p>Lets evaluate the Random Forest Models we trained earlier using these metrics</p>
-
-<img data-src="img/w09/w10_30c466974b.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="all-variables" class="slide level2">
-<h2>All variables</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 38 -->
+<section id="king-man-woman-queen" class="slide level2">
+<h2>king − man + woman ≈ queen</h2>
+<!-- src: Week X - Embeddings.pptx slide 13 -->
 <div class="columns">
-<div class="column" style="width:23%;">
+<div class="column" style="width:43%;">
 <ul>
-<li>Accuracy: 82</li>
-<li>Precision: 80</li>
-<li>Recall: 77</li>
-<li>F1 Score: 78</li>
+<li>Directions in the space can carry meaning</li>
+<li>Take the vector for <strong>king</strong>, subtract <strong>man</strong>, add <strong>woman</strong></li>
+<li>The nearest word to the result is <strong>queen</strong> (similarity 0.77), then monarch and throne</li>
+<li>Nobody programmed this in. It emerged from reading text</li>
 </ul>
-</div><div class="column" style="width:77%;">
-<p><img data-src="img/w09/w10_61243d8186.jpg" class="pic" style="max-height:700px"></p>
+</div><div class="column" style="width:57%;">
+<p><img data-src="img/w09/embeddings_f108c5bbb2.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
-</section>
-<section id="section-8" class="slide level2" data-background-image="img/w09/w10_5bc0b4d387.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 39 -->
-</section>
-<section id="the-full-model" class="slide level2">
-<h2>The full model</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 40 -->
-<p>Even with a relatively small dataset and a handful of variables, we’ve ended up with quite a complex model</p>
-
-<img data-src="img/w09/w10_354bf8fa71.png" class="r-stretch quarto-figure-center"></section>
-<section id="overfitting" class="slide level2 center">
-<h2>Overfitting</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 41 -->
-</section>
-<section id="overfitting-1" class="slide level2">
-<h2>Overfitting</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 42 -->
-
-<img data-src="img/w09/w10_c310129b45.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="testing-on-data-the-model-hasnt-seen" class="slide level2">
-<h2>Testing on Data the Model Hasn’t Seen</h2>
-<ul>
-<li>A model scored on its <strong>own training data</strong> will look better than it is: it can memorise</li>
-<li><strong>Train/test split</strong>: fit on one part (say 80%), score on the held-out 20%</li>
-<li><strong>Cross-validation</strong>: split into k folds, hold each out in turn, average the k scores
-<ul>
-<li>Uses all the data for testing, and shows how much the score varies</li>
-</ul></li>
-<li>Choosing settings (tree depth, number of features) by test score leaks the test set into training: keep a <strong>final</strong> test set you look at once</li>
-</ul>
-</section>
-<section id="leakage-when-the-answer-sneaks-in" class="slide level2">
-<h2>Leakage: When the Answer Sneaks In</h2>
-<ul>
-<li><strong>Leakage</strong>: the model has access to information it wouldn’t have when making a real prediction</li>
-<li>Examples:
-<ul>
-<li>A feature recorded <strong>after</strong> the outcome (e.g.&nbsp;“treatment given” when predicting diagnosis)</li>
-<li><strong>Duplicates</strong> or near-duplicates in both training and test sets</li>
-<li>Spatial or temporal neighbours split across train and test: nearby cells and consecutive days look alike</li>
-</ul></li>
-<li>Kapoor &amp; Narayanan (2023, <em>Patterns</em>) found leakage in <strong>294 papers</strong> across 17 fields using machine learning</li>
-<li>Ask of any impressive accuracy: <em>could the model have seen the answer?</em></li>
-</ul>
-</section>
-<section id="section-9" class="slide level2 notitle">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 43 -->
-
-<img data-src="img/w09/w10_d9f499c917.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="damage-labels" class="slide level2">
-<h2>Damage Labels</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 44 -->
-
-<img data-src="img/w09/w10_8c2d243de6.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="damage-labels-1" class="slide level2">
-<h2>Damage Labels</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 46 -->
-
-<img data-src="img/w09/w10_483eba47da.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="section-10" class="slide level2 fallback" data-background-image="img/w09/w10_slide_047.jpg" data-background-size="contain">
-<h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 47 -->
 <aside class="notes">
-<p>Slide text: Model Performance</p>
+<p>Real GloVe-100 vectors. The two axes are directions computed from the vectors themselves (average female-minus-male offset; average royal-minus-plain offset), not hand-placed points. Honest caveat: the analogy trick is famous but works less reliably than the headline suggests, and the query words themselves are excluded from the answer.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -737,11 +512,90 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-11" class="slide level2 fallback" data-background-image="img/w09/w10_slide_048.jpg" data-background-size="contain">
+<section id="embeddings-learn-our-biases-too" class="slide level2">
+<h2>Embeddings Learn Our Biases Too</h2>
+<!-- src: Week X - Embeddings.pptx slide 14 -->
+<ul>
+<li>The same arithmetic finds patterns we’d rather it didn’t</li>
+<li>Bolukbasi et al.&nbsp;(2016): in word2vec trained on news, <strong>man : computer programmer :: woman : homemaker</strong></li>
+<li>An embedding is a compressed summary of its <strong>training data</strong>, including its stereotypes</li>
+<li>When embeddings feed into CV screening, search ranking or policing tools, <strong>those biases become decisions</strong></li>
+<li>Always ask: <strong>what was this trained on, and what did it learn to ignore?</strong></li>
+</ul>
+</section>
+<section id="anything-can-be-embedded" class="slide level2">
+<h2>Anything Can Be Embedded</h2>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Example models</th>
+<th>What you can do with it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Words</td>
+<td>GloVe, word2vec (100–300 numbers per word)</td>
+<td>Find words with similar meanings</td>
+</tr>
+<tr class="even">
+<td>Sentences</td>
+<td>Sentence transformers</td>
+<td>Search by meaning, not keywords</td>
+</tr>
+<tr class="odd">
+<td>Images</td>
+<td>CLIP, DINO</td>
+<td>Find similar photos; search images with words</td>
+</tr>
+<tr class="even">
+<td>Places</td>
+<td>Satellite foundation models</td>
+<td>A vector for every patch of the Earth</td>
+</tr>
+<tr class="odd">
+<td>Songs and users</td>
+<td>Recommender systems</td>
+<td>‘People who liked this also liked…’</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="measuring-similarity" class="title-slide slide level1 center">
+<h1>2. Measuring Similarity</h1>
+<!-- src: Week X - Embeddings.pptx slide 16 -->
+</section>
+<section id="cosine-similarity" class="slide level2">
+<h2>Cosine Similarity</h2>
+<p>Measure the <strong>angle</strong> between two vectors, ignoring their length:</p>
+<p><span class="math display">\[\cos(a, b) = \frac{a \cdot b}{|a|\,|b|}\]</span></p>
+<ul>
+<li><span class="math inline">\(a \cdot b\)</span>: multiply matching elements and add them up; <span class="math inline">\(|a|\)</span>, <span class="math inline">\(|b|\)</span>: the length of each vector</li>
+<li><strong>1</strong> = same direction, <strong>0</strong> = unrelated, <strong>−1</strong> = opposite</li>
+</ul>
+
+<img data-src="img/extra/cosine_arrows.jpg" style="width:70.0%" class="r-stretch quarto-figure-center"><div class="columns">
+<div class="column" style="width:33%;">
+<p><span style="display:block;text-align:center">similar: cos ≈ 0.97</span></p>
+</div><div class="column" style="width:33%;">
+<p><span style="display:block;text-align:center">unrelated: cos = 0</span></p>
+</div><div class="column" style="width:33%;">
+<p><span style="display:block;text-align:center">opposite: cos ≈ −1</span></p>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_018.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 48 -->
+<!-- src: Week X - Embeddings.pptx slide 18 -->
 <aside class="notes">
-<p>Slide text: Model Performance · When a model is trained only on imagery of Aleppo, it performs significantly worse in other cities in Syria · The model is learning what damage in Aleppo looks like, but damage may look different in different cities. · Imagine what would happen if we tried to use this model in Gaza, or Ukraine!</p>
+<p>Slide text: Worked Example · Three made-up 3-dimensional embeddings: · a = [2, 1, 0] b = [4, 2, 1] c = [0, 1, 3] · a vs b · a · b = 2×4 + 1×2 + 0×1 = 10 · ‖a‖ = √5 = 2.24, ‖b‖ = √21 = 4.58 · cos = 10 / (2.24 × 4.58) · 0.98 · a vs c · a · c = 2×0 + 1×1 + 0×3 = 1 · ‖a‖ = 2.24, ‖c‖ = √10 = 3.16 · cos = 1 / (2.24 × 3.16) · 0.14 · b points almost the same way as a (it’s roughly 2 × a), so it’s the nearer neighbour even though it’s longer</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -754,13 +608,245 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="any-questions-o.ballingerucl.ac.uk" class="slide level2 center">
-<h2>Any Questions? o.ballinger@ucl.ac.uk</h2>
-<!-- src: Week 10 - Machine Learning.pptx slide 49 -->
+<section id="nearest-neighbour-search" class="slide level2">
+<h2>Nearest-Neighbour Search</h2>
+<!-- src: Week X - Embeddings.pptx slide 19 -->
+<ul>
+<li>To identify a query, compare its vector with <strong>every stored vector</strong> and return the top k
+<ul>
+<li>This is k-nearest neighbours (kNN), which we’ll meet again for prediction in Week 10, used for <strong>retrieval</strong> instead of prediction</li>
+</ul></li>
+<li>If most of the neighbours share a label, that’s probably the answer</li>
+<li>The same pattern powers:
+<ul>
+<li>Reverse image search, ‘more like this’ on Spotify and Netflix</li>
+<li><strong>Retrieval-augmented generation (RAG)</strong>: chatbots that look up relevant documents before answering</li>
+</ul></li>
+</ul>
+</section>
+<section id="searching-millions-of-vectors" class="slide level2">
+<h2>Searching Millions of Vectors</h2>
+<ul>
+<li>One query against a million stored vectors is quick</li>
+<li>Comparing <strong>every</strong> item with every other grows with the square of the data: 100 million items is ~10¹⁶ comparisons</li>
+<li><strong>Approximate nearest-neighbour</strong> indexes group similar vectors in advance: a little less accurate, far faster
+<ul>
+<li>e.g.&nbsp;<strong>FAISS</strong> (Meta), or the vector search built into databases such as Google <strong>BigQuery</strong> and PostgreSQL (pgvector)</li>
+</ul></li>
+<li>A <strong>vector database</strong> is exactly this: the storage layer behind semantic search and RAG chatbots</li>
+</ul>
+</section>
+<section id="where-to-draw-the-line" class="slide level2">
+<h2>Where to Draw the Line?</h2>
+<ul>
+<li>Nearest-neighbour search <strong>always</strong> returns something, even when nothing in the database is really similar</li>
+<li>So we need a <strong>cut-off</strong>: below this similarity, call it ‘no match’</li>
+<li>Any cut-off trades <strong>false matches</strong> against <strong>missed matches</strong>: precision vs recall, which we’ll meet in Week 10</li>
+<li>Similarity is <strong>evidence, not proof</strong></li>
+</ul>
+</section></section>
+<section>
+<section id="where-embeddings-come-from" class="title-slide slide level1 center">
+<h1>3. Where Embeddings Come From</h1>
+<!-- src: Week X - Embeddings.pptx slide 22 -->
+</section>
+<section id="learned-not-designed" class="slide level2">
+<h2>Learned, Not Designed</h2>
+<!-- src: Week X - Embeddings.pptx slide 23 -->
+<ul>
+<li>An embedding model is (almost always) a <strong>neural network</strong></li>
+<li>Input goes in (a word, an image); the network’s <strong>last layer of numbers</strong> comes out; that’s the embedding</li>
+<li>Nobody chooses what each number means. The network learns whatever helps it with its <strong>training task</strong></li>
+<li>So <strong>the training task decides what ‘similar’ means</strong>
+<ul>
+<li>Trained to predict neighbouring words → similar = used in similar contexts</li>
+<li>Trained to tell faces apart → similar = the same person</li>
+</ul></li>
+</ul>
+</section>
+<section id="three-ways-to-train-an-embedding" class="slide level2">
+<h2>Three Ways to Train an Embedding</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Predict the context</strong></p>
+<p>word2vec, GloVe, language models</p>
+<p>Learn vectors that are good at predicting nearby words</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Match pairs</strong></p>
+<p>CLIP (OpenAI, 2021)</p>
+<p>400 million images and their captions: pull each image towards its own caption and away from everyone else’s</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Tell identities apart</strong></p>
+<p>Face recognition</p>
+<p>Pull photos of the same face together and push different faces apart</p>
+</div>
+</div>
+</section>
+<section id="pretrained-models-you-can-use-today" class="slide level2">
+<h2>Pretrained Models You Can Use Today</h2>
+<!-- src: Week X - Embeddings.pptx slide 25 -->
+<p>Most are free to download from <strong>Hugging Face</strong> and run in Colab. You rarely need to train your own</p>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Input</th>
+<th>Vector length</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GloVe</td>
+<td>Words</td>
+<td>50–300</td>
+<td>Word similarity, simple text features</td>
+</tr>
+<tr class="even">
+<td>all-MiniLM-L6-v2</td>
+<td>Sentences</td>
+<td>384</td>
+<td>Semantic search, clustering documents</td>
+</tr>
+<tr class="odd">
+<td>CLIP</td>
+<td>Images and text</td>
+<td>512 (ViT-B/32)</td>
+<td>Searching photos with words</td>
+</tr>
+<tr class="even">
+<td>DINOv3 (ViT-B/16)</td>
+<td>Images</td>
+<td>768</td>
+<td>General-purpose image features</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-2" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_026.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Embeddings.pptx slide 26 -->
+<aside class="notes">
+<p>Run for real on 2026-09-25 (src/st_demo.py, output in src/st_demo_out.txt). Newer versions also offer model.similarity(emb, emb); util.cos_sim works across versions.</p>
+<p>Slide text: In Python · from sentence_transformers import SentenceTransformer, util · · model = SentenceTransformer(“all-MiniLM-L6-v2”) · sentences = [ · “A fishing boat switched off its transponder”, · “The trawler stopped broadcasting its location”, · “I had pasta for lunch”, · ] · · emb = model.encode(sentences) # shape (3, 384) · util.cos_sim(emb, emb) # 3 x 3 similarity matrix · Output · boat vs trawler: 0.39 · boat vs pasta: 0.03 · trawler vs pasta: 0.08 · · The first two share only ‘its’, but the model knows they mean similar things · pip install sentence-transformers. Swap in your own documents to cluster or search them by meaning</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="visualising-embeddings" class="title-slide slide level1 center">
+<h1>4. Visualising Embeddings</h1>
+<!-- src: Week X - Embeddings.pptx slide 30 -->
+</section>
+<section id="squashing-hundreds-of-dimensions-into-2" class="slide level2">
+<h2>Squashing Hundreds of Dimensions into 2</h2>
+<!-- src: Week X - Embeddings.pptx slide 31 -->
+<ul>
+<li>We can’t plot hundreds of dimensions, so we <strong>project</strong> them down to 2 for a picture</li>
+<li><strong>PCA</strong> (principal component analysis): the best flat ‘shadow’ of the data. Fast, faithful to big distances, but often muddled</li>
+<li><strong>t-SNE</strong> (2008) and <strong>UMAP</strong> (2018): try to keep each point’s <strong>nearest neighbours</strong> nearby. Great at revealing clusters</li>
+<li>Next week’s clustering methods (k-means, hierarchical) work on embeddings too, and should be run on the <strong>full vectors</strong>, not the 2D picture</li>
+</ul>
+</section>
+<section id="section-3" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_032.jpg" data-background-size="contain">
+<h2></h2>
+<!-- src: Week X - Embeddings.pptx slide 32 -->
+<aside class="notes">
+<p>Slide text: Same Data, Three Maps · 1,797 handwritten digits (8 × 8 pixels = 64 numbers each), projected three ways. Only the method and one setting change</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="reading-t-sne-and-umap-plots-safely" class="slide level2">
+<h2>Reading t-SNE and UMAP Plots Safely</h2>
+<!-- src: Week X - Embeddings.pptx slide 33 -->
+<ul>
+<li><strong>Cluster sizes mean nothing</strong>: t-SNE expands dense clusters and shrinks sparse ones</li>
+<li><strong>Distances between clusters mean little</strong>: two clusters far apart on the plot may be close in the real space</li>
+<li><strong>Settings change the picture</strong>: perplexity (t-SNE) or number of neighbours (UMAP), and the random seed</li>
+<li><strong>Colour is doing the storytelling</strong>: clusters look convincing once coloured by a label you already know</li>
+<li>Use them to <strong>explore and explain</strong>, not as evidence. Measure things (e.g.&nbsp;nearest-neighbour accuracy) in the original space</li>
+</ul>
+</section>
+<section id="case-study-finding-mines" class="slide level2">
+<h2>Case Study: Finding Mines</h2>
+<!-- src: Week X - Clustering.pptx slide 27 -->
+<div class="columns">
+<div class="column" style="width:46%;">
+<ul>
+<li>Rare-earth mining in Myanmar: satellite image patches turned into <strong>embeddings</strong></li>
+<li>Projected to 2D with <strong>UMAP</strong>, the known mines (red) sit in their <strong>own region</strong></li>
+<li>Patches near that region are candidate unreported mines</li>
+</ul>
+</div><div class="column" style="width:54%;">
+<p><img data-src="img/w09/clustering_a263939396.png" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="using-embeddings-well" class="title-slide slide level1 center">
+<h1>5. Using Embeddings Well</h1>
+
+</section>
+<section id="when-embeddings-go-wrong" class="slide level2">
+<h2>When Embeddings Go Wrong</h2>
+<ul>
+<li><strong>Shortcuts</strong>: a model can match the <strong>background</strong> instead of the object: the same beach, the same sky, the same satellite scene</li>
+<li><strong>Look-alikes</strong>: different things that really do look the same (twins, identical products, sister ships)</li>
+<li><strong>Out of domain</strong>: a model trained on everyday photos may not capture what matters in satellite images or X-rays</li>
+<li><strong>Noisy labels</strong>: if the ‘truth’ you test against is wrong, a correct match looks like a mistake</li>
+<li>An embedding encodes what its training <strong>rewarded</strong>. Check that’s what <strong>you</strong> care about: look at the errors by eye, and check the labels as hard as the model</li>
+</ul>
+</section>
+<section id="ethics-and-limits" class="slide level2">
+<h2>Ethics and Limits</h2>
+<ul>
+<li><strong>Bias</strong>: embeddings inherit their training data’s stereotypes and pass them on to every system built on top</li>
+<li><strong>Surveillance and dual use</strong>: face recognition, and anything like it, can track people who never agreed to it. Who gets access?</li>
+<li><strong>A match is a probability, not a verdict</strong>: a false match can wrongly implicate someone. Report a confidence score and have a human check</li>
+<li><strong>Hard to explain</strong>: no single number means anything, so it’s hard to say <em>why</em> two things were matched</li>
+</ul>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<ol type="1">
+<li>An <strong>embedding</strong> turns something (a word, an image, a place) into a vector so that <strong>similar things are close</strong></li>
+<li><strong>Cosine similarity</strong> measures closeness by angle; <strong>nearest-neighbour search</strong> finds the closest items</li>
+<li>Embeddings are <strong>learned</strong>: the training task decides what ‘similar’ means, and embeddings inherit their data’s biases</li>
+<li><strong>Pretrained models</strong> get you started, but a general model may not capture what you care about</li>
+<li><strong>t-SNE / UMAP</strong> are for looking, not proving</li>
+</ol>
+</section>
+<section id="any-questions" class="slide level2">
+<h2>Any Questions?</h2>
+<!-- src: Week X - Embeddings.pptx slide 45 -->
+<p>o.ballinger@ucl.ac.uk Further reading: Jay Alammar, <strong>The Illustrated Word2vec</strong> (blog) · Wattenberg et al.&nbsp;(2016), <strong>How to Use t-SNE Effectively</strong> (distill.pub) · Paolo et al.&nbsp;(2024), <strong>Satellite mapping reveals extensive industrial activity at sea</strong>, Nature · Bolukbasi et al.&nbsp;(2016), <strong>Man is to Computer Programmer as Woman is to Homemaker?</strong></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

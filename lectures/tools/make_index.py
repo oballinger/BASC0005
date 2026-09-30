@@ -14,8 +14,9 @@ ROWS = [
  ("7","24 Nov","Regression","Modelling","Linear Regression","W07. Linear Regression"),
  ("8","1 Dec","Causal Inference: Difference-in-Differences & Regression Discontinuity","Modelling",
   "Causal Inference","W08. Causal Inference"),
- ("9","8 Dec","Prediction: Supervised Learning","Modelling","Supervised Learning","W09. Supervised Learning"),
- ("10","15 Dec","Unsupervised Learning: Clustering","Modelling","Clustering","W10. Clustering"),
+ ("9","8 Dec","Embeddings","Modelling",[],[]),
+ ("10","15 Dec","Supervised & Unsupervised Learning","Modelling",
+  ["Supervised Learning","Clustering"],["W09. Supervised Learning","W10. Clustering"]),
 ]
 READY = {"2","3","4","5","6","7","8","9","10"}
 esc = lambda s: s.replace("&", "&amp;")

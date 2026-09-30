@@ -1,5 +1,5 @@
 ---
-title: "Prediction: Supervised Learning"
+title: "Embeddings"
 subtitle: "Week 9 lecture"
 page-layout: full
 toc: false
@@ -12,6 +12,7 @@ repo-actions: false
 
 ::: {.slides-bar}
 [Open full screen ↗](../lectures/w09.html){.btn .btn-primary target="_blank"}
-[Week 9 workshop →](../notebooks/W09.%20Supervised%20Learning.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
+
+{{< include _face_embed.md >}}

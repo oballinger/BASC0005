@@ -11,7 +11,7 @@
     "href": "index.html#schedule",
     "title": "BASC0005",
     "section": "Schedule",
-    "text": "Schedule\n1IntroductionWorkshop — Python Recap6 OctQuestion\n2DataWorkshop — Pandas13 OctData acquisition\n3Spatial & Network DataWorkshop — Spatial Data20 OctData acquisition\n4Text as DataWorkshop — Natural Language Processing27 OctData acquisition\n5Sampling & DistributionsWorkshop — Distributions and Basic Statistics3 NovExploration\nRWReading weekWorkshop — Merging and Joining10 NovReading week\n6Hypothesis Testing: Frequentist & BayesianWorkshop — Hypothesis Testing17 NovExploration\n7RegressionWorkshop — Linear Regression24 NovModelling\n8Causal Inference: Difference-in-Differences & Regression DiscontinuityWorkshop — Causal Inference1 DecModelling\n9Prediction: Supervised LearningWorkshop — Supervised Learning8 DecModelling\n10Unsupervised Learning: ClusteringWorkshop — Clustering15 DecModelling\nRed week numbers have lecture slides online."
+    "text": "Schedule\n1IntroductionWorkshop — Python Recap6 OctQuestion\n2DataWorkshop — Pandas13 OctData acquisition\n3Spatial & Network DataWorkshop — Spatial Data20 OctData acquisition\n4Text as DataWorkshop — Natural Language Processing27 OctData acquisition\n5Sampling & DistributionsWorkshop — Distributions and Basic Statistics3 NovExploration\nRWReading weekWorkshop — Merging and Joining10 NovReading week\n6Hypothesis Testing: Frequentist & BayesianWorkshop — Hypothesis Testing17 NovExploration\n7RegressionWorkshop — Linear Regression24 NovModelling\n8Causal Inference: Difference-in-Differences & Regression DiscontinuityWorkshop — Causal Inference1 DecModelling\n9EmbeddingsWorkshop — to come8 DecModelling\n10Supervised & Unsupervised LearningWorkshop — Supervised LearningWorkshop — Clustering15 DecModelling\nRed week numbers have lecture slides online."
   },
   {
     "objectID": "notebooks/W01. Python Recap.html#workshop-1-open-in-colab",
@@ -709,9 +709,16 @@
   {
     "objectID": "slides/w09.html",
     "href": "slides/w09.html",
-    "title": "Prediction: Supervised Learning",
+    "title": "Embeddings",
     "section": "",
-    "text": "Open full screen ↗ Week 9 workshop → F full screen · S speaker notes · ? shortcuts"
+    "text": "Open full screen ↗ F full screen · S speaker notes · ? shortcuts\n\n\n\n\n\n  Try it: your face as 128 numbers\n  A face-recognition network turns a photo of a face into an embedding of 128 numbers, drawn below as a 16 × 8 grid (blue = negative, red = positive). Take a reference photo, then move, turn, change the light or swap in a friend, and watch the cosine similarity between the two embeddings.\n  \n    Start camera\n    Take reference photo\n    Upload a photo\n    Nothing loads until you press Start or upload a photo.\n  \n  \n    \n      Reference\n      \n        No reference yet\n      \n    \n    \n      Live camera\n      \n        Camera off\n      \n    \n    \n      Difference\n      \n        cosine similarity\n        –\n         \n         \n        \n      \n      \n      live − reference −+\n    \n  \n  Runs entirely in your browser: your camera and photos are never uploaded or stored. Model: face-api.js (a FaceNet-style ResNet trained to pull photos of the same person together). Its authors treat a Euclidean distance below 0.6 as the same person. fps shows how many embeddings per second your device manages."
+  },
+  {
+    "objectID": "slides/w10.html",
+    "href": "slides/w10.html",
+    "title": "Supervised & Unsupervised Learning",
+    "section": "",
+    "text": "Open full screen ↗ Supervised workshop → Clustering workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "notebooks/W09. Supervised Learning.html",
@@ -845,13 +852,6 @@
     "title": "Supervised Learning",
     "section": "Summary",
     "text": "Summary\n\nSplit first, and keep the test set unseen, including for preprocessing steps like imputation.\nA baseline (predict the most common class) is the number to beat.\nAccuracy hides the kind of mistakes a model makes. With imbalanced classes, look at the confusion matrix, precision and recall per class.\nTraining accuracy always rises with model complexity; test (or cross-validated) accuracy tells you when you are overfitting.\nBefore believing an impressive score, ask: could the model have seen the answer? Features recorded after the outcome, and the same unit in both train and test, are the classic forms of leakage.\nA model is only as good as its labels. Ask where they came from, and whether the cases you want to predict look like the ones you trained on.\n\nNext week: unsupervised learning, where there are no labels at all."
-  },
-  {
-    "objectID": "slides/w10.html",
-    "href": "slides/w10.html",
-    "title": "Unsupervised Learning: Clustering",
-    "section": "",
-    "text": "Open full screen ↗ Week 10 workshop → F full screen · S speaker notes · ? shortcuts"
   },
   {
     "objectID": "notebooks/W10. Clustering.html",

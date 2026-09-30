@@ -1,15 +1,15 @@
 ---
-title: "Unsupervised Learning: Clustering"
+title: "Supervised & Unsupervised Learning"
 subtitle: "BASC0005 Quantitative Methods 2: Data Science and Visualisation"
 author: "Ollie Ballinger"
 ---
 
-## {background-image="img/w10/clustering_slide_002.jpg" background-size="contain" .fallback}
-<!-- src: Week X - Clustering.pptx slide 2 -->
+## {background-image="img/w10/w10_slide_002.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 2 -->
 
 
 ::: notes
-Slide text: The Data Science Process: · Generate summary statistics · Plot the data · Are there patterns? · Are there groups we didn't know to look for? · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results
+Slide text: The Data Science Process: · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results · Build a model · Fit the model · Validate the model
 :::
 
 ## Finding Oil Rigs from Space
@@ -51,16 +51,16 @@ Slide text: Infrastructure V2: Results · ~97% · of structures in the previous 
 :::
 
 ## Outline
-<!-- src: Week X - Clustering.pptx slide 6 -->
 
-- 1.  What Is Clustering?
-- 2.  K-Means
-- 3.  Hierarchical Clustering
-- 4.  DBSCAN
-- 5.  Using Clusters Responsibly
+1. Supervised vs Unsupervised Learning
+1. Supervised Learning: Trees and Forests
+1. Accuracy Assessment
+1. Overfitting and Testing
+1. Case Study: Monitoring War Damage from Space
+1. Unsupervised Learning: Clustering
+1. Using Machine Learning Responsibly
 
-# 1. What Is Clustering?
-<!-- src: Week X - Clustering.pptx slide 7 -->
+# 1. Supervised vs Unsupervised Learning
 
 ## How Many Groups Do You See?
 <!-- src: Week X - Clustering.pptx slide 8 -->
@@ -76,13 +76,294 @@ Slide text: Infrastructure V2: Results · ~97% · of structures in the previous 
 ::::
 :::
 
-## {background-image="img/w10/clustering_slide_009.jpg" background-size="contain" .fallback}
-<!-- src: Week X - Clustering.pptx slide 9 -->
+## Supervised vs. Unsupervised Learning
+
+::: {.columns}
+:::: {.column width="50%"}
+### Supervised
+
+- We have **labels**
+- Learn to **predict** a known outcome
+- e.g. Titanic: did this passenger survive?
+- Accuracy can be checked against the truth
+::::
+:::: {.column width="50%"}
+### Unsupervised
+
+- **No labels**
+- Find **structure** hidden in the data
+- e.g. which London neighbourhoods are alike? Which detections belong together?
+- There is no 'right answer' to check against
+::::
+:::
+
+The oil-rig map uses both: **cluster** detections into structures, then **classify** each one as oil, wind or noise
+
+## What is a “Model”?
+<!-- src: Week 10 - Machine Learning.pptx slide 5 -->
+
+- A model defines the relationship between **features** and **label**. 	For example, a spam detection model might associate certain 	features strongly with "spam". Let's highlight two phases of a 	model's life:
+    - **Training** means creating or **learning** the model. That is, you show the 	model labeled examples and enable the model to gradually learn the 	relationships between features and label.
+    - **Inference** means applying the trained model to unlabeled examples. 	That is, you use the trained model to make useful predictions (y').
+
+## Regression vs. Classification
+<!-- src: Week 10 - Machine Learning.pptx slide 6 -->
+
+- A **regression** model predicts continuous values. For example, regression models make predictions that answer questions like the following:
+    - What is the value of a house in California?
+    - What is the probability that a user will click on this ad?
+- A **classification** model predicts discrete values. For example, classification models make predictions that answer questions like the following:
+    - Is a given email message spam or not spam?
+    - Is this an image of a dog, a cat, or a hamster?
+
+## Machine Learning Workflow
+<!-- src: Week 10 - Machine Learning.pptx slide 7 -->
+
+![](img/w10/w10_6f834b8aa0.jpg){.r-stretch fig-align="center"}
+
+# 2. Supervised Learning: Trees and Forests
+
+## The Decision Tree
+<!-- src: Week 10 - Machine Learning.pptx slide 8 -->
+
+A **decision** **tree** is a non-parametric supervised learning 	algorithm, which is utilized for both classification and regression 	tasks. It has a hierarchical, tree structure, which consists of a 	root node, branches, internal nodes and leaf nodes.
+
+![](img/w10/w10_1ac59bd542.jpg){.r-stretch fig-align="center"}
+
+## The Random Forest Algorithm
+<!-- src: Week 10 - Machine Learning.pptx slide 9 -->
+
+The random forest algorithm is made up of a collection of 	decision trees, and each tree in the ensemble is comprised of a 	data sample drawn from a training set with replacement, called 	the bootstrap sample.
+
+![](img/w10/w10_4a480383af.jpg){.r-stretch fig-align="center"}
+
+## {.notitle}
+<!-- src: Week 10 - Machine Learning.pptx slide 10 -->
+
+![](img/w10/w10_7a4056bca4.jpg){.r-stretch fig-align="center"}
+
+## Predicting Survival on the Titanic
+<!-- src: Week 10 - Machine Learning.pptx slide 11 -->
+
+::: {.columns}
+:::: {.column width="27%"}
+- Survived:
+    - 1: survived
+    - 0: didn’t survive
+- Pclass:
+    - 1: First Class
+    - 2: Second Class
+    - 3: Third Class
+- Embarked:
+    - C: Cherbourg
+    - Q: Queenstown
+    - S: Southampton
+::::
+:::: {.column width="73%"}
+![](img/w10/w10_8b5e8d8403.jpg){.pic style="max-height:700px"}
+::::
+:::
+
+## Descriptive Statistics
+<!-- src: Week 10 - Machine Learning.pptx slide 12 -->
+
+![](img/w10/w10_0dd1618f53.jpg){.r-stretch fig-align="center"}
+
+## A random forest with one feature
+<!-- src: Week 10 - Machine Learning.pptx slide 13 -->
+
+::: {.columns}
+:::: {.column width="22%"}
+- Sex_int
+    - 0 for male
+    - 1 for female
+::::
+:::: {.column width="78%"}
+![](img/w10/w10_557787949f.jpg){.pic style="max-height:700px"}
+::::
+:::
+
+## Age, Sex, Class
+<!-- src: Week 10 - Machine Learning.pptx slide 17 -->
+
+![](img/w10/w10_3aa81f48a9.png){.r-stretch fig-align="center"}
+
+# 3. Accuracy Assessment
+
+## Accuracy: The boy who cried wolf
+<!-- src: Week 10 - Machine Learning.pptx slide 20 -->
+
+- **An** **Aesop's** **Fable:** **The** **Boy** **Who** **Cried** **Wolf** **(****compressed****)**
+- A shepherd boy gets bored tending the town's flock. To have 	some fun, he cries out, "Wolf!" even though no wolf is in sight. 	The villagers run to protect the flock, but then get really mad 	when they realize the boy was playing a joke on them.
+- [Iterate previous paragraph *N* times.]
+- One night, the shepherd boy sees a real wolf approaching the flock and calls out, "Wolf!" The villagers refuse to be fooled again and stay in their houses. The hungry wolf turns the flock into lamb chops. The town goes hungry. Panic ensues.
+
+## Accuracy: The boy who cried wolf
+<!-- src: Week 10 - Machine Learning.pptx slide 21 -->
+
+- Let's make the following definitions:
+    - "Wolf" is a **positive** **class**.
+    - "No wolf" is a **negative** **class**.
+- A **true** **positive** is an outcome where the
+- model *correctly* predicts the *positive* class. Similarly, a **true** **negative** is an outcome where the model *correctly* predicts the *negative* class.
+- A **false** **positive** is an outcome where the
+- model *incorrectly* predicts the *positive* class. And a **false** **negative** is an outcome where the model *incorrectly* predicts the *negative* class.
+
+## {background-image="img/w10/w10_slide_022.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 22 -->
 
 
 ::: notes
-Slide text: Supervised vs. Unsupervised Learning · Supervised · We have labels · Learn to predict a known outcome. ·  · e.g. Titanic: did this passenger survive? (Machine Learning lecture) ·  · Accuracy can be checked against the truth. · Unsupervised · No labels · Find structure hidden in the data. ·  · e.g. which London neighbourhoods are alike? Which detections belong together? ·  · There is no 'right answer' to check against.
+Slide text: Accuracy: The boy who cried wolf · PREDICTED · OBSERVED · WOLF · WOLF · NO WOLF · NO WOLF
 :::
+
+## {background-image="img/w10/w10_slide_023.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 23 -->
+
+
+::: notes
+Slide text: Accuracy · Accuracy is one metric for evaluating classification models. Informally, accuracy is the fraction of predictions our model got right. Formally, accuracy has the following definition: · TP = True Positives · TN = True Negatives · FP = False Positives · FN = False Negatives.
+:::
+
+## Accuracy: Tumor example
+<!-- src: Week 10 - Machine Learning.pptx slide 24 -->
+
+![](img/w10/w10_790c2762ca.jpg){.r-stretch fig-align="center"}
+
+## {background-image="img/w10/w10_slide_026.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 26 -->
+
+
+::: notes
+Slide text: Accuracy: Tumor example · PREDICTED · OBSERVED · CANCER · CANCER · NO CANCER · NO CANCER · Let's try calculating accuracy for the following model that classified 100 	tumors as malignant (the positive class) or benign (the negative class):
+:::
+
+## How accurate is accuracy?
+<!-- src: Week 10 - Machine Learning.pptx slide 28 -->
+
+- Accuracy comes out to 91% (91 correct predictions out of 100 	total examples). That means our tumor classifier is doing a 	great job of identifying malignancies, right?
+- let's do a closer analysis of positives and negatives
+    - Of the 100 tumor examples
+        - 91 are benign (90 TNs and 1 FP)
+        - 9 are malignant (1 TP and 8 FNs).
+- Of the 91 benign tumors, the model correctly identifies 90 as 	benign. That's good. However, of the 9 malignant tumors, the 	model only correctly identifies 1 as malignant—a terrible 	outcome, as **8** **out** **of** **9** **malignancies** **go** **undiagnosed!**
+
+## How accurate is accuracy?
+<!-- src: Week 10 - Machine Learning.pptx slide 29 -->
+
+- While 91% accuracy may seem good at first glance, **another** 	**tumor-classifier** **model** **that** **always** **predicts** **benign** **would** 	**achieve** **the** **exact** **same** **accuracy** (91/100 correct predictions) 	on our examples.
+    - In other words, **our** **model** **is** **no** **better** **than** **one** **that** **has** **zero**
+- **predictive** **ability** to distinguish malignant tumors from benign tumors.
+- Accuracy alone doesn't tell the full story when you're working 	with a **class-imbalanced** **data** **set**, like this one, where there is 	a significant disparity between the number of positive and 	negative labels.
+- Let’s look at two better metrics for evaluating class-imbalanced problems: precision and recall.
+
+## {background-image="img/w10/w10_slide_030.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 30 -->
+
+
+::: notes
+Slide text: Precision · What proportion of positive identifications was actually correct? · Our model has a precision of 0.5—in other words, when it predicts a tumor is malignant, it is correct 50% of the time.
+:::
+
+## {background-image="img/w10/w10_slide_031.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 31 -->
+
+
+::: notes
+Slide text: Recall · What proportion of actual positives was identified correctly? · Our model has a recall of 0.11—in other words, it correctly identifies 11% of the malignant tumors. (in other other words, it misses 89% of malignant tumors).
+:::
+
+## {background-image="img/w10/w10_slide_032.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 32 -->
+
+
+::: notes
+Slide text: F1 Score · The F1 score is a measure of accuracy that is the harmonic 	mean of precision and recall, particularly useful in class-	imbalanced contexts (like the tumor example). · The F1 score of our tumor detection model is 0.18, which is 	very low– this is because it’s not taking true negatives into 	account
+:::
+
+## Back to Titanic
+<!-- src: Week 10 - Machine Learning.pptx slide 33 -->
+
+Lets evaluate the Random Forest Models we trained earlier 	using these metrics
+
+![](img/w10/w10_30c466974b.jpg){.r-stretch fig-align="center"}
+
+## All variables
+<!-- src: Week 10 - Machine Learning.pptx slide 38 -->
+
+::: {.columns}
+:::: {.column width="23%"}
+- Accuracy: 82
+- Precision: 80
+- Recall: 77
+- F1 Score: 78
+::::
+:::: {.column width="77%"}
+![](img/w10/w10_61243d8186.jpg){.pic style="max-height:700px"}
+::::
+:::
+
+# 4. Overfitting and Testing
+
+## The full model
+<!-- src: Week 10 - Machine Learning.pptx slide 40 -->
+
+Even with a relatively small dataset and a handful of variables, 	we’ve ended up with quite a complex model
+
+![](img/w10/w10_354bf8fa71.png){.r-stretch fig-align="center"}
+
+## Overfitting
+<!-- src: Week 10 - Machine Learning.pptx slide 42 -->
+
+![](img/w10/w10_c310129b45.jpg){.r-stretch fig-align="center"}
+
+## Testing on Data the Model Hasn't Seen
+
+- A model scored on its **own training data** will look better than it is: it can memorise
+- **Train/test split**: fit on one part (say 80%), score on the held-out 20%
+- **Cross-validation**: split into k folds, hold each out in turn, average the k scores
+    - Uses all the data for testing, and shows how much the score varies
+- Choosing settings (tree depth, number of features) by test score leaks the test set into training: keep a **final** test set you look at once
+
+## Leakage: When the Answer Sneaks In
+
+- **Leakage**: the model has access to information it wouldn't have when making a real prediction
+- Examples:
+    - A feature recorded **after** the outcome (e.g. "treatment given" when predicting diagnosis)
+    - **Duplicates** or near-duplicates in both training and test sets
+    - Spatial or temporal neighbours split across train and test: nearby cells and consecutive days look alike
+- Kapoor & Narayanan (2023, *Patterns*) found leakage in **294 papers** across 17 fields using machine learning
+- Ask of any impressive accuracy: *could the model have seen the answer?*
+
+# 5. Case Study: Monitoring War Damage from Space
+
+## {.notitle}
+<!-- src: Week 10 - Machine Learning.pptx slide 43 -->
+
+![](img/w10/w10_d9f499c917.jpg){.r-stretch fig-align="center"}
+
+## Damage Labels
+<!-- src: Week 10 - Machine Learning.pptx slide 44 -->
+
+![](img/w10/w10_8c2d243de6.jpg){.r-stretch fig-align="center"}
+
+## {background-image="img/w10/w10_slide_047.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 47 -->
+
+
+::: notes
+Slide text: Model Performance
+:::
+
+## {background-image="img/w10/w10_slide_048.jpg" background-size="contain" .fallback}
+<!-- src: Week 10 - Machine Learning.pptx slide 48 -->
+
+
+::: notes
+Slide text: Model Performance · When a model is trained 	only on imagery of Aleppo, it 	performs significantly worse 	in other cities in Syria · The model is learning what 	damage in Aleppo looks like, 	but damage may look 	different in different cities. · Imagine what would happen if we tried to use this model in Gaza, or Ukraine!
+:::
+
+# 6. Unsupervised Learning: Clustering
 
 ## {background-image="img/w10/clustering_slide_010.jpg" background-size="contain" .fallback}
 <!-- src: Week X - Clustering.pptx slide 10 -->
@@ -91,9 +372,6 @@ Slide text: Supervised vs. Unsupervised Learning · Supervised · We have labels
 ::: notes
 Slide text: Three Ingredients · Features · What describes each observation? e.g. a ward's age profile and population density · Distance · How far apart are two observations? Usually straight-line (Euclidean) distance in feature space · Scale · Standardise first! Otherwise density (0–300 people/ha) swamps age shares (0–0.3) · d(a, b) = √[ (a₁ − b₁)² + (a₂ − b₂)² + … ]
 :::
-
-# 2. K-Means
-<!-- src: Week X - Clustering.pptx slide 11 -->
 
 ## The K-Means Algorithm
 <!-- src: Week X - Clustering.pptx slide 12 -->
@@ -151,10 +429,7 @@ Slide text: London's Neighbourhood Types · Young families · 164 wards · e.g. 
 
 The algorithm outputs numbers 0–4. **The names are ours**: an interpretation of these profiles, not a fact about the data
 
-# 3. Hierarchical Clustering
-<!-- src: Week X - Clustering.pptx slide 18 -->
-
-## Building a Family Tree
+## Hierarchical Clustering: A Family Tree
 <!-- src: Week X - Clustering.pptx slide 19 -->
 
 - **Agglomerative** clustering builds clusters from the bottom up:
@@ -172,10 +447,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 
 32 boroughs, same 7 features. The height of each join shows how different the merged groups are. The dotted line cuts the tree into 3 clusters
 
-# 4. DBSCAN
-<!-- src: Week X - Clustering.pptx slide 21 -->
-
-## Density-Based Clustering
+## DBSCAN: Density-Based Clustering
 <!-- src: Week X - Clustering.pptx slide 22 -->
 
 ::: {.columns}
@@ -233,23 +505,7 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
     - The radius has a **physical meaning** (metres) that we can reason about
 - Each structure is then classified as **oil**, **wind** or **noise** with a supervised model. Clustering first, then classification
 
-## Similar Things Land Together
-<!-- src: Week X - Clustering.pptx slide 27 -->
-
-::: {.columns}
-:::: {.column width="46%"}
-- Rare-earth mining in Myanmar: satellite image patches turned into **embeddings**
-- Projected to 2D with **UMAP**, the known mines (red) sit in their **own region**
-- Patches near that region are candidate unreported mines
-- We met embeddings in Week 4
-::::
-:::: {.column width="54%"}
-![](img/w10/clustering_a263939396.png){.pic style="max-height:700px"}
-::::
-:::
-
-# 5. Using Clusters Responsibly
-<!-- src: Week X - Clustering.pptx slide 28 -->
+# 7. Using Machine Learning Responsibly
 
 ## Clustering Always Finds Clusters
 <!-- src: Week X - Clustering.pptx slide 29 -->
@@ -285,23 +541,14 @@ The algorithm outputs numbers 0–4. **The names are ours**: an interpretation o
 | Speed on big data | Fast | Slow | Fast with spatial indexing |
 | Good for | Segmenting areas or customers | Small data; seeing structure | Spatial points; finding hotspots |
 
-## {background-image="img/w10/clustering_slide_032.jpg" background-size="contain" .fallback}
-<!-- src: Week X - Clustering.pptx slide 32 -->
-
-
-::: notes
-Slide text: In Python · from sklearn.preprocessing import StandardScaler · from sklearn.cluster import KMeans, DBSCAN · from sklearn.metrics import silhouette_score ·  · X = StandardScaler().fit_transform(wards[features])      # scale first! ·  · km = KMeans(n_clusters=5, n_init=20, random_state=0).fit(X) · wards["cluster"] = km.labels_ · print(silhouette_score(X, km.labels_)) ·  · db = DBSCAN(eps=30 / 6371, min_samples=4, metric="haversine") · sites["cluster"] = db.fit_predict(np.radians(sites[["lat", "lon"]]))  # -1 = noise · Haversine distance works in radians, so ε = 30 km ÷ Earth's radius (6,371 km)
-:::
-
 ## Recap
-<!-- src: Week X - Clustering.pptx slide 33 -->
 
-- 1.  Clustering is **unsupervised**: finding groups without labels
-- 2.  Choose features carefully and **standardise** them
-- 3.  **K-means**: fast, needs k, assumes round clusters
-- 4.  **Hierarchical**: builds a tree; cut it where it makes sense
-- 5.  **DBSCAN**: finds dense regions of any shape and flags noise; ideal for spatial points
-- 6.  Algorithms **always** find clusters. Validate them, and be careful how you name them
+1. **Supervised** learning predicts a known label; **unsupervised** learning finds structure without one
+1. **Decision trees** split the data on features; **random forests** average many trees
+1. Accuracy misleads on imbalanced data: check **precision**, **recall** and **F1**
+1. Score models on data they **haven't seen**, and watch for **leakage**; a model trained on one city may fail in the next
+1. **K-means**: fast, needs k, assumes round clusters. **Hierarchical**: a tree you cut. **DBSCAN**: dense regions of any shape, flags noise
+1. **Standardise** features first. Algorithms **always** find clusters: validate them, and be careful how you name them
 
 ## Any Questions?
 <!-- src: Week X - Clustering.pptx slide 34 -->

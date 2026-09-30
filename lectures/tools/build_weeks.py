@@ -77,7 +77,6 @@ W4_OUTLINE = """
 1. Case Study: The Grammar of Police Shootings
 1. Natural Language Processing
 1. Analysing Text
-1. Embeddings: Text as Numbers
 """
 COSINE = """
 ## Cosine Similarity
@@ -103,14 +102,149 @@ $$\\cos(a, b) = \\frac{a \\cdot b}{|a|\\,|b|}$$
 ::::
 :::
 """
-W9_OUTLINE = """
+EMB_HOOK = """
+## One Idea Behind Modern AI
+
+- Your phone recognises your face by turning each photo into a list of numbers: an **embedding**
+- Photos of the **same face** get **similar** numbers; different faces get different numbers
+- 'Who is this?' becomes 'which stored photos have the **closest numbers**?'
+- The same trick works for words, documents, songs, places on Earth, and in principle ships seen from space
+- **Turning things into vectors so that similar things are close** powers search engines, recommendation systems, ChatGPT and much of modern AI
+"""
+EMB_OUTLINE = """
 ## Outline
 
-1. The Machine Learning Pipeline
-1. Predicting Survival on the Titanic
+1. What Is an Embedding?
+1. Measuring Similarity
+1. Where Embeddings Come From
+1. Visualising Embeddings
+1. Using Embeddings Well
+"""
+EMB_ANYTHING = """
+## Anything Can Be Embedded
+
+| Input | Example models | What you can do with it |
+|---|---|---|
+| Words | GloVe, word2vec (100–300 numbers per word) | Find words with similar meanings |
+| Sentences | Sentence transformers | Search by meaning, not keywords |
+| Images | CLIP, DINO | Find similar photos; search images with words |
+| Places | Satellite foundation models | A vector for every patch of the Earth |
+| Songs and users | Recommender systems | 'People who liked this also liked…' |
+"""
+EMB_SEARCH = """
+## Searching Millions of Vectors
+
+- One query against a million stored vectors is quick
+- Comparing **every** item with every other grows with the square of the data: 100 million items is ~10¹⁶ comparisons
+- **Approximate nearest-neighbour** indexes group similar vectors in advance: a little less accurate, far faster
+    - e.g. **FAISS** (Meta), or the vector search built into databases such as Google **BigQuery** and PostgreSQL (pgvector)
+- A **vector database** is exactly this: the storage layer behind semantic search and RAG chatbots
+"""
+EMB_THRESHOLD = """
+## Where to Draw the Line?
+
+- Nearest-neighbour search **always** returns something, even when nothing in the database is really similar
+- So we need a **cut-off**: below this similarity, call it 'no match'
+- Any cut-off trades **false matches** against **missed matches**: precision vs recall, which we'll meet in Week 10
+- Similarity is **evidence, not proof**
+"""
+EMB_THREE_WAYS = """
+## Three Ways to Train an Embedding
+
+::: {.columns}
+:::: {.column width="33%"}
+**Predict the context**
+
+word2vec, GloVe, language models
+
+Learn vectors that are good at predicting nearby words
+::::
+:::: {.column width="33%"}
+**Match pairs**
+
+CLIP (OpenAI, 2021)
+
+400 million images and their captions: pull each image towards its own caption and away from everyone else's
+::::
+:::: {.column width="33%"}
+**Tell identities apart**
+
+Face recognition
+
+Pull photos of the same face together and push different faces apart
+::::
+:::
+"""
+EMB_WRONG = """
+## When Embeddings Go Wrong
+
+- **Shortcuts**: a model can match the **background** instead of the object: the same beach, the same sky, the same satellite scene
+- **Look-alikes**: different things that really do look the same (twins, identical products, sister ships)
+- **Out of domain**: a model trained on everyday photos may not capture what matters in satellite images or X-rays
+- **Noisy labels**: if the 'truth' you test against is wrong, a correct match looks like a mistake
+- An embedding encodes what its training **rewarded**. Check that's what **you** care about: look at the errors by eye, and check the labels as hard as the model
+"""
+EMB_ETHICS = """
+## Ethics and Limits
+
+- **Bias**: embeddings inherit their training data's stereotypes and pass them on to every system built on top
+- **Surveillance and dual use**: face recognition, and anything like it, can track people who never agreed to it. Who gets access?
+- **A match is a probability, not a verdict**: a false match can wrongly implicate someone. Report a confidence score and have a human check
+- **Hard to explain**: no single number means anything, so it's hard to say *why* two things were matched
+"""
+EMB_RECAP = """
+## Recap
+
+1. An **embedding** turns something (a word, an image, a place) into a vector so that **similar things are close**
+1. **Cosine similarity** measures closeness by angle; **nearest-neighbour search** finds the closest items
+1. Embeddings are **learned**: the training task decides what 'similar' means, and embeddings inherit their data's biases
+1. **Pretrained models** get you started, but a general model may not capture what you care about
+1. **t-SNE / UMAP** are for looking, not proving
+"""
+ML_OUTLINE = """
+## Outline
+
+1. Supervised vs Unsupervised Learning
+1. Supervised Learning: Trees and Forests
 1. Accuracy Assessment
 1. Overfitting and Testing
 1. Case Study: Monitoring War Damage from Space
+1. Unsupervised Learning: Clustering
+1. Using Machine Learning Responsibly
+"""
+SUP_VS_UNSUP = """
+## Supervised vs. Unsupervised Learning
+
+::: {.columns}
+:::: {.column width="50%"}
+### Supervised
+
+- We have **labels**
+- Learn to **predict** a known outcome
+- e.g. Titanic: did this passenger survive?
+- Accuracy can be checked against the truth
+::::
+:::: {.column width="50%"}
+### Unsupervised
+
+- **No labels**
+- Find **structure** hidden in the data
+- e.g. which London neighbourhoods are alike? Which detections belong together?
+- There is no 'right answer' to check against
+::::
+:::
+
+The oil-rig map uses both: **cluster** detections into structures, then **classify** each one as oil, wind or noise
+"""
+ML_RECAP = """
+## Recap
+
+1. **Supervised** learning predicts a known label; **unsupervised** learning finds structure without one
+1. **Decision trees** split the data on features; **random forests** average many trees
+1. Accuracy misleads on imbalanced data: check **precision**, **recall** and **F1**
+1. Score models on data they **haven't seen**, and watch for **leakage**; a model trained on one city may fail in the next
+1. **K-means**: fast, needs k, assumes round clusters. **Hierarchical**: a tree you cut. **DBSCAN**: dense regions of any shape, flags noise
+1. **Standardise** features first. Algorithms **always** find clusters: validate them, and be careful how you name them
 """
 TRAIN_TEST = """
 ## Testing on Data the Model Hasn't Seen
@@ -332,38 +466,76 @@ WEEKS = {
                         ("w04", "18,19,22-28,31,34"),          # NLP pipeline (coreference, spaCy internals cut)
                         ("w04", "35-39"),                      # analytical approaches
                         ("w04", "42,47"),                      # Twitter election: first and last slide only; regex 48-59 cut
-                        ("embeddings", "8-14,16"), ("md", COSINE),  # 17 rebuilt (mentioned GhostShip)
-                        ("embeddings", "18,19"),               # 15, 20, 21 show unpublished GhostShip work
-                        ("w04", "60")],
-                fixes=[(r"^# \d\. (What Is an Embedding\?|Measuring Similarity)", r"# \1")],
-                slide_fixes={("embeddings", 9): [(r"Every model we've built so far takes", "Statistical models take"),
-                                                 (r"In Week 4 \(NLP\) we turned text into numbers", "Earlier today we turned text into numbers")],
-                             ("embeddings", 14): [(r" We'll ask the same of GhostShip", "")],
-                             ("embeddings", 19): [(r"which you met in the Machine Learning lecture, used",
-                                                   "which we'll meet again for prediction in Week 9, used"),
-                                                  (r"same labelled ship", "same labelled item")]}),
+                        ("w04", "60")]),   # embeddings moved to W9
     "w05": dict(title="Sampling & Distributions",
                 pieces=[("w05", "2-5,7-9"),             # QR code slide 6 cut
                         ("w05", "11-27,29-38"),         # basic statistics, CLT, union demo; 28 repeats 68-95-99.7
                         ("w05", "40-44"),               # 39 repeats the 68-95-99.7 slide
                         ("w05", "60,63")],              # pay-gap section 45-59 cut (W6 has its own)
                 slide_fixes={("w05", 29): [(r"98% chance of falling within 3", "99.7% chance of falling within 3")]}),
-    # W9/W10: the old W10 (ML) split in two, using the freed week
-    "w09": dict(title="Prediction: Supervised Learning",   # from the old W10 Machine Learning deck
-                pieces=[("w10", "2"), ("md", W9_OUTLINE),
-                        ("w10", "4-9"),                        # pipeline, models, trees, random forests
-                        ("w10", "10-13,17"),                   # Titanic; repeated trees 14-16, 18 cut
-                        ("w10", "19-24,26,28-33"),             # accuracy, precision, recall, F1
-                        ("w10", "38-42"),                      # full Titanic model; per-variable repeats 34-37 cut
-                        ("md", TRAIN_TEST), ("md", LEAKAGE),   # new: prediction hygiene
-                        ("w10", "43,44,46-49")]),              # war-damage case study
-    "w10": dict(title="Unsupervised Learning: Clustering",
-                pieces=[("clustering", "2-25,27-34")],    # 26 (TfL police-vehicle embeddings) held back
-                slide_fixes={("clustering", 27): [(r"More on embeddings in a later lecture", "We met embeddings in Week 4")]}),
-    "w10_private": dict(title="Unsupervised Learning: Clustering", private=True,
-                pieces=[("clustering", "2-32"),
-                        ("embeddings", "27-29,34-42"),    # unpublished GhostShip material
-                        ("clustering", "33-34")]),
+    "w09": dict(title="Embeddings",                     # public: GhostShip material held back
+                pieces=[("embeddings", "2,3"), ("md", EMB_HOOK),  # 4-6 show GhostShip results
+                        ("md", EMB_OUTLINE),
+                        ("embeddings", "8-14"), ("md", EMB_ANYTHING),   # 15 rebuilt without GhostShip
+                        ("embeddings", "16"), ("md", COSINE),           # 17 rebuilt (mentioned GhostShip)
+                        ("embeddings", "18,19"),
+                        ("md", EMB_SEARCH), ("md", EMB_THRESHOLD),      # 20, 21 rebuilt without GhostShip
+                        ("embeddings", "22,23"), ("md", EMB_THREE_WAYS),  # 24 rebuilt
+                        ("embeddings", "25,26"),                        # 27-29 GhostShip vs DINOv3 cut
+                        ("embeddings", "30-33"),
+                        ("clustering", "27"),                           # rare-earth mines UMAP, moved from W10
+                        ("md", "# 5. Using Embeddings Well"),           # 34-43 GhostShip cut
+                        ("md", EMB_WRONG), ("md", EMB_ETHICS), ("md", EMB_RECAP),
+                        ("embeddings", "45")],
+                slide_fixes={("embeddings", 3): [(r" GhostShip is Ollie's follow-on project at GFW/UCL CASA: put a name to the dark detections\.", "")],
+                             ("embeddings", 9): [(r"In Week 4 \(NLP\) we turned", "In Week 4 we turned")],
+                             ("embeddings", 14): [(r" We'll ask the same of GhostShip", "")],
+                             ("embeddings", 19): [(r"which you met in the Machine Learning lecture, used",
+                                                   "which we'll meet again for prediction in Week 10, used"),
+                                                  (r"If most of the neighbours are the same labelled ship, that's probably who it is",
+                                                   "If most of the neighbours share a label, that's probably the answer")],
+                             ("embeddings", 23): [(r"Trained to tell ships apart → similar = the same ship",
+                                                   "Trained to tell faces apart → similar = the same person")],
+                             ("embeddings", 25): [(r"^\| GhostShip \|[^\n]*\n?", "")],
+                             ("embeddings", 31): [(r"Squashing 256 Dimensions", "Squashing Hundreds of Dimensions"),
+                                                  (r"We can't plot 256 dimensions", "We can't plot hundreds of dimensions"),
+                                                  (r"The clustering lecture's methods", "Next week's clustering methods")],
+                             ("clustering", 27): [(r"^## Similar Things Land Together", "## Case Study: Finding Mines"),
+                                                  (r"\n- More on embeddings in a later lecture", "")]}),
+    "w09_private": dict(title="Embeddings", private=True,   # the full deck, GhostShip included
+                pieces=[("embeddings", "2-33"), ("clustering", "27"), ("embeddings", "34-45")],
+                slide_fixes={("embeddings", 9): [(r"In Week 4 \(NLP\) we turned", "In Week 4 we turned")],
+                             ("embeddings", 19): [(r"which you met in the Machine Learning lecture, used",
+                                                   "which we'll meet again for prediction in Week 10, used")],
+                             ("embeddings", 21): [(r"precision vs recall, from the ML lecture", "precision vs recall, which we'll meet in Week 10")],
+                             ("embeddings", 31): [(r"The clustering lecture's methods", "Next week's clustering methods")],
+                             ("embeddings", 39): [(r"from the clustering lecture", "from next week")],
+                             ("clustering", 27): [(r"\n- More on embeddings in a later lecture", "")]}),
+    # W10: the old W9 (supervised, from the Machine Learning deck) and W10 (clustering) merged
+    "w10": dict(title="Supervised & Unsupervised Learning",
+                pieces=[("w10", "2"),
+                        ("clustering", "3,4,5"),               # oil-rig hook: clustering, then classification
+                        ("md", ML_OUTLINE),
+                        ("md", "# 1. Supervised vs Unsupervised Learning"),
+                        ("clustering", "8"), ("md", SUP_VS_UNSUP),   # 9 rebuilt (said "Machine Learning lecture")
+                        ("w10", "5,6,7"),                      # model, regression vs classification, workflow
+                        ("md", "# 2. Supervised Learning: Trees and Forests"),
+                        ("w10", "8,9,10"),                     # trees, random forests
+                        ("w10", "11,12,13,17"),                # Titanic; repeated trees 14-16, 18 cut
+                        ("md", "# 3. Accuracy Assessment"),
+                        ("w10", "20-24,26,28-33,38"),          # accuracy, precision, recall, F1; 34-37 cut
+                        ("md", "# 4. Overfitting and Testing"),
+                        ("w10", "40,42"), ("md", TRAIN_TEST), ("md", LEAKAGE),
+                        ("md", "# 5. Case Study: Monitoring War Damage from Space"),
+                        ("w10", "43,44,47,48"),                # 46 repeats the labels slide
+                        ("md", "# 6. Unsupervised Learning: Clustering"),
+                        ("clustering", "10,12-17,19,20,22-25"),  # k-means, hierarchical, DBSCAN; section slides cut
+                        ("md", "# 7. Using Machine Learning Responsibly"),
+                        ("clustering", "29,30,31"),            # 26 (TfL police-vehicle embeddings) held back;
+                        ("md", ML_RECAP),                      # 27 moved to W9; 32 (Python) left to the workshop
+                        ("clustering", "34")],
+                slide_fixes={("clustering", 19): [(r"^## Building a Family Tree", "## Hierarchical Clustering: A Family Tree")],
+                             ("clustering", 22): [(r"^## Density-Based Clustering", "## DBSCAN: Density-Based Clustering")]}),
 }
 
 
