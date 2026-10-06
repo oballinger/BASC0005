@@ -14,6 +14,13 @@
     "text": "Schedule\n1IntroductionWorkshop — Python Recap6 OctQuestion\n2DataWorkshop — Pandas13 OctData acquisition\n3Spatial & Network DataWorkshop — Spatial Data20 OctData acquisition\n4Text as DataWorkshop — Natural Language Processing27 OctData acquisition\n5Sampling & DistributionsWorkshop — Distributions and Basic Statistics3 NovExploration\nRWReading weekWorkshop — Merging and Joining10 NovReading week\n6Hypothesis Testing: Frequentist & BayesianWorkshop — Hypothesis Testing17 NovExploration\n7RegressionWorkshop — Linear Regression24 NovModelling\n8Causal Inference: Difference-in-Differences & Regression DiscontinuityWorkshop — Causal Inference1 DecModelling\n9EmbeddingsWorkshop — to come8 DecModelling\n10Supervised & Unsupervised LearningWorkshop — Supervised LearningWorkshop — Clustering15 DecModelling\nRed week numbers have lecture slides online."
   },
   {
+    "objectID": "slides/w01.html",
+    "href": "slides/w01.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Open full screen ↗ Week 1 workshop → F full screen · S speaker notes · ? shortcuts"
+  },
+  {
     "objectID": "notebooks/W01. Python Recap.html#workshop-1-open-in-colab",
     "href": "notebooks/W01. Python Recap.html#workshop-1-open-in-colab",
     "title": "Python Recap",

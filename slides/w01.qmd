@@ -1,0 +1,17 @@
+---
+title: "Introduction"
+subtitle: "Week 1 lecture"
+page-layout: full
+toc: false
+repo-actions: false
+---
+
+::: {.slides-embed .column-screen-inset-right}
+<iframe src="../lectures/w01.html" title="Week 1 lecture slides" allowfullscreen></iframe>
+:::
+
+::: {.slides-bar}
+[Open full screen ↗](../lectures/w01.html){.btn .btn-primary target="_blank"}
+[Week 1 workshop →](../notebooks/W01.%20Python%20Recap.html){.btn .btn-outline-secondary}
+<span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
+:::
