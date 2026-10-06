@@ -1,5 +1,8 @@
-_staging/
-private/
+# masters live in Google Drive (lectures/pptx is a symlink to them)
+/pptx
+# generated, not published
+qmd/.quarto/
+qmd/private/
+qmd/*_files/
 tools/.venv/
-
-/.quarto/
+__pycache__/

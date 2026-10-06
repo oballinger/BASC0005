@@ -5,7 +5,8 @@ Slides with things Markdown can't express (diagrams, grouped shapes, charts,
 text laid over images) fall back to a rendered image of the slide, with the
 slide text kept in the speaker notes so it stays searchable.
 
-usage: python pptx2qmd.py deck.pptx rendered.pdf out_dir slug [--title T] [--slides 1-20,25]
+usage: python pptx2qmd.py deck.pptx rendered.pdf out_dir slug
+(normally run via sync.py, which also exports the PDF and renders the site)
 """
 import argparse, hashlib, io, re, subprocess, sys
 from pathlib import Path
@@ -62,18 +63,33 @@ def md_runs(par):
     return "".join(out).strip()
 
 
+def no_bullet(p):
+    pPr = p._p.find("{http://schemas.openxmlformats.org/drawingml/2006/main}pPr")
+    return pPr is not None and pPr.find("{http://schemas.openxmlformats.org/drawingml/2006/main}buNone") is not None
+
+
 def text_block(tf):
+    """Paragraphs as Markdown: bullets and numbers as lists, explicit no-bullet paragraphs as text."""
     lines = []
     for p in tf.paragraphs:
         s = md_runs(p)
         if not s:
             continue
+        if no_bullet(p) and p.level == 0:
+            if p.alignment == 2:                   # centred (e.g. an equation on its own line)
+                s = f'[{s}]{{style="display:block;text-align:center"}}'
+            lines.append(("plain", s)); continue
         numbered = p._p.find(".//{http://schemas.openxmlformats.org/drawingml/2006/main}buAutoNum") is not None
-        lines.append("    " * p.level + ("1. " if numbered else "- ") + s)
+        lines.append(("item", "    " * p.level + ("1. " if numbered else "- ") + s))
     # a single short paragraph reads better as plain text than a lone bullet
     if len(lines) == 1:
-        lines[0] = re.sub(r"^\s*(- |1\. )", "", lines[0])
-    return "\n".join(lines)
+        return re.sub(r"^\s*(- |1\. )", "", lines[0][1])
+    out = []
+    for k, (kind, s) in enumerate(lines):
+        if out and (kind == "plain" or lines[k - 1][0] == "plain"):
+            out.append("")                     # Markdown needs a blank line around plain paragraphs
+        out.append(s)
+    return "\n".join(out)
 
 
 def save_picture(sh, img_dir, rel):
@@ -230,11 +246,14 @@ def layout(items):
 
 
 def table_md(sh):
-    rows = [[c.text.replace("\n", " ").replace("|", r"\|").strip() for c in r.cells] for r in sh.table.rows]
+    rows = [[" ".join(md_runs(p) for p in c.text_frame.paragraphs).replace("|", r"\|").strip()
+             for c in r.cells] for r in sh.table.rows]
     if not rows:
         return ""
     out = ["| " + " | ".join(rows[0]) + " |", "|" + "---|" * len(rows[0])]
     out += ["| " + " | ".join(r) + " |" for r in rows[1:]]
+    if len(rows[0]) >= 8:                      # wide tables: small type, one line per row
+        return '::: {style="font-size:0.42em; white-space:nowrap"}\n' + "\n".join(out) + "\n:::"
     return "\n".join(out)
 
 
@@ -250,104 +269,177 @@ def notes_of(slide):
     return ""
 
 
-_PDFS = {}
+MONO = ("consolas", "courier", "courier new", "menlo", "monaco", "source code pro",
+        "roboto mono", "fira code", "fira mono", "jetbrains mono", "sf mono", "andale mono")
 
 
-def render_fallback(pdf, page, img_dir, rel, key):
+def code_block(tf):
+    """A text box set entirely in a monospace font is code: return a fenced block, else None."""
+    runs = [r for p in tf.paragraphs for r in p.runs if r.text.strip()]
+    if not runs or not all((r.font.name or "").lower() in MONO for r in runs):
+        return None
+    lines = ["".join(r.text for r in p.runs).replace("\u2018", "'").replace("\u2019", "'")
+             .replace("\u201c", '"').replace("\u201d", '"').rstrip() for p in tf.paragraphs]
+    while lines and not lines[-1].strip():
+        lines.pop()
+    return '```{.python code-line-numbers="false"}\n' + "\n".join(lines) + "\n```"
+
+
+def frame_md(sh):
+    return code_block(sh.text_frame) or text_block(sh.text_frame)
+
+
+def small_type(texts, tables):
+    """True when the slide's text is set small in PowerPoint (median explicit size <= 16pt):
+    the web version then gets reveal's .smaller class."""
+    sizes = []
+    frames = [t.text_frame for t in texts] + [c.text_frame for t in tables for r in t.table.rows for c in r.cells]
+    for tf in frames:
+        for p in tf.paragraphs:
+            for r in p.runs:
+                if r.font.size and r.text.strip():
+                    sizes += [r.font.size.pt] * len(r.text)
+    if not sizes:
+        return False
+    sizes.sort()
+    return sizes[len(sizes) // 2] <= 16
+
+
+def fallback_notes(s, notes):
+    txt = slide_text(s)
+    return "\n\n".join(x for x in [notes, "Slide text: " + txt.replace("\n", " · ") if txt else ""] if x)
+
+
+def slide_md(s, i, ctx):
+    """Markdown for slide `s` (number `i` in the deck).
+
+    ctx: img_dir (Path) and rel (str) for pictures; fallback(i) -> image path of the rendered slide.
+    Returns (markdown, kind, reason).
+    """
+    img_dir, rel, fallback = ctx["img_dir"], ctx["rel"], ctx["fallback"]
+    tag = f"<!-- slide {i} -->"
+    ok, why, (tsh, texts, pics, tables) = classify(s)
+    ttl = tsh.text_frame.text.strip().replace("\n", " ").replace("\x0b", " ") if tsh is not None else ""
+    ttl = re.sub(r"\s+", " ", ttl)
+    lname = s.slide_layout.name.lower()
+    if ("section" in lname) and ok and not pics and len(texts) <= 1:
+        return f"# {ttl or text_block(texts[0].text_frame)}\n{tag}", "native", ""
+    notes = notes_of(s)
+    if ok:
+        pic_paths = [p for p in (save_picture(p, img_dir, rel) for p in pics) if p]
+        if len(pic_paths) < len(pics):
+            ok, why = False, "unsupported image format"
+    body, attrs = [], []
+    if ok:
+        flow = sorted([(t, frame_md(t)) for t in texts] + [(t, table_md(t)) for t in tables],
+                      key=lambda x: (x[0].top or 0, x[0].left or 0))
+        txt = [md for t, md in flow if md and t in texts]
+        tbl = [md for t, md in flow if md and t in tables]
+        if pic_paths and not txt and not tbl and len(pic_paths) == 1:
+            p = pics[0]
+            if (p.width or 0) * (p.height or 0) > 0.7 * SW * SH and not ttl:
+                head = f'## {{background-image="{pic_paths[0]}" background-size="contain"}}'
+                return _chunk(head, tag, [], notes), "native", ""
+            body.append(f"![]({pic_paths[0]}){{.r-stretch fig-align=\"center\"}}")
+        elif pic_paths:
+            items = ([("pic", p, pp) for p, pp in zip(pics, pic_paths)]
+                     + [("md", t, frame_md(t)) for t in texts]
+                     + [("md", t, table_md(t)) for t in tables])
+            md = layout([it for it in items if it[2]])
+            if md is None:  # pictures tiled or overlapping: keep the slide as drawn
+                ok, why = False, "tiled pictures"
+            else:
+                body.append(md)
+        else:
+            items = [("md", t, md) for t, md in flow if md]
+            md = layout(items) if len(items) > 1 else None
+            body.append(md if md else "\n\n".join(m for _, _, m in items))
+    if not ok:
+        head = f'## {{background-image="{fallback(i)}" background-size="contain" .fallback}}'
+        return _chunk(head, tag, [], fallback_notes(s, notes)), "image", why
+    body = ["\n\n".join(body)] if body else []
+    joined = body[0] if body else ""
+    if not joined.strip() and ttl:
+        attrs.append(".center")                      # question / title-only slides
+    elif small_type(texts, tables):
+        attrs.append(".smaller")
+    head = (f"## {ttl}" if ttl else "##") + (" {" + " ".join(attrs) + "}" if attrs else "")
+    if not ttl and not attrs:
+        head = "## {.notitle}"
+    return _chunk(head, tag, body, notes), "native", ""
+
+
+def _chunk(head, tag, body, notes):
+    # heading first: an HTML comment before the first heading makes an empty slide
+    out = [head, tag, ""] + body
+    if notes:
+        out += ["", "::: notes", notes, ":::"]
+    text = "\n".join(out).rstrip()
+    return re.sub(r"([^\n])\n(\|[^\n]*\|\n\|[-|: ]+\|\n)", r"\1\n\n\2", text + "\n").rstrip()
+
+
+def deck_title(prs):
+    s = prs.slides[0]
+    if "title" in s.slide_layout.name.lower():
+        for sh in s.shapes:
+            if is_title(sh) and sh.text_frame.text.strip():
+                return re.sub(r"\s+", " ", sh.text_frame.text.strip())
+    return None
+
+
+def pdf_renderer(pdf, prs, img_dir, rel):
+    """fallback(i) for convert(): render slide i's page of the deck's PDF export."""
     import pypdfium2 as pdfium
-    doc = _PDFS.setdefault(str(pdf), pdfium.PdfDocument(str(pdf)))
-    pg = doc[page - 1]
-    im = pg.render(scale=1600 / pg.get_width()).to_pil().convert("RGB")
-    im = im.crop((0, 0, im.width, int(im.height * 0.945)))  # drop the old footer strip
-    im.save(img_dir / f"slide_{key}.jpg", quality=85, optimize=True)
-    return f"{rel}/slide_{key}.jpg"
+    doc = pdfium.PdfDocument(str(pdf))
+    page_of, page = {}, 0
+    for i, s in enumerate(prs.slides, 1):        # PDF pages follow visible slides only
+        if not hidden(s):
+            page += 1; page_of[i] = page
+
+    def render(i):
+        pg = doc[page_of[i] - 1]
+        im = pg.render(scale=1600 / pg.get_width()).to_pil().convert("RGB")
+        im = im.crop((0, 0, im.width, int(im.height * 0.945)))  # drop the old footer strip
+        name = f"slide_{i:03d}.jpg"
+        im.save(img_dir / name, quality=85, optimize=True)
+        return f"{rel}/{name}"
+    render.close = doc.close
+    return render
 
 
-def convert(deck, pdf, out_dir, slug, title=None, select=None):
+def convert(deck, out_dir, slug, fallback=None, pdf=None):
+    """Write out_dir/slug.qmd and out_dir/img/slug/ from a deck. Returns [(slide, kind, why)]."""
     global SW, SH
     prs = Presentation(deck)
     SW, SH = prs.slide_width, prs.slide_height
     img_dir = Path(out_dir) / "img" / slug
     img_dir.mkdir(parents=True, exist_ok=True)
     rel = f"img/{slug}"
-    slides = list(prs.slides)
-    # PDF pages follow visible slides only
-    page_of, page = {}, 0
-    for i, s in enumerate(slides, 1):
-        if not hidden(s):
-            page += 1; page_of[i] = page
-    wanted = [i for i in parse_ranges(select, len(slides)) if i in page_of]
+    if fallback is None:
+        fallback = pdf_renderer(pdf, prs, img_dir, rel)
+    title = deck_title(prs)
+    ctx = dict(img_dir=img_dir, rel=rel, fallback=fallback)
     chunks, report = [], []
-    for i in wanted:
-        s = slides[i - 1]
-        ok, why, (tsh, texts, pics, tables) = classify(s)
-        ttl = tsh.text_frame.text.strip().replace("\n", " ") if tsh is not None else ""
-        lname = s.slide_layout.name.lower()
-        if i == 1 and "title" in lname:
+    for i, s in enumerate(prs.slides, 1):
+        if hidden(s):
+            continue
+        if i == 1 and title:
             report.append((i, "skipped", "deck title slide")); continue
-        if ("section" in lname) and ok and not pics and len(texts) <= 1:
-            chunks.append(f"<!-- src: {Path(deck).name} slide {i} -->\n# {ttl or text_block(texts[0].text_frame)}")
-            report.append((i, "native", "")); continue
-        notes = notes_of(s)
-        body = []
-        if ok:
-            pic_paths = [p for p in (save_picture(p, img_dir, rel) for p in pics) if p]
-            if len(pic_paths) < len(pics):
-                ok, why = False, "unsupported image format"
-        if not ok:
-            src = render_fallback(pdf, page_of[i], img_dir, rel, f"{i:03d}")
-            head = f'## {{background-image="{src}" background-size="contain" .fallback}}'
-            txt = slide_text(s)
-            notes = "\n\n".join(x for x in [notes, "Slide text: " + txt.replace("\n", " · ") if txt else ""] if x)
-            report.append((i, "image", why))
-        else:
-            head = f"## {ttl}" if ttl else "## {.notitle}"
-            txt = [text_block(t.text_frame) for t in sorted(texts, key=lambda x: (x.top or 0, x.left or 0))]
-            txt = [t for t in txt if t]
-            tbl = [table_md(t) for t in tables]
-            only_pic = pic_paths and not txt and not tbl
-            if only_pic and len(pic_paths) == 1:
-                p = pics[0]
-                if (p.width or 0) * (p.height or 0) > 0.7 * SW * SH and not ttl:
-                    head = f'## {{background-image="{pic_paths[0]}" background-size="contain"}}'
-                else:
-                    body.append(f"![]({pic_paths[0]}){{.r-stretch fig-align=\"center\"}}")
-            elif pic_paths:
-                items = ([("pic", p, pp) for p, pp in zip(pics, pic_paths)]
-                         + [("md", t, text_block(t.text_frame)) for t in texts]
-                         + [("md", t, table_md(t)) for t in tables])
-                md = layout([it for it in items if it[2]])
-                if md is None:  # pictures tiled or overlapping: keep the slide as drawn
-                    src = render_fallback(pdf, page_of[i], img_dir, rel, f"{i:03d}")
-                    head = f'## {{background-image="{src}" background-size="contain" .fallback}}'
-                    txt = slide_text(s)
-                    notes = "\n\n".join(x for x in [notes, "Slide text: " + txt.replace("\n", " · ") if txt else ""] if x)
-                    report.append((i, "image", "tiled pictures")); body = []
-                    chunk = [f"<!-- src: {Path(deck).name} slide {i} -->", head, ""]
-                    if notes:
-                        chunk += ["", "::: notes", notes, ":::"]
-                    chunks.append("\n".join(chunk).rstrip()); continue
-                body.append(md)
-            else:
-                body += txt + tbl
-            report.append((i, "native", ""))
-        chunk = [f"<!-- src: {Path(deck).name} slide {i} -->", head, ""] + body
-        if notes:
-            chunk += ["", "::: notes", notes, ":::"]
-        chunks.append("\n".join(chunk).rstrip())
-    front = (f'---\ntitle: "{title or Path(deck).stem}"\n'
+        md, kind, why = slide_md(s, i, ctx)
+        chunks.append(md); report.append((i, kind, why))
+    getattr(fallback, "close", lambda: None)()
+    front = (f'---\ntitle: "{(title or Path(deck).stem).replace(chr(34), chr(39))}"\n'
              'subtitle: "BASC0005 Quantitative Methods 2: Data Science and Visualisation"\n'
              'author: "Ollie Ballinger"\n---\n')
-    (Path(out_dir) / f"{slug}.qmd").write_text(front + "\n\n" + "\n\n".join(chunks) + "\n")
+    (Path(out_dir) / f"{slug}.qmd").write_text(front + "\n" + "\n\n".join(chunks) + "\n")
     return report
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("deck"); ap.add_argument("pdf"); ap.add_argument("out_dir"); ap.add_argument("slug")
-    ap.add_argument("--title"); ap.add_argument("--slides")
     a = ap.parse_args()
-    rep = convert(a.deck, a.pdf, a.out_dir, a.slug, a.title, a.slides)
+    rep = convert(a.deck, a.out_dir, a.slug, pdf=a.pdf)
     n_img = sum(1 for r in rep if r[1] == "image")
     print(f"{a.slug}: {len(rep)} slides, {len(rep) - n_img} native, {n_img} as images")
     for i, kind, why in rep:

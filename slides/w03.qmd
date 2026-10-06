@@ -6,7 +6,7 @@ toc: false
 repo-actions: false
 ---
 
-::: {.slides-embed}
+::: {.slides-embed .column-screen-inset-right}
 <iframe src="../lectures/w03.html" title="Week 3 lecture slides" allowfullscreen></iframe>
 :::
 

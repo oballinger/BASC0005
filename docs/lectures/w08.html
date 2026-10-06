@@ -339,6 +339,7 @@ Ollie Ballinger
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
+<!-- slide 2 -->
 <ol type="1">
 <li>Why correlation isn’t enough</li>
 <li>Difference-in-Differences</li>
@@ -348,13 +349,13 @@ Ollie Ballinger
 <li>Auditing a causal claim</li>
 </ol>
 </section>
-<section id="section" class="slide level2" data-background-image="img/w08/w08_c951146b87.jpg" data-background-size="contain">
+<section id="section" class="slide level2" data-background-image="img/w08/c951146b87.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 3 -->
+<!-- slide 3 -->
 </section>
-<section id="section-1" class="slide level2 fallback" data-background-image="img/w08/w08_slide_004.jpg" data-background-size="contain">
+<section id="section-1" class="slide level2 fallback" data-background-image="img/w08/slide_004.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 4 -->
+<!-- slide 4 -->
 <aside class="notes">
 <p>Slide text: $2.13/hr</p>
 <style type="text/css">
@@ -371,7 +372,7 @@ Ollie Ballinger
 </section>
 <section id="correlation-vs.-causation" class="slide level2">
 <h2>Correlation vs.&nbsp;Causation</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 13 -->
+<!-- slide 5 -->
 <ul>
 <li>Just because we observe a correlation between X and Y, we <strong>cannot</strong> say that X causes Y.</li>
 <li>We observe that broadly, as minimum wages increase over time, poverty decreases. Our regression returns statistically significant results. Why might we hesitate in saying for certain that increasing the minimum wage decreases poverty?</li>
@@ -381,9 +382,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="endogeneity" class="slide level2 smaller">
+<section id="endogeneity" class="slide level2">
 <h2>Endogeneity</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 14 -->
+<!-- slide 6 -->
 <ul>
 <li>There are three main sources of endogeneity:
 <ol type="1">
@@ -407,7 +408,7 @@ Ollie Ballinger
 </section>
 <section id="experimental-designs" class="slide level2">
 <h2>Experimental Designs</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 15 -->
+<!-- slide 7 -->
 <div class="columns">
 <div class="column" style="width:27%;">
 <ul>
@@ -416,12 +417,13 @@ Ollie Ballinger
 <li>But what about non-experimental settings?</li>
 </ul>
 </div><div class="column" style="width:73%;">
-<p><img data-src="img/w08/w08_61af6f70c3.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w08/61af6f70c3.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="the-counterfactual-problem" class="slide level2">
 <h2>The Counterfactual Problem</h2>
+<!-- slide 8 -->
 <ul>
 <li>The causal effect is the outcome <strong>with</strong> the treatment minus the outcome <strong>without</strong> it, for the same units</li>
 <li>We only ever observe one of the two</li>
@@ -436,11 +438,11 @@ Ollie Ballinger
 <section>
 <section id="difference-in-differences" class="title-slide slide level1 center">
 <h1>Difference-in-Differences</h1>
-<!-- src: Week 8 - Causal Inference I.pptx slide 27 -->
+<!-- slide 9 -->
 </section>
 <section id="counterfactuals" class="slide level2">
 <h2>Counterfactuals</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 29 -->
+<!-- slide 10 -->
 <ul>
 <li>Difference in differences requires a few things:
 <ol type="1">
@@ -457,7 +459,7 @@ Ollie Ballinger
 </section>
 <section id="do-minimum-wages-decrease-poverty" class="slide level2">
 <h2>Do Minimum Wages Decrease Poverty?</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 30 -->
+<!-- slide 11 -->
 <ul>
 <li>A bill signed into law on November 1989 raised the federal minimum wage from $3.35 per hour to $3.8 effective April 1, 1990, with a further increase from $4.25 per hour to $5.05 on April 1, 1992.</li>
 <li>New Jersey experiences the wage increase but not in Pennsylvania.</li>
@@ -466,7 +468,7 @@ Ollie Ballinger
 </section>
 <section id="why-not-just-compare-before-and-after" class="slide level2">
 <h2>Why Not Just Compare Before and After?</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 31 -->
+<!-- slide 12 -->
 <ul>
 <li>We cannot draw <strong>causal</strong> conclusions by observing simple before-and-after changes in outcomes, as factors other than the treatment may influence the outcome over time.
 <ul>
@@ -480,14 +482,10 @@ Ollie Ballinger
 </section>
 <section id="difference-in-differences-1" class="slide level2">
 <h2>Difference-in-Differences</h2>
+<!-- slide 13 -->
 <p>Compare the <strong>before-and-after change</strong> in the treated group with the change in the control group:</p>
-<p><span class="math display">\[Y_{it} = \beta_0 + \beta_1 Post_t + \beta_2 Treat_i + \beta_3 (Treat_i \times Post_t) + \varepsilon_{it}\]</span></p>
+<p><span style="display:block;text-align:center">Yᵢₜ = β₀ + β₁ Postₜ + β₂ Treatᵢ + β₃ (Treatᵢ × Postₜ) + εᵢₜ</span></p>
 <table>
-<colgroup>
-<col style="width: 16%">
-<col style="width: 26%">
-<col style="width: 56%">
-</colgroup>
 <thead>
 <tr class="header">
 <th></th>
@@ -498,20 +496,21 @@ Ollie Ballinger
 <tbody>
 <tr class="odd">
 <td><strong>Before</strong></td>
-<td><span class="math inline">\(\beta_0\)</span></td>
-<td><span class="math inline">\(\beta_0 + \beta_2\)</span></td>
+<td>β₀</td>
+<td>β₀ + β₂</td>
 </tr>
 <tr class="even">
 <td><strong>After</strong></td>
-<td><span class="math inline">\(\beta_0 + \beta_1\)</span></td>
-<td><span class="math inline">\(\beta_0 + \beta_1 + \beta_2 + \beta_3\)</span></td>
+<td>β₀ + β₁</td>
+<td>β₀ + β₁ + β₂ + β₃</td>
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\(\beta_3\)</span> is the difference-in-differences: the treatment effect.</p>
+<p>β₃ is the difference-in-differences: the treatment effect.</p>
 </section>
 <section id="do-minimum-wages-decrease-poverty-1" class="slide level2 smaller">
 <h2>Do Minimum Wages Decrease Poverty?</h2>
+<!-- slide 14 -->
 <div class="columns">
 <div class="column" style="width:42%;">
 <table>
@@ -612,7 +611,7 @@ Ollie Ballinger
 </tbody>
 </table>
 </div><div class="column" style="width:58%;">
-<p><img data-src="img/causal/did_data.png"></p>
+<p><img data-src="img/w08/46b9790eb7.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 <aside class="notes">
@@ -629,18 +628,13 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="reading-off-the-effect" class="slide level2 smaller">
+<section id="reading-off-the-effect" class="slide level2">
 <h2>Reading Off the Effect</h2>
+<!-- slide 15 -->
 <div class="columns">
 <div class="column" style="width:48%;">
 <p>Mean poverty rate (%), before (1989–91) and after (1992–94):</p>
-<table style="width:100%;">
-<colgroup>
-<col style="width: 21%">
-<col style="width: 21%">
-<col style="width: 34%">
-<col style="width: 21%">
-</colgroup>
+<table>
 <thead>
 <tr class="header">
 <th></th>
@@ -652,33 +646,33 @@ Ollie Ballinger
 <tbody>
 <tr class="odd">
 <td><strong>Before</strong></td>
-<td>3.6 = <span class="math inline">\(\beta_0\)</span></td>
-<td>2.1 = <span class="math inline">\(\beta_0+\beta_2\)</span></td>
-<td>−1.5 = <span class="math inline">\(\beta_2\)</span></td>
+<td>3.6 = β₀</td>
+<td>2.1 = β₀+β₂</td>
+<td>−1.5 = β₂</td>
 </tr>
 <tr class="even">
 <td><strong>After</strong></td>
-<td>5.4 = <span class="math inline">\(\beta_0+\beta_1\)</span></td>
-<td>2.9 = <span class="math inline">\(\beta_0+\beta_1+\beta_2+\beta_3\)</span></td>
-<td>−2.5 = <span class="math inline">\(\beta_2+\beta_3\)</span></td>
+<td>5.4 = β₀+β₁</td>
+<td>2.9 = β₀+β₁+β₂+β₃</td>
+<td>−2.5 = β₂+β₃</td>
 </tr>
 <tr class="odd">
 <td><strong>After − Before</strong></td>
-<td>1.8 = <span class="math inline">\(\beta_1\)</span></td>
-<td>0.8 = <span class="math inline">\(\beta_1+\beta_3\)</span></td>
-<td><strong>−1.0 = <span class="math inline">\(\beta_3\)</span></strong></td>
+<td>1.8 = β₁</td>
+<td>0.8 = β₁+β₃</td>
+<td><strong>−1.0 = β₃</strong></td>
 </tr>
 </tbody>
 </table>
 <p>The policy lowered poverty in NJ by <strong>1 percentage point</strong> relative to the trend it would have followed.</p>
 </div><div class="column" style="width:52%;">
-<p><img data-src="img/causal/did_beta3.png"></p>
+<p><img data-src="img/w08/d5b7278826.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="parallel-trends-assumption" class="slide level2">
 <h2>Parallel Trends Assumption</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 37 -->
+<!-- slide 16 -->
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
@@ -686,13 +680,13 @@ Ollie Ballinger
 <li>We can provide suggestive evidence of this if we have data on pre-years.</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<p><img data-src="img/w08/w08_4aa0fa3d3e.jpg" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w08/4aa0fa3d3e.jpg" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="assessing-parallel-trends" class="slide level2">
 <h2>Assessing Parallel Trends</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 38 -->
+<!-- slide 17 -->
 <ol type="1">
 <li>Visual Assessment (are pre-treatment trends parallel)</li>
 <li>Perform a placebo test using a fake treatment group. The fake treatment group should be a group that was not affected by the program. A placebo test that reveals zero impact supports the equal-trend assumption.</li>
@@ -703,11 +697,11 @@ Ollie Ballinger
 <section>
 <section id="case-study-the-mariel-boatlift" class="title-slide slide level1 center">
 <h1>Case Study: The Mariel Boatlift</h1>
-<!-- src: Week 8 - Causal Inference I.pptx slide 16 -->
+<!-- slide 18 -->
 </section>
 <section id="does-immigration-increase-unemployment" class="slide level2">
 <h2>Does immigration increase unemployment</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 17 -->
+<!-- slide 19 -->
 <div class="columns">
 <div class="column" style="width:66%;">
 <ul>
@@ -716,17 +710,17 @@ Ollie Ballinger
 <li><a href="https://www.sciencedirect.com/science/article/pii/S1573446399030047#bb0280">Card’s (1990)</a> study of the effect of immigration on the employment of American citizens, using a Difference in Differences design and the Mariel Boatlift.</li>
 </ul>
 </div><div class="column" style="width:34%;">
-<p><img data-src="img/w08/w08_292121534e.jpg" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w08/292121534e.jpg" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
-<section id="section-2" class="slide level2" data-background-image="img/w08/w08_82ecaf348c.jpg" data-background-size="contain">
+<section id="section-2" class="slide level2" data-background-image="img/w08/82ecaf348c.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 19 -->
+<!-- slide 20 -->
 </section>
 <section id="experimental-design" class="slide level2">
 <h2>Experimental Design</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 22 -->
+<!-- slide 21 -->
 <ul>
 <li><strong>Data</strong>: Current Population Survey (CPS), same data we’ve been using in the workshops</li>
 <li><strong>Treatment Group</strong>: Miami</li>
@@ -736,14 +730,9 @@ Ollie Ballinger
 </section>
 <section id="results" class="slide level2 smaller">
 <h2>Results</h2>
+<!-- slide 22 -->
 <p>Unemployment rates (%), standard errors in brackets:</p>
 <table>
-<colgroup>
-<col style="width: 47%">
-<col style="width: 16%">
-<col style="width: 18%">
-<col style="width: 18%">
-</colgroup>
 <thead>
 <tr class="header">
 <th></th>
@@ -754,7 +743,7 @@ Ollie Ballinger
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong><em>Whites</em></strong></td>
+<td><strong>Whites</strong></td>
 <td></td>
 <td></td>
 <td></td>
@@ -778,7 +767,7 @@ Ollie Ballinger
 <td><strong>−1.1 (1.5)</strong></td>
 </tr>
 <tr class="odd">
-<td><strong><em>Blacks</em></strong></td>
+<td><strong>Blacks</strong></td>
 <td></td>
 <td></td>
 <td></td>
@@ -807,7 +796,7 @@ Ollie Ballinger
 </section>
 <section id="findings" class="slide level2">
 <h2>Findings</h2>
-<!-- src: Week 8 - Causal Inference I.pptx slide 26 -->
+<!-- slide 23 -->
 <ul>
 <li>The Mariel immigrants increased the Miami labor force by 7%, and the percentage increase in labor supply to less-skilled occupations and industries was even greater because most of the immigrants were relatively unskilled.</li>
 <li><strong>The Mariel influx appears to have had virtually no effect on the wages or unemployment rates of less-skilled workers, even among Cubans who had immigrated earlier.</strong></li>
@@ -817,19 +806,20 @@ Ollie Ballinger
 <section>
 <section id="regression-discontinuity" class="title-slide slide level1 center">
 <h1>Regression Discontinuity</h1>
-<!-- src: Week 9 - Causal Inference II.pptx slide 18 -->
+<!-- slide 24 -->
 </section>
 <section id="regression-discontinuity-design" class="slide level2">
 <h2>Regression Discontinuity Design</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 24 -->
+<!-- slide 25 -->
 <ul>
 <li>Regression Discontinuity Design (RDD) is a quasi-experimental evaluation option that measures the impact of an intervention, or treatment, by applying a treatment assignment mechanism based on a cutoff point in a continuous eligibility index.</li>
-<li>RDD estimates local average treatment effects around the cutoff point, where treatment and comparison units are most similar. <a href="https://dimewiki.worldbank.org/Regression_Discontinuity#:~:text=Regression%20Discontinuity%20Design%20(RDD)%20is,who%20is%20eligible%20to%20participate.">Source: World Bank</a></li>
+<li>RDD estimates local average treatment effects around the cutoff point, where treatment and comparison units are most similar.</li>
 </ul>
+<p><a href="https://dimewiki.worldbank.org/Regression_Discontinuity#:~:text=Regression%20Discontinuity%20Design%20(RDD)%20is,who%20is%20eligible%20to%20participate.">Source: World Bank</a></p>
 </section>
 <section id="conditions" class="slide level2">
 <h2>Conditions</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 26 -->
+<!-- slide 26 -->
 <ol type="1">
 <li>A continuous eligibility index
 <ul>
@@ -842,9 +832,9 @@ Ollie Ballinger
 </ul></li>
 </ol>
 </section>
-<section id="section-3" class="slide level2 fallback" data-background-image="img/w08/w09_slide_027.jpg" data-background-size="contain">
+<section id="section-3" class="slide level2 fallback" data-background-image="img/w08/slide_027.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 27 -->
+<!-- slide 27 -->
 <aside class="notes">
 <p>Slide text: Assumption 1 · The eligibility index should be continuous around the cutoff point. There should be no jumps in the eligibility index at the cutoff point or any other sign of individuals manipulating their eligibility index in order to increase their chances of being included in or excluded from the program. · Heaping around the cutoff · Continuous distribution</p>
 <style type="text/css">
@@ -861,7 +851,7 @@ Ollie Ballinger
 </section>
 <section id="assumption-2" class="slide level2">
 <h2>Assumption 2</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 28 -->
+<!-- slide 28 -->
 <ul>
 <li>Individuals close to the cutoff point should be very similar, on average, in observed and unobserved characteristics.
 <ul>
@@ -870,9 +860,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="section-4" class="slide level2 fallback" data-background-image="img/w08/w09_slide_031.jpg" data-background-size="contain">
+<section id="section-4" class="slide level2 fallback" data-background-image="img/w08/slide_029.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 31 -->
+<!-- slide 29 -->
 <aside class="notes">
 <p>Slide text: Treatment Assignment</p>
 <style type="text/css">
@@ -889,29 +879,29 @@ Ollie Ballinger
 </section>
 <section id="observed-outcomes" class="slide level2">
 <h2>Observed Outcomes</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 32 -->
+<!-- slide 30 -->
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>There appears to be a jump in the observed values of the outcome variable (earnings) around the cutoff (scholarship eligibility)</p>
 </div><div class="column" style="width:60%;">
-<p><img data-src="img/w08/w09_d19263f6a9.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w08/d19263f6a9.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="potential-outcomes" class="slide level2">
 <h2>Potential Outcomes</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 33 -->
+<!-- slide 31 -->
 <div class="columns">
 <div class="column" style="width:41%;">
 <p>We can use the discontinuity created by the treatment to estimate the effect of D on Y at the threshold</p>
 </div><div class="column" style="width:59%;">
-<p><img data-src="img/w08/w09_7bbc95c0ff.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w08/7bbc95c0ff.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
-<section id="section-5" class="slide level2 fallback" data-background-image="img/w08/w09_slide_036.jpg" data-background-size="contain">
+<section id="section-5" class="slide level2 fallback" data-background-image="img/w08/slide_032.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 36 -->
+<!-- slide 32 -->
 <aside class="notes">
 <p>Slide text: Linear, Different Slopes</p>
 <style type="text/css">
@@ -926,9 +916,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-6" class="slide level2 fallback" data-background-image="img/w08/w09_slide_037.jpg" data-background-size="contain">
+<section id="section-6" class="slide level2 fallback" data-background-image="img/w08/slide_033.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 37 -->
+<!-- slide 33 -->
 <aside class="notes">
 <p>Slide text: Non-Linear</p>
 <style type="text/css">
@@ -946,15 +936,15 @@ Ollie Ballinger
 <section>
 <section id="case-study-irrigation-and-insurgency" class="title-slide slide level1 center">
 <h1>Case Study: Irrigation and Insurgency</h1>
-
+<!-- slide 34 -->
 </section>
 <section id="does-irrigation-reduce-insurgent-recruitment-in-southeastern-turkey" class="slide level2 center">
 <h2>Does irrigation reduce insurgent recruitment in Southeastern Turkey?</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 7 -->
+<!-- slide 35 -->
 </section>
 <section id="kurdish-insurgency" class="slide level2">
 <h2>Kurdish Insurgency</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 3 -->
+<!-- slide 36 -->
 <div class="columns">
 <div class="column" style="width:41%;">
 <ul>
@@ -963,13 +953,13 @@ Ollie Ballinger
 <li>Originally a “peasant movement”, recruiting largely from farming communities (Yavuz, 2001: 10)</li>
 </ul>
 </div><div class="column" style="width:59%;">
-<p><img data-src="img/w08/w09_c98a2e9ebf.png" class="pic" style="max-height:656px"></p>
+<p><img data-src="img/w08/c98a2e9ebf.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="southeastern-anatolia-project-gap" class="slide level2">
-<h2>Southeastern Anatolia Project(GAP)</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 4 -->
+<h2>Southeastern Anatolia Project (GAP)</h2>
+<!-- slide 37 -->
 <div class="columns">
 <div class="column" style="width:55%;">
 <ul>
@@ -984,13 +974,13 @@ Ollie Ballinger
 <li>Government hoped it would reduce appeal of PKK</li>
 </ul>
 </div><div class="column" style="width:45%;">
-<p><img data-src="img/w08/w09_a077989a1b.gif" class="pic" style="max-height:665px"></p>
+<p><img data-src="img/w08/a077989a1b.gif" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="rdd-framework" class="slide level2">
 <h2>RDD Framework</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 12 -->
+<!-- slide 38 -->
 <ul>
 <li><strong>Question</strong>: Does irrigation reduce recruitment?</li>
 <li><strong>Endogenous variable</strong>:
@@ -1008,9 +998,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="section-7" class="slide level2 fallback" data-background-image="img/w08/w09_slide_014.jpg" data-background-size="contain">
+<section id="section-7" class="slide level2 fallback" data-background-image="img/w08/slide_039.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 14 -->
+<!-- slide 39 -->
 <aside class="notes">
 <p>Slide text: Terrain and Irrigation · 5km x 5km cells · 3. Empirical Strategy</p>
 <style type="text/css">
@@ -1027,12 +1017,12 @@ Ollie Ballinger
 </section>
 <section id="section-8" class="slide level2 notitle">
 <h2></h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 15 -->
+<!-- slide 40 -->
 
-<img data-src="img/w08/w09_1215dadf6c.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="img/w08/1215dadf6c.png" class="r-stretch quarto-figure-center"></section>
 <section id="main-findings" class="slide level2">
 <h2>Main Findings</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 17 -->
+<!-- slide 41 -->
 <ul>
 <li>Irrigation is negatively related to conflict incidence and recruitment.</li>
 <li>Panel models indicate that a <strong>27km2</strong> <strong>increase in irrigated area leads to a 49% drop in the probability of conflict.</strong></li>
@@ -1041,7 +1031,7 @@ Ollie Ballinger
 </section>
 <section id="where-rdd-shows-up-close-elections" class="slide level2">
 <h2>Where RDD Shows Up: Close Elections</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 42 -->
+<!-- slide 42 -->
 <ul>
 <li><strong>Question</strong>: Do members of Party A curtail women’s rights?</li>
 <li><strong>Running variable</strong>:
@@ -1061,7 +1051,7 @@ Ollie Ballinger
 </section>
 <section id="fuzzy-regression-discontinuity" class="slide level2">
 <h2>Fuzzy Regression Discontinuity</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 45 -->
+<!-- slide 43 -->
 <ul>
 <li>Threshold may not perfectly determine treatment exposure, but <strong>it creates a discontinuity in the probability of treatment exposure</strong></li>
 <li>Incentives to participate in a program may change discontinuously at a threshold, but the incentives are not powerful enough to move all units from non-participation to participation</li>
@@ -1070,11 +1060,12 @@ Ollie Ballinger
 </section>
 <section id="sharp-vs.-fuzzy-rdd" class="slide level2">
 <h2>Sharp vs.&nbsp;Fuzzy RDD</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 46 -->
+<!-- slide 44 -->
 
-<img data-src="img/w08/w09_ed2e21f188.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="img/w08/ed2e21f188.png" class="r-stretch quarto-figure-center"></section>
 <section id="auditing-a-causal-claim" class="slide level2">
 <h2>Auditing a Causal Claim</h2>
+<!-- slide 45 -->
 <p>Questions to ask of any DiD or RDD, including one an AI wrote for you:</p>
 <ul>
 <li><strong>What is the counterfactual</strong>, and why should I believe it?</li>
@@ -1085,8 +1076,8 @@ Ollie Ballinger
 </section>
 <section id="any-questions" class="slide level2">
 <h2>Any Questions?</h2>
-<!-- src: Week 9 - Causal Inference II.pptx slide 50 -->
-<p><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></p>
+<!-- slide 46 -->
+<p><span style="display:block;text-align:center"><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></span></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>
 </div>

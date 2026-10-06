@@ -337,9 +337,9 @@ Ollie Ballinger
 </div>
 
 </section>
-<section id="section" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_002.jpg" data-background-size="contain">
+<section id="section" class="slide level2 fallback" data-background-image="img/w09/slide_002.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week X - Embeddings.pptx slide 2 -->
+<!-- slide 2 -->
 <aside class="notes">
 <p>Slide text: The Data Science Process: · Collect raw data: text, images, tracks · Turn it into vectors a model can use · Search, cluster, classify · Validate the model · Ask a Question · Get the Data · Explore the Data · Model the Data · Visualize the Results</p>
 <style type="text/css">
@@ -356,7 +356,7 @@ Ollie Ballinger
 </section>
 <section id="ships-that-go-dark" class="slide level2">
 <h2>Ships That Go Dark</h2>
-<!-- src: Week X - Embeddings.pptx slide 3 -->
+<!-- slide 3 -->
 <ul>
 <li>Large ships broadcast their identity and position by radio: the <strong>Automatic Identification System (AIS)</strong></li>
 <li>But AIS can be <strong>switched off, spoofed or never fitted</strong>. A ship that isn’t broadcasting is ‘dark’</li>
@@ -380,6 +380,7 @@ Ollie Ballinger
 </section>
 <section id="one-idea-behind-modern-ai" class="slide level2">
 <h2>One Idea Behind Modern AI</h2>
+<!-- slide 4 -->
 <ul>
 <li>Your phone recognises your face by turning each photo into a list of numbers: an <strong>embedding</strong></li>
 <li>Photos of the <strong>same face</strong> get <strong>similar</strong> numbers; different faces get different numbers</li>
@@ -390,6 +391,7 @@ Ollie Ballinger
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
+<!-- slide 5 -->
 <ol type="1">
 <li>What Is an Embedding?</li>
 <li>Measuring Similarity</li>
@@ -401,11 +403,11 @@ Ollie Ballinger
 <section>
 <section id="what-is-an-embedding" class="title-slide slide level1 center">
 <h1>1. What Is an Embedding?</h1>
-<!-- src: Week X - Embeddings.pptx slide 8 -->
+<!-- slide 6 -->
 </section>
 <section id="computers-need-numbers" class="slide level2">
 <h2>Computers Need Numbers</h2>
-<!-- src: Week X - Embeddings.pptx slide 9 -->
+<!-- slide 7 -->
 <ul>
 <li>Every model we’ve built so far takes a table of numbers as input</li>
 <li>Some data is <strong>already numeric</strong>: income, age, air quality</li>
@@ -419,7 +421,7 @@ Ollie Ballinger
 </section>
 <section id="attempt-1-one-hot-encoding" class="slide level2">
 <h2>Attempt 1: One-Hot Encoding</h2>
-<!-- src: Week X - Embeddings.pptx slide 10 -->
+<!-- slide 8 -->
 <div class="columns">
 <div class="column" style="width:43%;">
 <ul>
@@ -432,13 +434,13 @@ Ollie Ballinger
 <li>This is what dummy variables do in a regression</li>
 </ul>
 </div><div class="column" style="width:57%;">
-<p><img data-src="img/w09/embeddings_468dd8513a.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w09/468dd8513a.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section>
 <section id="attempt-2-dense-vectors" class="slide level2">
 <h2>Attempt 2: Dense Vectors</h2>
-<!-- src: Week X - Embeddings.pptx slide 11 -->
+<!-- slide 9 -->
 <div class="columns">
 <div class="column" style="width:37%;">
 <ul>
@@ -452,7 +454,7 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </div><div class="column" style="width:63%;">
-<p><img data-src="img/w09/embeddings_08e5c8df48.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w09/08e5c8df48.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 <aside class="notes">
@@ -471,7 +473,7 @@ Ollie Ballinger
 </section>
 <section id="where-do-the-numbers-come-from" class="slide level2">
 <h2>Where Do the Numbers Come From?</h2>
-<!-- src: Week X - Embeddings.pptx slide 12 -->
+<!-- slide 10 -->
 <ul>
 <li><strong>‘You shall know a word by the company it keeps’</strong> (J.R. Firth, 1957)</li>
 <li>Words that appear in <strong>similar contexts</strong> tend to have <strong>similar meanings</strong>
@@ -485,7 +487,7 @@ Ollie Ballinger
 </section>
 <section id="king-man-woman-queen" class="slide level2">
 <h2>king − man + woman ≈ queen</h2>
-<!-- src: Week X - Embeddings.pptx slide 13 -->
+<!-- slide 11 -->
 <div class="columns">
 <div class="column" style="width:43%;">
 <ul>
@@ -495,7 +497,7 @@ Ollie Ballinger
 <li>Nobody programmed this in. It emerged from reading text</li>
 </ul>
 </div><div class="column" style="width:57%;">
-<p><img data-src="img/w09/embeddings_f108c5bbb2.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w09/f108c5bbb2.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 <aside class="notes">
@@ -514,7 +516,7 @@ Ollie Ballinger
 </section>
 <section id="embeddings-learn-our-biases-too" class="slide level2">
 <h2>Embeddings Learn Our Biases Too</h2>
-<!-- src: Week X - Embeddings.pptx slide 14 -->
+<!-- slide 12 -->
 <ul>
 <li>The same arithmetic finds patterns we’d rather it didn’t</li>
 <li>Bolukbasi et al.&nbsp;(2016): in word2vec trained on news, <strong>man : computer programmer :: woman : homemaker</strong></li>
@@ -523,8 +525,9 @@ Ollie Ballinger
 <li>Always ask: <strong>what was this trained on, and what did it learn to ignore?</strong></li>
 </ul>
 </section>
-<section id="anything-can-be-embedded" class="slide level2">
+<section id="anything-can-be-embedded" class="slide level2 smaller">
 <h2>Anything Can Be Embedded</h2>
+<!-- slide 13 -->
 <table>
 <colgroup>
 <col style="width: 33%">
@@ -570,30 +573,28 @@ Ollie Ballinger
 <section>
 <section id="measuring-similarity" class="title-slide slide level1 center">
 <h1>2. Measuring Similarity</h1>
-<!-- src: Week X - Embeddings.pptx slide 16 -->
+<!-- slide 14 -->
 </section>
-<section id="cosine-similarity" class="slide level2">
-<h2>Cosine Similarity</h2>
-<p>Measure the <strong>angle</strong> between two vectors, ignoring their length:</p>
-<p><span class="math display">\[\cos(a, b) = \frac{a \cdot b}{|a|\,|b|}\]</span></p>
-<ul>
-<li><span class="math inline">\(a \cdot b\)</span>: multiply matching elements and add them up; <span class="math inline">\(|a|\)</span>, <span class="math inline">\(|b|\)</span>: the length of each vector</li>
-<li><strong>1</strong> = same direction, <strong>0</strong> = unrelated, <strong>−1</strong> = opposite</li>
-</ul>
-
-<img data-src="img/extra/cosine_arrows.jpg" style="width:70.0%" class="r-stretch quarto-figure-center"><div class="columns">
-<div class="column" style="width:33%;">
-<p><span style="display:block;text-align:center">similar: cos ≈ 0.97</span></p>
-</div><div class="column" style="width:33%;">
-<p><span style="display:block;text-align:center">unrelated: cos = 0</span></p>
-</div><div class="column" style="width:33%;">
-<p><span style="display:block;text-align:center">opposite: cos ≈ −1</span></p>
-</div>
-</div>
-</section>
-<section id="section-1" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_018.jpg" data-background-size="contain">
+<section id="section-1" class="slide level2 fallback" data-background-image="img/w09/slide_015.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week X - Embeddings.pptx slide 18 -->
+<!-- slide 15 -->
+<aside class="notes">
+<p>Slide text: Cosine Similarity · Measure the angle between two vectors, ignoring their length: · cos(a, b) = a · b / |a| |b| · a · b: multiply matching elements and add them up; |a|, |b|: the length of each vector · 1 = same direction, 0 = unrelated, −1 = opposite · similar: cos ≈ 0.97 · unrelated: cos = 0 · opposite: cos ≈ −1</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-2" class="slide level2 fallback" data-background-image="img/w09/slide_016.jpg" data-background-size="contain">
+<h2></h2>
+<!-- slide 16 -->
 <aside class="notes">
 <p>Slide text: Worked Example · Three made-up 3-dimensional embeddings: · a = [2, 1, 0] b = [4, 2, 1] c = [0, 1, 3] · a vs b · a · b = 2×4 + 1×2 + 0×1 = 10 · ‖a‖ = √5 = 2.24, ‖b‖ = √21 = 4.58 · cos = 10 / (2.24 × 4.58) · 0.98 · a vs c · a · c = 2×0 + 1×1 + 0×3 = 1 · ‖a‖ = 2.24, ‖c‖ = √10 = 3.16 · cos = 1 / (2.24 × 3.16) · 0.14 · b points almost the same way as a (it’s roughly 2 × a), so it’s the nearer neighbour even though it’s longer</p>
 <style type="text/css">
@@ -610,7 +611,7 @@ Ollie Ballinger
 </section>
 <section id="nearest-neighbour-search" class="slide level2">
 <h2>Nearest-Neighbour Search</h2>
-<!-- src: Week X - Embeddings.pptx slide 19 -->
+<!-- slide 17 -->
 <ul>
 <li>To identify a query, compare its vector with <strong>every stored vector</strong> and return the top k
 <ul>
@@ -626,6 +627,7 @@ Ollie Ballinger
 </section>
 <section id="searching-millions-of-vectors" class="slide level2">
 <h2>Searching Millions of Vectors</h2>
+<!-- slide 18 -->
 <ul>
 <li>One query against a million stored vectors is quick</li>
 <li>Comparing <strong>every</strong> item with every other grows with the square of the data: 100 million items is ~10¹⁶ comparisons</li>
@@ -638,6 +640,7 @@ Ollie Ballinger
 </section>
 <section id="where-to-draw-the-line" class="slide level2">
 <h2>Where to Draw the Line?</h2>
+<!-- slide 19 -->
 <ul>
 <li>Nearest-neighbour search <strong>always</strong> returns something, even when nothing in the database is really similar</li>
 <li>So we need a <strong>cut-off</strong>: below this similarity, call it ‘no match’</li>
@@ -648,11 +651,11 @@ Ollie Ballinger
 <section>
 <section id="where-embeddings-come-from" class="title-slide slide level1 center">
 <h1>3. Where Embeddings Come From</h1>
-<!-- src: Week X - Embeddings.pptx slide 22 -->
+<!-- slide 20 -->
 </section>
 <section id="learned-not-designed" class="slide level2">
 <h2>Learned, Not Designed</h2>
-<!-- src: Week X - Embeddings.pptx slide 23 -->
+<!-- slide 21 -->
 <ul>
 <li>An embedding model is (almost always) a <strong>neural network</strong></li>
 <li>Input goes in (a word, an image); the network’s <strong>last layer of numbers</strong> comes out; that’s the embedding</li>
@@ -664,28 +667,26 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="three-ways-to-train-an-embedding" class="slide level2">
-<h2>Three Ways to Train an Embedding</h2>
-<div class="columns">
-<div class="column" style="width:33%;">
-<p><strong>Predict the context</strong></p>
-<p>word2vec, GloVe, language models</p>
-<p>Learn vectors that are good at predicting nearby words</p>
-</div><div class="column" style="width:33%;">
-<p><strong>Match pairs</strong></p>
-<p>CLIP (OpenAI, 2021)</p>
-<p>400 million images and their captions: pull each image towards its own caption and away from everyone else’s</p>
-</div><div class="column" style="width:33%;">
-<p><strong>Tell identities apart</strong></p>
-<p>Face recognition</p>
-<p>Pull photos of the same face together and push different faces apart</p>
-</div>
-</div>
+<section id="section-3" class="slide level2 fallback" data-background-image="img/w09/slide_022.jpg" data-background-size="contain">
+<h2></h2>
+<!-- slide 22 -->
+<aside class="notes">
+<p>Slide text: Three Ways to Train an Embedding · Predict the context · word2vec, GloVe, language models · Learn vectors that are good at predicting nearby words · Match pairs · CLIP (OpenAI, 2021) · 400 million images and their captions: pull each image towards its own caption and away from everyone else’s · Tell identities apart · Face recognition · Pull photos of the same face together and push different faces apart</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="pretrained-models-you-can-use-today" class="slide level2">
 <h2>Pretrained Models You Can Use Today</h2>
-<!-- src: Week X - Embeddings.pptx slide 25 -->
-<p>Most are free to download from <strong>Hugging Face</strong> and run in Colab. You rarely need to train your own</p>
+<!-- slide 23 -->
 <table>
 <colgroup>
 <col style="width: 25%">
@@ -695,43 +696,44 @@ Ollie Ballinger
 </colgroup>
 <thead>
 <tr class="header">
-<th>Model</th>
-<th>Input</th>
-<th>Vector length</th>
-<th>Good for</th>
+<th><strong>Model</strong></th>
+<th><strong>Input</strong></th>
+<th><strong>Vector length</strong></th>
+<th><strong>Good for</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>GloVe</td>
+<td><strong>GloVe</strong></td>
 <td>Words</td>
 <td>50–300</td>
 <td>Word similarity, simple text features</td>
 </tr>
 <tr class="even">
-<td>all-MiniLM-L6-v2</td>
+<td><strong>all-MiniLM-L6-v2</strong></td>
 <td>Sentences</td>
 <td>384</td>
 <td>Semantic search, clustering documents</td>
 </tr>
 <tr class="odd">
-<td>CLIP</td>
+<td><strong>CLIP</strong></td>
 <td>Images and text</td>
 <td>512 (ViT-B/32)</td>
 <td>Searching photos with words</td>
 </tr>
 <tr class="even">
-<td>DINOv3 (ViT-B/16)</td>
+<td><strong>DINOv3 (ViT-B/16)</strong></td>
 <td>Images</td>
 <td>768</td>
 <td>General-purpose image features</td>
 </tr>
 </tbody>
 </table>
+<p>Most are free to download from <strong>Hugging Face</strong> and run in Colab. You rarely need to train your own</p>
 </section>
-<section id="section-2" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_026.jpg" data-background-size="contain">
+<section id="section-4" class="slide level2 fallback" data-background-image="img/w09/slide_024.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week X - Embeddings.pptx slide 26 -->
+<!-- slide 24 -->
 <aside class="notes">
 <p>Run for real on 2026-09-25 (src/st_demo.py, output in src/st_demo_out.txt). Newer versions also offer model.similarity(emb, emb); util.cos_sim works across versions.</p>
 <p>Slide text: In Python · from sentence_transformers import SentenceTransformer, util · · model = SentenceTransformer(“all-MiniLM-L6-v2”) · sentences = [ · “A fishing boat switched off its transponder”, · “The trawler stopped broadcasting its location”, · “I had pasta for lunch”, · ] · · emb = model.encode(sentences) # shape (3, 384) · util.cos_sim(emb, emb) # 3 x 3 similarity matrix · Output · boat vs trawler: 0.39 · boat vs pasta: 0.03 · trawler vs pasta: 0.08 · · The first two share only ‘its’, but the model knows they mean similar things · pip install sentence-transformers. Swap in your own documents to cluster or search them by meaning</p>
@@ -750,11 +752,11 @@ Ollie Ballinger
 <section>
 <section id="visualising-embeddings" class="title-slide slide level1 center">
 <h1>4. Visualising Embeddings</h1>
-<!-- src: Week X - Embeddings.pptx slide 30 -->
+<!-- slide 25 -->
 </section>
 <section id="squashing-hundreds-of-dimensions-into-2" class="slide level2">
 <h2>Squashing Hundreds of Dimensions into 2</h2>
-<!-- src: Week X - Embeddings.pptx slide 31 -->
+<!-- slide 26 -->
 <ul>
 <li>We can’t plot hundreds of dimensions, so we <strong>project</strong> them down to 2 for a picture</li>
 <li><strong>PCA</strong> (principal component analysis): the best flat ‘shadow’ of the data. Fast, faithful to big distances, but often muddled</li>
@@ -762,9 +764,9 @@ Ollie Ballinger
 <li>Next week’s clustering methods (k-means, hierarchical) work on embeddings too, and should be run on the <strong>full vectors</strong>, not the 2D picture</li>
 </ul>
 </section>
-<section id="section-3" class="slide level2 fallback" data-background-image="img/w09/embeddings_slide_032.jpg" data-background-size="contain">
+<section id="section-5" class="slide level2 fallback" data-background-image="img/w09/slide_027.jpg" data-background-size="contain">
 <h2></h2>
-<!-- src: Week X - Embeddings.pptx slide 32 -->
+<!-- slide 27 -->
 <aside class="notes">
 <p>Slide text: Same Data, Three Maps · 1,797 handwritten digits (8 × 8 pixels = 64 numbers each), projected three ways. Only the method and one setting change</p>
 <style type="text/css">
@@ -781,7 +783,7 @@ Ollie Ballinger
 </section>
 <section id="reading-t-sne-and-umap-plots-safely" class="slide level2">
 <h2>Reading t-SNE and UMAP Plots Safely</h2>
-<!-- src: Week X - Embeddings.pptx slide 33 -->
+<!-- slide 28 -->
 <ul>
 <li><strong>Cluster sizes mean nothing</strong>: t-SNE expands dense clusters and shrinks sparse ones</li>
 <li><strong>Distances between clusters mean little</strong>: two clusters far apart on the plot may be close in the real space</li>
@@ -792,7 +794,7 @@ Ollie Ballinger
 </section>
 <section id="case-study-finding-mines" class="slide level2">
 <h2>Case Study: Finding Mines</h2>
-<!-- src: Week X - Clustering.pptx slide 27 -->
+<!-- slide 29 -->
 <div class="columns">
 <div class="column" style="width:46%;">
 <ul>
@@ -801,17 +803,18 @@ Ollie Ballinger
 <li>Patches near that region are candidate unreported mines</li>
 </ul>
 </div><div class="column" style="width:54%;">
-<p><img data-src="img/w09/clustering_a263939396.png" class="pic" style="max-height:700px"></p>
+<p><img data-src="img/w09/a263939396.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 </section></section>
 <section>
 <section id="using-embeddings-well" class="title-slide slide level1 center">
 <h1>5. Using Embeddings Well</h1>
-
+<!-- slide 30 -->
 </section>
 <section id="when-embeddings-go-wrong" class="slide level2">
 <h2>When Embeddings Go Wrong</h2>
+<!-- slide 31 -->
 <ul>
 <li><strong>Shortcuts</strong>: a model can match the <strong>background</strong> instead of the object: the same beach, the same sky, the same satellite scene</li>
 <li><strong>Look-alikes</strong>: different things that really do look the same (twins, identical products, sister ships)</li>
@@ -822,6 +825,7 @@ Ollie Ballinger
 </section>
 <section id="ethics-and-limits" class="slide level2">
 <h2>Ethics and Limits</h2>
+<!-- slide 32 -->
 <ul>
 <li><strong>Bias</strong>: embeddings inherit their training data’s stereotypes and pass them on to every system built on top</li>
 <li><strong>Surveillance and dual use</strong>: face recognition, and anything like it, can track people who never agreed to it. Who gets access?</li>
@@ -831,6 +835,7 @@ Ollie Ballinger
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
+<!-- slide 33 -->
 <ol type="1">
 <li>An <strong>embedding</strong> turns something (a word, an image, a place) into a vector so that <strong>similar things are close</strong></li>
 <li><strong>Cosine similarity</strong> measures closeness by angle; <strong>nearest-neighbour search</strong> finds the closest items</li>
@@ -839,10 +844,11 @@ Ollie Ballinger
 <li><strong>t-SNE / UMAP</strong> are for looking, not proving</li>
 </ol>
 </section>
-<section id="any-questions" class="slide level2">
+<section id="any-questions" class="slide level2 smaller">
 <h2>Any Questions?</h2>
-<!-- src: Week X - Embeddings.pptx slide 45 -->
-<p>o.ballinger@ucl.ac.uk Further reading: Jay Alammar, <strong>The Illustrated Word2vec</strong> (blog) · Wattenberg et al.&nbsp;(2016), <strong>How to Use t-SNE Effectively</strong> (distill.pub) · Paolo et al.&nbsp;(2024), <strong>Satellite mapping reveals extensive industrial activity at sea</strong>, Nature · Bolukbasi et al.&nbsp;(2016), <strong>Man is to Computer Programmer as Woman is to Homemaker?</strong></p>
+<!-- slide 34 -->
+<p>o.ballinger@ucl.ac.uk</p>
+<p>Further reading: Jay Alammar, <strong>The Illustrated Word2vec</strong> (blog) · Wattenberg et al.&nbsp;(2016), <strong>How to Use t-SNE Effectively</strong> (distill.pub) · Paolo et al.&nbsp;(2024), <strong>Satellite mapping reveals extensive industrial activity at sea</strong>, Nature · Bolukbasi et al.&nbsp;(2016), <strong>Man is to Computer Programmer as Woman is to Homemaker?</strong></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>
 </div>

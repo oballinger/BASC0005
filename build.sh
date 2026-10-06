@@ -4,4 +4,4 @@
 set -e
 cd "$(dirname "$0")"
 quarto render --to html
-(cd lectures && quarto render)
+(cd lectures/qmd && quarto render)   # decks (qmd/ is generated from PowerPoint by lectures/tools/sync.py)
