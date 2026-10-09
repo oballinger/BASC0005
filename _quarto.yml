@@ -1,4 +1,6 @@
 project:
+  resources:
+    - "data/assessed/**"
   type: book
   output-dir: docs
   render:
