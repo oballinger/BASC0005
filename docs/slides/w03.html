@@ -671,7 +671,7 @@ ga('send', {
     g.globalAlpha = 1;
     if (P) for (const i of P) {
       g.beginPath(); g.arc(sx(i), sy(i), radius(i) + 2.5, 0, 2 * Math.PI);
-      g.lineWidth = sel >= 0 ? 3 : 1.2; g.strokeStyle = sel >= 0 ? RED : "#000"; g.stroke();
+      g.lineWidth = sel >= 0 ? 3 : 2; g.strokeStyle = RED; g.stroke();   // search hits, fleets and selections all get a red ring
     }
     if (hover >= 0) { g.beginPath(); g.arc(sx(hover), sy(hover), radius(hover) + 2, 0, 2 * Math.PI); g.lineWidth = 2; g.strokeStyle = "#000"; g.stroke(); }
     // labels: the selection and its biggest partners, or the biggest hubs

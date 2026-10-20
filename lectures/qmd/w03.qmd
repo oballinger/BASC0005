@@ -316,61 +316,61 @@ Largest connected component of the Kerch network vs one Erdos-Renyi G(n,m) draw 
 Slide text: Three Ways to Be Central · Degree · How many connections? The popular one. · Betweenness · Share of shortest paths that pass through you. The broker. · Eigenvector · Connected to other central nodes. The insider. (Google's PageRank is a version.)
 :::
 
-## Degree: Count the Links
+## Degree: Who Has the Most Friends?
 <!-- slide 37 -->
 
 ::: {.columns}
-:::: {.column width="30%"}
-- Degree = how many edges a node has
-- **H** has **7**, the most here
-- But six of H's partners trade with no one else
-- Kerch: the busy **loaders**
+:::: {.column width="35%"}
+- Degree = how many **friends** you have
+- **H** is a Year 12 mentor with **7**, the most in the school
+- But six are new **Year 7s** who know nobody else
+- Lots of friends doesn't mean well connected
 ::::
-:::: {.column width="70%"}
-![](img/w03/010daee6f9.png){.pic style="max-height:700px"}
+:::: {.column width="65%"}
+![](img/w03/08c3cbf951.png){.pic style="max-height:700px"}
 ::::
 :::
 
 ::: notes
-Made-up network. Degree is often divided by n-1 so networks of different sizes compare. With weights (e.g. number of transfers, not partners) the sum is called strength.
+Made-up school. Degree is often divided by n-1 so networks of different sizes compare. With weights (e.g. number of transfers, not partners) the sum is called strength. Kerch: the top ships by degree are the busy loaders (bulk carriers, general cargo).
 :::
 
-## Betweenness: Who Sits in the Middle?
+## Betweenness: Who Hears All the Gossip?
 <!-- slide 38 -->
 
 ::: {.columns}
-:::: {.column width="30%"}
-- Take every pair of nodes and find the **shortest path** between them
-- Count the paths that pass **through** you
-- **B** has only **3** links but scores **120**: every route between the three groups goes through it
-- Remove B and the network falls apart. Kerch: the **tankers**
+:::: {.column width="35%"}
+- Gossip travels along the **shortest chain** of friends
+- **B** has only **3** friends, one in each group
+- Gossip between the Year 7s, the popular crowd and chess club **all goes through B**: 120 pairs
+- Remove B and the school splits in three
 ::::
-:::: {.column width="70%"}
-![](img/w03/522eac366c.png){.pic style="max-height:700px"}
+:::: {.column width="65%"}
+![](img/w03/24b841e281.png){.pic style="max-height:700px"}
 ::::
 :::
 
 ::: notes
-120 = 7x6 + 7x6 + 6x6: all pairs across the star (7), the tight group (6) and the loop (6). Ties split a path's credit. Usually normalised by the number of pairs.
+120 = 7x6 + 7x6 + 6x6: every pair across H's group (7), the popular crowd (6) and chess club (6). If two shortest paths tie, each gets half the credit. Usually normalised by the number of pairs. Kerch: the tankers are the brokers.
 :::
 
-## Eigenvector: Who Are Your Friends?
+## Eigenvector: Are Your Friends Popular?
 <!-- slide 39 -->
 
 ::: {.columns}
-:::: {.column width="30%"}
-- Your score is the sum of your **neighbours' scores**
-- **K** has 5 links, fewer than H, but they're to nodes linked to each other: **0.47**
-- **H** has 7 links, all to dead ends: **0.05**
-- Google's **PageRank** is a version. Kerch: the dense **core**
+:::: {.column width="35%"}
+- Your score depends on **your friends' scores**
+- **K** has 5 friends, fewer than H, but they're the **popular crowd**, all friends with each other: **0.47**
+- **H**'s 7 friends are Year 7s who know no one: **0.05**
+- Google's **PageRank**: a link from a popular page counts more
 ::::
-:::: {.column width="70%"}
-![](img/w03/3c42f05d7f.png){.pic style="max-height:700px"}
+:::: {.column width="65%"}
+![](img/w03/7a9ff8f54d.png){.pic style="max-height:700px"}
 ::::
 :::
 
 ::: notes
-Computed by repeatedly replacing each score with the sum of the neighbours' scores and rescaling (power iteration); it converges to the leading eigenvector of the adjacency matrix. Scores here are scaled to unit length.
+Computed by repeatedly replacing each score with the sum of the friends' scores and rescaling (power iteration); it converges to the leading eigenvector of the adjacency matrix, with lambda its eigenvalue (4.1 here). Scores scaled to unit length. Kerch: the dense core of small general-cargo ships.
 :::
 
 ## Which Ships Are Central?

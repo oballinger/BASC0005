@@ -13,8 +13,9 @@ OUT = Path(__file__).with_name("out")
 OUT.mkdir(exist_ok=True)
 plt.rcParams["font.family"] = "Arial"
 
-# a hub with six one-link spokes (left), a tight group around K (right), a loop (bottom),
-# and B, whose only job is to join the three
+# a school: H mentors six new Year 7s who know no one else (left), K sits in the popular crowd
+# where everyone is friends with everyone (right), there's a chess club (bottom),
+# and B has exactly one friend in each
 G = nx.Graph()
 pos = {"H": (-3.4, 0.9), "B": (0, 0), "K": (3.6, 0.9)}
 for i in range(6):
@@ -36,12 +37,24 @@ MEASURES = {
     "eigenvector": (nx.eigenvector_centrality(G, max_iter=5000), "#5b2a86", lambda v: f"{v:.2f}"),
 }
 
+# the formula, what its symbols mean, and the worked number for this measure's winner
+ev = MEASURES["eigenvector"][0]
+lam = sum(ev[q] for q in G["K"]) / ev["K"]
+EQ = {
+    "degree": (r"$C_D(i) = \sum_j A_{ij}$", r"$A_{ij} = 1$ if $i$ and $j$ are friends", r"H: $1+1+1+1+1+1+1 = 7$"),
+    "betweenness": (r"$C_B(i) = \sum_{s \neq i \neq t} \dfrac{\sigma_{st}(i)}{\sigma_{st}}$",
+                    r"$\sigma_{st}$: shortest paths from $s$ to $t$; $\sigma_{st}(i)$: those through $i$",
+                    r"B: $7{\times}6 + 7{\times}6 + 6{\times}6 = 120$"),
+    "eigenvector": (r"$x_i = \dfrac{1}{\lambda} \sum_j A_{ij}\, x_j$", r"$x_j$: your friends' scores; $\lambda$: a constant",
+                    r"K: $(" + "{+}".join(f"{ev[q]:.2f}" for q in sorted(G["K"], key=ev.get, reverse=True)) + rf") / {lam:.1f} = {ev['K']:.2f}$"),
+}
+
 for name, (c, col, fmt) in MEASURES.items():
     cmap = LinearSegmentedColormap.from_list(name, ["#f1eef6", col])
     lo, hi = min(c.values()), max(c.values())
     t = {k: (v - lo) / (hi - lo) for k, v in c.items()}
     top = max(c, key=c.get)
-    fig, ax = plt.subplots(figsize=(10, 7.4), dpi=200)
+    fig = plt.figure(figsize=(10, 8.1), dpi=200); ax = fig.add_axes([0, 0, 1, 1])   # fixed canvas: all three the same size
     for u, v in G.edges():
         on = top in (u, v)
         ax.plot(*zip(pos[u], pos[v]), color=col if on else "#9a9a9a", lw=4 if on else 2.2, zorder=1, solid_capstyle="round")
@@ -54,7 +67,14 @@ for name, (c, col, fmt) in MEASURES.items():
         x, y = pos[k]; r = 0.34 + 0.3 * t[k] + 0.42; a = math.radians(ang)
         ax.text(x + r * math.cos(a), y + r * math.sin(a), k, ha="center", va="center", fontsize=26, fontweight="bold",
                 color=col if k == top else "#555", zorder=4)
-    ax.set_xlim(-5.8, 6.3); ax.set_ylim(-4.35, 3.45); ax.set_aspect("equal"); ax.axis("off")
-    fig.savefig(OUT / f"centrality_{name}.png", bbox_inches="tight", pad_inches=0.05, transparent=False, facecolor="white")
+    for (x, y), text in {(-3.4, -1.55): "New Year 7s", (3.6, -2.0): "Popular crowd", (1.55, -3.75): "Chess club"}.items():
+        ax.text(x, y, text, ha="center" if x < 1 or x > 3 else "left", va="center", fontsize=20, style="italic", color="#777")
+    eq, key, worked = EQ[name]
+    ax.plot([-5.7, 6.2], [-4.5, -4.5], color="#ddd", lw=1.5)          # equation band under the network
+    ax.text(-5.7, -5.45, eq, ha="left", va="center", fontsize=30, color="#000")
+    ax.text(-0.7, -5.15, worked, ha="left", va="center", fontsize=17, color=col)
+    ax.text(-0.7, -5.8, key, ha="left", va="center", fontsize=14, color="#555")
+    ax.set_xlim(-5.8, 6.3); ax.set_ylim(-6.35, 3.45); ax.set_aspect("equal"); ax.axis("off")
+    fig.savefig(OUT / f"centrality_{name}.png", facecolor="white")
     plt.close(fig)
     print(name, sorted(((round(v, 3), k) for k, v in c.items()), reverse=True)[:4])

@@ -870,23 +870,23 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="degree-count-the-links" class="slide level2">
-<h2>Degree: Count the Links</h2>
+<section id="degree-who-has-the-most-friends" class="slide level2">
+<h2>Degree: Who Has the Most Friends?</h2>
 <!-- slide 37 -->
 <div class="columns">
-<div class="column" style="width:30%;">
+<div class="column" style="width:35%;">
 <ul>
-<li>Degree = how many edges a node has</li>
-<li><strong>H</strong> has <strong>7</strong>, the most here</li>
-<li>But six of H’s partners trade with no one else</li>
-<li>Kerch: the busy <strong>loaders</strong></li>
+<li>Degree = how many <strong>friends</strong> you have</li>
+<li><strong>H</strong> is a Year 12 mentor with <strong>7</strong>, the most in the school</li>
+<li>But six are new <strong>Year 7s</strong> who know nobody else</li>
+<li>Lots of friends doesn’t mean well connected</li>
 </ul>
-</div><div class="column" style="width:70%;">
-<p><img data-src="img/w03/010daee6f9.png" class="pic" style="max-height:700px"></p>
+</div><div class="column" style="width:65%;">
+<p><img data-src="img/w03/08c3cbf951.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 <aside class="notes">
-<p>Made-up network. Degree is often divided by n-1 so networks of different sizes compare. With weights (e.g.&nbsp;number of transfers, not partners) the sum is called strength.</p>
+<p>Made-up school. Degree is often divided by n-1 so networks of different sizes compare. With weights (e.g.&nbsp;number of transfers, not partners) the sum is called strength. Kerch: the top ships by degree are the busy loaders (bulk carriers, general cargo).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -899,23 +899,23 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="betweenness-who-sits-in-the-middle" class="slide level2">
-<h2>Betweenness: Who Sits in the Middle?</h2>
+<section id="betweenness-who-hears-all-the-gossip" class="slide level2">
+<h2>Betweenness: Who Hears All the Gossip?</h2>
 <!-- slide 38 -->
 <div class="columns">
-<div class="column" style="width:30%;">
+<div class="column" style="width:35%;">
 <ul>
-<li>Take every pair of nodes and find the <strong>shortest path</strong> between them</li>
-<li>Count the paths that pass <strong>through</strong> you</li>
-<li><strong>B</strong> has only <strong>3</strong> links but scores <strong>120</strong>: every route between the three groups goes through it</li>
-<li>Remove B and the network falls apart. Kerch: the <strong>tankers</strong></li>
+<li>Gossip travels along the <strong>shortest chain</strong> of friends</li>
+<li><strong>B</strong> has only <strong>3</strong> friends, one in each group</li>
+<li>Gossip between the Year 7s, the popular crowd and chess club <strong>all goes through B</strong>: 120 pairs</li>
+<li>Remove B and the school splits in three</li>
 </ul>
-</div><div class="column" style="width:70%;">
-<p><img data-src="img/w03/522eac366c.png" class="pic" style="max-height:700px"></p>
+</div><div class="column" style="width:65%;">
+<p><img data-src="img/w03/24b841e281.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 <aside class="notes">
-<p>120 = 7x6 + 7x6 + 6x6: all pairs across the star (7), the tight group (6) and the loop (6). Ties split a path’s credit. Usually normalised by the number of pairs.</p>
+<p>120 = 7x6 + 7x6 + 6x6: every pair across H’s group (7), the popular crowd (6) and chess club (6). If two shortest paths tie, each gets half the credit. Usually normalised by the number of pairs. Kerch: the tankers are the brokers.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -928,23 +928,23 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="eigenvector-who-are-your-friends" class="slide level2">
-<h2>Eigenvector: Who Are Your Friends?</h2>
+<section id="eigenvector-are-your-friends-popular" class="slide level2">
+<h2>Eigenvector: Are Your Friends Popular?</h2>
 <!-- slide 39 -->
 <div class="columns">
-<div class="column" style="width:30%;">
+<div class="column" style="width:35%;">
 <ul>
-<li>Your score is the sum of your <strong>neighbours’ scores</strong></li>
-<li><strong>K</strong> has 5 links, fewer than H, but they’re to nodes linked to each other: <strong>0.47</strong></li>
-<li><strong>H</strong> has 7 links, all to dead ends: <strong>0.05</strong></li>
-<li>Google’s <strong>PageRank</strong> is a version. Kerch: the dense <strong>core</strong></li>
+<li>Your score depends on <strong>your friends’ scores</strong></li>
+<li><strong>K</strong> has 5 friends, fewer than H, but they’re the <strong>popular crowd</strong>, all friends with each other: <strong>0.47</strong></li>
+<li><strong>H</strong>’s 7 friends are Year 7s who know no one: <strong>0.05</strong></li>
+<li>Google’s <strong>PageRank</strong>: a link from a popular page counts more</li>
 </ul>
-</div><div class="column" style="width:70%;">
-<p><img data-src="img/w03/3c42f05d7f.png" class="pic" style="max-height:700px"></p>
+</div><div class="column" style="width:65%;">
+<p><img data-src="img/w03/7a9ff8f54d.png" class="pic" style="max-height:700px"></p>
 </div>
 </div>
 <aside class="notes">
-<p>Computed by repeatedly replacing each score with the sum of the neighbours’ scores and rescaling (power iteration); it converges to the leading eigenvector of the adjacency matrix. Scores here are scaled to unit length.</p>
+<p>Computed by repeatedly replacing each score with the sum of the friends’ scores and rescaling (power iteration); it converges to the leading eigenvector of the adjacency matrix, with lambda its eigenvalue (4.1 here). Scores scaled to unit length. Kerch: the dense core of small general-cargo ships.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
