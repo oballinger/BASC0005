@@ -870,9 +870,96 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
+<section id="degree-count-the-links" class="slide level2">
+<h2>Degree: Count the Links</h2>
+<!-- slide 37 -->
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li>Degree = how many edges a node has</li>
+<li><strong>H</strong> has <strong>7</strong>, the most here</li>
+<li>But six of H’s partners trade with no one else</li>
+<li>Kerch: the busy <strong>loaders</strong></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="img/w03/010daee6f9.png" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+<aside class="notes">
+<p>Made-up network. Degree is often divided by n-1 so networks of different sizes compare. With weights (e.g.&nbsp;number of transfers, not partners) the sum is called strength.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="betweenness-who-sits-in-the-middle" class="slide level2">
+<h2>Betweenness: Who Sits in the Middle?</h2>
+<!-- slide 38 -->
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li>Take every pair of nodes and find the <strong>shortest path</strong> between them</li>
+<li>Count the paths that pass <strong>through</strong> you</li>
+<li><strong>B</strong> has only <strong>3</strong> links but scores <strong>120</strong>: every route between the three groups goes through it</li>
+<li>Remove B and the network falls apart. Kerch: the <strong>tankers</strong></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="img/w03/522eac366c.png" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+<aside class="notes">
+<p>120 = 7x6 + 7x6 + 6x6: all pairs across the star (7), the tight group (6) and the loop (6). Ties split a path’s credit. Usually normalised by the number of pairs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="eigenvector-who-are-your-friends" class="slide level2">
+<h2>Eigenvector: Who Are Your Friends?</h2>
+<!-- slide 39 -->
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li>Your score is the sum of your <strong>neighbours’ scores</strong></li>
+<li><strong>K</strong> has 5 links, fewer than H, but they’re to nodes linked to each other: <strong>0.47</strong></li>
+<li><strong>H</strong> has 7 links, all to dead ends: <strong>0.05</strong></li>
+<li>Google’s <strong>PageRank</strong> is a version. Kerch: the dense <strong>core</strong></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="img/w03/3c42f05d7f.png" class="pic" style="max-height:700px"></p>
+</div>
+</div>
+<aside class="notes">
+<p>Computed by repeatedly replacing each score with the sum of the neighbours’ scores and rescaling (power iteration); it converges to the leading eigenvector of the adjacency matrix. Scores here are scaled to unit length.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="which-ships-are-central" class="slide level2">
 <h2>Which Ships Are Central?</h2>
-<!-- slide 37 -->
+<!-- slide 40 -->
 <div class="columns">
 <div class="column" style="width:43%;">
 <ul>
@@ -901,7 +988,7 @@ Ollie Ballinger
 </section>
 <section id="the-broker-in-the-dark" class="slide level2">
 <h2>The Broker in the Dark</h2>
-<!-- slide 38 -->
+<!-- slide 41 -->
 <div class="columns">
 <div class="column" style="width:57%;">
 <ul>
@@ -917,7 +1004,7 @@ Ollie Ballinger
 </section>
 <section id="does-centrality-flag-grain-ships" class="slide level2">
 <h2>Does Centrality Flag Grain Ships?</h2>
-<!-- slide 39 -->
+<!-- slide 42 -->
 <div class="columns">
 <div class="column" style="width:43%;">
 <ul>
@@ -934,11 +1021,11 @@ Ollie Ballinger
 <section>
 <section id="finding-communities" class="title-slide slide level1 center">
 <h1>Finding Communities</h1>
-<!-- slide 40 -->
+<!-- slide 43 -->
 </section>
 <section id="communities-clustering-for-networks" class="slide level2">
 <h2>Communities: Clustering for Networks</h2>
-<!-- slide 41 -->
+<!-- slide 44 -->
 <div class="columns">
 <div class="column" style="width:43%;">
 <ul>
@@ -955,7 +1042,7 @@ Ollie Ballinger
 </section>
 <section id="kerch-transfers-over-time" class="slide level2">
 <h2>Kerch Transfers Over Time</h2>
-<!-- slide 42 -->
+<!-- slide 45 -->
 
 <img data-src="img/w03/ca09fd022f.png" class="r-stretch quarto-figure-center"><ul>
 <li>Transfers collapsed in March 2022, then rebounded to a record <strong>811 in October 2022</strong>.</li>
@@ -977,7 +1064,7 @@ Ollie Ballinger
 </section>
 <section id="communities-are-cargo-markets" class="slide level2 smaller">
 <h2>Communities Are Cargo Markets</h2>
-<!-- slide 43 -->
+<!-- slide 46 -->
 <div class="columns">
 <div class="column" style="width:47%;">
 <p><img data-src="img/w03/a94182f0d3.png" class="pic" style="max-height:634px"></p>
@@ -1006,7 +1093,7 @@ Ollie Ballinger
 </section>
 <section id="any-questions" class="slide level2">
 <h2>Any Questions?</h2>
-<!-- slide 44 -->
+<!-- slide 47 -->
 <p><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>

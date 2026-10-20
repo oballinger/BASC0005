@@ -316,8 +316,65 @@ Largest connected component of the Kerch network vs one Erdos-Renyi G(n,m) draw 
 Slide text: Three Ways to Be Central · Degree · How many connections? The popular one. · Betweenness · Share of shortest paths that pass through you. The broker. · Eigenvector · Connected to other central nodes. The insider. (Google's PageRank is a version.)
 :::
 
-## Which Ships Are Central?
+## Degree: Count the Links
 <!-- slide 37 -->
+
+::: {.columns}
+:::: {.column width="30%"}
+- Degree = how many edges a node has
+- **H** has **7**, the most here
+- But six of H's partners trade with no one else
+- Kerch: the busy **loaders**
+::::
+:::: {.column width="70%"}
+![](img/w03/010daee6f9.png){.pic style="max-height:700px"}
+::::
+:::
+
+::: notes
+Made-up network. Degree is often divided by n-1 so networks of different sizes compare. With weights (e.g. number of transfers, not partners) the sum is called strength.
+:::
+
+## Betweenness: Who Sits in the Middle?
+<!-- slide 38 -->
+
+::: {.columns}
+:::: {.column width="30%"}
+- Take every pair of nodes and find the **shortest path** between them
+- Count the paths that pass **through** you
+- **B** has only **3** links but scores **120**: every route between the three groups goes through it
+- Remove B and the network falls apart. Kerch: the **tankers**
+::::
+:::: {.column width="70%"}
+![](img/w03/522eac366c.png){.pic style="max-height:700px"}
+::::
+:::
+
+::: notes
+120 = 7x6 + 7x6 + 6x6: all pairs across the star (7), the tight group (6) and the loop (6). Ties split a path's credit. Usually normalised by the number of pairs.
+:::
+
+## Eigenvector: Who Are Your Friends?
+<!-- slide 39 -->
+
+::: {.columns}
+:::: {.column width="30%"}
+- Your score is the sum of your **neighbours' scores**
+- **K** has 5 links, fewer than H, but they're to nodes linked to each other: **0.47**
+- **H** has 7 links, all to dead ends: **0.05**
+- Google's **PageRank** is a version. Kerch: the dense **core**
+::::
+:::: {.column width="70%"}
+![](img/w03/3c42f05d7f.png){.pic style="max-height:700px"}
+::::
+:::
+
+::: notes
+Computed by repeatedly replacing each score with the sum of the neighbours' scores and rescaling (power iteration); it converges to the leading eigenvector of the adjacency matrix. Scores here are scaled to unit length.
+:::
+
+## Which Ships Are Central?
+<!-- slide 40 -->
 
 ::: {.columns}
 :::: {.column width="43%"}
@@ -336,7 +393,7 @@ Top 5 by betweenness: Vladimir Monomakh, Kavkaz II, Horasan, Barla, Avior. Top 5
 :::
 
 ## The Broker in the Dark
-<!-- slide 38 -->
+<!-- slide 41 -->
 
 ::: {.columns}
 :::: {.column width="57%"}
@@ -351,7 +408,7 @@ Top 5 by betweenness: Vladimir Monomakh, Kavkaz II, Horasan, Barla, Avior. Top 5
 :::
 
 ## Does Centrality Flag Grain Ships?
-<!-- slide 39 -->
+<!-- slide 42 -->
 
 ::: {.columns}
 :::: {.column width="43%"}
@@ -366,10 +423,10 @@ Top 5 by betweenness: Vladimir Monomakh, Kavkaz II, Horasan, Barla, Avior. Top 5
 :::
 
 # Finding Communities
-<!-- slide 40 -->
+<!-- slide 43 -->
 
 ## Communities: Clustering for Networks
-<!-- slide 41 -->
+<!-- slide 44 -->
 
 ::: {.columns}
 :::: {.column width="43%"}
@@ -385,7 +442,7 @@ Top 5 by betweenness: Vladimir Monomakh, Kavkaz II, Horasan, Barla, Avior. Top 5
 :::
 
 ## Kerch Transfers Over Time
-<!-- slide 42 -->
+<!-- slide 45 -->
 
 ![](img/w03/ca09fd022f.png){.r-stretch fig-align="center"}
 
@@ -397,7 +454,7 @@ Monthly counts from the event table on oballinger.github.io/STS (Jan 2021-May 20
 :::
 
 ## Communities Are Cargo Markets {.smaller}
-<!-- slide 43 -->
+<!-- slide 46 -->
 
 ::: {.columns}
 :::: {.column width="47%"}
@@ -418,6 +475,6 @@ Communities are the stored Louvain labels from the Bokeh page (modularity recomp
 :::
 
 ## Any Questions?
-<!-- slide 44 -->
+<!-- slide 47 -->
 
 [o.ballinger@ucl.ac.uk](mailto:o.ballinger@ucl.ac.uk)

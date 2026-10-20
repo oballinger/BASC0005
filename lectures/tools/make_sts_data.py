@@ -1,10 +1,15 @@
 """Extract the Kerch STS network from the published Bokeh page (oballinger.github.io/STS)
 into a compact JSON for the interactive on the Week 3 page (slides/_sts_network.md).
 
-    uv run --with numpy python lectures/tools/make_sts_data.py
+    uv run -p 3.12 --with numpy --with scipy --with networkx python lectures/tools/make_sts_data.py
+
+Ship photos: the MarineTraffic photo server the original links to now fails (Cloudflare 522), so
+photo URLs are scraped once from VesselFinder's ship pages and cached in lectures/tools/sts_photos.json.
 """
-import base64, html as htmllib, json, math, re, urllib.request
+import base64, html as htmllib, json, math, os, re, urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+import networkx as nx
 import numpy as np
 
 URL = "https://oballinger.github.io/STS/"
@@ -69,6 +74,7 @@ nodes = dict(
     sevastopol=[int(x) for x in N["wanted"]],
     comm=[-1 if num(x) is None else int(x) for x in N["community"]],
     btw=[round(num(x) or 0, 5) for x in N["betweenness"]], eig=[round(num(x) or 0, 5) for x in N["eigenvector"]],
+    wbtw=[round(num(x) or 0, 5) for x in N["w_betweenness"]], weig=[round(num(x) or 0, 5) for x in N["w_eigenvector"]],
     gaps=[int(num(x) or 0) for x in N["gap_count"]], gapdur=[round(num(x) or 0) for x in N["gap_duration"]],
     x=[round(pos[i][0], 2) for i in range(n)], y=[round(pos[i][1], 2) for i in range(n)])
 
@@ -82,6 +88,33 @@ for a, b, s, e in zip(T["ship1_id"], T["ship2_id"], T["start"], T["end"]):
     ev["s"].append(round((s - T0) / 60000))                 # minutes since T0
     ev["d"].append(round((d or 0) / 60000))                 # duration, minutes
 order = sorted(range(len(ev["s"])), key=ev["s"].__getitem__)
+
+# centralities the original doesn't carry, over the whole period (edge weight = number of transfers)
+G = nx.Graph(); G.add_nodes_from(range(n))
+for a, b in zip(ev["a"], ev["b"]):
+    G.add_edge(a, b, weight=G[a][b]["weight"] + 1 if G.has_edge(a, b) else 1)
+clo, pr = nx.closeness_centrality(G), nx.pagerank(G, weight="weight")
+nodes["clo"] = [round(clo[i], 5) for i in range(n)]
+nodes["pr"] = [round(pr[i], 6) for i in range(n)]
+
+# ship photos from VesselFinder: the page links static.vesselfinder.net/ship-photo/<imo>-<mmsi>-<hash>/1
+CACHE = Path(__file__).with_name("sts_photos.json")
+photos = json.loads(CACHE.read_text()) if CACHE.exists() else {}
+UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"}
+def photo(imo):
+    try:
+        page = urllib.request.urlopen(urllib.request.Request(f"https://www.vesselfinder.com/vessels/details/{imo}", headers=UA), timeout=20).read().decode()
+        m = re.search(rf"static\.vesselfinder\.net/ship-photo/({imo}-[0-9]+-[0-9a-f]+)/", page)
+        return str(imo), m.group(1) if m else ""
+    except Exception:
+        return str(imo), None                                # retry on the next run
+todo = [] if os.environ.get("STS_SKIP_PHOTOS") else sorted({i for i in nodes["imo"] if i and photos.get(str(i)) is None})
+with ThreadPoolExecutor(4) as pool:
+    for j, (k, v) in enumerate(pool.map(photo, todo), 1):
+        if v is not None: photos[k] = v
+        if j % 25 == 0 or j == len(todo):                    # save as we go, so an interrupted run isn't wasted
+            CACHE.write_text(json.dumps(photos, indent=0, sort_keys=True)); print(f"photos {j}/{len(todo)}", flush=True)
+nodes["photo"] = [photos.get(str(i)) or "" for i in nodes["imo"]]
 ev = {k: [v[i] for i in order] for k, v in ev.items()}
 
 OUT.write_text(json.dumps(dict(t0=T0, flags=flag.vals, types=vtype.vals, orgs=org.vals, nodes=nodes, ev=ev), separators=(",", ":")))

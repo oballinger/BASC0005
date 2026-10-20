@@ -9,6 +9,7 @@
 .sts .sts-bar { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin-bottom: .75rem; }
 .sts input[type=search], .sts select { font: inherit; font-size: .9rem; border: 2px solid #000; padding: .3rem .5rem; background: #fff; border-radius: 0; }
 .sts input[type=search] { width: 15rem; max-width: 100%; }
+.sts #sts-o { width: 21rem; }
 .sts button { font: inherit; font-size: .85rem; font-weight: 700; background: #000; color: #fff; border: 2px solid #000; padding: .3rem .75rem; cursor: pointer; border-radius: 0; }
 .sts button.sts-chip { background: #fff; color: #000; }
 .sts button.sts-chip[aria-pressed=true] { background: var(--sts-red); border-color: var(--sts-red); color: #fff; }
@@ -66,19 +67,28 @@
 .sts .sts-note { font-size: .78rem; color: #555; margin: .6rem 0 0; }
 </style>
 
-<div class="sts" id="sts">
+<div class="sts column-screen-inset-right" id="sts">
   <h2>Explore it: the Kerch transfer network</h2>
   <p class="sts-lede">Each dot is a vessel. A line joins two ships that did a <b>ship-to-ship transfer</b> in the Kerch Strait. Bigger dots did more transfers in the selected dates. Drag across the timeline to choose dates, and click a ship to see who it traded with and who owns it.</p>
   <div class="sts-bar">
     <input type="search" id="sts-q" list="sts-names" placeholder="Find a vessel…" autocomplete="off"><datalist id="sts-names"></datalist>
+    <input type="search" id="sts-o" list="sts-orgs" placeholder="Find an owner, operator or manager…" autocomplete="off"><datalist id="sts-orgs"></datalist>
     <label>Colour <select id="sts-mode">
       <option value="comm">Community</option>
       <option value="flag">Flag</option>
       <option value="type">Vessel type</option>
       <option value="risk">Sanctions &amp; suspects</option>
-      <option value="deg">Transfers (in dates)</option>
-      <option value="btw">Betweenness</option>
       <option value="gaps">AIS gaps</option>
+      <optgroup label="Centrality">
+      <option value="deg">Degree: transfers in selected dates</option>
+      <option value="c:dall">Degree: partners, whole period</option>
+      <option value="c:btw">Betweenness</option>
+      <option value="c:wbtw">Betweenness (weighted)</option>
+      <option value="c:eig">Eigenvector</option>
+      <option value="c:weig">Eigenvector (weighted)</option>
+      <option value="c:clo">Closeness</option>
+      <option value="c:pr">PageRank</option>
+      </optgroup>
     </select></label>
     <button class="sts-chip" id="sts-sev" aria-pressed="false">Sevastopol suspects</button>
     <button class="sts-chip" id="sts-san" aria-pressed="false">Sanctioned</button>
@@ -103,7 +113,7 @@
     </div>
     <canvas class="sts-hist" id="sts-hist"></canvas>
   </div>
-  <p class="sts-note">Transfers per week, Jan 2021 to Aug 2023. Communities and betweenness are computed over the whole period. Vessel ownership as recorded at the time of the investigation. Source: <a href="https://oballinger.github.io/STS/" target="_blank" rel="noopener">oballinger.github.io/STS</a>.</p>
+  <p class="sts-note">Transfers per week, Jan 2021 to Aug 2023. Communities and centralities (except degree in selected dates) are computed over the whole period; centrality colours are by rank, from lowest to highest. Ship photos: VesselFinder. Vessel ownership as recorded at the time of the investigation. Source: <a href="https://oballinger.github.io/STS/" target="_blank" rel="noopener">oballinger.github.io/STS</a>.</p>
 </div>
 
 <script>
@@ -128,7 +138,8 @@
   let deg, partners, edges = [], order = [], maxDeg = 1;
   let sel = -1, hover = -1, group = null, groupLabel = "", mode = "comm";
   let view = { k: 1, tx: 0, ty: 0 }, fitK = 1;
-  let flagColour = [], typeGroup = [];
+  let flagColour = [], typeGroup = [], crank = {}, fleet = [];
+  const CNAME = { dall: "Degree (partners)", btw: "Betweenness", wbtw: "Betweenness (weighted)", eig: "Eigenvector", weig: "Eigenvector (weighted)", clo: "Closeness", pr: "PageRank" };
 
   function surface(c) {                         // crisp canvas at the element's CSS size
     const dpr = window.devicePixelRatio || 1, w = c.clientWidth, h = c.clientHeight;
@@ -151,6 +162,19 @@
     flagColour = D.flags.map((_, f) => top.indexOf(f));
     typeGroup = D.types.map(t => /tanker/i.test(t) ? 2 : /^bulk/i.test(t) ? 0 : /^general cargo/i.test(t) ? 1 : t ? 3 : 4);
     $("sts-names").innerHTML = [...V.name].sort().map(s => `<option value="${esc(s)}">`).join("");
+    // whole-period partner counts, then every centrality as a rank in [0, 1]
+    const nb = Array.from({ length: n }, () => new Set());
+    for (let i = 0; i < m; i++) { nb[E.a[i]].add(E.b[i]); nb[E.b[i]].add(E.a[i]); }
+    V.dall = nb.map(s => s.size);
+    for (const k in CNAME) {
+      const r = new Float32Array(n), idx = [...Array(n).keys()].sort((a, b) => V[k][a] - V[k][b]);
+      idx.forEach((i, j) => { r[i] = V[k][i] > 0 ? j / (n - 1) : -1; }); crank[k] = r;
+    }
+    // owners: every company in any of the four roles, with the ships it touches
+    fleet = D.orgs.map(() => []);
+    for (let i = 0; i < n; i++) new Set([V.bo[i], V.ro[i], V.co[i], V.tm[i]]).forEach(c => org(c) && fleet[c].push(i));
+    $("sts-orgs").innerHTML = D.orgs.map((o, c) => [o, c]).filter(([o, c]) => o && fleet[c].length).sort((a, b) => fleet[b[1]].length - fleet[a[1]].length || a[0].localeCompare(b[0]))
+      .map(([o, c]) => `<option value="${esc(o)}" label="${fleet[c].length} ship${fleet[c].length > 1 ? "s" : ""}">`).join("");
     setWindow(0, TMAX); fit(); render();
     let size = [net.clientWidth, net.clientHeight];
     new ResizeObserver(() => {
@@ -187,7 +211,7 @@
       case "type": { const g = typeGroup[V.type[i]]; return g < 3 ? CAT[g] : GREY; }
       case "risk": return V.sevastopol[i] ? RED : V.sanc[i] ? AMBER : GREY;
       case "deg": return deg[i] ? vir(Math.log1p(deg[i]) / Math.log1p(maxDeg)) : GREY;
-      case "btw": return vir(Math.sqrt(V.btw[i] / 0.05));
+      default: { const r = crank[mode.slice(2)][i]; return r < 0 ? GREY : vir(r); }
       case "gaps": return vir(Math.log1p(V.gaps[i]) / Math.log1p(200));
     }
   }
@@ -205,8 +229,8 @@
     } else if (mode === "risk") {
       h = dot(RED, "Sevastopol suspect") + dot(AMBER, "Sanctioned") + dot(GREY, "Neither");
     } else if (mode === "deg") h = ramp("Transfers in selected dates", 1, maxDeg);
-    else if (mode === "btw") h = ramp("Betweenness", 0, "≥ 0.05");
-    else h = ramp("AIS gaps (count)", 0, "200+");
+    else if (mode === "gaps") h = ramp("AIS gaps (count)", 0, "200+");
+    else h = ramp(`${CNAME[mode.slice(2)]}, whole period`, "low", "high") + dot(GREY, "zero");
     $("sts-legend").innerHTML = h;
   }
 
@@ -352,14 +376,15 @@
                    (V.sanc[i] ? `<span class="sts-badge sts-amber">Sanctioned: ${esc(V.sanc[i])}</span>` : "");
     const type = D.types[V.type[i]] || "type unknown";
     return `<h3>${esc(V.name[i])}</h3><div class="sts-sub">${esc(type)} · ${esc(D.flags[V.flag[i]] || "flag unknown")}${V.imo[i] ? ` · IMO ${V.imo[i]}` : ""}</div>${badges}` +
-      (V.imo[i] ? `<a class="sts-photo" href="https://www.marinetraffic.com/en/ais/details/ships/imo:${V.imo[i]}" target="_blank" rel="noopener" title="Open on MarineTraffic">` +
-        `<img alt="Photo of ${esc(V.name[i])}" src="https://photos.marinetraffic.com/ais/showphoto.aspx?imo=${V.imo[i]}&size=thumb600" onload="this.naturalWidth < 20 && this.onerror()" onerror="this.parentNode.classList.add('sts-nophoto'); this.remove()">` +
-        `<span>No photo loaded · view on MarineTraffic ↗</span></a>` : "") +
+      (V.imo[i] ? `<a class="sts-photo${V.photo[i] ? "" : " sts-nophoto"}" href="https://www.vesselfinder.com/vessels/details/${V.imo[i]}" target="_blank" rel="noopener" title="Open on VesselFinder">` +
+        (V.photo[i] ? `<img alt="Photo of ${esc(V.name[i])}" src="https://static.vesselfinder.net/ship-photo/${V.photo[i]}/1" onload="this.naturalWidth < 20 && this.onerror()" onerror="this.parentNode.classList.add('sts-nophoto'); this.remove()">` : "") +
+        `<span>No photo · view on VesselFinder ↗</span></a>` : "") +
       kpis([[deg[i], "transfers"], [ps.length, "partners"], [V.gaps[i], "AIS gaps"]]) +
       `<div class="sts-sub" style="font-size:.75rem">Transfers and partners: ${winLabel()}. AIS gaps: whole period.</div>` +
       `<h4>Who owns it</h4><dl>${own.map(([l, c]) => `<dt>${l}</dt><dd>${org(c) ? `<button class="sts-link" data-org="${c}">${esc(org(c))}</button>` : `<span class="sts-muted">unknown</span>`}</dd>`).join("")}` +
       `<dt>Size</dt><dd>${V.dwt[i] ? `${V.dwt[i].toLocaleString()} dwt` : "–"}${V.len[i] ? ` · ${V.len[i]} m` : ""}</dd>` +
-      `<dt>Network</dt><dd>community ${V.comm[i] > 0 ? V.comm[i] : "–"} · betweenness ${V.btw[i].toFixed(3)}</dd></dl>` +
+      `<dt>Community</dt><dd>${V.comm[i] > 0 ? V.comm[i] : "–"}</dd></dl>` +
+      `<h4>Centrality rank (of ${n})</h4><ol class="sts-list">${Object.keys(CNAME).map(k => `<li><span>${CNAME[k]}</span><span>${crank[k][i] < 0 ? "–" : "#" + (n - Math.round(crank[k][i] * (n - 1)))}</span></li>`).join("")}</ol>` +
       (ps.length ? `<h4>Main partners</h4><ol class="sts-list">${ps.slice(0, 6).map(([q, c]) => `<li><span>${vlink(q)}</span><span>${c}×</span></li>`).join("")}</ol>` +
         (ps.length > 6 ? `<div class="sts-muted">+ ${ps.length - 6} more</div>` : "") : `<p class="sts-muted">No transfers in these dates.</p>`) +
       (mine.length ? `<h4>Latest transfers</h4><ol class="sts-list">${mine.map(k => { const q = E.a[k] === i ? E.b[k] : E.a[k];
@@ -378,7 +403,7 @@
 
   function renderCard() {
     card.innerHTML = sel >= 0 ? cardShip(sel) : group ? cardGroup() : cardSummary();
-    const img = card.querySelector(".sts-photo img");   // MarineTraffic can be slow or blocked: fall back to a link
+    const img = card.querySelector(".sts-photo img");   // slow or blocked photo: fall back to a link
     if (img) setTimeout(() => { if (img.isConnected && !img.naturalWidth) img.onerror(); }, 6000);
   }
   function render() { if (!V) return; legend(); drawNet(); drawHist(); renderCard(); }
@@ -399,10 +424,7 @@
   card.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     if (b.dataset.ship) select(+b.dataset.ship);
-    else if (b.dataset.org) {
-      const c = +b.dataset.org;
-      setGroup(new Set([...Array(n).keys()].filter(i => V.bo[i] === c || V.ro[i] === c || V.co[i] === c || V.tm[i] === c)), `Fleet: ${org(c)}`);
-    }
+    else if (b.dataset.org) { $("sts-o").value = org(+b.dataset.org); orgSearch(org(+b.dataset.org)); }
   });
   $("sts-mode").onchange = e => { mode = e.target.value; render(); };
   $("sts-q").addEventListener("input", e => {
@@ -412,8 +434,17 @@
     if (q.length < 2) return sel >= 0 || !groupLabel.startsWith("Search") ? null : setGroup(null, "");
     setGroup(new Set([...Array(n).keys()].filter(i => V.name[i].toLowerCase().includes(q))), `Search: “${e.target.value.trim()}”`);
   });
+  function orgSearch(q) {
+    const c = D.orgs.findIndex(o => o && o.toLowerCase() === q.toLowerCase());
+    if (c >= 0) return setGroup(new Set(fleet[c]), `Fleet: ${org(c)}`);
+    if (q.length < 2) return sel >= 0 || !/^(Fleet|Owners)/.test(groupLabel) ? null : setGroup(null, "");
+    const ql = q.toLowerCase(), hit = new Set();
+    D.orgs.forEach((o, c) => o && o.toLowerCase().includes(ql) && fleet[c].forEach(i => hit.add(i)));
+    setGroup(hit, `Owners matching “${q}”`);
+  }
+  $("sts-o").addEventListener("input", e => orgSearch(e.target.value.trim()));
   $("sts-q").addEventListener("keydown", e => { if (e.key === "Enter" && group && group.size) select([...group].sort((a, b) => deg[b] - deg[a])[0]); });
-  function reset() { $("sts-q").value = ""; sel = -1; setWindow(0, TMAX); fit(); setGroup(null, ""); }
+  function reset() { $("sts-q").value = ""; $("sts-o").value = ""; sel = -1; setWindow(0, TMAX); fit(); setGroup(null, ""); }
   $("sts-reset").onclick = reset;
   root.addEventListener("keydown", e => { if (e.key === "Escape") { sel = -1; setGroup(null, ""); } });
 
