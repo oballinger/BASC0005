@@ -4,6 +4,8 @@ subtitle: "Week 3 lecture"
 page-layout: full
 toc: false
 repo-actions: false
+resources:
+  - sts_network.json
 ---
 
 ::: {.slides-embed .column-screen-inset-right}
@@ -15,3 +17,5 @@ repo-actions: false
 [Week 3 workshop →](../notebooks/W03.%20Spatial%20Data.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
+
+{{< include _sts_network.md >}}
