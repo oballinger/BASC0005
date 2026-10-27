@@ -16,6 +16,4 @@ repo-actions: false
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
 
-{{< include _agent_grammar.md >}}
-
 {{< include _exxon_umap.md >}}
