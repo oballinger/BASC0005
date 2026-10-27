@@ -15,3 +15,7 @@ repo-actions: false
 [Week 4 workshop →](../notebooks/W04.%20Natural%20Language%20Processing.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
+
+{{< include _agent_grammar.md >}}
+
+{{< include _exxon_umap.md >}}

@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="w04_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="w04_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -750,9 +815,29 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
+<section id="an-embedding-climate-as-100-numbers" class="slide level2">
+<h2>An embedding: “climate” as 100 numbers</h2>
+<!-- slide 31 -->
+<div class="sourceCode" id="cb1" data-code-line-numbers="false"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>climate <span class="op">=</span> [−<span class="fl">1.09</span>, <span class="fl">0.00</span>, <span class="fl">1.43</span>, <span class="fl">0.46</span>, −<span class="fl">0.01</span>, −<span class="fl">1.28</span>, … <span class="dv">94</span> more]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="img/w04/53c8b93363.png" class="r-stretch quarto-figure-center"><p>Words used in similar contexts get similar numbers. Language models learn a vector like this for every token during pretraining.</p>
+<aside class="notes">
+<p>GloVe 100-d vectors (Stanford; trained on Wikipedia + news), the same file the Week 4 notebook loads (glove100_100k.npz). Each row is one word’s 100 numbers as colours (blue = negative, orange = positive); columns are re-ordered so ‘climate’ runs smoothly from blue to orange, and the same column order is used for every row. Neighbours follow the same gradient; unrelated Exxon words (barrels, dividend, shareholders) look like noise. Similarity = cosine similarity: climate-warming 0.80, environmental 0.69, weather 0.63, emissions 0.58; barrels 0.18, dividend 0.19, shareholders 0.17. Caveat: GloVe learns from co-occurrence counts, not next-token prediction, but the idea is the same: LLMs have an embedding table (GPT-2: 50,257 tokens x 768 numbers). The dimensions don’t have human-readable meanings. Interactive 3D map of 1,500 Exxon words is on the Week 4 slides page. More in Week 9 (Embeddings).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="step-2-post-training" class="slide level2">
 <h2>Step 2: Post-training</h2>
-<!-- slide 31 -->
+<!-- slide 32 -->
 <div class="columns">
 <div class="column" style="width:47%;">
 <ul>
@@ -783,7 +868,7 @@ Ollie Ballinger
 </section>
 <section id="why-this-matters-for-you" class="slide level2">
 <h2>Why this matters for you</h2>
-<!-- slide 32 -->
+<!-- slide 33 -->
 <div class="columns">
 <div class="column" style="width:48%;">
 <ul>
@@ -819,7 +904,7 @@ Ollie Ballinger
 </section>
 <section id="bias-in-llms-same-cv-different-letter" class="slide level2">
 <h2>Bias in LLMs: same CV, different letter</h2>
-<!-- slide 33 -->
+<!-- slide 34 -->
 <div class="columns">
 <div class="column" style="width:49%;">
 <ul>
@@ -854,11 +939,11 @@ Ollie Ballinger
 <section>
 <section id="analytical-approaches" class="title-slide slide level1 center">
 <h1>Analytical Approaches</h1>
-<!-- slide 34 -->
+<!-- slide 35 -->
 </section>
 <section id="types-of-text-analysis" class="slide level2">
 <h2>Types of Text Analysis</h2>
-<!-- slide 35 -->
+<!-- slide 36 -->
 <ul>
 <li>The Statistical Features of the Text
 <ul>
@@ -876,7 +961,7 @@ Ollie Ballinger
 </section>
 <section id="word-frequency" class="slide level2">
 <h2>Word Frequency</h2>
-<!-- slide 36 -->
+<!-- slide 37 -->
 <div class="columns">
 <div class="column" style="width:42%;">
 <p><img data-src="img/w04/f654f1852ece8e1.jpg" class="pic" style="max-height:700px"></p>
@@ -886,9 +971,9 @@ Ollie Ballinger
 </div>
 </div>
 </section>
-<section id="section-12" class="slide level2 fallback" data-background-image="img/w04/slide_037.jpg" data-background-size="contain">
+<section id="section-12" class="slide level2 fallback" data-background-image="img/w04/slide_038.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 37 -->
+<!-- slide 38 -->
 <aside class="notes">
 <p>Slide text: Topic modelling · Uses statistical analysis to discover words which are more likely to appear together · These collections are called “topics” · Source: Joyce Xu</p>
 <style type="text/css">
@@ -905,7 +990,7 @@ Ollie Ballinger
 </section>
 <section id="sentiment-analysis" class="slide level2">
 <h2>Sentiment Analysis</h2>
-<!-- slide 38 -->
+<!-- slide 39 -->
 <ul>
 <li>Sentiment analysis or opinion mining is the computational study of people’s opinions, sentiments, emotions, appraisals, and attitudes towards entities such as products, services, organizations, individuals, issues, events, topics, and their attributes</li>
 <li>Uses ‘weighted’ dictionaries of words to assess how ‘positive’ or ‘negative’ a text might be</li>
@@ -915,7 +1000,7 @@ Ollie Ballinger
 </section>
 <section id="social-media-data" class="slide level2">
 <h2>Social Media Data</h2>
-<!-- slide 39 -->
+<!-- slide 40 -->
 <ul>
 <li>Tumasjan <em>et. al.</em>, ‘Predicting Elections with Twitter: What 140 Characters Reveal about Political Sentiment’</li>
 <li><a href="http://www.aaai.org/ocs/index.php/ICWSM/ICWSM10/paper/viewFile/1441/1852">http://www.aaai.org/ocs/index.php/ICWSM/ICWSM10/paper/viewFile/1441/1852</a></li>
@@ -927,9 +1012,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="section-13" class="slide level2 fallback" data-background-image="img/w04/slide_040.jpg" data-background-size="contain">
+<section id="section-13" class="slide level2 fallback" data-background-image="img/w04/slide_041.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 40 -->
+<!-- slide 41 -->
 <aside class="notes">
 <p>Slide text: Devil’s in the details · Jungherr, A., Jürgens, P., &amp; Schoen, H. (2012). Why the pirate party won the german election of 2009 or the trouble with predictions, Social Science Computer Review, 30(2), 229-234.</p>
 <style type="text/css">
@@ -946,7 +1031,7 @@ Ollie Ballinger
 </section>
 <section id="any-questions" class="slide level2">
 <h2>Any Questions?</h2>
-<!-- slide 41 -->
+<!-- slide 42 -->
 <p><span style="display:block;text-align:center"><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></span></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>

@@ -266,8 +266,23 @@ Self-supervised: 1 sentence = 9 training examples, no human labels. A low % is a
 Real sentence from Friday's Exxon corpus. Each row is one training example: input = everything so far, label = the next token, taken from the text itself, so no one labels anything (self-supervised). Tokens are GPT-2's; note 'single-largest' is 3 tokens. In practice all positions are trained in parallel with the future hidden (causal masking). PROBABILITIES: GPT-2 small (OpenAI 2019, 124M parameters, trained on ~40 GB of web text) = P it gave the correct next token; its top guess is shown when it was wrong. Talking points: 'of' 98% and 'largest' 60%: the model has learned grammar and phrases. After 'the single-largest source of', GPT-2's top guess is 'greenhouse' (19%) and 'energy' gets 3%: the web's framing vs Exxon's. Same text-as-data / framing point as the police-shootings study.
 :::
 
-## Step 2: Post-training
+## An embedding: “climate” as 100 numbers
 <!-- slide 31 -->
+
+```{.python code-line-numbers="false"}
+climate = [−1.09, 0.00, 1.43, 0.46, −0.01, −1.28, … 94 more]
+```
+
+![](img/w04/53c8b93363.png){.r-stretch fig-align="center"}
+
+Words used in similar contexts get similar numbers. Language models learn a vector like this for every token during pretraining.
+
+::: notes
+GloVe 100-d vectors (Stanford; trained on Wikipedia + news), the same file the Week 4 notebook loads (glove100_100k.npz). Each row is one word's 100 numbers as colours (blue = negative, orange = positive); columns are re-ordered so 'climate' runs smoothly from blue to orange, and the same column order is used for every row. Neighbours follow the same gradient; unrelated Exxon words (barrels, dividend, shareholders) look like noise. Similarity = cosine similarity: climate-warming 0.80, environmental 0.69, weather 0.63, emissions 0.58; barrels 0.18, dividend 0.19, shareholders 0.17. Caveat: GloVe learns from co-occurrence counts, not next-token prediction, but the idea is the same: LLMs have an embedding table (GPT-2: 50,257 tokens x 768 numbers). The dimensions don't have human-readable meanings. Interactive 3D map of 1,500 Exxon words is on the Week 4 slides page. More in Week 9 (Embeddings).
+:::
+
+## Step 2: Post-training
+<!-- slide 32 -->
 
 ::: {.columns}
 :::: {.column width="47%"}
@@ -286,7 +301,7 @@ Pretraining gives knowledge; post-training gives behaviour. RLHF = reinforcement
 :::
 
 ## Why this matters for you
-<!-- slide 32 -->
+<!-- slide 33 -->
 
 ::: {.columns}
 :::: {.column width="48%"}
@@ -308,7 +323,7 @@ Callback to the police-shootings grammar study at the start of the lecture: pass
 :::
 
 ## Bias in LLMs: same CV, different letter
-<!-- slide 33 -->
+<!-- slide 34 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -331,10 +346,10 @@ Wan, Pu, Sun, Garimella, Chang & Peng (2023) 'Kelly is a Warm Person, Joseph is 
 :::
 
 # Analytical Approaches
-<!-- slide 34 -->
+<!-- slide 35 -->
 
 ## Types of Text Analysis
-<!-- slide 35 -->
+<!-- slide 36 -->
 
 - The Statistical Features of the Text
     - Word frequency
@@ -346,7 +361,7 @@ Wan, Pu, Sun, Garimella, Chang & Peng (2023) 'Kelly is a Warm Person, Joseph is 
     - Sentiment analysis
 
 ## Word Frequency
-<!-- slide 36 -->
+<!-- slide 37 -->
 
 ::: {.columns}
 :::: {.column width="42%"}
@@ -359,8 +374,8 @@ Wan, Pu, Sun, Garimella, Chang & Peng (2023) 'Kelly is a Warm Person, Joseph is 
 ::::
 :::
 
-## {background-image="img/w04/slide_037.jpg" background-size="contain" .fallback}
-<!-- slide 37 -->
+## {background-image="img/w04/slide_038.jpg" background-size="contain" .fallback}
+<!-- slide 38 -->
 
 
 ::: notes
@@ -368,7 +383,7 @@ Slide text: Topic modelling · Uses statistical analysis to discover words which
 :::
 
 ## Sentiment Analysis
-<!-- slide 38 -->
+<!-- slide 39 -->
 
 - Sentiment analysis or opinion mining is the computational study of people's opinions, sentiments, emotions, appraisals, and attitudes towards entities such as products, services, organizations, individuals, issues, events, topics, and their attributes
 - Uses ‘weighted’ dictionaries of words to assess how ‘positive’ or ‘negative’ a text might be
@@ -376,7 +391,7 @@ Slide text: Topic modelling · Uses statistical analysis to discover words which
 - But, beware the black box
 
 ## Social Media Data
-<!-- slide 39 -->
+<!-- slide 40 -->
 
 - Tumasjan *et. al.*, ‘Predicting Elections with Twitter: What 140 Characters Reveal about Political Sentiment’
 - [http://www.aaai.org/ocs/index.php/ICWSM/ICWSM10/paper/viewFile/1441/1852](http://www.aaai.org/ocs/index.php/ICWSM/ICWSM10/paper/viewFile/1441/1852)
@@ -385,8 +400,8 @@ Slide text: Topic modelling · Uses statistical analysis to discover words which
     - Does Twitter provide a platform for political deliberation online?
     - Can Twitter serve as a predictor of election results?
 
-## {background-image="img/w04/slide_040.jpg" background-size="contain" .fallback}
-<!-- slide 40 -->
+## {background-image="img/w04/slide_041.jpg" background-size="contain" .fallback}
+<!-- slide 41 -->
 
 
 ::: notes
@@ -394,6 +409,6 @@ Slide text: Devil’s in the details · Jungherr, A., Jürgens, P., & Schoen, H.
 :::
 
 ## Any Questions?
-<!-- slide 41 -->
+<!-- slide 42 -->
 
 [[o.ballinger@ucl.ac.uk](mailto:o.ballinger@ucl.ac.uk)]{style="display:block;text-align:center"}
