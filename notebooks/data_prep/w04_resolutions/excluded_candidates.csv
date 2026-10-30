@@ -1,0 +1,22 @@
+firm,year,title,reason_not_counted,source_url
+ExxonMobil,2010,Report on Canadian Oil Sands,Resolved clause asks for risks 'other than those associated with or attributable to climate change',https://www.sec.gov/Archives/edgar/data/34088/000119312510082074/ddef14a.htm
+ExxonMobil,2011,Report on Canadian Oil Sands,Same as 2010,https://www.sec.gov/Archives/edgar/data/34088/000119312511095944/ddef14a.htm
+ExxonMobil,2006,Executive Compensation Criteria (social/environmental),Climate only in supporting statement,https://www.sec.gov/Archives/edgar/data/34088/000104746906004990/a2167124zdef14a.htm
+ExxonMobil,2013,Report on Lobbying (and 2014-2019 equivalents),Generic lobbying disclosure; climate not in resolved clause,https://www.sec.gov/Archives/edgar/data/34088/000119312513152355/d460324ddef14a.htm
+ExxonMobil,2012,Report on Natural Gas Production (fracking; also 2010-2013) / Report on Hydraulic Fracturing (2015-2016),"Fracking/community risk, not climate",https://www.sec.gov/Archives/edgar/data/34088/000119312512160085/d277949ddef14a.htm
+Chevron,2008,Report on Environmental Impact of Oil Sands Operations in Canadian Boreal Forest,Local environmental damage,https://www.sec.gov/Archives/edgar/data/93410/000104746908004790/a2184580zdef14a.htm
+Chevron,2010,Independent Director with Environmental Expertise (also 2011-2018),Generic environmental expertise; climate not in resolved clause,https://www.sec.gov/Archives/edgar/data/93410/000119312510084081/ddef14a.htm
+Chevron,2011,Sustainability Metric for Executive Compensation,Generic sustainability,https://www.sec.gov/Archives/edgar/data/93410/000119312511097814/ddef14a.htm
+ConocoPhillips,2008,"Environmental Impact (oil sands, boreal forest)",Local environmental damage,https://www.sec.gov/Archives/edgar/data/1163165/000119312508073155/ddef14a.htm
+ConocoPhillips,2009,Oil Sands Drilling (also 2010),Local environmental damage,https://www.sec.gov/Archives/edgar/data/1163165/000119312509067954/ddef14a.htm
+ConocoPhillips,2011,Canadian Oil Sands,Resolved clause excludes climate risks,https://www.sec.gov/Archives/edgar/data/1163165/000119312511083165/ddef14a.htm
+ConocoPhillips,2016,Partial Deferral of Annual Bonus Based on Reserves Metrics,Climate only in supporting statement,https://www.sec.gov/Archives/edgar/data/1163165/000104746916011624/a2227560zdef14a.htm
+Occidental,2014,"Review Lobbying at Federal, State, Local Levels (also 2015)",Generic lobbying review; climate/ALEC only in supporting statement,https://www.sec.gov/Archives/edgar/data/797468/000130817914000089/loxy2014_def14a.htm
+Occidental,2011,Required Nomination of Director with Environmental Expertise (also 2012),Generic environmental expertise,https://www.sec.gov/Archives/edgar/data/797468/000079746811000028/proxy2011.htm
+BP,2004,Special resolution 17: report on control and risk in protected and sensitive areas,Biodiversity/sensitive areas,https://www.sec.gov/Archives/edgar/data/734383/000093247104000905/specializedfunds51.htm
+Shell,2006,Resolution 15 (ECCR): community consultation / social & environmental impact assessments,Local communities/environment; no climate content,https://www.sec.gov/Archives/edgar/data/1306965/000115697306000444/u50156exv99w1.htm
+Equinor,2010,"Withdraw from tar sands activities in Canada (also 2011, 2012, 2013, 2014)",Resolved clause does not mention climate (borderline: climate-motivated campaign),https://www.sec.gov/Archives/edgar/data/734383/000093247110002788/specialized51.htm https://www.sec.gov/Archives/edgar/data/1140625/000114062510000048/sto100519a_6-k.htm
+Equinor,2013,Withdraw from ice-laden Arctic activities (also 2014),Arctic/sensitive areas; not climate in title,https://www.sec.gov/Archives/edgar/data/734383/000093247113007986/specializedfunds0051.htm
+Equinor,2015,Item 9: New strategy for more sustainable development and administration of resources,Generic sustainability,https://www.sec.gov/Archives/edgar/data/1140625/000114062515000054/sto150519b_6-k.htm
+Equinor,2017,Item 9: Abstain from drilling in Barents Sea licences (also 2018 item 10),Legal/sensitive areas,https://www.sec.gov/Archives/edgar/data/1140625/000114062517000012/sto170511_6-k.htm
+Equinor,2019,Item 8: Refrain from exploration in frontier/immature/sensitive areas,Sensitive areas,https://www.sec.gov/Archives/edgar/data/1140625/000114062519000019/sto190515_6-k.htm

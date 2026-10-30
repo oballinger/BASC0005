@@ -1,0 +1,47 @@
+# Hand-entered from primary documents opened in this session (see source keys in build.py)
+# firm, year, title, category, status, borderline, board_rec, votes_for, votes_against, support_pct, sources(list of keys/urls), note
+NPX='NPX'  # placeholder -> Vanguard Energy Fund N-PX for that year
+N = [
+("BP",2010,"Special resolution 25: review assumptions behind Sunrise SAGD (oil sands) project - incl. future carbon prices and GHG regulation","carbon asset risk (oil sands)","voted","Y","against",622272418,9497638714,None,[NPX,"https://www.sec.gov/Archives/edgar/data/1285650/000143893410000179/brd8w20001285650.txt","https://www.ipe.com/pension-funds-lose-oil-sands-campaign-against-bp/34659.article"],"Resolution text from Calamos N-PX; vote counts from IPE (press) - BP official 2010 poll not on EDGAR. Counted because resolved clause names future carbon prices and anticipated GHG regulation."),
+("BP",2015,"Special resolution 25: Strategic resilience for 2035 and beyond ('Aiming for A')","climate scenario/strategy disclosure","voted","","for",None,None,98.28,[NPX,"https://www.sec.gov/Archives/edgar/data/313807/000119163815000625/bp201505016kbatch.htm","https://triplepundit.com/2015/bp-shareholder-resolution-25-passed-agm-oil-industry-game-changer/"],"Board-supported; PASSED. % from TriplePundit (press; its raw counts are garbled). Text in BP 6-K batch 7 May 2015."),
+("BP",2019,"Special resolution 22: Climate Action 100+ resolution on climate change disclosures","climate strategy/Paris alignment disclosure","voted","","for",13339502194,115759662,None,["https://www.sec.gov/Archives/edgar/data/313807/000165495419006393/a7594z.htm"],"Board-supported; PASSED"),
+("BP",2019,"Special resolution 23: Follow This resolution on climate change targets","GHG targets (Scope 1-3)","voted","","against",1077086256,11750746486,None,["https://www.sec.gov/Archives/edgar/data/313807/000165495419006393/a7594z.htm"],""),
+("Shell",2010,"Special resolution 23: report on assumptions behind oil sands projects - incl. future carbon prices and GHG regulation","carbon asset risk (oil sands)","voted","Y","against",191469684,3144391706,None,["SHELL_RES_2010",NPX],"Text from Vanguard Energy N-PX 2010; votes from Shell 6-K"),
+("Shell",2015,"Special resolution 21: Strategic resilience for 2035 and beyond ('Aiming for A')","climate scenario/strategy disclosure","voted","","for",3324862604,36543298,None,["SHELL_RES_2015",NPX],"Board-supported; PASSED"),
+("Shell",2016,"Special resolution 19: Shell to become a renewable energy company (Follow This)","renewable energy / transition","voted","","against",114074036,3995029228,None,["SHELL_RES_2016","SHELL_NOM_2016"],""),
+("Shell",2017,"Special resolution 21: set and publish GHG reduction targets aligned with Paris (Follow This)","GHG targets (Scope 1-3)","voted","","against",266569040,3935173765,None,["SHELL_RES_2017","SHELL_NOM_2017"],""),
+("Shell",2018,"Special resolution 19: set and publish Paris-aligned GHG targets (Follow This)","GHG targets (Scope 1-3)","voted","","against",268063768,4567121334,None,["SHELL_RES_2018","SHELL_NOM_2018"],""),
+("Shell",2019,"Special resolution 22: set and publish Paris-aligned GHG targets (Follow This)","GHG targets (Scope 1-3)","withdrawn_after_notice","","against",None,None,None,["SHELL_RES_2019","SHELL_NOM_2019"],"Printed in AGM notice; results 6-K: 'RESOLUTION WITHDRAWN'"),
+("Equinor",2015,"Item 7: Implement strategic resilience for 2035 and beyond","climate scenario/strategy disclosure","voted","","for",2404233410,1182887,None,["EQ_2015",NPX],"Board-supported; PASSED"),
+("Equinor",2015,"Item 8: Assess project portfolio resilience against IPCC AR5 scenarios","2°C / IPCC scenario analysis","voted","","against",22287254,2381334237,None,["EQ_2015",NPX],""),
+("Equinor",2016,"Item 9: Revised strategy reflecting responsibility to meet energy demand within national/international climate targets","climate strategy","voted","","against",5126803,2435958068,None,["EQ_2016",NPX],""),
+("Equinor",2017,"Item 10: Strategy for discontinuation of all new exploration and test drilling for fossil energy resources","low-carbon transition / fossil phase-out","voted","Y","against",2747209,2498723290,None,["EQ_2017",NPX],"Counted as transition proposal; title does not mention climate explicitly"),
+("Equinor",2018,"Item 9: Strategy for business transformation from fossil sources to renewable energy","renewable energy / transition","voted","","against",8528920,2492666654,None,["EQ_2018",NPX],""),
+("Equinor",2019,"Item 9: Set medium/long-term quantitative targets incl. Scope 1, 2 and 3 GHG emissions","GHG targets (Scope 1-3)","voted","","against",42548482,2523620431,None,["EQ_2019",NPX],""),
+("Equinor",2019,"Item 10: New direction - transformation to sustainable energy, phase out exploration within two years","low-carbon transition / fossil phase-out","voted","","against",12720497,2558315388,None,["EQ_2019",NPX],""),
+("Equinor",2019,"Item 19: Immediately abandon all CO2 capture and storage efforts","climate (anti-mitigation)","voted","Y","against",1708566,2760711917,None,["EQ_2019",NPX],"Climate-related but anti-mitigation"),
+]
+# Excluded candidates considered (not counted): firm, year, title, reason, source keys
+X = [
+("ExxonMobil",2010,"Report on Canadian Oil Sands","Resolved clause asks for risks 'other than those associated with or attributable to climate change'",["PROXY"]),
+("ExxonMobil",2011,"Report on Canadian Oil Sands","Same as 2010",["PROXY"]),
+("ExxonMobil",2006,"Executive Compensation Criteria (social/environmental)","Climate only in supporting statement",["PROXY"]),
+("ExxonMobil",2013,"Report on Lobbying (and 2014-2019 equivalents)","Generic lobbying disclosure; climate not in resolved clause",["PROXY"]),
+("ExxonMobil",2012,"Report on Natural Gas Production (fracking; also 2010-2013) / Report on Hydraulic Fracturing (2015-2016)","Fracking/community risk, not climate",["PROXY"]),
+("Chevron",2008,"Report on Environmental Impact of Oil Sands Operations in Canadian Boreal Forest","Local environmental damage",["PROXY"]),
+("Chevron",2010,"Independent Director with Environmental Expertise (also 2011-2018)","Generic environmental expertise; climate not in resolved clause",["PROXY"]),
+("Chevron",2011,"Sustainability Metric for Executive Compensation","Generic sustainability",["PROXY"]),
+("ConocoPhillips",2008,"Environmental Impact (oil sands, boreal forest)","Local environmental damage",["PROXY"]),
+("ConocoPhillips",2009,"Oil Sands Drilling (also 2010)","Local environmental damage",["PROXY"]),
+("ConocoPhillips",2011,"Canadian Oil Sands","Resolved clause excludes climate risks",["PROXY"]),
+("ConocoPhillips",2016,"Partial Deferral of Annual Bonus Based on Reserves Metrics","Climate only in supporting statement",["PROXY"]),
+("Occidental",2014,"Review Lobbying at Federal, State, Local Levels (also 2015)","Generic lobbying review; climate/ALEC only in supporting statement",["PROXY"]),
+("Occidental",2011,"Required Nomination of Director with Environmental Expertise (also 2012)","Generic environmental expertise",["PROXY"]),
+("BP",2004,"Special resolution 17: report on control and risk in protected and sensitive areas","Biodiversity/sensitive areas",[NPX]),
+("Shell",2006,"Resolution 15 (ECCR): community consultation / social & environmental impact assessments","Local communities/environment; no climate content",["https://www.sec.gov/Archives/edgar/data/1306965/000115697306000444/u50156exv99w1.htm"]),
+("Equinor",2010,"Withdraw from tar sands activities in Canada (also 2011, 2012, 2013, 2014)","Resolved clause does not mention climate (borderline: climate-motivated campaign)",[NPX,"EQ_2010"]),
+("Equinor",2013,"Withdraw from ice-laden Arctic activities (also 2014)","Arctic/sensitive areas; not climate in title",[NPX]),
+("Equinor",2015,"Item 9: New strategy for more sustainable development and administration of resources","Generic sustainability",["EQ_2015"]),
+("Equinor",2017,"Item 9: Abstain from drilling in Barents Sea licences (also 2018 item 10)","Legal/sensitive areas",["EQ_2017"]),
+("Equinor",2019,"Item 8: Refrain from exploration in frontier/immature/sensitive areas","Sensitive areas",["EQ_2019"]),
+]

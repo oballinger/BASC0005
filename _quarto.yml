@@ -1,6 +1,7 @@
 project:
   resources:
     - "data/assessed/**"
+    - "data/w04/**"
   type: book
   output-dir: docs
   render:
