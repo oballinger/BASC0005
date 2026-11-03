@@ -375,251 +375,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="bayesian-thinking" class="slide level2">
-<h2>Bayesian thinking</h2>
-<!-- slide 5 -->
-<div class="columns">
-<div class="column" style="width:49%;">
-<ul>
-<li>Frequentist: probability is how often something happens over many repeats</li>
-<li>Bayesian: probability is how strongly you believe something
-<ul>
-<li>Prior: what you believe before you see the data</li>
-<li>Posterior: what you believe after you see the data</li>
-</ul></li>
-<li>Thomas Bayes (1701–1761); his rule was published in 1763</li>
-<li>Today: one Bayesian idea that you can use every day</li>
-</ul>
-</div><div class="column" style="width:51%;">
-<p><img data-src="img/w05/609978c301.png" class="pic" style="max-height:631px"></p>
-<p>Mammogram example (next slides). Both bars use the same count scale.</p>
-</div>
-</div>
-<aside class="notes">
-<p>Contrast with the previous slide. Frequentist: a probability is a long-run frequency of a repeatable event; parameters are fixed and unknown. Bayesian: a probability is a degree of belief; parameters have distributions; evidence updates a prior into a posterior. We do not do Bayesian estimation in this module. The goal is one habit: always ask for the base rate. The chart is a teaser for the mammogram slides. Both bars use the same count scale: 90% of the 10 women with cancer test positive (9), but only 9% of the 990 without cancer do (89). So most positive tests (89 of 98) are false: the posterior is 9%, not 90%. Bayes’ essay was published after his death by Richard Price (Philosophical Transactions, 1763).</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="a-small-of-a-big-number-beats-a-big-of-a-small-number" class="slide level2">
-<h2>A small % of a big number beats a big % of a small number</h2>
-<!-- slide 6 -->
-<div class="columns">
-<div class="column" style="width:49%;">
-<ul>
-<li>South Wales Police used live facial recognition at the 2017 Champions League final in Cardiff</li>
-<li>The system compared faces in the crowd with a watch list</li>
-<li>93% of its alerts named the wrong person</li>
-<li>Why? A small error rate × a very big crowd is more than a high hit rate × a few wanted people</li>
-<li>Always ask: how big is each group?</li>
-</ul>
-</div><div class="column" style="width:51%;">
-<p><img data-src="img/w05/6108a307ba.png" class="pic" style="max-height:631px"></p>
-<p>Source: South Wales Police figures, reported by The Guardian, 5 May 2018.</p>
-</div>
-</div>
-<aside class="notes">
-<p>South Wales Police data released in 2018: at the UEFA Champions League final in Cardiff (June 2017), the system made 2,470 alerts, and 2,297 (93.0%; press reports often say 92%) were false positives. About 170,000 people came to Cardiff for the match. The police said that no-one was arrested because of a false alert, and that officers checked each alert. The point: the system can be quite accurate per face and still give mostly false alerts, because almost everyone in the crowd is not on the watch list. The chart uses one count scale: the 173 correct alerts are a tiny bar next to the crowd of ~170,000, of whom 2,297 (1.4%) got a false alert. The number of wanted people in the crowd is not public, so the hit rate for the left bar is unknown. CHECK the figures against the Guardian article before the lecture.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="the-mammogram-problem" class="slide level2">
-<h2>The mammogram problem</h2>
-<!-- slide 7 -->
-<div class="columns">
-<div class="column" style="width:49%;">
-<ul>
-<li>1% of women in a screening group have breast cancer</li>
-<li>The test detects 90% of cancers</li>
-<li>The test also flags 9% of healthy women</li>
-<li>A woman tests positive. What is the chance that she has cancer?
-<ul>
-<li>Answer: 9 of 98 positives, about 9%</li>
-<li>Only 21% of 160 gynaecologists chose the right answer</li>
-</ul></li>
-<li>Tip: count people, not percentages</li>
-</ul>
-</div><div class="column" style="width:51%;">
-<p><img data-src="img/w05/ee39084c03.png" class="pic" style="max-height:629px"></p>
-<p>Numbers from Gigerenzer et al.&nbsp;(2007), Psychological Science in the Public Interest 8(2).</p>
-</div>
-</div>
-<aside class="notes">
-<p>Ask the class for a show of hands BEFORE you reveal the answer (most people say about 90%). Gigerenzer, Gaissmaier, Kurz-Milcke, Schwartz &amp; Woloshin (2007) ‘Helping doctors and patients make sense of health statistics’, PSPI 8(2):53-96. In a 2007 training session, 160 gynaecologists got this problem as conditional probabilities; 21% chose the correct answer (about 1 in 10). After training in natural frequencies, most got it right. Natural frequencies: of 1,000 women, 10 have cancer and 9 of them test positive; of the 990 without cancer, about 89 test positive. 9 / (9 + 89) = 9%. On the chart, the outlined block is the 98 positive tests; only the 9 blue squares in it have cancer. This block is the denominator of Bayes’ rule (slide 10). The numbers are a teaching example, not the current NHS screening figures.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="the-same-pattern-in-many-places" class="slide level2">
-<h2>The same pattern, in many places</h2>
-<!-- slide 8 -->
-<div class="columns">
-<div class="column" style="width:49%;">
-<ul>
-<li>Drunk driving is much more dangerous per mile, but most road deaths involve no drunk driver</li>
-<li>8 of 9 women with breast cancer have no affected mother, sister or daughter</li>
-<li>My damage detector in Kharkiv: it flagged 32% of damaged buildings but only 0.9% of intact ones. Most flags were still intact buildings</li>
-<li>Also: COVID deaths in vaccinated people, DNA database matches, heart attacks at ‘normal’ cholesterol</li>
-<li>Geoffrey Rose: many people at a small risk can give more cases than a few people at a high risk</li>
-</ul>
-</div><div class="column" style="width:51%;">
-<p><img data-src="img/w05/3cfae5d15f.png" class="pic" style="max-height:631px"></p>
-<p>Chart: Ballinger (2025), Remote Sensing of Environment, Tables 1–2. Other sources: NHTSA (2022 data); Collaborative Group (2001), Lancet 358.</p>
-</div>
-</div>
-<aside class="notes">
-<p>Road deaths: NHTSA, 2022 data: 13,524 deaths in crashes with an alcohol-impaired driver (BAC 0.08+), 32% of all US traffic deaths. Breast cancer: Collaborative Group on Hormonal Factors in Breast Cancer (2001) ‘Familial breast cancer’, Lancet 358:1389-99: ‘eight out of nine women who develop breast cancer do not have an affected mother, sister, or daughter’. Kharkiv (chart): 107,976 buildings, 0.85% damaged (≈918), recall 32.0% (≈294 true flags), precision 23.41%, so ≈961 false flags = 0.9% of ≈107,058 intact buildings (Ballinger 2025, Tables 1–2). The counts are approximate, because the paper’s statistics are weighted by building area. Other examples to talk through: (1) In the UK in summer 2021, many COVID deaths were in vaccinated people, because nearly all older people were vaccinated. (2) A 1-in-a-million DNA match searched against a database of ~6 million profiles gives ~6 innocent matches. (3) Most heart-attack patients have ‘normal’ cholesterol (Sachdeva et al.&nbsp;2009, Am Heart J). CHECK these before you quote numbers. Rose’s prevention paradox: Rose (1985) ‘Sick individuals and sick populations’, Int J Epidemiol 14:32-38.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="my-research-same-detector-very-different-precision" class="slide level2">
-<h2>My research: same detector, very different precision</h2>
-<!-- slide 9 -->
-<div class="columns">
-<div class="column" style="width:49%;">
-<ul>
-<li>The Pixel-Wise T-Test (PWTT) flags damaged buildings in free radar imagery</li>
-<li>We tested it on 904,977 buildings in 30 cities, with UN damage labels</li>
-<li>Kremenchuk: the best AUC of all 30 cities (0.93), but only 3% of flags were real damage
-<ul>
-<li>Only 0.11% of its buildings were damaged</li>
-</ul></li>
-<li>Gaza: a lower AUC (0.78), but 74% of flags were real damage
-<ul>
-<li>72% of its buildings were damaged</li>
-</ul></li>
-<li>The detector did not change. The base rate changed.</li>
-</ul>
-</div><div class="column" style="width:51%;">
-<p><img data-src="img/w05/f4f94c827d.png" class="pic" style="max-height:629px"></p>
-<p>Source: Ballinger (2025), Remote Sensing of Environment, Tables 1–2. Statistics are weighted by building area.</p>
-</div>
-</div>
-<aside class="notes">
-<p>Own research. Ballinger (2025) ‘Open Access Battle Damage Detection via Pixel-Wise T-Test on Sentinel-1 Imagery’, Remote Sensing of Environment. Validation: Microsoft building footprints joined to UNOSAT damage annotations (10 m tolerance); 904,977 footprints. Each dot is a city: x = % of buildings damaged (Table 1), y = precision (Table 2). For each city the threshold of T comes from a precision-recall curve, and all statistics are weighted by building area. Rank correlation across the 30 cities: precision vs % damaged = +0.54; AUC vs % damaged = -0.32. So precision follows the base rate, while AUC (which does not depend on the base rate) does not. Kremenchuk: 27,497 buildings, 0.11% damaged (about 30 buildings), AUC 0.928, precision 3.44%, recall 2.99%. Gaza (UNOSAT, 4 April 2025): 228,728 buildings, 71.91% damaged, AUC 0.781, precision 74.09%, recall 91.98%. The paper makes the same point: F1 tends to zero as you add negatives, so compare cities with AUC; a balanced sample raises F1 for the full data from 65% to 80%. Lowest precision: Melitopol (1.5%, 0.23% damaged) and Antonivka (2.2%). Outliers: Bucha (98% precision at 1.6% damaged) and Antonivka (AUC 0.42, 905 buildings). Note: the abstract says 29 cities; Tables 1–2 list 30.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="bayes-rule" class="slide level2 smaller">
-<h2>Bayes’ rule</h2>
-<!-- slide 10 -->
-<div class="columns">
-<div class="column" style="width:63%;">
-<p><img data-src="img/w05/a00f89b999.png" class="pic" style="max-height:420px"></p>
-<p><img data-src="img/w05/d203640cf1.png" class="pic" style="max-height:280px"></p>
-</div><div class="column" style="width:37%;">
-<ul>
-<li>How to read it, step by step:
-<ul>
-<li><ol type="1">
-<li>Start with the prior: 1% of women have cancer</li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>Multiply by the likelihood: 90% of them test positive. These are the true alarms</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li>Divide by the evidence: all positive tests, true alarms + false alarms</li>
-</ol></li>
-<li><ol start="4" type="1">
-<li>The result is the posterior: 9%</li>
-</ol></li>
-</ul></li>
-<li>Trap: P(+ | cancer) = 90% is not P(cancer | +) = 9%</li>
-<li>The false alarms come from the big group, so they decide the answer</li>
-</ul>
-</div>
-</div>
-<aside class="notes">
-<p>Read the formula term by term, in colour. POSTERIOR (black): what we want, the chance of cancer given a positive test. LIKELIHOOD (blue): the chance of a positive test if she has cancer, the test’s sensitivity, 90%. This is the number that people confuse with the posterior: P(+ | cancer) is not P(cancer | +). PRIOR (orange): the base rate before the test, 1%. EVIDENCE (green): the chance of a positive test at all, from both routes: true alarms (0.90 × 0.01 = 0.009) plus false alarms (0.09 × 0.99 = 0.0891), total 0.0981. Posterior = 0.009 / 0.0981 = 0.092, about 9%. The bottom line is the same sum in counts: of 1,000 women, 9 true alarms and 89 false alarms, so 9 of 98 alarms are real. The numerator is the true alarms; the denominator is all alarms. That is all Bayes’ rule does. Why it works: P(A and B) = P(B | A) P(A) = P(A | B) P(B); divide both sides by P(B).</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="the-base-rate-decides" class="slide level2">
-<h2>The base rate decides</h2>
-<!-- slide 11 -->
-<div class="columns">
-<div class="column" style="width:49%;">
-<ul>
-<li>The same test (90% sensitivity, 9% false alarms) at different base rates</li>
-<li>Rare condition: almost every alarm is false</li>
-<li>Common condition: most alarms are true</li>
-<li>So a result means different things in different populations</li>
-<li>To know the base rate, you need a good sample of the population: the rest of today</li>
-</ul>
-</div><div class="column" style="width:51%;">
-<p><img data-src="img/w05/691ad9d351.png" class="pic" style="max-height:624px"></p>
-<p>P(condition | positive) from Bayes’ rule, with the prior on the x-axis.</p>
-</div>
-</div>
-<aside class="notes">
-<p>Each point on the curve is Bayes’ rule with a different prior. At a 0.1% base rate, P(condition | +) is about 1%; at 1% it is 9%; at 10% it is 53%; at 50% it is 91%. This is why we screen high-risk groups, and why a rare-event detector (fraud, terrorism, illegal fishing, building damage) gives many false alarms. Bridge to the rest of the lecture: a base rate is a population quantity, and we usually estimate it from a sample.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-3" class="slide level2 fallback" data-background-image="img/w05/slide_012.jpg" data-background-size="contain">
+<section id="section-3" class="slide level2 fallback" data-background-image="img/w05/slide_005.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 12 -->
+<!-- slide 5 -->
 <aside class="notes">
 <p>Go to menti</p>
 <p>Slide text: War Planes · During World War II, U.S. bombers experienced heavy losses · The Navy asked the Statistical Research Group at Columbia University to help them figure out how to reduce losses · Abraham Wald, an influential statistician, looked at a large sample of damaged planes that had returned from bombing runs, and made a diagram of each bullet hole</p>
@@ -637,7 +395,7 @@ Ollie Ballinger
 </section>
 <section id="selection-bias" class="slide level2">
 <h2>Selection Bias</h2>
-<!-- slide 13 -->
+<!-- slide 6 -->
 <ul>
 <li>We rarely have all the data on a specific <strong>population;</strong> Often, we only have a <strong>sample.</strong></li>
 <li>When a sample is drawn randomly, we can use the distribution of the sample to make inferences about the population.</li>
@@ -650,7 +408,7 @@ Ollie Ballinger
 </section>
 <section id="populations-and-samples" class="slide level2">
 <h2>Populations and Samples</h2>
-<!-- slide 14 -->
+<!-- slide 7 -->
 <ul>
 <li>There are two kinds of distributions: populations and samples.</li>
 <li><strong>A population is the set of all relevant measurements</strong></li>
@@ -697,7 +455,7 @@ Ollie Ballinger
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
-<!-- slide 15 -->
+<!-- slide 8 -->
 <ol type="1">
 <li>Basic Statistics</li>
 <li>The Central Limit Theorem</li>
@@ -707,11 +465,11 @@ Ollie Ballinger
 <section>
 <section id="basic-statistics" class="title-slide slide level1 center">
 <h1>Basic Statistics</h1>
-<!-- slide 16 -->
+<!-- slide 9 -->
 </section>
-<section id="section-4" class="slide level2 fallback" data-background-image="img/w05/slide_017.jpg" data-background-size="contain">
+<section id="section-4" class="slide level2 fallback" data-background-image="img/w05/slide_010.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 17 -->
+<!-- slide 10 -->
 <aside class="notes">
 <p>Slide text: Sample mean</p>
 <style type="text/css">
@@ -726,9 +484,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-5" class="slide level2 fallback" data-background-image="img/w05/slide_018.jpg" data-background-size="contain">
+<section id="section-5" class="slide level2 fallback" data-background-image="img/w05/slide_011.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 18 -->
+<!-- slide 11 -->
 <aside class="notes">
 <p>Slide text: Sample median · The median of a set of n number of observations in a sample, ordered by value, of a variable is is defined by · · · · Example (already in order): · Ages: 17, 19, 21, 22, 23, 23, 23, 38 · Median = (22+23) / 2 = 22.5 · The median also describes what a typical observation looks like, or where is the center of the distribution of the sample of observations.</p>
 <style type="text/css">
@@ -743,9 +501,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-6" class="slide level2 fallback" data-background-image="img/w05/slide_019.jpg" data-background-size="contain">
+<section id="section-6" class="slide level2 fallback" data-background-image="img/w05/slide_012.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 19 -->
+<!-- slide 12 -->
 <aside class="notes">
 <p>Slide text: Mean vs.&nbsp;Median · The mean is sensitive to extreme values (outliers)</p>
 <style type="text/css">
@@ -760,9 +518,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-7" class="slide level2 fallback" data-background-image="img/w05/slide_020.jpg" data-background-size="contain">
+<section id="section-7" class="slide level2 fallback" data-background-image="img/w05/slide_013.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 20 -->
+<!-- slide 13 -->
 <aside class="notes">
 <p>Slide text: Mean, median, and skewness · The mean is sensitive to outliers: · · · · · · · · skewness often “follows the longer tail”.</p>
 <style type="text/css">
@@ -779,11 +537,11 @@ Ollie Ballinger
 </section>
 <section id="section-8" class="slide level2" data-background-image="img/w05/bdaa6a7390.png" data-background-size="contain">
 <h2></h2>
-<!-- slide 21 -->
+<!-- slide 14 -->
 </section>
-<section id="section-9" class="slide level2 fallback" data-background-image="img/w05/slide_022.jpg" data-background-size="contain">
+<section id="section-9" class="slide level2 fallback" data-background-image="img/w05/slide_015.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 22 -->
+<!-- slide 15 -->
 <aside class="notes">
 <p>Slide text: Regarding Categorical Variables… · For categorical variables, neither mean or median make sense. Why? · · · · · · · · · The mode might be a better way to find the most “representative” value.</p>
 <style type="text/css">
@@ -800,7 +558,7 @@ Ollie Ballinger
 </section>
 <section id="measures-of-spread-variance" class="slide level2">
 <h2>Measures of Spread: Variance</h2>
-<!-- slide 23 -->
+<!-- slide 16 -->
 <div class="columns">
 <div class="column" style="width:58%;">
 <ul>
@@ -827,9 +585,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-10" class="slide level2 fallback" data-background-image="img/w05/slide_024.jpg" data-background-size="contain">
+<section id="section-10" class="slide level2 fallback" data-background-image="img/w05/slide_017.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 24 -->
+<!-- slide 17 -->
 <aside class="notes">
 <p>Slide text: Measures of Spread: Standard Deviation · The sample standard deviation, s, is the square root of the variance · s has the same units as the xᵢ, so it is easier to interpret than s²</p>
 <style type="text/css">
@@ -844,9 +602,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-11" class="slide level2 fallback" data-background-image="img/w05/slide_025.jpg" data-background-size="contain">
+<section id="section-11" class="slide level2 fallback" data-background-image="img/w05/slide_018.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 25 -->
+<!-- slide 18 -->
 <aside class="notes">
 <p>Sample A: mean = 5, sum of squared deviations = 58, s² = 58/9 = 6.444, s = 2.539. The histograms on the two slides use the same axes; the shaded band is the mean ± 1 s. The earlier version of this slide said 2.53; the correct value to 2 d.p. is 2.54.</p>
 <p>Slide text: Sample A: High standard deviation · Sample A</p>
@@ -862,9 +620,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-12" class="slide level2 fallback" data-background-image="img/w05/slide_026.jpg" data-background-size="contain">
+<section id="section-12" class="slide level2 fallback" data-background-image="img/w05/slide_019.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 26 -->
+<!-- slide 19 -->
 <aside class="notes">
 <p>Sample B: mean = 5, sum of squared deviations = 0, s² = 0/9 = 0.000, s = 0.000. The histograms on the two slides use the same axes; the shaded band is the mean ± 1 s. Every value equals the mean, so every deviation is 0 and s = 0: there is no spread at all.</p>
 <p>Slide text: Sample B: Zero standard deviation · Sample B</p>
@@ -883,11 +641,11 @@ Ollie Ballinger
 <section>
 <section id="the-central-limit-theorem" class="title-slide slide level1 center">
 <h1>The Central Limit Theorem</h1>
-<!-- slide 27 -->
+<!-- slide 20 -->
 </section>
 <section id="inferring-from-samples" class="slide level2">
 <h2>Inferring from samples</h2>
-<!-- slide 28 -->
+<!-- slide 21 -->
 <ul>
 <li>There are generally equal numbers of men and women in the population*;</li>
 <li>In other words, a random individual plucked from this population has a ~50% chance of being a man or a woman.</li>
@@ -900,9 +658,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="section-13" class="slide level2 fallback" data-background-image="img/w05/slide_029.jpg" data-background-size="contain">
+<section id="section-13" class="slide level2 fallback" data-background-image="img/w05/slide_022.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 29 -->
+<!-- slide 22 -->
 <aside class="notes">
 <p>Slide text: Inferring from samples · But what are the chances of flipping a coin 100 times and never getting heads? Or drawing a random sample of 100 people and none of them are women? Probably extremely low. How low?</p>
 <style type="text/css">
@@ -917,9 +675,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-14" class="slide level2 fallback" data-background-image="img/w05/slide_030.jpg" data-background-size="contain">
+<section id="section-14" class="slide level2 fallback" data-background-image="img/w05/slide_023.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 30 -->
+<!-- slide 23 -->
 <aside class="notes">
 <p>Slide text: Inferring from samples · Turns out, if you plot the means from sufficiently large random samples, they approximate a normal distribution · The mean of the sample means will approach the population mean</p>
 <style type="text/css">
@@ -936,7 +694,7 @@ Ollie Ballinger
 </section>
 <section id="central-limit-theorem" class="slide level2">
 <h2>Central Limit Theorem</h2>
-<!-- slide 31 -->
+<!-- slide 24 -->
 <ul>
 <li>This is the most important concept you will learn in this course.</li>
 <li>If you take sufficiently large random samples from the population,</li>
@@ -948,7 +706,7 @@ Ollie Ballinger
 </section>
 <section id="why-does-this-matter" class="slide level2">
 <h2>Why does this matter?</h2>
-<!-- slide 32 -->
+<!-- slide 25 -->
 <ul>
 <li>This means that <strong>we can use the normal probability model to quantify uncertainty when making inferences about a population mean based on the sample mean.</strong></li>
 <li>In other words, because we know the shape of the normal distribution, we can precisely estimate the likelihood of observing a sample mean as extreme as the one we have</li>
@@ -960,9 +718,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="section-15" class="slide level2 fallback" data-background-image="img/w05/slide_033.jpg" data-background-size="contain">
+<section id="section-15" class="slide level2 fallback" data-background-image="img/w05/slide_026.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 33 -->
+<!-- slide 26 -->
 <aside class="notes">
 <p>Slide text: Estimating Union membership in America · “Union” is a binary variable, in which · 0= person is not a member of a union · 1= person is a member of a union · I don’t know what the rate of union membership is in the population. · But lets say I can draw a random sample of 7 people from across the U.S.</p>
 <style type="text/css">
@@ -977,9 +735,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-16" class="slide level2 fallback" data-background-image="img/w05/slide_034.jpg" data-background-size="contain">
+<section id="section-16" class="slide level2 fallback" data-background-image="img/w05/slide_027.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 34 -->
+<!-- slide 27 -->
 <aside class="notes">
 <p>Slide text: Again, it’s possible that none of them would be union members · i.e., our sample would look like this: [0,0,0,0,0,0,0,0], with a mean of 0. · Given such a small sample, there’s a decent chance that our sample mean would be 0 due to pure chance. · Estimating Union membership in America</p>
 <style type="text/css">
@@ -996,12 +754,12 @@ Ollie Ballinger
 </section>
 <section id="estimating-union-membership-in-america" class="slide level2">
 <h2>Estimating Union membership in America</h2>
-<!-- slide 35 -->
+<!-- slide 28 -->
 
 <img data-src="img/w05/faf3dc8c84c0710.png" class="r-stretch quarto-figure-center"></section>
 <section id="estimating-union-membership-in-america-1" class="slide level2">
 <h2>Estimating Union membership in America</h2>
-<!-- slide 36 -->
+<!-- slide 29 -->
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
@@ -1019,12 +777,12 @@ Ollie Ballinger
 </section>
 <section id="estimating-union-membership-in-america-2" class="slide level2">
 <h2>Estimating Union membership in America</h2>
-<!-- slide 37 -->
+<!-- slide 30 -->
 
 <img data-src="img/w05/4ba6324d7bc71f9.png" class="r-stretch quarto-figure-center"></section>
 <section id="the-distribution-of-sample-means-becomes-normal-regardless-of-the-underlying-distribution" class="slide level2">
 <h2>The distribution of sample means becomes normal, regardless of the underlying distribution</h2>
-<!-- slide 38 -->
+<!-- slide 31 -->
 <div class="columns">
 <div class="column" style="width:53%;">
 <p><img data-src="img/w05/48fbf059ddcaf7e.png" class="pic" style="max-height:700px"></p>
@@ -1035,7 +793,7 @@ Ollie Ballinger
 </section>
 <section id="the-distribution-of-sample-means-becomes-normal-regardless-of-the-underlying-distribution-1" class="slide level2">
 <h2>The distribution of sample means becomes normal, regardless of the underlying distribution</h2>
-<!-- slide 39 -->
+<!-- slide 32 -->
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="img/w05/edff04d6d8c6760.png" class="pic" style="max-height:700px"></p>
@@ -1046,7 +804,7 @@ Ollie Ballinger
 </section>
 <section id="the-distribution-of-sample-means-becomes-normal-regardless-of-the-underlying-distribution-2" class="slide level2">
 <h2>The distribution of sample means becomes normal, regardless of the underlying distribution</h2>
-<!-- slide 40 -->
+<!-- slide 33 -->
 <div class="columns">
 <div class="column" style="width:51%;">
 <p><img data-src="img/w05/1b10bc7c69c2707.png" class="pic" style="max-height:700px"></p>
@@ -1057,7 +815,7 @@ Ollie Ballinger
 </section>
 <section id="the-distribution-of-sample-means-becomes-normal-regardless-of-the-underlying-distribution-3" class="slide level2">
 <h2>The distribution of sample means becomes normal, regardless of the underlying distribution</h2>
-<!-- slide 41 -->
+<!-- slide 34 -->
 <div class="columns">
 <div class="column" style="width:51%;">
 <p><img data-src="img/w05/bd9d913afec95fa.png" class="pic" style="max-height:700px"></p>
@@ -1068,7 +826,7 @@ Ollie Ballinger
 </section>
 <section id="why-the-clt-is-magic" class="slide level2">
 <h2>Why the CLT is ✨magic✨</h2>
-<!-- slide 42 -->
+<!-- slide 35 -->
 <ul>
 <li>In these examples, I’ve had access to the entire population and have been drawing thousands of large samples to show that their means are normally distributed.</li>
 <li>If you have <strong>one sufficiently large random sample, you can ASSUME</strong> that the distribution of sample means will be normally distributed.
@@ -1080,11 +838,11 @@ Ollie Ballinger
 <section>
 <section id="quantifying-uncertainty" class="title-slide slide level1 center">
 <h1>Quantifying Uncertainty</h1>
-<!-- slide 43 -->
+<!-- slide 36 -->
 </section>
 <section id="the-signal-and-the-noise" class="slide level2">
 <h2>The Signal and the Noise</h2>
-<!-- slide 44 -->
+<!-- slide 37 -->
 <ul>
 <li>Signal
 <ul>
@@ -1102,9 +860,9 @@ Ollie Ballinger
 </ul></li>
 </ul>
 </section>
-<section id="section-17" class="slide level2 fallback" data-background-image="img/w05/slide_045.jpg" data-background-size="contain">
+<section id="section-17" class="slide level2 fallback" data-background-image="img/w05/slide_038.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 45 -->
+<!-- slide 38 -->
 <aside class="notes">
 <p>Slide text: The Signal and the Noise · The challenge of inference is understanding how likely it is that the signal we’re observing is due to random chance (noise). · Most inferential statistics are basically a ratio of signal to noise:</p>
 <style type="text/css">
@@ -1119,9 +877,9 @@ Ollie Ballinger
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-18" class="slide level2 fallback" data-background-image="img/w05/slide_046.jpg" data-background-size="contain">
+<section id="section-18" class="slide level2 fallback" data-background-image="img/w05/slide_039.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 46 -->
+<!-- slide 39 -->
 <aside class="notes">
 <p>Slide text: Signal · Noise · Noise · N o i s e · N o i s e</p>
 <style type="text/css">
@@ -1138,7 +896,7 @@ Ollie Ballinger
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
-<!-- slide 47 -->
+<!-- slide 40 -->
 <ol type="1">
 <li>A <strong>population</strong> is the set of all relevant measurements</li>
 <li>A <strong>sample</strong> is a group of observations drawn in some way from a wider population</li>
@@ -1152,9 +910,320 @@ Ollie Ballinger
 </ol></li>
 </ol>
 </section>
+<section id="bayesian-thinking" class="slide level2">
+<h2>Bayesian thinking</h2>
+<!-- slide 41 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>Frequentist: probability is how often something happens over many repeats</li>
+<li>Bayesian: probability is how strongly you believe something
+<ul>
+<li>Prior: what you believe before you see the data</li>
+<li>Posterior: what you believe after you see the data</li>
+</ul></li>
+<li>Today: one Bayesian idea that you can use every day</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/609978c301.png" class="pic" style="max-height:631px"></p>
+<p>Mammogram example (next slides). Both bars use the same count scale.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Link back to the Frequentism slide at the start of the lecture. Frequentist: a probability is a long-run frequency of a repeatable event; parameters are fixed and unknown. Bayesian: a probability is a degree of belief; parameters have distributions; evidence updates a prior into a posterior. We do not do Bayesian estimation in this module. The goal is one habit: always ask for the base rate. The chart is a teaser for the mammogram slides. Both bars use the same count scale: 90% of the 10 women with cancer test positive (9), but only 9% of the 990 without cancer do (89). So most positive tests (89 of 98) are false: the posterior is 9%, not 90%. Bayes’ essay was published after his death by Richard Price (Philosophical Transactions, 1763).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="who-was-thomas-bayes" class="slide level2">
+<h2>Who was Thomas Bayes?</h2>
+<!-- slide 42 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>Thomas Bayes (c.&nbsp;1701–1761) was a Presbyterian minister and a mathematician</li>
+<li>He was a minister in Tunbridge Wells and a Fellow of the Royal Society</li>
+<li>He never published his rule. After his death, his friend Richard Price found it in his papers and published it in 1763</li>
+<li>He is buried in Bunhill Fields, a few minutes’ walk south of Old Street station
+<ul>
+<li>William Blake and Daniel Defoe are buried there too</li>
+</ul></li>
+<li>Go and visit him: the base rate of famous statisticians in EC1 is low</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/ad8f5ecfb4.jpg" class="pic" style="max-height:627px"></p>
+<p>The Bayes family vault, Bunhill Fields, London. Photo: Cory Doctorow (2007), CC BY-SA 2.0, via Wikimedia Commons.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Thomas Bayes: born c.&nbsp;1701 (the exact date and place are uncertain), died 7 April 1761 in Tunbridge Wells, where he was the minister of the Mount Sion Presbyterian chapel. Elected a Fellow of the Royal Society in 1742. His essay, ‘An Essay towards solving a Problem in the Doctrine of Chances’, was sent to the Royal Society by Richard Price and published in Philosophical Transactions in 1763. Bunhill Fields (City Road / Bunhill Row, EC1Y) was the main burial ground for nonconformists, that is, Protestants outside the Church of England; Bayes is in his family’s vault. Nearby: the Royal Statistical Society is on Errol Street, close to the burial ground (CHECK). Fun fact: the portrait that is usually shown for Bayes is probably not him; no portrait of him is confirmed. Photo: ‘Tomb of Thomas Bayes, Bunhill Cemetery, London, UK’ by Cory Doctorow, 4 Dec 2007, CC BY-SA 2.0, Wikimedia Commons.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a-small-of-a-big-number-beats-a-big-of-a-small-number" class="slide level2">
+<h2>A small % of a big number beats a big % of a small number</h2>
+<!-- slide 43 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>South Wales Police used live facial recognition at the 2017 Champions League final in Cardiff</li>
+<li>The system compared faces in the crowd with a watch list</li>
+<li>93% of its alerts named the wrong person</li>
+<li>Why? A small error rate × a very big crowd is more than a high hit rate × a few wanted people</li>
+<li>Always ask: how big is each group?</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/6108a307ba.png" class="pic" style="max-height:631px"></p>
+<p>Source: South Wales Police figures, reported by The Guardian, 5 May 2018.</p>
+</div>
+</div>
+<aside class="notes">
+<p>South Wales Police data released in 2018: at the UEFA Champions League final in Cardiff (June 2017), the system made 2,470 alerts, and 2,297 (93.0%; press reports often say 92%) were false positives. About 170,000 people came to Cardiff for the match. The police said that no-one was arrested because of a false alert, and that officers checked each alert. The point: the system can be quite accurate per face and still give mostly false alerts, because almost everyone in the crowd is not on the watch list. The chart uses one count scale: the 173 correct alerts are a tiny bar next to the crowd of ~170,000, of whom 2,297 (1.4%) got a false alert. The number of wanted people in the crowd is not public, so the hit rate for the left bar is unknown. CHECK the figures against the Guardian article before the lecture.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-mammogram-problem" class="slide level2">
+<h2>The mammogram problem</h2>
+<!-- slide 44 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>1% of women in a screening group have breast cancer</li>
+<li>The test detects 90% of cancers</li>
+<li>The test also flags 9% of healthy women</li>
+<li>A woman tests positive. What is the chance that she has cancer?
+<ul>
+<li>Answer: 9 of 98 positives, about 9%</li>
+<li>Only 21% of 160 gynaecologists chose the right answer</li>
+</ul></li>
+<li>Tip: count people, not percentages</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/ee39084c03.png" class="pic" style="max-height:629px"></p>
+<p>Numbers from Gigerenzer et al.&nbsp;(2007), Psychological Science in the Public Interest 8(2).</p>
+</div>
+</div>
+<aside class="notes">
+<p>Ask the class for a show of hands BEFORE you reveal the answer (most people say about 90%). Gigerenzer, Gaissmaier, Kurz-Milcke, Schwartz &amp; Woloshin (2007) ‘Helping doctors and patients make sense of health statistics’, PSPI 8(2):53-96. In a 2007 training session, 160 gynaecologists got this problem as conditional probabilities; 21% chose the correct answer (about 1 in 10). After training in natural frequencies, most got it right. Natural frequencies: of 1,000 women, 10 have cancer and 9 of them test positive; of the 990 without cancer, about 89 test positive. 9 / (9 + 89) = 9%. On the chart, the outlined block is the 98 positive tests; only the 9 blue squares in it have cancer. This block is the denominator of Bayes’ rule (slide 10). The numbers are a teaching example, not the current NHS screening figures.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-same-pattern-in-many-places" class="slide level2">
+<h2>The same pattern, in many places</h2>
+<!-- slide 45 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>Drunk driving is much more dangerous per mile, but most road deaths involve no drunk driver</li>
+<li>8 of 9 women with breast cancer have no affected mother, sister or daughter</li>
+<li>My damage detector in Kharkiv: it flagged 32% of damaged buildings but only 0.9% of intact ones. Most flags were still intact buildings</li>
+<li>Also: COVID deaths in vaccinated people, DNA database matches, heart attacks at ‘normal’ cholesterol</li>
+<li>Geoffrey Rose: many people at a small risk can give more cases than a few people at a high risk</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/3cfae5d15f.png" class="pic" style="max-height:631px"></p>
+<p>Chart: Ballinger (2025), Remote Sensing of Environment, Tables 1–2. Other sources: NHTSA (2022 data); Collaborative Group (2001), Lancet 358.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Road deaths: NHTSA, 2022 data: 13,524 deaths in crashes with an alcohol-impaired driver (BAC 0.08+), 32% of all US traffic deaths. Breast cancer: Collaborative Group on Hormonal Factors in Breast Cancer (2001) ‘Familial breast cancer’, Lancet 358:1389-99: ‘eight out of nine women who develop breast cancer do not have an affected mother, sister, or daughter’. Kharkiv (chart): 107,976 buildings, 0.85% damaged (≈918), recall 32.0% (≈294 true flags), precision 23.41%, so ≈961 false flags = 0.9% of ≈107,058 intact buildings (Ballinger 2025, Tables 1–2). The counts are approximate, because the paper’s statistics are weighted by building area. Other examples to talk through: (1) In the UK in summer 2021, many COVID deaths were in vaccinated people, because nearly all older people were vaccinated. (2) A 1-in-a-million DNA match searched against a database of ~6 million profiles gives ~6 innocent matches. (3) Most heart-attack patients have ‘normal’ cholesterol (Sachdeva et al.&nbsp;2009, Am Heart J). CHECK these before you quote numbers. Rose’s prevention paradox: Rose (1985) ‘Sick individuals and sick populations’, Int J Epidemiol 14:32-38.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-19" class="slide level2 fallback" data-background-image="img/w05/slide_046.jpg" data-background-size="contain">
+<h2></h2>
+<!-- slide 46 -->
+<aside class="notes">
+<p>Own research, Kharkiv, UNOSAT labels of 15 June 2022. Left: the damage probability raster (t-values; bright = large change in radar backscatter). Right: building footprints classified against the UN labels. The legend percentages are shares of building AREA: true positives 0%, false positives 1%, true negatives 96%, false negatives 1% (rounded). Point to the orange: the false flags are spread across the whole city, because almost every building is intact, so even a small false-positive rate (0.9%) adds up to more flags than the true damage (≈961 false vs ≈294 true flags, previous slide). Most of the real damage is in the north-east (Saltivka), where red and purple cluster. Table 2: AUC 0.80, precision 23%, recall 32%. The figure files come from the PWTT repo (figs/, May 2025); check that they match the published version.</p>
+<p>Slide text: My research: where the detector looked in Kharkiv · Left: PWTT damage score (t-value) from Sentinel-1 radar. Right: each building against UN damage labels. Red: damaged and flagged. Orange: intact but flagged. Purple: damaged but missed. Green: intact and not flagged. Source: Ballinger (2025), Remote Sensing of Environment.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-20" class="slide level2 fallback" data-background-image="img/w05/slide_047.jpg" data-background-size="contain">
+<h2></h2>
+<!-- slide 47 -->
+<aside class="notes">
+<p>The same grid as the mammogram slide, for two cities from the paper. Kharkiv (UNOSAT, June 2022): 0.85% of buildings damaged, recall 32%, precision 23.4%. Per 1,000 buildings: 3 damaged and flagged, 9 intact but flagged, 6 damaged but missed, 982 intact and not flagged. So about 1 flag in 4 is real (3/12 = 25% after rounding; the paper’s figure is 23%). Gaza (UNOSAT, April 2025): 72% damaged, recall 92%, precision 74.1%. Per 1,000: 661 true flags, 231 false flags, 58 missed, 50 intact and not flagged: 661/892 = 74%. The detector is the same algorithm; the base rate is what changes. In Kharkiv the false alarms come from the huge intact majority, exactly like the healthy women in the mammogram example. The counts are approximate: the paper’s rates are weighted by building area, and each city has its own threshold of T.</p>
+<p>Slide text: Same detector, two cities: 1,000 buildings each · Like the mammogram: blue = damaged and flagged, orange = intact but flagged; the outline is every flag. Counts per 1,000 buildings from Ballinger (2025), Tables 1–2 (area-weighted rates, rounded). Paper precision: Kharkiv 23%, Gaza 74%.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="my-research-same-detector-very-different-precision" class="slide level2">
+<h2>My research: same detector, very different precision</h2>
+<!-- slide 48 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>The Pixel-Wise T-Test (PWTT) flags damaged buildings in free radar imagery</li>
+<li>We tested it on 904,977 buildings in 30 cities, with UN damage labels</li>
+<li>Kremenchuk: the best AUC of all 30 cities (0.93), but only 3% of flags were real damage
+<ul>
+<li>Only 0.11% of its buildings were damaged</li>
+</ul></li>
+<li>Gaza: a lower AUC (0.78), but 74% of flags were real damage
+<ul>
+<li>72% of its buildings were damaged</li>
+</ul></li>
+<li>The detector did not change. The base rate changed.</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/f4f94c827d.png" class="pic" style="max-height:629px"></p>
+<p>Source: Ballinger (2025), Remote Sensing of Environment, Tables 1–2. Statistics are weighted by building area.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Own research. Ballinger (2025) ‘Open Access Battle Damage Detection via Pixel-Wise T-Test on Sentinel-1 Imagery’, Remote Sensing of Environment. Validation: Microsoft building footprints joined to UNOSAT damage annotations (10 m tolerance); 904,977 footprints. Each dot is a city: x = % of buildings damaged (Table 1), y = precision (Table 2). For each city the threshold of T comes from a precision-recall curve, and all statistics are weighted by building area. Rank correlation across the 30 cities: precision vs % damaged = +0.54; AUC vs % damaged = -0.32. So precision follows the base rate, while AUC (which does not depend on the base rate) does not. Kremenchuk: 27,497 buildings, 0.11% damaged (about 30 buildings), AUC 0.928, precision 3.44%, recall 2.99%. Gaza (UNOSAT, 4 April 2025): 228,728 buildings, 71.91% damaged, AUC 0.781, precision 74.09%, recall 91.98%. The paper makes the same point: F1 tends to zero as you add negatives, so compare cities with AUC; a balanced sample raises F1 for the full data from 65% to 80%. Lowest precision: Melitopol (1.5%, 0.23% damaged) and Antonivka (2.2%). Outliers: Bucha (98% precision at 1.6% damaged) and Antonivka (AUC 0.42, 905 buildings). Note: the abstract says 29 cities; Tables 1–2 list 30.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bayes-rule" class="slide level2 smaller">
+<h2>Bayes’ rule</h2>
+<!-- slide 49 -->
+<div class="columns">
+<div class="column" style="width:63%;">
+<p><img data-src="img/w05/a00f89b999.png" class="pic" style="max-height:420px"></p>
+<p><img data-src="img/w05/d203640cf1.png" class="pic" style="max-height:280px"></p>
+</div><div class="column" style="width:37%;">
+<ul>
+<li>How to read it, step by step:
+<ul>
+<li><ol type="1">
+<li>Start with the prior: 1% of women have cancer</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Multiply by the likelihood: 90% of them test positive. These are the true alarms</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>Divide by the evidence: all positive tests, true alarms + false alarms</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>The result is the posterior: 9%</li>
+</ol></li>
+</ul></li>
+<li>Trap: P(+ | cancer) = 90% is not P(cancer | +) = 9%</li>
+<li>The false alarms come from the big group, so they decide the answer</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>Read the formula term by term, in colour. POSTERIOR (black): what we want, the chance of cancer given a positive test. LIKELIHOOD (blue): the chance of a positive test if she has cancer, the test’s sensitivity, 90%. This is the number that people confuse with the posterior: P(+ | cancer) is not P(cancer | +). PRIOR (orange): the base rate before the test, 1%. EVIDENCE (green): the chance of a positive test at all, from both routes: true alarms (0.90 × 0.01 = 0.009) plus false alarms (0.09 × 0.99 = 0.0891), total 0.0981. Posterior = 0.009 / 0.0981 = 0.092, about 9%. The bottom line is the same sum in counts: of 1,000 women, 9 true alarms and 89 false alarms, so 9 of 98 alarms are real. The numerator is the true alarms; the denominator is all alarms. That is all Bayes’ rule does. Why it works: P(A and B) = P(B | A) P(A) = P(A | B) P(B); divide both sides by P(B).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-base-rate-decides" class="slide level2">
+<h2>The base rate decides</h2>
+<!-- slide 50 -->
+<div class="columns">
+<div class="column" style="width:49%;">
+<ul>
+<li>The same test (90% sensitivity, 9% false alarms) at different base rates</li>
+<li>Rare condition: almost every alarm is false</li>
+<li>Common condition: most alarms are true</li>
+<li>So a result means different things in different populations</li>
+<li>Link to today: a base rate is a population quantity, and we estimate it from a sample</li>
+</ul>
+</div><div class="column" style="width:51%;">
+<p><img data-src="img/w05/691ad9d351.png" class="pic" style="max-height:624px"></p>
+<p>P(condition | positive) from Bayes’ rule, with the prior on the x-axis.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Each point on the curve is Bayes’ rule with a different prior. At a 0.1% base rate, P(condition | +) is about 1%; at 1% it is 9%; at 10% it is 53%; at 50% it is 91%. This is why we screen high-risk groups, and why a rare-event detector (fraud, terrorism, illegal fishing, building damage) gives many false alarms. Link back to the lecture: a base rate is a population quantity, and we usually estimate it from a sample, so everything about sampling error applies to it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="any-questions" class="slide level2">
 <h2>Any Questions?</h2>
-<!-- slide 48 -->
+<!-- slide 51 -->
 <p><span style="display:block;text-align:center"><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></span></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>

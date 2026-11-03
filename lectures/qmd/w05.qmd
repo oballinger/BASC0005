@@ -23,8 +23,330 @@ Slide text: The Data Science Process: · Ask a Question · Get the Data · Explo
 Slide text: Frequentism · Frequentist inference is the process of determining properties of an underlying distribution via the observation of data. · It relies on the Central Limit Theorem · Using the properties of a sample to estimate the parameters of a population · Thus, the nature of a sample is of extreme importance to the quality of inferences that can be drawn from it. · R.A. Fisher · He was alsoa eugenicist ☹
 :::
 
-## Bayesian thinking
+## {background-image="img/w05/slide_005.jpg" background-size="contain" .fallback}
 <!-- slide 5 -->
+
+
+::: notes
+Go to menti
+
+Slide text: War Planes · During World War II, U.S. bombers experienced heavy losses · The Navy asked the Statistical Research Group at Columbia University to help them figure out how to reduce losses  · Abraham Wald, an influential statistician, looked at a large sample of damaged planes that had returned from bombing runs, and made a diagram of each bullet hole
+:::
+
+## Selection Bias
+<!-- slide 6 -->
+
+- We rarely have all the data on a specific **population;** Often, we only have a **sample.**
+- When a sample is drawn randomly, we can use the distribution of the sample to make inferences about the population.
+- **Selection Bias** can occur when our sample is not randomly selected.
+- Wald was interested in the **population** of bomber planes, but only observed a highly biased **sample:** those that returned.
+    - This is known as **survivorship bias,** and is a subset of general **selection bias**
+
+## Populations and Samples
+<!-- slide 7 -->
+
+- There are two kinds of distributions: populations and samples.
+- **A population is the set of all relevant measurements**
+- **A sample is a group of observations drawn in some way from a wider population**
+
+| Population | Sample |
+|---|---|
+| All the fish in the sea | The fish I caught |
+| The adult population of the UK | Census responses |
+| All U.S. Navy Bomber planes | Bombers that made it back to base |
+| All 19-20 year olds in the world | The people in this classroom |
+| A person’s movements over a month | Mobile phone location pings |
+| Public sentiment on race in South Africa | Tweets about race from South African users |
+
+## Outline
+<!-- slide 8 -->
+
+1. Basic Statistics
+1. The Central Limit Theorem
+1. Quantifying Uncertainty
+
+# Basic Statistics
+<!-- slide 9 -->
+
+## {background-image="img/w05/slide_010.jpg" background-size="contain" .fallback}
+<!-- slide 10 -->
+
+
+::: notes
+Slide text: Sample mean
+:::
+
+## {background-image="img/w05/slide_011.jpg" background-size="contain" .fallback}
+<!-- slide 11 -->
+
+
+::: notes
+Slide text: Sample median · The median of a set of n number of observations in a sample, ordered by value, of a variable is is defined by  ·  ·  ·  · Example (already in order): · Ages: 17, 19, 21, 22, 23, 23, 23, 38  · Median = (22+23) / 2 = 22.5  · The median also describes what a typical observation looks like, or where is the center of the distribution of the sample of observations.
+:::
+
+## {background-image="img/w05/slide_012.jpg" background-size="contain" .fallback}
+<!-- slide 12 -->
+
+
+::: notes
+Slide text: Mean vs. Median · The mean is sensitive to extreme values (outliers)
+:::
+
+## {background-image="img/w05/slide_013.jpg" background-size="contain" .fallback}
+<!-- slide 13 -->
+
+
+::: notes
+Slide text: Mean, median, and skewness · The mean is sensitive to outliers:  ·  ·  ·  ·  ·  ·  ·  · skewness often “follows the longer tail”.
+:::
+
+## {background-image="img/w05/bdaa6a7390.png" background-size="contain"}
+<!-- slide 14 -->
+
+## {background-image="img/w05/slide_015.jpg" background-size="contain" .fallback}
+<!-- slide 15 -->
+
+
+::: notes
+Slide text: Regarding Categorical Variables... · For categorical variables, neither mean or median make sense. Why? ·  ·  ·  ·  ·  ·  ·  ·  · The mode might be a better way to find the most “representative” value.
+:::
+
+## Measures of Spread: Variance
+<!-- slide 16 -->
+
+::: {.columns}
+:::: {.column width="58%"}
+- The sample **variance**, s², measures how far, on average, the values are from the mean
+- (xᵢ − x̄) is how far each value xᵢ is from the mean x̄. Squaring makes s² sensitive to extreme values (outliers)
+- s² is not in the same units as the xᵢ: it is in squared units
+- What does a variance of 1,008 mean? Or 0.0001?
+::::
+:::: {.column width="42%"}
+![](img/w05/87ebf7cb29.png){.pic style="max-height:700px"}
+::::
+:::
+
+::: notes
+We divide by n − 1, not n (Bessel's correction). The deviations are measured from the sample mean, which is always closer to the sample than the true population mean is, so dividing by n would underestimate the population variance. Older versions of this slide wrote |xᵢ − x̄|²; the absolute value does nothing once you square, so it is dropped.
+:::
+
+## {background-image="img/w05/slide_017.jpg" background-size="contain" .fallback}
+<!-- slide 17 -->
+
+
+::: notes
+Slide text: Measures of Spread: Standard Deviation · The sample standard deviation, s, is the square root of the variance · s has the same units as the xᵢ, so it is easier to interpret than s²
+:::
+
+## {background-image="img/w05/slide_018.jpg" background-size="contain" .fallback}
+<!-- slide 18 -->
+
+
+::: notes
+Sample A: mean = 5, sum of squared deviations = 58, s² = 58/9 = 6.444, s = 2.539. The histograms on the two slides use the same axes; the shaded band is the mean ± 1 s. The earlier version of this slide said 2.53; the correct value to 2 d.p. is 2.54.
+
+Slide text: Sample A: High standard deviation · Sample A
+:::
+
+## {background-image="img/w05/slide_019.jpg" background-size="contain" .fallback}
+<!-- slide 19 -->
+
+
+::: notes
+Sample B: mean = 5, sum of squared deviations = 0, s² = 0/9 = 0.000, s = 0.000. The histograms on the two slides use the same axes; the shaded band is the mean ± 1 s. Every value equals the mean, so every deviation is 0 and s = 0: there is no spread at all.
+
+Slide text: Sample B: Zero standard deviation · Sample B
+:::
+
+# The Central Limit Theorem
+<!-- slide 20 -->
+
+## Inferring from samples
+<!-- slide 21 -->
+
+- There are generally equal numbers of men and women in the population\*;
+- In other words, a random individual plucked from this population has a ~50% chance of being a man or a woman.
+- Let’s assume a variable where woman=1, man=0
+- If I take a random sample of 4 people,
+    - we might expect 2 men and 2 women, or a [0,0,1,1] sample
+    - But we might not be entirely surprised if we got all men [0,0,0,0] or all women [1,1,1,1].
+    - Similarly, you could flip a coin 4 times and get all heads or all tails.
+
+## {background-image="img/w05/slide_022.jpg" background-size="contain" .fallback}
+<!-- slide 22 -->
+
+
+::: notes
+Slide text: Inferring from samples · But what are the chances of flipping a coin 100 times and never getting heads? Or drawing a random sample of 100 people and none of them are women? Probably extremely low. How low?
+:::
+
+## {background-image="img/w05/slide_023.jpg" background-size="contain" .fallback}
+<!-- slide 23 -->
+
+
+::: notes
+Slide text: Inferring from samples · Turns out, if you plot the means from sufficiently large random samples, they approximate a normal distribution · The mean of the sample means will approach the population mean
+:::
+
+## Central Limit Theorem
+<!-- slide 24 -->
+
+- This is the most important concept you will learn in this course.
+- If you take sufficiently large random samples from the population,
+
+[**The distribution of sample means will be approximately normally distributed**]{style="display:block;text-align:center"}
+
+- *Regardless of the underlying population distribution*
+
+## Why does this matter?
+<!-- slide 25 -->
+
+- This means that **we can use the normal probability model to quantify uncertainty when making inferences about a population mean based on the sample mean.**
+- In other words, because we know the shape of the normal distribution, we can precisely estimate the likelihood of observing a sample mean as extreme as the one we have
+- We rarely observe the whole population, but if we have a large enough random sample, **we can assume that the mean of this sample has a:**
+    - 68% chance of falling within 1 standard deviation of the population mean
+    - 95% chance of falling within 2 standard deviations of the population mean
+    - 99.7% chance of falling within 3 standard deviations of the population mean
+
+## {background-image="img/w05/slide_026.jpg" background-size="contain" .fallback}
+<!-- slide 26 -->
+
+
+::: notes
+Slide text: Estimating Union membership in America · “Union” is a binary variable, in which  · 0= person is not a member of a union · 1= person is a member of a union  · I don’t know what the rate of union membership is in the population.  · But lets say I can draw a random sample of 7 people from across the U.S.
+:::
+
+## {background-image="img/w05/slide_027.jpg" background-size="contain" .fallback}
+<!-- slide 27 -->
+
+
+::: notes
+Slide text: Again, it’s possible that none of them would be union members  · i.e., our sample would look like this: [0,0,0,0,0,0,0,0], with a mean of 0. · Given such a small sample, there’s a decent chance that our sample mean would be 0 due to pure chance. · Estimating Union membership in America
+:::
+
+## Estimating Union membership in America
+<!-- slide 28 -->
+
+![](img/w05/faf3dc8c84c0710.png){.r-stretch fig-align="center"}
+
+## Estimating Union membership in America
+<!-- slide 29 -->
+
+::: {.columns}
+:::: {.column width="50%"}
+- What if we took a random sample of 1000 people.
+    - How likely is it that not a single person in the sample is a member of a union?
+    - **Given such a large sample, it’s unlikely that our sample mean would be 0 due to pure chance.**
+- **But how unlikely?**
+::::
+:::: {.column width="50%"}
+![](img/w05/b02a22e68b.jpg){.pic style="max-height:700px"}
+::::
+:::
+
+## Estimating Union membership in America
+<!-- slide 30 -->
+
+![](img/w05/4ba6324d7bc71f9.png){.r-stretch fig-align="center"}
+
+## The distribution of sample means becomes normal, regardless of the underlying distribution
+<!-- slide 31 -->
+
+::: {.columns}
+:::: {.column width="53%"}
+![](img/w05/48fbf059ddcaf7e.png){.pic style="max-height:700px"}
+::::
+:::: {.column width="47%"}
+![](img/w05/21a98e238f.gif){.pic style="max-height:700px"}
+::::
+:::
+
+## The distribution of sample means becomes normal, regardless of the underlying distribution
+<!-- slide 32 -->
+
+::: {.columns}
+:::: {.column width="50%"}
+![](img/w05/edff04d6d8c6760.png){.pic style="max-height:700px"}
+::::
+:::: {.column width="50%"}
+![](img/w05/fd36a74262.gif){.pic style="max-height:700px"}
+::::
+:::
+
+## The distribution of sample means becomes normal, regardless of the underlying distribution
+<!-- slide 33 -->
+
+::: {.columns}
+:::: {.column width="51%"}
+![](img/w05/1b10bc7c69c2707.png){.pic style="max-height:700px"}
+::::
+:::: {.column width="49%"}
+![](img/w05/9299aa4ea9.gif){.pic style="max-height:700px"}
+::::
+:::
+
+## The distribution of sample means becomes normal, regardless of the underlying distribution
+<!-- slide 34 -->
+
+::: {.columns}
+:::: {.column width="51%"}
+![](img/w05/bd9d913afec95fa.png){.pic style="max-height:700px"}
+::::
+:::: {.column width="49%"}
+![](img/w05/6d27988902.gif){.pic style="max-height:700px"}
+::::
+:::
+
+## Why the CLT is ✨magic✨
+<!-- slide 35 -->
+
+- In these examples, I’ve had access to the entire population and have been drawing thousands of large samples to show that their means are normally distributed.
+- If you have **one sufficiently large random sample, you can ASSUME** that the distribution of sample means will be normally distributed.
+    - You can **ASSUME** that the mean of your sample has a 95% chance of falling within 2 standard deviations of the population mean
+
+# Quantifying Uncertainty
+<!-- slide 36 -->
+
+## The Signal and the Noise
+<!-- slide 37 -->
+
+- Signal
+    - meaningful information that you're actually trying to detect.
+- Noise
+    - random, unwanted variation or fluctuation that interferes with the signal.
+- Sometimes we may observe a strong signal
+    - E.g. a big difference between two values (e.g. income for men vs women)
+    - But there may be big differences between *all* the values; in other words, there may be lots of noise. The observed difference could be due to chance.
+    - If there’s a big difference in our two values, but the rest of the values are close together, the likelihood that our observed difference is due to chance is low.
+
+## {background-image="img/w05/slide_038.jpg" background-size="contain" .fallback}
+<!-- slide 38 -->
+
+
+::: notes
+Slide text: The Signal and the Noise · The challenge of inference is understanding how likely it is that the signal we’re observing is due to random chance (noise).  · Most inferential statistics are basically a ratio of signal to noise:
+:::
+
+## {background-image="img/w05/slide_039.jpg" background-size="contain" .fallback}
+<!-- slide 39 -->
+
+
+::: notes
+Slide text: Signal · Noise · Noise · N   o   i   s   e · N   o   i   s   e
+:::
+
+## Recap
+<!-- slide 40 -->
+
+1. A **population** is the set of all relevant measurements
+1. A **sample** is a group of observations drawn in some way from a wider population
+1. If you take sufficiently large random samples from the population,
+    1. **The distribution of** **sample** **means will be approximately normally distributed**
+1. If you have **one sufficiently large random** **sample****, you can ASSUME** that the distribution of sample means will be normally distributed.
+    1. You can **ASSUME** that the mean of your sample has a 95% chance of falling within 2 standard deviations of the population mean
+
+## Bayesian thinking
+<!-- slide 41 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -32,7 +354,6 @@ Slide text: Frequentism · Frequentist inference is the process of determining p
 - Bayesian: probability is how strongly you believe something
     - Prior: what you believe before you see the data
     - Posterior: what you believe after you see the data
-- Thomas Bayes (1701–1761); his rule was published in 1763
 - Today: one Bayesian idea that you can use every day
 ::::
 :::: {.column width="51%"}
@@ -43,11 +364,34 @@ Mammogram example (next slides). Both bars use the same count scale.
 :::
 
 ::: notes
-Contrast with the previous slide. Frequentist: a probability is a long-run frequency of a repeatable event; parameters are fixed and unknown. Bayesian: a probability is a degree of belief; parameters have distributions; evidence updates a prior into a posterior. We do not do Bayesian estimation in this module. The goal is one habit: always ask for the base rate. The chart is a teaser for the mammogram slides. Both bars use the same count scale: 90% of the 10 women with cancer test positive (9), but only 9% of the 990 without cancer do (89). So most positive tests (89 of 98) are false: the posterior is 9%, not 90%. Bayes' essay was published after his death by Richard Price (Philosophical Transactions, 1763).
+Link back to the Frequentism slide at the start of the lecture. Frequentist: a probability is a long-run frequency of a repeatable event; parameters are fixed and unknown. Bayesian: a probability is a degree of belief; parameters have distributions; evidence updates a prior into a posterior. We do not do Bayesian estimation in this module. The goal is one habit: always ask for the base rate. The chart is a teaser for the mammogram slides. Both bars use the same count scale: 90% of the 10 women with cancer test positive (9), but only 9% of the 990 without cancer do (89). So most positive tests (89 of 98) are false: the posterior is 9%, not 90%. Bayes' essay was published after his death by Richard Price (Philosophical Transactions, 1763).
+:::
+
+## Who was Thomas Bayes?
+<!-- slide 42 -->
+
+::: {.columns}
+:::: {.column width="49%"}
+- Thomas Bayes (c. 1701–1761) was a Presbyterian minister and a mathematician
+- He was a minister in Tunbridge Wells and a Fellow of the Royal Society
+- He never published his rule. After his death, his friend Richard Price found it in his papers and published it in 1763
+- He is buried in Bunhill Fields, a few minutes' walk south of Old Street station
+    - William Blake and Daniel Defoe are buried there too
+- Go and visit him: the base rate of famous statisticians in EC1 is low
+::::
+:::: {.column width="51%"}
+![](img/w05/ad8f5ecfb4.jpg){.pic style="max-height:627px"}
+
+The Bayes family vault, Bunhill Fields, London. Photo: Cory Doctorow (2007), CC BY-SA 2.0, via Wikimedia Commons.
+::::
+:::
+
+::: notes
+Thomas Bayes: born c. 1701 (the exact date and place are uncertain), died 7 April 1761 in Tunbridge Wells, where he was the minister of the Mount Sion Presbyterian chapel. Elected a Fellow of the Royal Society in 1742. His essay, 'An Essay towards solving a Problem in the Doctrine of Chances', was sent to the Royal Society by Richard Price and published in Philosophical Transactions in 1763. Bunhill Fields (City Road / Bunhill Row, EC1Y) was the main burial ground for nonconformists, that is, Protestants outside the Church of England; Bayes is in his family's vault. Nearby: the Royal Statistical Society is on Errol Street, close to the burial ground (CHECK). Fun fact: the portrait that is usually shown for Bayes is probably not him; no portrait of him is confirmed. Photo: 'Tomb of Thomas Bayes, Bunhill Cemetery, London, UK' by Cory Doctorow, 4 Dec 2007, CC BY-SA 2.0, Wikimedia Commons.
 :::
 
 ## A small % of a big number beats a big % of a small number
-<!-- slide 6 -->
+<!-- slide 43 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -69,7 +413,7 @@ South Wales Police data released in 2018: at the UEFA Champions League final in 
 :::
 
 ## The mammogram problem
-<!-- slide 7 -->
+<!-- slide 44 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -93,7 +437,7 @@ Ask the class for a show of hands BEFORE you reveal the answer (most people say 
 :::
 
 ## The same pattern, in many places
-<!-- slide 8 -->
+<!-- slide 45 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -114,8 +458,28 @@ Chart: Ballinger (2025), Remote Sensing of Environment, Tables 1–2. Other sour
 Road deaths: NHTSA, 2022 data: 13,524 deaths in crashes with an alcohol-impaired driver (BAC 0.08+), 32% of all US traffic deaths. Breast cancer: Collaborative Group on Hormonal Factors in Breast Cancer (2001) 'Familial breast cancer', Lancet 358:1389-99: 'eight out of nine women who develop breast cancer do not have an affected mother, sister, or daughter'. Kharkiv (chart): 107,976 buildings, 0.85% damaged (≈918), recall 32.0% (≈294 true flags), precision 23.41%, so ≈961 false flags = 0.9% of ≈107,058 intact buildings (Ballinger 2025, Tables 1–2). The counts are approximate, because the paper's statistics are weighted by building area. Other examples to talk through: (1) In the UK in summer 2021, many COVID deaths were in vaccinated people, because nearly all older people were vaccinated. (2) A 1-in-a-million DNA match searched against a database of ~6 million profiles gives ~6 innocent matches. (3) Most heart-attack patients have 'normal' cholesterol (Sachdeva et al. 2009, Am Heart J). CHECK these before you quote numbers. Rose's prevention paradox: Rose (1985) 'Sick individuals and sick populations', Int J Epidemiol 14:32-38.
 :::
 
+## {background-image="img/w05/slide_046.jpg" background-size="contain" .fallback}
+<!-- slide 46 -->
+
+
+::: notes
+Own research, Kharkiv, UNOSAT labels of 15 June 2022. Left: the damage probability raster (t-values; bright = large change in radar backscatter). Right: building footprints classified against the UN labels. The legend percentages are shares of building AREA: true positives 0%, false positives 1%, true negatives 96%, false negatives 1% (rounded). Point to the orange: the false flags are spread across the whole city, because almost every building is intact, so even a small false-positive rate (0.9%) adds up to more flags than the true damage (≈961 false vs ≈294 true flags, previous slide). Most of the real damage is in the north-east (Saltivka), where red and purple cluster. Table 2: AUC 0.80, precision 23%, recall 32%. The figure files come from the PWTT repo (figs/, May 2025); check that they match the published version.
+
+Slide text: My research: where the detector looked in Kharkiv · Left: PWTT damage score (t-value) from Sentinel-1 radar. Right: each building against UN damage labels. Red: damaged and flagged. Orange: intact but flagged. Purple: damaged but missed. Green: intact and not flagged. Source: Ballinger (2025), Remote Sensing of Environment.
+:::
+
+## {background-image="img/w05/slide_047.jpg" background-size="contain" .fallback}
+<!-- slide 47 -->
+
+
+::: notes
+The same grid as the mammogram slide, for two cities from the paper. Kharkiv (UNOSAT, June 2022): 0.85% of buildings damaged, recall 32%, precision 23.4%. Per 1,000 buildings: 3 damaged and flagged, 9 intact but flagged, 6 damaged but missed, 982 intact and not flagged. So about 1 flag in 4 is real (3/12 = 25% after rounding; the paper's figure is 23%). Gaza (UNOSAT, April 2025): 72% damaged, recall 92%, precision 74.1%. Per 1,000: 661 true flags, 231 false flags, 58 missed, 50 intact and not flagged: 661/892 = 74%. The detector is the same algorithm; the base rate is what changes. In Kharkiv the false alarms come from the huge intact majority, exactly like the healthy women in the mammogram example. The counts are approximate: the paper's rates are weighted by building area, and each city has its own threshold of T.
+
+Slide text: Same detector, two cities: 1,000 buildings each · Like the mammogram: blue = damaged and flagged, orange = intact but flagged; the outline is every flag. Counts per 1,000 buildings from Ballinger (2025), Tables 1–2 (area-weighted rates, rounded). Paper precision: Kharkiv 23%, Gaza 74%.
+:::
+
 ## My research: same detector, very different precision
-<!-- slide 9 -->
+<!-- slide 48 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -139,7 +503,7 @@ Own research. Ballinger (2025) 'Open Access Battle Damage Detection via Pixel-Wi
 :::
 
 ## Bayes' rule {.smaller}
-<!-- slide 10 -->
+<!-- slide 49 -->
 
 ::: {.columns}
 :::: {.column width="63%"}
@@ -163,7 +527,7 @@ Read the formula term by term, in colour. POSTERIOR (black): what we want, the c
 :::
 
 ## The base rate decides
-<!-- slide 11 -->
+<!-- slide 50 -->
 
 ::: {.columns}
 :::: {.column width="49%"}
@@ -171,7 +535,7 @@ Read the formula term by term, in colour. POSTERIOR (black): what we want, the c
 - Rare condition: almost every alarm is false
 - Common condition: most alarms are true
 - So a result means different things in different populations
-- To know the base rate, you need a good sample of the population: the rest of today
+- Link to today: a base rate is a population quantity, and we estimate it from a sample
 ::::
 :::: {.column width="51%"}
 ![](img/w05/691ad9d351.png){.pic style="max-height:624px"}
@@ -181,332 +545,10 @@ P(condition | positive) from Bayes' rule, with the prior on the x-axis.
 :::
 
 ::: notes
-Each point on the curve is Bayes' rule with a different prior. At a 0.1% base rate, P(condition | +) is about 1%; at 1% it is 9%; at 10% it is 53%; at 50% it is 91%. This is why we screen high-risk groups, and why a rare-event detector (fraud, terrorism, illegal fishing, building damage) gives many false alarms. Bridge to the rest of the lecture: a base rate is a population quantity, and we usually estimate it from a sample.
+Each point on the curve is Bayes' rule with a different prior. At a 0.1% base rate, P(condition | +) is about 1%; at 1% it is 9%; at 10% it is 53%; at 50% it is 91%. This is why we screen high-risk groups, and why a rare-event detector (fraud, terrorism, illegal fishing, building damage) gives many false alarms. Link back to the lecture: a base rate is a population quantity, and we usually estimate it from a sample, so everything about sampling error applies to it.
 :::
-
-## {background-image="img/w05/slide_012.jpg" background-size="contain" .fallback}
-<!-- slide 12 -->
-
-
-::: notes
-Go to menti
-
-Slide text: War Planes · During World War II, U.S. bombers experienced heavy losses · The Navy asked the Statistical Research Group at Columbia University to help them figure out how to reduce losses  · Abraham Wald, an influential statistician, looked at a large sample of damaged planes that had returned from bombing runs, and made a diagram of each bullet hole
-:::
-
-## Selection Bias
-<!-- slide 13 -->
-
-- We rarely have all the data on a specific **population;** Often, we only have a **sample.**
-- When a sample is drawn randomly, we can use the distribution of the sample to make inferences about the population.
-- **Selection Bias** can occur when our sample is not randomly selected.
-- Wald was interested in the **population** of bomber planes, but only observed a highly biased **sample:** those that returned.
-    - This is known as **survivorship bias,** and is a subset of general **selection bias**
-
-## Populations and Samples
-<!-- slide 14 -->
-
-- There are two kinds of distributions: populations and samples.
-- **A population is the set of all relevant measurements**
-- **A sample is a group of observations drawn in some way from a wider population**
-
-| Population | Sample |
-|---|---|
-| All the fish in the sea | The fish I caught |
-| The adult population of the UK | Census responses |
-| All U.S. Navy Bomber planes | Bombers that made it back to base |
-| All 19-20 year olds in the world | The people in this classroom |
-| A person’s movements over a month | Mobile phone location pings |
-| Public sentiment on race in South Africa | Tweets about race from South African users |
-
-## Outline
-<!-- slide 15 -->
-
-1. Basic Statistics
-1. The Central Limit Theorem
-1. Quantifying Uncertainty
-
-# Basic Statistics
-<!-- slide 16 -->
-
-## {background-image="img/w05/slide_017.jpg" background-size="contain" .fallback}
-<!-- slide 17 -->
-
-
-::: notes
-Slide text: Sample mean
-:::
-
-## {background-image="img/w05/slide_018.jpg" background-size="contain" .fallback}
-<!-- slide 18 -->
-
-
-::: notes
-Slide text: Sample median · The median of a set of n number of observations in a sample, ordered by value, of a variable is is defined by  ·  ·  ·  · Example (already in order): · Ages: 17, 19, 21, 22, 23, 23, 23, 38  · Median = (22+23) / 2 = 22.5  · The median also describes what a typical observation looks like, or where is the center of the distribution of the sample of observations.
-:::
-
-## {background-image="img/w05/slide_019.jpg" background-size="contain" .fallback}
-<!-- slide 19 -->
-
-
-::: notes
-Slide text: Mean vs. Median · The mean is sensitive to extreme values (outliers)
-:::
-
-## {background-image="img/w05/slide_020.jpg" background-size="contain" .fallback}
-<!-- slide 20 -->
-
-
-::: notes
-Slide text: Mean, median, and skewness · The mean is sensitive to outliers:  ·  ·  ·  ·  ·  ·  ·  · skewness often “follows the longer tail”.
-:::
-
-## {background-image="img/w05/bdaa6a7390.png" background-size="contain"}
-<!-- slide 21 -->
-
-## {background-image="img/w05/slide_022.jpg" background-size="contain" .fallback}
-<!-- slide 22 -->
-
-
-::: notes
-Slide text: Regarding Categorical Variables... · For categorical variables, neither mean or median make sense. Why? ·  ·  ·  ·  ·  ·  ·  ·  · The mode might be a better way to find the most “representative” value.
-:::
-
-## Measures of Spread: Variance
-<!-- slide 23 -->
-
-::: {.columns}
-:::: {.column width="58%"}
-- The sample **variance**, s², measures how far, on average, the values are from the mean
-- (xᵢ − x̄) is how far each value xᵢ is from the mean x̄. Squaring makes s² sensitive to extreme values (outliers)
-- s² is not in the same units as the xᵢ: it is in squared units
-- What does a variance of 1,008 mean? Or 0.0001?
-::::
-:::: {.column width="42%"}
-![](img/w05/87ebf7cb29.png){.pic style="max-height:700px"}
-::::
-:::
-
-::: notes
-We divide by n − 1, not n (Bessel's correction). The deviations are measured from the sample mean, which is always closer to the sample than the true population mean is, so dividing by n would underestimate the population variance. Older versions of this slide wrote |xᵢ − x̄|²; the absolute value does nothing once you square, so it is dropped.
-:::
-
-## {background-image="img/w05/slide_024.jpg" background-size="contain" .fallback}
-<!-- slide 24 -->
-
-
-::: notes
-Slide text: Measures of Spread: Standard Deviation · The sample standard deviation, s, is the square root of the variance · s has the same units as the xᵢ, so it is easier to interpret than s²
-:::
-
-## {background-image="img/w05/slide_025.jpg" background-size="contain" .fallback}
-<!-- slide 25 -->
-
-
-::: notes
-Sample A: mean = 5, sum of squared deviations = 58, s² = 58/9 = 6.444, s = 2.539. The histograms on the two slides use the same axes; the shaded band is the mean ± 1 s. The earlier version of this slide said 2.53; the correct value to 2 d.p. is 2.54.
-
-Slide text: Sample A: High standard deviation · Sample A
-:::
-
-## {background-image="img/w05/slide_026.jpg" background-size="contain" .fallback}
-<!-- slide 26 -->
-
-
-::: notes
-Sample B: mean = 5, sum of squared deviations = 0, s² = 0/9 = 0.000, s = 0.000. The histograms on the two slides use the same axes; the shaded band is the mean ± 1 s. Every value equals the mean, so every deviation is 0 and s = 0: there is no spread at all.
-
-Slide text: Sample B: Zero standard deviation · Sample B
-:::
-
-# The Central Limit Theorem
-<!-- slide 27 -->
-
-## Inferring from samples
-<!-- slide 28 -->
-
-- There are generally equal numbers of men and women in the population\*;
-- In other words, a random individual plucked from this population has a ~50% chance of being a man or a woman.
-- Let’s assume a variable where woman=1, man=0
-- If I take a random sample of 4 people,
-    - we might expect 2 men and 2 women, or a [0,0,1,1] sample
-    - But we might not be entirely surprised if we got all men [0,0,0,0] or all women [1,1,1,1].
-    - Similarly, you could flip a coin 4 times and get all heads or all tails.
-
-## {background-image="img/w05/slide_029.jpg" background-size="contain" .fallback}
-<!-- slide 29 -->
-
-
-::: notes
-Slide text: Inferring from samples · But what are the chances of flipping a coin 100 times and never getting heads? Or drawing a random sample of 100 people and none of them are women? Probably extremely low. How low?
-:::
-
-## {background-image="img/w05/slide_030.jpg" background-size="contain" .fallback}
-<!-- slide 30 -->
-
-
-::: notes
-Slide text: Inferring from samples · Turns out, if you plot the means from sufficiently large random samples, they approximate a normal distribution · The mean of the sample means will approach the population mean
-:::
-
-## Central Limit Theorem
-<!-- slide 31 -->
-
-- This is the most important concept you will learn in this course.
-- If you take sufficiently large random samples from the population,
-
-[**The distribution of sample means will be approximately normally distributed**]{style="display:block;text-align:center"}
-
-- *Regardless of the underlying population distribution*
-
-## Why does this matter?
-<!-- slide 32 -->
-
-- This means that **we can use the normal probability model to quantify uncertainty when making inferences about a population mean based on the sample mean.**
-- In other words, because we know the shape of the normal distribution, we can precisely estimate the likelihood of observing a sample mean as extreme as the one we have
-- We rarely observe the whole population, but if we have a large enough random sample, **we can assume that the mean of this sample has a:**
-    - 68% chance of falling within 1 standard deviation of the population mean
-    - 95% chance of falling within 2 standard deviations of the population mean
-    - 99.7% chance of falling within 3 standard deviations of the population mean
-
-## {background-image="img/w05/slide_033.jpg" background-size="contain" .fallback}
-<!-- slide 33 -->
-
-
-::: notes
-Slide text: Estimating Union membership in America · “Union” is a binary variable, in which  · 0= person is not a member of a union · 1= person is a member of a union  · I don’t know what the rate of union membership is in the population.  · But lets say I can draw a random sample of 7 people from across the U.S.
-:::
-
-## {background-image="img/w05/slide_034.jpg" background-size="contain" .fallback}
-<!-- slide 34 -->
-
-
-::: notes
-Slide text: Again, it’s possible that none of them would be union members  · i.e., our sample would look like this: [0,0,0,0,0,0,0,0], with a mean of 0. · Given such a small sample, there’s a decent chance that our sample mean would be 0 due to pure chance. · Estimating Union membership in America
-:::
-
-## Estimating Union membership in America
-<!-- slide 35 -->
-
-![](img/w05/faf3dc8c84c0710.png){.r-stretch fig-align="center"}
-
-## Estimating Union membership in America
-<!-- slide 36 -->
-
-::: {.columns}
-:::: {.column width="50%"}
-- What if we took a random sample of 1000 people.
-    - How likely is it that not a single person in the sample is a member of a union?
-    - **Given such a large sample, it’s unlikely that our sample mean would be 0 due to pure chance.**
-- **But how unlikely?**
-::::
-:::: {.column width="50%"}
-![](img/w05/b02a22e68b.jpg){.pic style="max-height:700px"}
-::::
-:::
-
-## Estimating Union membership in America
-<!-- slide 37 -->
-
-![](img/w05/4ba6324d7bc71f9.png){.r-stretch fig-align="center"}
-
-## The distribution of sample means becomes normal, regardless of the underlying distribution
-<!-- slide 38 -->
-
-::: {.columns}
-:::: {.column width="53%"}
-![](img/w05/48fbf059ddcaf7e.png){.pic style="max-height:700px"}
-::::
-:::: {.column width="47%"}
-![](img/w05/21a98e238f.gif){.pic style="max-height:700px"}
-::::
-:::
-
-## The distribution of sample means becomes normal, regardless of the underlying distribution
-<!-- slide 39 -->
-
-::: {.columns}
-:::: {.column width="50%"}
-![](img/w05/edff04d6d8c6760.png){.pic style="max-height:700px"}
-::::
-:::: {.column width="50%"}
-![](img/w05/fd36a74262.gif){.pic style="max-height:700px"}
-::::
-:::
-
-## The distribution of sample means becomes normal, regardless of the underlying distribution
-<!-- slide 40 -->
-
-::: {.columns}
-:::: {.column width="51%"}
-![](img/w05/1b10bc7c69c2707.png){.pic style="max-height:700px"}
-::::
-:::: {.column width="49%"}
-![](img/w05/9299aa4ea9.gif){.pic style="max-height:700px"}
-::::
-:::
-
-## The distribution of sample means becomes normal, regardless of the underlying distribution
-<!-- slide 41 -->
-
-::: {.columns}
-:::: {.column width="51%"}
-![](img/w05/bd9d913afec95fa.png){.pic style="max-height:700px"}
-::::
-:::: {.column width="49%"}
-![](img/w05/6d27988902.gif){.pic style="max-height:700px"}
-::::
-:::
-
-## Why the CLT is ✨magic✨
-<!-- slide 42 -->
-
-- In these examples, I’ve had access to the entire population and have been drawing thousands of large samples to show that their means are normally distributed.
-- If you have **one sufficiently large random sample, you can ASSUME** that the distribution of sample means will be normally distributed.
-    - You can **ASSUME** that the mean of your sample has a 95% chance of falling within 2 standard deviations of the population mean
-
-# Quantifying Uncertainty
-<!-- slide 43 -->
-
-## The Signal and the Noise
-<!-- slide 44 -->
-
-- Signal
-    - meaningful information that you're actually trying to detect.
-- Noise
-    - random, unwanted variation or fluctuation that interferes with the signal.
-- Sometimes we may observe a strong signal
-    - E.g. a big difference between two values (e.g. income for men vs women)
-    - But there may be big differences between *all* the values; in other words, there may be lots of noise. The observed difference could be due to chance.
-    - If there’s a big difference in our two values, but the rest of the values are close together, the likelihood that our observed difference is due to chance is low.
-
-## {background-image="img/w05/slide_045.jpg" background-size="contain" .fallback}
-<!-- slide 45 -->
-
-
-::: notes
-Slide text: The Signal and the Noise · The challenge of inference is understanding how likely it is that the signal we’re observing is due to random chance (noise).  · Most inferential statistics are basically a ratio of signal to noise:
-:::
-
-## {background-image="img/w05/slide_046.jpg" background-size="contain" .fallback}
-<!-- slide 46 -->
-
-
-::: notes
-Slide text: Signal · Noise · Noise · N   o   i   s   e · N   o   i   s   e
-:::
-
-## Recap
-<!-- slide 47 -->
-
-1. A **population** is the set of all relevant measurements
-1. A **sample** is a group of observations drawn in some way from a wider population
-1. If you take sufficiently large random samples from the population,
-    1. **The distribution of** **sample** **means will be approximately normally distributed**
-1. If you have **one sufficiently large random** **sample****, you can ASSUME** that the distribution of sample means will be normally distributed.
-    1. You can **ASSUME** that the mean of your sample has a 95% chance of falling within 2 standard deviations of the population mean
 
 ## Any Questions?
-<!-- slide 48 -->
+<!-- slide 51 -->
 
 [[o.ballinger@ucl.ac.uk](mailto:o.ballinger@ucl.ac.uk)]{style="display:block;text-align:center"}
