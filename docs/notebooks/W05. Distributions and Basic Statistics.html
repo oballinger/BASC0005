@@ -429,17 +429,7 @@ ga('send', {
   <li><a href="#the-sampling-distribution-becomes-normal" id="toc-the-sampling-distribution-becomes-normal" class="nav-link" data-scroll-target="#the-sampling-distribution-becomes-normal">The sampling distribution becomes normal</a></li>
   <li><a href="#it-works-for-skewed-variables-too" id="toc-it-works-for-skewed-variables-too" class="nav-link" data-scroll-target="#it-works-for-skewed-variables-too">It works for skewed variables too</a></li>
   <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6">Exercise</a></li>
-  <li><a href="#optional-when-the-clt-is-slow-one-bad-row" id="toc-optional-when-the-clt-is-slow-one-bad-row" class="nav-link" data-scroll-target="#optional-when-the-clt-is-slow-one-bad-row">(Optional) When the CLT is slow: one bad row</a></li>
-  </ul></li>
-  <li><a href="#quantifying-uncertainty-the-standard-error" id="toc-quantifying-uncertainty-the-standard-error" class="nav-link" data-scroll-target="#quantifying-uncertainty-the-standard-error">4. Quantifying uncertainty: the standard error</a>
-  <ul class="collapse">
-  <li><a href="#why-the-clt-is-magic" id="toc-why-the-clt-is-magic" class="nav-link" data-scroll-target="#why-the-clt-is-magic">Why the CLT is magic</a></li>
-  <li><a href="#signal-and-noise-has-union-membership-fallen" id="toc-signal-and-noise-has-union-membership-fallen" class="nav-link" data-scroll-target="#signal-and-noise-has-union-membership-fallen">Signal and noise: has union membership fallen?</a></li>
-  <li><a href="#exercise-7" id="toc-exercise-7" class="nav-link" data-scroll-target="#exercise-7">Exercise</a></li>
-  </ul></li>
-  <li><a href="#spot-the-problem-a-big-sample-from-the-wrong-people" id="toc-spot-the-problem-a-big-sample-from-the-wrong-people" class="nav-link" data-scroll-target="#spot-the-problem-a-big-sample-from-the-wrong-people">5. Spot the problem: a big sample from the wrong people</a>
-  <ul class="collapse">
-  <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise</a></li>
+  <li><a href="#the-standard-error" id="toc-the-standard-error" class="nav-link" data-scroll-target="#the-standard-error">The standard error</a></li>
   </ul></li>
   <li><a href="#assessed-question" id="toc-assessed-question" class="nav-link" data-scroll-target="#assessed-question">Assessed Question</a>
   <ul class="collapse">
@@ -471,7 +461,7 @@ ga('send', {
 <section id="workshop-5-open-in-colab" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-5-open-in-colab"><em>Workshop 5</em> <a href="https://colab.research.google.com/github/oballinger/BASC0005/blob/main/notebooks/W05.%20Distributions%20and%20Basic%20Statistics.ipynb"><img src="https://github.com/oballinger/BASC0005/blob/main/colab-badge.png?raw=1" class="img-fluid" alt="Open In Colab"></a></h2>
 <p>For the next few weeks we’ll be working with an extract of the U.S. Census Bureau’s <a href="https://www.census.gov/programs-surveys/cps.html">Current Population Survey (CPS)</a>: a large, monthly household survey that is the source of official U.S. statistics on employment, earnings and union membership.</p>
-<p>This workshop follows the lecture: we start with <strong>where the data came from</strong> (populations, samples, selection bias), then <strong>summarise</strong> it, then use the <strong>Central Limit Theorem</strong> to see how much a single sample can tell us about a population, and finally put a number on that uncertainty: the <strong>standard error</strong>.</p>
+<p>This workshop follows the lecture: we start with <strong>where the data came from</strong> (populations, samples, selection bias), then <strong>summarise</strong> it, and then use the <strong>Central Limit Theorem</strong> and the <strong>standard error</strong> to see how much a single sample can tell us about a population.</p>
 <section id="aims" class="level3">
 <h3 class="anchored" data-anchor-id="aims">Aims</h3>
 <ul>
@@ -479,15 +469,15 @@ ga('send', {
 <li>Choose appropriate summary statistics (mean, median, mode, variance, standard deviation) for different variables</li>
 <li>Plot and interpret distributions</li>
 <li>Build intuition for the <strong>Central Limit Theorem</strong> by simulation, using union membership (as in the lecture)</li>
-<li>Quantify uncertainty with the <strong>standard error</strong>, and see why a bigger sample does <em>not</em> fix a biased one</li>
+<li>Use the <strong>standard error</strong> and the 68-95-99.7 rule</li>
 </ul>
-<p>The core path takes roughly two hours. Sections marked <strong>(Optional)</strong> are extensions.</p>
+<p>The workshop takes roughly two hours.</p>
 </section>
 </section>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>We’ll use <code>pandas</code> for data, <code>numpy</code> for maths and random numbers, and <code>matplotlib</code>/<code>seaborn</code> for plots.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:46.843397Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:46.843339Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:47.710185Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:47.709695Z&quot;}" data-execution_count="1">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:35.555235Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:35.555057Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:36.431438Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:36.430909Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -497,11 +487,11 @@ ga('send', {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"white"</span>, font_scale<span class="op">=</span><span class="fl">1.2</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">5</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># A random number generator with a fixed seed, so your numbers match the ones on the website.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix the random seed, so your numbers match the ones on the website.</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the seed (or delete it) to see how the results vary from run to run.</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:47.711541Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:47.711432Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.353175Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.352871Z&quot;}" data-execution_count="2">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:36.432843Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:36.432734Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.351333Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.350969Z&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cps <span class="op">=</span> pd.read_csv(<span class="st">"https://storage.googleapis.com/qm2/wk7/cps.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cps.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -663,7 +653,7 @@ ga('send', {
 <li>If the sample is not drawn at random, we risk <strong>selection bias</strong>; <strong>survivorship bias</strong> is a special case.</li>
 </ul>
 <p>The CPS is a carefully designed random sample of households. But <em>this extract</em> has also been filtered by whoever prepared it. Let’s check who is actually in it.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.354427Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.354364Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.359159Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.358897Z&quot;}" data-execution_count="3">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.352505Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.352442Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.358790Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.358514Z&quot;}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cps[[<span class="st">"year"</span>, <span class="st">"age"</span>, <span class="st">"incwage"</span>, <span class="st">"realhrwage"</span>]].agg([<span class="st">"min"</span>, <span class="st">"max"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -700,7 +690,7 @@ ga('send', {
 </div>
 </div>
 </div>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.360414Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.360353Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.463618Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.462661Z&quot;}" data-execution_count="4">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.359891Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.359841Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.451925Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.451501Z&quot;}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cps[<span class="st">"year"</span>].value_counts().sort_index().plot.bar(ax<span class="op">=</span>axes[<span class="dv">0</span>], color<span class="op">=</span><span class="st">"steelblue"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Respondents per survey year"</span>, xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Count"</span>)</span>
@@ -728,7 +718,7 @@ ga('send', {
 <section id="summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="summary-statistics">2. Summary statistics</h2>
 <p>We’ll focus on the most recent survey wave, <strong>2013</strong>. <code>describe()</code> gives the count, mean, standard deviation, min/max and quartiles (the 50% quartile is the <strong>median</strong>) of every numeric column.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.465068Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.464969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.485033Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.484665Z&quot;}" data-execution_count="5">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.453027Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.452967Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.468225Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.467883Z&quot;}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> cps[cps[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2013</span>].copy()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income"</span>] <span class="op">=</span> df[<span class="st">"incwage"</span>] <span class="op">/</span> <span class="dv">1000</span>   <span class="co"># income in $ thousands: easier to read</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df.describe().<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -886,7 +876,7 @@ ga('send', {
 <section id="categorical-variables-use-the-mode" class="level3">
 <h3 class="anchored" data-anchor-id="categorical-variables-use-the-mode">Categorical variables: use the mode</h3>
 <p><code>race</code>, <code>sex</code>, <code>union</code> and <code>occupation</code> are <strong>categorical</strong>: the numbers are labels, not quantities, so their mean is meaningless. For categorical variables the most representative value is the <strong>mode</strong> (the most common category). Telling pandas a column is categorical stops it from computing nonsense:</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.486371Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.486295Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.490047Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.489764Z&quot;}" data-execution_count="6">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.469414Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.469355Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.473581Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.473305Z&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"race"</span>, <span class="st">"sex"</span>, <span class="st">"union"</span>]:</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].astype(<span class="st">"category"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -899,7 +889,7 @@ freq      34662
 Name: race, dtype: int64</code></pre>
 </div>
 </div>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.491020Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.490963Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.553111Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.552473Z&quot;}" data-execution_count="7">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.474543Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.474492Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.533887Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.533504Z&quot;}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occ <span class="op">=</span> df[<span class="st">"occupation"</span>].value_counts()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>occ.sort_values().plot.barh(color<span class="op">=</span><span class="st">"steelblue"</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Occupation of respondents, 2013"</span>)</span>
@@ -916,14 +906,14 @@ Name: race, dtype: int64</code></pre>
 <li>What is the modal (most common) occupation? Be careful: what does the <code>.</code> category mean, and should it count?</li>
 <li>Roughly what share of 2013 respondents have a missing occupation? If people with a missing occupation differ systematically from the rest (e.g.&nbsp;they earn less), what happens to any analysis that silently drops them?</li>
 </ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.554208Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.554141Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.555833Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.555399Z&quot;}" data-execution_count="8">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.534972Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.534911Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.536304Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.535947Z&quot;}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="mean-vs-median-skewed-distributions" class="level3">
 <h3 class="anchored" data-anchor-id="mean-vs-median-skewed-distributions">Mean vs median: skewed distributions</h3>
 <p>Income is the classic <strong>skewed</strong> variable: most people earn a moderate amount, a few earn a lot. Let’s plot its distribution with a <strong>histogram</strong> and mark the mean and median.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.557115Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.557045Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.680578Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.680283Z&quot;}" data-execution_count="9">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.537155Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.537108Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.641883Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.641476Z&quot;}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_histogram(variable, bins<span class="op">=</span><span class="dv">50</span>, xlab<span class="op">=</span><span class="st">""</span>, title<span class="op">=</span><span class="st">""</span>, xlim<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Histogram of a pandas Series with its mean and median marked</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    plt.hist(variable, bins<span class="op">=</span>bins, edgecolor<span class="op">=</span><span class="st">"white"</span>, density<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">"steelblue"</span>)</span>
@@ -951,7 +941,7 @@ Name: race, dtype: int64</code></pre>
 <li>There are spikes at round numbers ($50k, $100k, $150k …). Is that because employers love round salaries, or because of <em>how the data were collected</em>? What does this tell you about self-reported survey data?</li>
 <li><strong>Outliers.</strong> Run the cell below, which adds a single person earning $1 billion to the data. How much do the mean and the median move?</li>
 </ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.681858Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.681793Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.685309Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.685016Z&quot;}" data-execution_count="10">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.642921Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.642863Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.646032Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.645749Z&quot;}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>with_billionaire <span class="op">=</span> pd.concat([df[<span class="st">"income"</span>], pd.Series([<span class="dv">1_000_000</span>])])   <span class="co"># $1bn = 1,000,000 thousand</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean   before/after:"</span>, <span class="bu">round</span>(df[<span class="st">"income"</span>].mean(), <span class="dv">2</span>), <span class="st">"/"</span>, <span class="bu">round</span>(with_billionaire.mean(), <span class="dv">2</span>))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Median before/after:"</span>, <span class="bu">round</span>(df[<span class="st">"income"</span>].median(), <span class="dv">2</span>), <span class="st">"/"</span>, <span class="bu">round</span>(with_billionaire.median(), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -964,7 +954,7 @@ Median before/after: 40.0 / 40.0</code></pre>
 <section id="spot-the-problem-the-34000-an-hour-worker" class="level3">
 <h3 class="anchored" data-anchor-id="spot-the-problem-the-34000-an-hour-worker">Spot the problem: the $34,000-an-hour worker</h3>
 <p>A colleague sends you this summary and writes: <em>“The average American worker earns $24.38 an hour.”</em></p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.686401Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.686326Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.689812Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.689438Z&quot;}" data-execution_count="11">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.647088Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.647024Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.649998Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.649678Z&quot;}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"realhrwage"</span>].describe().<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>count    53790.00
@@ -986,7 +976,7 @@ Name: realhrwage, dtype: float64</code></pre>
 <li>Recompute the mean hourly wage <em>without</em> the top row. How much did one row move the mean? And the median?</li>
 <li>Rewrite your colleague’s sentence so that it is honest about (a) the population and (b) the choice of summary statistic.</li>
 </ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.690697Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.690638Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.691979Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.691686Z&quot;}" data-execution_count="12">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.650922Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.650858Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.652150Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.651845Z&quot;}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -995,7 +985,7 @@ Name: realhrwage, dtype: float64</code></pre>
 <p>The mean tells us where the centre is; the <strong>standard deviation</strong> tells us how far a typical observation is from it.</p>
 <p><span class="math display">\[s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2 \qquad s=\sqrt{s^2}\]</span></p>
 <p>The lecture compared a high-SD sample A with a low-SD sample B. Here is a real version: incomes in two occupations.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.693001Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.692933Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.695479Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.695209Z&quot;}" data-execution_count="13">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.653039Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.652989Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.656398Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.656031Z&quot;}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.loc[df[<span class="st">"occupation"</span>] <span class="op">==</span> <span class="st">"Office and Admin Support"</span>, <span class="st">"income"</span>]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the formula, by hand</span></span>
@@ -1007,7 +997,7 @@ Name: realhrwage, dtype: float64</code></pre>
 pandas:   variance = 1386.43  sd = 37.23</code></pre>
 </div>
 </div>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.696565Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.696508Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.770147Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.769664Z&quot;}" data-execution_count="14">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.657261Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.657213Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.725799Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.725407Z&quot;}" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> df.loc[df[<span class="st">"occupation"</span>] <span class="op">==</span> <span class="st">"Lawyers, Judges,Physicans and dentists"</span>, <span class="st">"income"</span>]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> df.loc[df[<span class="st">"occupation"</span>] <span class="op">==</span> <span class="st">"Office and Admin Support"</span>, <span class="st">"income"</span>]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1029,14 +1019,14 @@ pandas:   variance = 1386.43  sd = 37.23</code></pre>
 <li>Plot the distribution of years of schooling (<code>sch</code>). Pick a sensible number of bins, label it clearly, and explain the two big spikes.</li>
 <li>For which of <code>income</code>, <code>age</code> and <code>sch</code> is the mean a good summary of a “typical” person? For which would you report the median?</li>
 </ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.771468Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.771364Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.773061Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.772560Z&quot;}" data-execution_count="15">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.726864Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.726806Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.728133Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.727829Z&quot;}" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.774325Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.774257Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.775934Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.775600Z&quot;}" data-execution_count="16">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.728987Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.728937Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.730206Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.729888Z&quot;}" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Before moving on, we’ll drop the small number of people earning over $200k (about 1.6% of 2013 respondents), as in the lecture. This is a <strong>choice</strong>, and it changes the population we’re describing (to “wage earners under $200k”), so always report it.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.776886Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.776822Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.780495Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.780153Z&quot;}" data-execution_count="17">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.731095Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.731035Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.734998Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.734642Z&quot;}" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Share of 2013 respondents earning over $200k:"</span>, <span class="bu">round</span>((df[<span class="st">"income"</span>] <span class="op">&gt;=</span> <span class="dv">200</span>).mean(), <span class="dv">4</span>))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"income"</span>] <span class="op">&lt;</span> <span class="dv">200</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1052,7 +1042,7 @@ pandas:   variance = 1386.43  sd = 37.23</code></pre>
 <p>As in the lecture, let’s ask: <strong>what share of American workers are members of a labour union?</strong></p>
 <p>The CPS only asks the union question to part of its sample (that’s the <code>union = 0</code>, “N/A”, group). So our <strong>population</strong> for this section is the 2013 respondents who were asked, and we create a binary variable: 1 = union member, 0 = not a member.</p>
 <p>For the rest of the workshop we’ll <strong>pretend this group is the entire population</strong>, so we know the true answer and can see how well samples recover it.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.781386Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.781339Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.784056Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.783800Z&quot;}" data-execution_count="18">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.735886Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.735834Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.738183Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.737891Z&quot;}" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>unions <span class="op">=</span> df[df[<span class="st">"union"</span>] <span class="op">!=</span> <span class="dv">0</span>].copy()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>unions[<span class="st">"member"</span>] <span class="op">=</span> (unions[<span class="st">"union"</span>] <span class="op">==</span> <span class="dv">2</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1066,7 +1056,7 @@ pandas:   variance = 1386.43  sd = 37.23</code></pre>
 <section id="a-sample-of-7" class="level3">
 <h3 class="anchored" data-anchor-id="a-sample-of-7">A sample of 7</h3>
 <p>Now imagine we can only afford to interview <strong>7</strong> random people. The code below draws one sample and computes its mean (= the share of union members in the sample). Run it several times.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.784968Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.784916Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.786544Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.786316Z&quot;}" data-execution_count="19">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.739144Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.739095Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.740908Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.740599Z&quot;}" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> unions[<span class="st">"member"</span>].sample(<span class="dv">7</span>, replace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sample.values, <span class="st">" -&gt; sample mean:"</span>, <span class="bu">round</span>(sample.mean(), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1074,23 +1064,25 @@ pandas:   variance = 1386.43  sd = 37.23</code></pre>
 </div>
 </div>
 <p>Quite often, <em>nobody</em> in the sample is a union member, so our estimate would be <strong>0%</strong>. How often? If each person has a probability <span class="math inline">\(p\)</span> of being a member, the chance that all 7 are not is <span class="math inline">\((1-p)^7\)</span>. Let’s check that against a simulation of 10,000 samples.</p>
-<p>(Drawing samples in a Python loop is slow, so we’ll use <code>rng.choice</code> to draw all 10,000 samples at once as rows of a matrix, then take the mean of each row.)</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.787356Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.787310Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.789659Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.789380Z&quot;}" data-execution_count="20">
+<p>The function below uses a <code>for</code> loop. Each time round the loop, it takes one random sample of <code>n</code> people (just like the cell above), computes the mean, and adds it to a list.</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.741768Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.741722Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:38.969737Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:38.969424Z&quot;}" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sample_means(values, n, reps<span class="op">=</span><span class="dv">10_000</span>):</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Draw `reps` random samples of size n (with replacement) and return the mean of each</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> np.asarray(values)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    draws <span class="op">=</span> rng.choice(values, size<span class="op">=</span>(reps, n), replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> draws.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>means7 <span class="op">=</span> sample_means(unions[<span class="st">"member"</span>], n<span class="op">=</span><span class="dv">7</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Theory:     P(all 7 are non-members) ="</span>, <span class="bu">round</span>((<span class="dv">1</span> <span class="op">-</span> p)<span class="op">**</span><span class="dv">7</span>, <span class="dv">3</span>))</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simulation: share of samples with mean 0 ="</span>, <span class="bu">round</span>((means7 <span class="op">==</span> <span class="dv">0</span>).mean(), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Take `reps` random samples of n people and return the mean of each one</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> []</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(reps):</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        sample <span class="op">=</span> values.sample(n, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        means.append(sample.mean())</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(means)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>means7 <span class="op">=</span> sample_means(unions[<span class="st">"member"</span>], n<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Theory:     P(all 7 are non-members) ="</span>, <span class="bu">round</span>((<span class="dv">1</span> <span class="op">-</span> p)<span class="op">**</span><span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simulation: share of samples with mean 0 ="</span>, <span class="bu">round</span>((means7 <span class="op">==</span> <span class="dv">0</span>).mean(), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Theory:     P(all 7 are non-members) = 0.344
-Simulation: share of samples with mean 0 = 0.346</code></pre>
+Simulation: share of samples with mean 0 = 0.345</code></pre>
 </div>
 </div>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.790465Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.790417Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.829804Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.829022Z&quot;}" data-execution_count="21">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:38.970789Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:38.970732Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:39.004600Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:39.004261Z&quot;}" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.hist(means7, bins<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">7</span>), edgecolor<span class="op">=</span><span class="st">"white"</span>, density<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.axvline(p, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="ss">f"True rate = </span><span class="sc">{</span>p<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Share of union members in a sample of 7"</span>)</span>
@@ -1109,14 +1101,14 @@ Simulation: share of samples with mean 0 = 0.346</code></pre>
 <li>Using the formula <span class="math inline">\((1-p)^n\)</span>, how likely is a sample of <strong>1,000</strong> people with <em>zero</em> union members? Now simulate it.</li>
 <li>The lecture asked: “but <em>how</em> unlikely?” Answering that precisely is what the Central Limit Theorem is for.</li>
 </ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.831339Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.831146Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:50.833665Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:50.833016Z&quot;}" data-execution_count="22">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:39.005575Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:39.005521Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:39.006834Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:39.006538Z&quot;}" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="the-sampling-distribution-becomes-normal" class="level3">
 <h3 class="anchored" data-anchor-id="the-sampling-distribution-becomes-normal">The sampling distribution becomes normal</h3>
 <p>The distribution of sample means is called the <strong>sampling distribution</strong>. Watch what happens to it as the sample size grows. The black curve is a normal distribution with the same mean and standard deviation as the simulated means.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:50.835104Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:50.835010Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.094454Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.094167Z&quot;}" data-execution_count="23">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:39.007720Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:39.007674Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:40.138464Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:40.137975Z&quot;}" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_sampling_distribution(means, ax, true_mean, title, n<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For a 0/1 variable the sample mean can only take the values 0, 1/n, 2/n, ...</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># so if n is given (and small) we use one bar per possible value.</span></span>
@@ -1147,7 +1139,7 @@ Simulation: share of samples with mean 0 = 0.346</code></pre>
 <section id="it-works-for-skewed-variables-too" class="level3">
 <h3 class="anchored" data-anchor-id="it-works-for-skewed-variables-too">It works for skewed variables too</h3>
 <p>Income is heavily right-skewed. Compare the distribution of individual incomes (left) with the distribution of the means of samples of 500 people (right).</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.095760Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.095695Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.207049Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.206719Z&quot;}" data-execution_count="24">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:40.139595Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:40.139527Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:40.447011Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:40.446655Z&quot;}" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">4</span>))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].hist(df[<span class="st">"income"</span>], bins<span class="op">=</span><span class="dv">60</span>, density<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">"grey"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axvline(df[<span class="st">"income"</span>].mean(), color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
@@ -1167,150 +1159,30 @@ Simulation: share of samples with mean 0 = 0.346</code></pre>
 <li>Repeat the two-panel plot for <code>age</code> and for <code>sch</code> (years of schooling). How non-normal are the raw distributions? Are the sampling distributions normal?</li>
 <li>Try a small sample size (e.g.&nbsp;n = 5) for income. At what sample size does the sampling distribution start to look normal? Is it the same for a symmetric variable like age?</li>
 </ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.208168Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.208105Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.209611Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.209278Z&quot;}" data-execution_count="25">
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:40.448247Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:40.448187Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:40.449623Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:40.449327Z&quot;}" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="optional-when-the-clt-is-slow-one-bad-row" class="level3">
-<h3 class="anchored" data-anchor-id="optional-when-the-clt-is-slow-one-bad-row">(Optional) When the CLT is slow: one bad row</h3>
-<p>The CLT says “sufficiently large”. How large depends on the data. Remember the $34,000-an-hour worker? Plot the sampling distribution of mean <code>realhrwage</code> for n = 1,000 and describe what you see. Why is there a second bump? What does this tell you about checking your data <em>before</em> trusting a textbook result?</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.210551Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.210482Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.211903Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.211570Z&quot;}" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here: plot the sampling distribution of df["realhrwage"] for n = 1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="quantifying-uncertainty-the-standard-error" class="level2">
-<h2 class="anchored" data-anchor-id="quantifying-uncertainty-the-standard-error">4. Quantifying uncertainty: the standard error</h2>
-<p>The standard deviation of the sampling distribution has a name: the <strong>standard error</strong> (SE). It measures how far a sample mean typically lands from the population mean. The CLT also tells us how it depends on sample size:</p>
+<section id="the-standard-error" class="level3">
+<h3 class="anchored" data-anchor-id="the-standard-error">The standard error</h3>
+<p>The standard deviation of the sampling distribution is called the <strong>standard error</strong> (SE). It tells us how far a sample mean typically lands from the population mean:</p>
 <p><span class="math display">\[SE = \frac{\sigma}{\sqrt{n}}\]</span></p>
-<p>where <span class="math inline">\(\sigma\)</span> is the population standard deviation. Let’s check that against simulation.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.212936Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.212882Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.472204Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.471832Z&quot;}" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> unions[<span class="st">"member"</span>].std()</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ns <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1000</span>, <span class="dv">3000</span>]</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>simulated_se <span class="op">=</span> [sample_means(unions[<span class="st">"member"</span>], n, reps<span class="op">=</span><span class="dv">5000</span>).std() <span class="cf">for</span> n <span class="kw">in</span> ns]</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.linspace(<span class="dv">10</span>, <span class="dv">3000</span>, <span class="dv">300</span>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plt.plot(grid, sigma <span class="op">/</span> np.sqrt(grid), <span class="st">"k-"</span>, label<span class="op">=</span><span class="vs">r"Theory: $\sigma/\sqrt</span><span class="sc">{n}</span><span class="vs">$"</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>plt.plot(ns, simulated_se, <span class="st">"o"</span>, color<span class="op">=</span><span class="st">"red"</span>, ms<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">"Simulated SD of sample means"</span>)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">"log"</span>)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Sample size n (log scale)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Standard error"</span>)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Uncertainty shrinks with the square root of the sample size"</span>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="W05. Distributions and Basic Statistics_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<p>Because the sampling distribution is normal, the 68-95-99.7 rule applies: about <strong>95% of sample means land within 2 standard errors</strong> of the population mean. Let’s check.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.473913Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.473825Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.514437Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.514084Z&quot;}" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>se <span class="op">=</span> sigma <span class="op">/</span> np.sqrt(n)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> sample_means(unions[<span class="st">"member"</span>], n)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]:</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    share <span class="op">=</span> (np.<span class="bu">abs</span>(means <span class="op">-</span> p) <span class="op">&lt;</span> k <span class="op">*</span> se).mean()</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Within </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> SE of the true rate: </span><span class="sc">{</span>share<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where <span class="math inline">\(\sigma\)</span> is the population standard deviation and <span class="math inline">\(n\)</span> is the sample size. Because the sampling distribution is normal, the <strong>68-95-99.7 rule</strong> applies: about 68%, 95% and 99.7% of sample means land within 1, 2 and 3 SEs of the population mean. Let’s check it for samples of 1,000. (Next week we look at the standard error in more detail.)</p>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:40.450536Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:40.450486Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:40.790129Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:40.789749Z&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>se <span class="op">=</span> unions[<span class="st">"member"</span>].std() <span class="op">/</span> np.sqrt(n)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> sample_means(unions[<span class="st">"member"</span>], n)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Standard error:"</span>, <span class="bu">round</span>(se, <span class="dv">4</span>))</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Share within 1 SE:"</span>, (<span class="bu">abs</span>(means <span class="op">-</span> p) <span class="op">&lt;</span> <span class="dv">1</span> <span class="op">*</span> se).mean())</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Share within 2 SE:"</span>, (<span class="bu">abs</span>(means <span class="op">-</span> p) <span class="op">&lt;</span> <span class="dv">2</span> <span class="op">*</span> se).mean())</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Share within 3 SE:"</span>, (<span class="bu">abs</span>(means <span class="op">-</span> p) <span class="op">&lt;</span> <span class="dv">3</span> <span class="op">*</span> se).mean())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Within 1 SE of the true rate: 0.682
-Within 2 SE of the true rate: 0.954
-Within 3 SE of the true rate: 0.997</code></pre>
+<pre><code>Standard error: 0.011
+Share within 1 SE: 0.6861
+Share within 2 SE: 0.9586
+Share within 3 SE: 0.9978</code></pre>
 </div>
-</div>
-<section id="why-the-clt-is-magic" class="level3">
-<h3 class="anchored" data-anchor-id="why-the-clt-is-magic">Why the CLT is magic</h3>
-<p>So far we’ve cheated: we know the population, so we could draw thousands of samples. In real life you get <strong>one</strong> sample. The CLT means that is enough: estimate <span class="math inline">\(\sigma\)</span> with the sample standard deviation <span class="math inline">\(s\)</span>, compute <span class="math inline">\(SE = s/\sqrt{n}\)</span>, and you know roughly how far off you might be. (Next week we turn this into a formal <strong>confidence interval</strong>.)</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.515518Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.515451Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.517790Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.517498Z&quot;}" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>one_sample <span class="op">=</span> unions[<span class="st">"member"</span>].sample(<span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>est <span class="op">=</span> one_sample.mean()</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>se_hat <span class="op">=</span> one_sample.std() <span class="op">/</span> np.sqrt(<span class="bu">len</span>(one_sample))</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate from ONE sample of 1000: </span><span class="sc">{</span>est<span class="sc">:.3f}</span><span class="ss">, standard error </span><span class="sc">{</span>se_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimate +/- 2 SE: </span><span class="sc">{</span>est <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>se_hat<span class="sc">:.3f}</span><span class="ss"> to </span><span class="sc">{</span>est <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>se_hat<span class="sc">:.3f}</span><span class="ss">   (true rate: </span><span class="sc">{</span>p<span class="sc">:.3f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Estimate from ONE sample of 1000: 0.138, standard error 0.011
-Estimate +/- 2 SE: 0.116 to 0.160   (true rate: 0.141)</code></pre>
-</div>
-</div>
-</section>
-<section id="signal-and-noise-has-union-membership-fallen" class="level3">
-<h3 class="anchored" data-anchor-id="signal-and-noise-has-union-membership-fallen">Signal and noise: has union membership fallen?</h3>
-<p>Union membership in the U.S. has been declining for decades. Our data cover 1990 as well as 2013. The <strong>signal</strong> is the difference between the two rates; the <strong>noise</strong> is how much sample means bounce around (the standard error). A signal only means something if it is large relative to the noise.</p>
-<p>The plot shows the sampling distributions of the membership rate in each year for samples of size <code>n</code>.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.518912Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.518842Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.619392Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.619020Z&quot;}" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>u90 <span class="op">=</span> cps[(cps[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">1990</span>) <span class="op">&amp;</span> (cps[<span class="st">"union"</span>] <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">&amp;</span> (cps[<span class="st">"incwage"</span>] <span class="op">&lt;</span> <span class="dv">200_000</span>)]</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>member90 <span class="op">=</span> (u90[<span class="st">"union"</span>] <span class="op">==</span> <span class="dv">2</span>).astype(<span class="bu">int</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>member13 <span class="op">=</span> unions[<span class="st">"member"</span>]</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True rate 1990: </span><span class="sc">{</span>member90<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">   2013: </span><span class="sc">{</span>member13<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compare_years(n):</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> values, label <span class="kw">in</span> [(member90, <span class="st">"1990"</span>), (member13, <span class="st">"2013"</span>)]:</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> sample_means(values, n)</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        bins <span class="op">=</span> (np.arange(n <span class="op">+</span> <span class="dv">2</span>) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">/</span> n <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">200</span> <span class="cf">else</span> <span class="dv">40</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        plt.hist(m, bins<span class="op">=</span>bins, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span>label)</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    plt.xlim(<span class="dv">0</span>, <span class="fl">0.4</span>)</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Sample union membership rate"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Density"</span>)</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Sampling distributions, n = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> per year"</span>)</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    plt.legend()<span class="op">;</span> plt.show()</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>compare_years(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>True rate 1990: 0.187   2013: 0.141</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="W05. Distributions and Basic Statistics_files/figure-html/cell-31-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-</section>
-<section id="exercise-7" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-7">Exercise</h3>
-<ol type="1">
-<li>With samples of 100 per year, could you confidently say membership fell? Why not?</li>
-<li>Increase <code>n</code> (try 500, 1000, 3000). At roughly what sample size do the two distributions stop overlapping (say, their means are more than 3 SEs apart)?</li>
-<li>In your own words: what is the “signal”, what is the “noise”, and why does a bigger sample help us see the signal?</li>
-</ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.620519Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.620449Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:51.621943Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:51.621634Z&quot;}" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="spot-the-problem-a-big-sample-from-the-wrong-people" class="level2">
-<h2 class="anchored" data-anchor-id="spot-the-problem-a-big-sample-from-the-wrong-people">5. Spot the problem: a big sample from the wrong people</h2>
-<p>A polling company runs an <strong>opt-in online wage survey</strong> and reports:</p>
-<blockquote class="blockquote">
-<p><em>“Based on 10,000 responses, the average U.S. wage earner makes $X thousand a year, with a standard error of just $0.4 thousand.”</em></p>
-</blockquote>
-<p>The catch: who answers? Suppose people with higher incomes (and more education) are more likely to answer online surveys, which is a well-documented pattern in polling. Below we <strong>simulate</strong> this: each person in our “population” answers with a probability that rises with their income. Read the code, run it, and then diagnose the claim.</p>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:51.622974Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:51.622910Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:52.656101Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:52.655746Z&quot;}" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of responding rises with income: about 7% at $10k, about 14% at $150k</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>response_prob <span class="op">=</span> <span class="fl">0.05</span> <span class="op">+</span> <span class="fl">0.10</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>(df[<span class="st">"income"</span>] <span class="op">-</span> <span class="dv">60</span>) <span class="op">/</span> <span class="dv">30</span>))</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> biased_survey_means(n, reps<span class="op">=</span><span class="dv">1000</span>):</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mean income from `reps` opt-in surveys of n respondents each</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    weights <span class="op">=</span> response_prob <span class="op">/</span> response_prob.<span class="bu">sum</span>()</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    draws <span class="op">=</span> rng.choice(df[<span class="st">"income"</span>].to_numpy(), size<span class="op">=</span>(reps, n), replace<span class="op">=</span><span class="va">True</span>, p<span class="op">=</span>weights.to_numpy())</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> draws.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>true_mean <span class="op">=</span> df[<span class="st">"income"</span>].mean()</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10_000</span>]:</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> biased_survey_means(n)</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    ax.hist(m, bins<span class="op">=</span><span class="dv">40</span>, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="ss">f"opt-in survey, n = </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss">"</span>)</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>ax.axvline(true_mean, color<span class="op">=</span><span class="st">"red"</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"True population mean = </span><span class="sc">{</span>true_mean<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Estimated mean income ($ thousands)"</span>, ylabel<span class="op">=</span><span class="st">"Density"</span>,</span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"More responses, same bias"</span>)</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>ax.legend()<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="W05. Distributions and Basic Statistics_files/figure-html/cell-33-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<section id="exercise-8" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-8">Exercise</h3>
-<ol type="1">
-<li>What happens to the <strong>spread</strong> of the estimates as n grows? What happens to their <strong>centre</strong>?</li>
-<li>Is the reported standard error of $0.4k correct? Is it a useful measure of how wrong the estimate is? Why not?</li>
-<li>Which assumption behind the Central Limit Theorem (and the standard error) is violated here?</li>
-<li>Connect this to Wald’s bombers: what is the “plane that didn’t come back” in this survey?</li>
-<li><strong>Your turn:</strong> a union newsletter runs an online poll of its readers asking “are you a union member?”. Adapt the code to simulate a survey in which union members (in <code>unions</code>) are 5 times more likely to respond than non-members, and estimate the union membership rate with n = 10,000. How far off is it?</li>
-</ol>
-<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-09-29T13:58:52.657339Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-29T13:58:52.657270Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-29T13:58:52.658669Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-29T13:58:52.658418Z&quot;}" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1320,8 +1192,8 @@ Estimate +/- 2 SE: 0.116 to 0.160   (true rate: 0.141)</code></pre>
 <p>https://oballinger.github.io/BASC0005/data/assessed/w05_cps_2013.csv</p>
 <p>Note that the file may have been corrupted; some values or labels may be wrong, so make sure to sense-check your data before answering.</p>
 <p><strong>QUESTION: Treat all 2013 respondents with a reported wage income (incwage &gt; 0) as the population. Using SE = sigma/sqrt(n) and the 68-95-99.7 rule, what is the smallest sample size n such that 95% of sample means fall within $1,000 of the population mean income? Use .std() for sigma.</strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-11-06T13:31:40.791248Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-06T13:31:40.791188Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-06T13:31:40.792520Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-06T13:31:40.792216Z&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="recap" class="level2">
 <h2 class="anchored" data-anchor-id="recap">Recap</h2>
@@ -1330,9 +1202,8 @@ Estimate +/- 2 SE: 0.116 to 0.160   (true rate: 0.141)</code></pre>
 <li>Use the <strong>median</strong> for skewed variables, the <strong>mode</strong> for categorical ones, and check extreme values before trusting a mean.</li>
 <li><strong>Central Limit Theorem:</strong> for sufficiently large random samples, sample means are approximately normally distributed, whatever the shape of the underlying data.</li>
 <li>The <strong>standard error</strong> <span class="math inline">\(\sigma/\sqrt{n}\)</span> tells us how much a sample mean bounces around; about 95% of sample means fall within 2 SEs of the population mean.</li>
-<li>All of this assumes a <strong>random</strong> sample. A huge biased sample gives a very precise wrong answer.</li>
 </ol>
-<p>Next week we turn the standard error into <strong>confidence intervals</strong> and <strong>hypothesis tests</strong>, and meet a Bayesian way to estimate union membership.</p>
+<p>Next week we look at the <strong>standard error</strong> in more detail, turn it into <strong>confidence intervals</strong> and <strong>hypothesis tests</strong>, and meet a Bayesian way to estimate union membership.</p>
 
 
 </section>
