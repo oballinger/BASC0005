@@ -441,7 +441,10 @@ ga('send', {
   <ul class="collapse">
   <li><a href="#exercise-8" id="toc-exercise-8" class="nav-link" data-scroll-target="#exercise-8">Exercise</a></li>
   </ul></li>
+  <li><a href="#assessed-question" id="toc-assessed-question" class="nav-link" data-scroll-target="#assessed-question">Assessed Question</a>
+  <ul class="collapse">
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/oballinger/BASC0005/blob/main/notebooks/W05. Distributions and Basic Statistics.ipynb" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -1311,6 +1314,15 @@ Estimate +/- 2 SE: 0.116 to 0.160   (true rate: 0.141)</code></pre>
 </div>
 </section>
 </section>
+<section id="assessed-question" class="level1">
+<h1>Assessed Question</h1>
+<p>The URL below contains the 2013 CPS respondents: one row per person, with the same columns as the <code>cps</code> dataframe we used above.</p>
+<p>https://oballinger.github.io/BASC0005/data/assessed/w05_cps_2013.csv</p>
+<p>Note that the file may have been corrupted; some values or labels may be wrong, so make sure to sense-check your data before answering.</p>
+<p><strong>QUESTION: Treat all 2013 respondents with a reported wage income (incwage &gt; 0) as the population. Using SE = sigma/sqrt(n) and the 68-95-99.7 rule, what is the smallest sample size n such that 95% of sample means fall within $1,000 of the population mean income? Use .std() for sigma.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="recap" class="level2">
 <h2 class="anchored" data-anchor-id="recap">Recap</h2>
 <ol type="1">
@@ -1323,6 +1335,7 @@ Estimate +/- 2 SE: 0.116 to 0.160   (true rate: 0.141)</code></pre>
 <p>Next week we turn the standard error into <strong>confidence intervals</strong> and <strong>hypothesis tests</strong>, and meet a Bayesian way to estimate union membership.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
