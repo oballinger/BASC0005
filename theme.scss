@@ -26,3 +26,5 @@ h2 { border-bottom: 3px solid #000; padding-bottom: .3rem; margin-top: 3rem; }
 .sidebar-link.active { color: #e30613 !important; font-weight: 700; }
 #quarto-sidebar { border-right: 3px solid #000; }
 div.sourceCode { border: none; }
+/* sidebar flush against the left edge of the window (wide screens) */
+@media (min-width: 992px) { #quarto-sidebar { margin-left: -1.5em; } }

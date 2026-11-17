@@ -426,14 +426,14 @@ South Wales Police data released in 2018: at the UEFA Champions League final in 
 - Tip: count people, not percentages
 ::::
 :::: {.column width="51%"}
-![](img/w05/ee39084c03.png){.pic style="max-height:629px"}
+![](img/w05/50f6eca98f.png){.pic style="max-height:629px"}
 
 Numbers from Gigerenzer et al. (2007), Psychological Science in the Public Interest 8(2).
 ::::
 :::
 
 ::: notes
-Ask the class for a show of hands BEFORE you reveal the answer (most people say about 90%). Gigerenzer, Gaissmaier, Kurz-Milcke, Schwartz & Woloshin (2007) 'Helping doctors and patients make sense of health statistics', PSPI 8(2):53-96. In a 2007 training session, 160 gynaecologists got this problem as conditional probabilities; 21% chose the correct answer (about 1 in 10). After training in natural frequencies, most got it right. Natural frequencies: of 1,000 women, 10 have cancer and 9 of them test positive; of the 990 without cancer, about 89 test positive. 9 / (9 + 89) = 9%. On the chart, the outlined block is the 98 positive tests; only the 9 blue squares in it have cancer. This block is the denominator of Bayes' rule (slide 10). The numbers are a teaching example, not the current NHS screening figures.
+Ask the class for a show of hands BEFORE you reveal the answer (most people say about 90%). Gigerenzer, Gaissmaier, Kurz-Milcke, Schwartz & Woloshin (2007) 'Helping doctors and patients make sense of health statistics', PSPI 8(2):53-96. In a 2007 training session, 160 gynaecologists got this problem as conditional probabilities; 21% chose the correct answer (about 1 in 10). After training in natural frequencies, most got it right. Natural frequencies: of 1,000 women, 10 have cancer and 9 of them test positive; of the 990 without cancer, about 89 test positive. 9 / (9 + 89) = 9%. On the chart, each strip is one group: 10 women with cancer (left) and 990 without (right). The yellow boxes are the 98 positive tests. The height of each box is the chance of a positive test in that group (90% and 9%); the width of the left strip is the prior (1%). The formula at the top reuses the two boxes: 9 / (9 + 89). This block is the denominator of Bayes' rule (slide 10). The numbers are a teaching example, not the current NHS screening figures.
 :::
 
 ## The same pattern, in many places
@@ -473,9 +473,9 @@ Slide text: My research: where the detector looked in Kharkiv · Left: PWTT dama
 
 
 ::: notes
-The same grid as the mammogram slide, for two cities from the paper. Kharkiv (UNOSAT, June 2022): 0.85% of buildings damaged, recall 32%, precision 23.4%. Per 1,000 buildings: 3 damaged and flagged, 9 intact but flagged, 6 damaged but missed, 982 intact and not flagged. So about 1 flag in 4 is real (3/12 = 25% after rounding; the paper's figure is 23%). Gaza (UNOSAT, April 2025): 72% damaged, recall 92%, precision 74.1%. Per 1,000: 661 true flags, 231 false flags, 58 missed, 50 intact and not flagged: 661/892 = 74%. The detector is the same algorithm; the base rate is what changes. In Kharkiv the false alarms come from the huge intact majority, exactly like the healthy women in the mammogram example. The counts are approximate: the paper's rates are weighted by building area, and each city has its own threshold of T.
+The same grid as the mammogram slide, for two cities from the paper. Each strip is one group (damaged, intact); the yellow boxes are the flags, and the height of each box is the flag rate in that group. Kharkiv (UNOSAT, June 2022): 0.85% of buildings damaged, recall 32%, precision 23.4%. Per 1,000 buildings: 3 damaged and flagged, 9 intact but flagged, 6 damaged but missed, 982 intact and not flagged. So about 1 flag in 4 is real (3/12 = 25% after rounding; the paper's figure is 23%). Gaza (UNOSAT, April 2025): 72% damaged, recall 92%, precision 74.1%. Per 1,000: 661 true flags, 231 false flags, 58 missed, 50 intact and not flagged: 661/892 = 74%. The detector is the same algorithm; the base rate is what changes. In Kharkiv the false alarms come from the huge intact majority, exactly like the healthy women in the mammogram example. The counts are approximate: the paper's rates are weighted by building area, and each city has its own threshold of T.
 
-Slide text: Same detector, two cities: 1,000 buildings each · Like the mammogram: blue = damaged and flagged, orange = intact but flagged; the outline is every flag. Counts per 1,000 buildings from Ballinger (2025), Tables 1–2 (area-weighted rates, rounded). Paper precision: Kharkiv 23%, Gaza 74%.
+Slide text: Same detector, two cities: 1,000 buildings each · Like the mammogram: blue = damaged and flagged, orange = intact but flagged; the yellow boxes are every flag. Counts per 1,000 buildings from Ballinger (2025), Tables 1–2 (area-weighted rates, rounded). Paper precision: Kharkiv 23%, Gaza 74%.
 :::
 
 ## My research: same detector, very different precision

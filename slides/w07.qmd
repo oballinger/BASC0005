@@ -15,3 +15,5 @@ repo-actions: false
 [Week 7 workshop →](../notebooks/W07.%20Linear%20Regression.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
+
+{{< include _ols_fit.md >}}

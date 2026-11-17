@@ -1,0 +1,392 @@
+```{=html}
+<!-- DBSCAN on offshore-structure detections, included in slides/w10.qmd. Plain canvas, no libraries.
+     Data (inline, local metres east/north of 2.74 E, 51.70 N): 2021 H1 window of the Week 10 workshop file
+     gs://qm2/2627/w10/detections_sim.csv (simulated detections) and structures.csv (real GFW structure
+     locations), cropped to lon 2.74-2.86, lat 51.70-51.78 plus a 1 km buffer. Built by notebooks/data_prep/w10_offshore.py. -->
+<style>
+.w10 { --w10-red: #e30613; border: 3px solid #000; padding: 1rem; margin: 1.5rem 0; }
+.w10 h2 { margin: 0 0 .25rem; font-size: 1.4rem; letter-spacing: -.02em; border: 0; }
+.w10 .anchorjs-link { display: none; }
+.w10 .w10-lede { margin: 0 0 1rem; color: #333; max-width: 62rem; }
+.w10 .w10-bar { display: flex; gap: .6rem 1.2rem; flex-wrap: wrap; align-items: center; margin-bottom: .75rem; }
+.w10 .w10-group { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+.w10 button { font: inherit; font-size: .85rem; font-weight: 700; background: #000; color: #fff; border: 2px solid #000; padding: .3rem .75rem; cursor: pointer; border-radius: 0; }
+.w10 button.w10-chip { background: #fff; color: #000; }
+.w10 button.w10-chip[aria-pressed=true] { background: var(--w10-red); border-color: var(--w10-red); color: #fff; }
+.w10 .w10-lab { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.w10 .w10-sliders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem 1.5rem; margin-bottom: .75rem; }
+@media (max-width: 600px) { .w10 .w10-sliders { grid-template-columns: minmax(0, 1fr); } }
+.w10 .w10-slider { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.w10 .w10-slider .w10-top { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
+.w10 .w10-slider output { font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.w10 .w10-slider small { color: #666; font-size: .74rem; }
+.w10 input[type=range] { width: 100%; margin: 0; accent-color: #000; height: 1.6rem; touch-action: manipulation; }
+.w10 .w10-main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); border: 2px solid #000; }
+@media (max-width: 760px) { .w10 .w10-main { grid-template-columns: minmax(0, 1fr); } }
+.w10 .w10-left { position: relative; min-width: 0; border-right: 2px solid #000; }
+@media (max-width: 760px) { .w10 .w10-left { border-right: 0; border-bottom: 2px solid #000; } }
+.w10 .w10-stage { position: relative; aspect-ratio: 8272 / 8906; background: #eef3f6; overflow: hidden; }
+.w10 canvas.w10-map { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: manipulation; cursor: crosshair; }
+.w10 .w10-tip { position: absolute; pointer-events: none; background: #000; color: #fff; font-size: .78rem; line-height: 1.35; padding: .35rem .5rem; max-width: 15rem; display: none; z-index: 2; }
+.w10 .w10-legend { border-top: 2px solid #000; padding: .4rem .55rem; font-size: .74rem; line-height: 1.5; display: flex; flex-wrap: wrap; gap: 0 .9rem; align-items: center; }
+.w10 .w10-legend svg { vertical-align: -.15rem; margin-right: .25rem; }
+.w10 .w10-card { padding: .8rem 1rem 1rem; font-size: .85rem; line-height: 1.45; min-width: 0; display: flex; flex-direction: column; gap: .6rem; }
+.w10 .w10-card h4 { margin: 0; font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; color: var(--w10-red); }
+.w10 .w10-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #000; border: 2px solid #000; }
+.w10 .w10-kpis div { background: #fff; padding: .35rem .5rem; font-size: .74rem; line-height: 1.25; color: #555; min-width: 0; }
+.w10 .w10-kpis b { display: block; font-size: 1.3rem; color: #000; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.w10 .w10-kpis.w10-hidden b { color: #bbb; }
+.w10 .w10-say { margin: 0; }
+.w10 .w10-say b { color: #000; }
+.w10 .w10-verdict { margin: 0; padding: .45rem .6rem; border-left: 4px solid var(--w10-red); background: #fff5f5; }
+.w10 .w10-verdict.w10-good { border-left-color: #000; background: #f4f4f4; }
+.w10 canvas.w10-sweep { display: block; width: 100%; height: 150px; border: 2px solid #000; touch-action: none; cursor: ew-resize; }
+.w10 .w10-sweepkey { font-size: .72rem; color: #555; margin: .2rem 0 0; }
+.w10 .w10-sweepkey i { display: inline-block; width: .9rem; height: 3px; vertical-align: .2rem; margin: 0 .25rem 0 .1rem; background: #000; }
+.w10 .w10-sweepkey i.w10-r { background: var(--w10-red); }
+.w10 .w10-zoomnote { color: #666; }
+.w10 .w10-note { font-size: .78rem; color: #555; margin: .6rem 0 0; }
+</style>
+
+<div class="w10" id="w10">
+  <h2>Explore it: clustering without an answer key</h2>
+  <p class="w10-lede">Six months of radar detections with no AIS match, off the Belgian and Dutch coast: the input to the DBSCAN step in the lecture. DBSCAN returns clusters at <b>any</b> setting you give it. Change the radius ε and the minimum number of points and watch the "structures" it finds appear, split, merge and vanish. Nothing in the unlabelled data says which answer is right. Then reveal the <b>answer key</b> (Global Fishing Watch's published structure locations) to score your choice: the check that supervised learning has and clustering usually doesn't.</p>
+  <div class="w10-sliders">
+    <div class="w10-slider">
+      <div class="w10-top"><label class="w10-lab" for="w10-eps">Radius <span style="text-transform:none">ε</span></label><output id="w10-epsv">75 m</output></div>
+      <input type="range" id="w10-eps" min="0" max="1000" step="1">
+      <small>Two detections are neighbours if they are closer than this</small>
+    </div>
+    <div class="w10-slider">
+      <div class="w10-top"><label class="w10-lab" for="w10-min">Min points</label><output id="w10-minv">5</output></div>
+      <input type="range" id="w10-min" min="2" max="30" step="1" value="5">
+      <small>Neighbours (counting itself) a detection needs to be a core point</small>
+    </div>
+  </div>
+  <div class="w10-bar">
+    <div class="w10-group"><span class="w10-lab">Try</span>
+      <button class="w10-chip" data-eps="10" aria-pressed="false">10 m</button>
+      <button class="w10-chip" data-eps="75" aria-pressed="false">75 m (GFW)</button>
+      <button class="w10-chip" data-eps="1000" aria-pressed="false">1,000 m</button>
+    </div>
+    <div class="w10-group">
+      <button class="w10-chip" id="w10-zoom" aria-pressed="false">Zoom in ×6</button>
+      <button class="w10-chip" id="w10-rad" aria-pressed="false">Show ε circles</button>
+      <button class="w10-chip" id="w10-key" aria-pressed="false">Reveal answer key</button>
+      <button id="w10-reset">Reset</button>
+    </div>
+  </div>
+  <div class="w10-main">
+    <div class="w10-left">
+      <div class="w10-stage" id="w10-stage"><canvas class="w10-map" id="w10-map"></canvas><div class="w10-tip" id="w10-tip"></div></div>
+      <div class="w10-legend" id="w10-legend"></div>
+    </div>
+    <div class="w10-card">
+      <div>
+        <h4>What DBSCAN found (this 8 × 9 km patch)</h4>
+        <div class="w10-kpis" style="margin-top:.35rem">
+          <div><b id="w10-k-cl">–</b>clusters</div>
+          <div><b id="w10-k-core">–</b>core points</div>
+          <div><b id="w10-k-noise">–</b>labelled noise</div>
+        </div>
+      </div>
+      <div>
+        <h4>Is it right?</h4>
+        <div class="w10-kpis w10-hidden" id="w10-score" style="margin-top:.35rem">
+          <div><b id="w10-k-p">?</b>precision</div>
+          <div><b id="w10-k-r">?</b>recall</div>
+          <div><b id="w10-k-f">?</b>F1</div>
+        </div>
+      </div>
+      <p class="w10-say" id="w10-say"></p>
+      <div>
+        <h4>Every radius gives an answer</h4>
+        <canvas class="w10-sweep" id="w10-sweep" aria-label="Clusters found at each radius"></canvas>
+        <p class="w10-sweepkey" id="w10-sweepkey"></p>
+      </div>
+    </div>
+  </div>
+  <p class="w10-note"><b>Data.</b> Structure locations are real: Global Fishing Watch offshore infrastructure (public table v20231106, CC BY-NC 4.0), wind turbines present in the first half of 2021. The detections are <b>simulated</b> around them for the Week 10 workshop (about 15 per structure, a few tens of metres off, plus randomly scattered unmatched vessels and loose pile-ups from anchored ships). Distances use a flat local projection. A cluster counts as correct if its centre is within 150 m of a structure, each structure matched once; the patch is clustered with a 1 km buffer so edges behave. Tap or hover a detection to see why it got its label.</p>
+</div>
+
+<script>
+(() => {
+  const root = document.getElementById("w10");
+  if (!root) return;
+  const $ = id => document.getElementById(id);
+  const DATA = {"w":8272,"h":8906,"d":[2393,4758,6380,2908,1874,712,5445,-275,4759,303,4233,1265,471,-51,5186,-910,706,1016,-104,2412,-296,-768,8291,-865,2841,2588,1329,284,4867,-611,-729,2915,1889,798,4753,2460,3561,8179,4475,-337,489,1888,6904,318,-739,2921,1417,3999,5097,5540,3961,687,446,-64,64,480,8242,-874,-571,1274,-754,-105,2591,344,1319,273,9009,405,1366,3993,8976,414,4576,861,5357,-604,6904,274,4281,-933,3990,673,2811,2612,6850,4789,3546,-518,2304,-615,-84,2404,-753,2928,-793,-153,5102,5546,3708,5100,2772,1756,82,513,586,3314,49,2711,6389,6027,6385,6016,-776,-149,8272,-882,2852,1059,6872,324,5772,-567,-230,-787,682,1011,6798,6856,8782,5873,3546,-503,5433,-228,1415,3981,1223,2576,5320,-588,3699,5076,8264,-862,9023,422,7724,1906,6381,5996,-589,1263,4269,-964,5429,-274,-761,-147,6883,4747,-790,-130,5777,1473,2256,-657,5087,0,939,4293,4501,-339,6368,6021,498,-61,4864,-608,4205,1270,1013,-454,2375,3066,970,-459,2800,1713,481,1880,5101,29,9200,7227,2259,-641,921,4324,6939,349,2608,371,1432,3981,6380,2913,41,466,481,-60,4248,-963,5210,-885,6367,6015,5768,1478,4300,-963,5100,19,1402,3981,4782,291,8984,426,-566,1297,3682,5112,8011,3303,2315,3085,918,4327,1652,1471,1349,317,5759,1435,5144,4311,3686,5114,5782,-522,4224,1260,7858,6450,8285,-879,5172,4355,2803,2598,8239,-864,2835,2622,1413,3993,2428,4774,-764,-104,5078,5554,4728,2466,5424,-285,4718,300,1868,3521,5221,-899,-117,2416,1676,1472,-695,2931,1861,743,5329,-625,5431,-285,3610,-487,5216,-875,6114,-851,1246,2584,1396,3972,4751,310,5450,-267,748,1028,986,-518,5781,-541,6895,332,734,1040,8971,400,2822,2588,1878,818,7761,1897,2926,1042,2241,-619,1662,1489,7786,6428,2374,4753,3523,-528,5137,5545,1251,2629,2852,2559,7693,1888,4313,-982,5107,5555,5100,5577,588,3308,4718,2483,4316,-945,3702,5115,466,-59,6858,4811,5105,16,6349,2905,5765,1491,5323,-603,1387,3961,5768,-576,1239,2592,935,4290,6112,-864,8814,5912,2808,1741,4742,2471,5207,-884,6141,-830,-301,-772,5773,-556,2620,329,-759,-145,2288,-636,2291,-627,451,-23,444,-25,5205,-882,-314,-774,7693,1928,5106,5544,5215,-916,1678,1460,-559,1295,2753,1744,8996,432,-797,-120,1352,324,8270,-860,3702,5125,2904,1052,-544,1318,7976,3285,463,1837,4296,-931,5096,17,5294,-624,7803,6417,2878,1048,7956,3329,1854,3561,-298,-773,4578,873,6897,4773,4220,1275,8989,416,2822,1732,1387,3988,737,987,2874,1038,7794,6418,8248,-862,5126,5547,5415,-285,6841,4787,1369,283,1402,3973,8275,-847,6368,6004,1837,783,1841,3565,4303,-930,741,965,5767,-568,9007,424,3493,3698,2114,7977,5216,-875,5168,4356,-752,-153,5131,5561,4574,855,1293,314,8781,5903,5225,-897,7730,1904,8986,385,4305,-952,2807,1747,2574,358,6145,-832,464,-24,2238,-639,2583,350,3619,7910,3736,5094,6155,-827,461,-24,4719,2490,946,4318,5228,-891,5355,-594,3977,703,745,1058,1338,298,7774,6441,709,1040,-757,2886,2279,-639,1721,-395,-297,-812,1695,-422,1880,802,4761,303,6367,6008,5227,-859,2859,2573,5091,29,5736,1479,5747,1470,5116,5557,5793,-587,-755,2907,2351,4782,1507,2232,5152,4358,4830,-641,61,504,5232,-928,5146,4327,6392,2906,5210,-909,-595,1272,5124,28,1247,2609,2369,3085,8270,-895,6334,6023,3566,-455,4591,877,-327,-761,-106,2387,4211,1257,5435,-301,8289,-894,6864,4791,602,3287,6834,4779,9238,93,-573,1281,4881,-637,5447,-271,-302,-802,695,1045,2792,1720,1712,-371,3687,5112,3701,5098,4000,653,2412,4778,954,4307,4739,326,3527,-508,1689,-434,7823,6407,1692,-403,2875,1034,4542,889,5118,68,745,1011,5777,-550,3508,3690,-66,3996,8966,401,5147,4369,1244,2576,4773,2464,2844,2616,655,1002,5787,-563,1393,3950,4504,-330,-580,1271,5159,4340,1714,-412,3688,5139,1843,3574,6405,6017,614,3313,-550,1311,5781,-560,1405,4003,2864,1067,-312,-792,6877,4804,1238,2556,2345,3066,2800,2585,2349,3087,5783,1494,4564,911,-90,3990,4484,-302,-804,-169,3623,8242,5095,5565,3566,-523,5344,-593,4735,2459,59,482,1677,1470,-532,1261,4868,-614,716,994,4560,-307,6096,-810,8255,-873,1387,3977,4582,897,4798,2427,7738,1934,724,1028,2821,2576,5142,4356,4233,1290,-60,4004,-120,2410,2571,343,1360,4011,2379,4774,7730,1907,8787,5894,2841,2569,464,-44,6901,309,4319,-952,1857,3557,1345,322,1875,781,6384,2925,5084,-523,-748,-132,3735,5130,2822,2551,6367,2931,4530,-309,-730,-117,3991,705,7754,1887,5784,1433,6896,324,5116,5537,954,-463,2360,3058,-775,-162,5783,-574,8985,383,4518,-329,-333,-753,1902,3540,5346,-573,5375,-567,5119,5537,3546,-543,2574,360,42,477,-307,-769,-109,2423,1700,-378,1247,2576,-143,2421,587,3264,1733,-388,6387,2918,468,1835,5146,5566,8923,5147,4517,-309,7990,3318,3487,3677,3505,3676,9001,430,8241,-844,4825,2467,2887,1049,5339,-607,1649,1458,6375,6016,8803,5870,3526,-522,6903,327,3610,8205,8777,5869,3708,5142,4003,673,2585,366,43,494,-763,-126,4006,672,-590,1271,2824,2567,4307,-951,-68,3984,2604,338,1365,3991,4218,1293,8980,407,3564,-510,602,3319,4878,-569,5190,4331,1695,-402,2398,4776,6089,-868,5134,4369,3999,683,6357,2904,1694,-431,6351,5996,-309,-809,1696,-424,2788,1742,475,-25,4735,299,2403,4773,1849,3578,-138,2439,8783,5858,-761,2911,7767,1891,3553,-518,7777,6443,517,1885,59,535,4203,1247,-557,1269,6883,4793,898,4316,-71,4022,4903,-614,637,3283,1707,-385,1867,3551,2911,1043,4530,-350,4518,-316,-300,-752,5806,-601,1687,-404,960,-480,8777,5899,-529,1296,1845,810,-736,2908,4843,-593,3748,8317,7726,1893,5223,-878,1847,3554,7777,6418,451,-30,-106,2419,6389,6031,4737,309,5244,-922,468,1870,7753,1879,1842,769,7756,1940,8993,406,5748,1435,7977,3283,8764,5864,4714,283,4488,-328,6144,-840,689,1031,2616,360,-250,-789,1717,-431,2779,1748,484,1883,80,511,3489,3702,-561,1268,2583,336,4739,310,8256,-887,5152,4327,4745,2484,1683,-406,2892,1025,3548,8233,950,-505,1709,-422,2825,2567,3472,3694,1356,318,2604,325,6820,4772,924,4303,5125,5520,2371,4765,2887,1026,-61,3992,5772,1493,1332,322,2876,1054,3730,8062,-126,2414,-71,3965,-79,3989,1682,-369,5768,1467,5141,3,1823,9831,4264,-986,8289,3579,935,4336,1321,310,1393,3985,2818,2567,3504,3675,-778,-100,8990,414,4857,-617,2383,4776,1855,3552,8754,5852,5435,-261,3974,691,4670,8037,6186,-836,6863,328,4753,330,1802,3944,5151,4325,3685,5122,582,3316,6111,-859,4747,2454,6939,346,4716,2477,1367,3964,22,498,4567,875,1838,765,2744,1723,8785,5881,4285,-965,-732,-167,936,-531,8005,3312,611,3289,-787,-157,6347,6024,5339,-586,-763,2896,7988,3311,6328,6020,4774,297,6154,-817,1694,1486,1657,1469,1250,2578,5153,4350,5458,-289,495,1846,1867,3580,993,-477,495,1840,7955,3292,2256,-670,1854,3513,4512,-313,6810,4752,7984,3289,483,1841,8821,5883,1730,-413,1685,1481,6163,-872,4513,-359,1692,1499,6889,331,-563,1267,-745,2909,741,1029,8973,439,6855,4781,7750,1935,4320,-945,4011,686,570,3284,1345,308,3981,705,-759,-148,5409,-297,5154,4343,5193,-907,4758,2459,4754,2456,1243,2591,1881,3499,2274,-635,7769,6416,8265,-837,4271,-928,7799,6436,2902,1038,5325,-584,7801,6440,5205,-887,7761,1899,595,3336,4227,1283,4294,-964,4201,1257,1687,-361,599,3322,3501,3672,1232,2602,2254,-636,3553,-534,-44,4011,2353,3055,512,1856,4871,-598,5813,1448,5132,-15,4774,2471,2305,-679,1333,325,3666,5095,4266,-931,-92,3968,470,1869,6332,2916,2814,2601,4331,-955,5730,1478,2593,375,1681,1458,3537,-516,6910,324,-41,3977,6352,2909,-902,3988,1224,2536,3978,701,5231,-904,694,1018,1879,786,6121,-811,4007,672,5115,17,1822,3563,-62,4002,6130,-849,7975,3299,8251,-895,6428,2899,7726,1883,8957,474,1859,3519,4507,-323,940,4305,4863,-561,925,4292,-783,-127,3780,8327,4557,900,1233,2583,3566,-519,5146,4315,3510,3709,6354,2917,4852,-576,4872,-636,5098,4,-132,2438,1388,3961,6370,5992,5415,-258,1832,821,447,1847,7546,9730,2845,1023,3083,8545,6137,-817,-588,1278,4223,1293,1226,2587,929,-446,-736,2899,4729,2458,3554,-535,938,4261,2604,356,8811,5842,6893,303,2805,1773,4507,-337,597,3303,6338,6024,3548,-497,1842,3568,603,3306,2330,3039,5198,-895,579,3309,3989,661,4533,-358,2388,4757,490,1901,6373,2946,6854,4794,2793,1778,1530,154,6361,2912,5753,1455,2401,4781,3474,-358,3728,5057,6349,2927,1727,-405,3510,3662,516,1857,3514,3659,2307,-683,1839,3541,4889,-615,108,487,4192,1284,5093,5546,6379,6018,1865,769,5299,-582,8019,3309,7829,6435,49,500,7803,6431,2266,-695,4745,295,5333,-612,-781,2932,3815,8283,-707,-147,5098,25,2398,4765,-289,-794,2401,4763,50,495,4578,887,46,526,2749,1729,57,492,4010,673,1357,355,693,1018,4018,662,1752,-384,2577,345,7991,3305,5076,5582,4313,-935,6362,5979,3457,3686,6148,-856,5088,17,1271,2562,1853,766,1747,-389,4547,-312,3511,3680,453,-73,8796,5863,3528,3720,5097,5575,5115,19,7759,1914,-713,2904,485,-53,2856,2528,2266,-603,5303,-624,38,490,476,1871,2403,4733,2884,1071,4305,-929,-699,2890,-85,2435,3666,8190,8238,-871,1206,2595,-115,2390,5092,5579,7954,3318,6376,6020,1642,1481,3580,-492,1263,2597,-268,-764,1250,2559,6113,-839,5119,-6,2777,1742,5121,4330,6420,6042,-741,2914,458,-37,5141,4339],"s":[4519,-323,7804,6434,4210,1263,1390,3984,6899,328,4285,-956,-67,3994,711,1007,6853,4786,2881,1041,3991,679,-772,-140,7993,3303,5105,5551,8983,412,-112,2411,2602,352,4865,-613,6133,-846,3550,-522,1712,-404,4737,2463,4753,307,-566,1282,1863,778,2272,-645,4574,891,2828,2586,5441,-270,3504,3697,2348,3072,492,1849,-295,-786,52,498,5768,1471,5788,-560,1663,1470,942,4312,459,-43,3703,5103,1338,311,1247,2585,1857,3538,6376,6020,5100,22,-741,2918,8779,5868,7743,1903,2391,4769,2789,1741,8267,-863,5209,-903,965,-478,596,3302,6363,2915,5148,4341,5331,-596]};
+  const RED = "#e30613", NOISE = "#8a8a8a";
+  const CAT = ["#4e79a7", "#f28e2b", "#59a14f", "#b07aa1", "#76b7b2", "#edc948", "#9c755f", "#ff9da7"];
+  const W = DATA.w, H = DATA.h, MATCH = 150, EPS_MIN = 5, EPS_MAX = 2000, MAXR = 2000;
+  const n = DATA.d.length / 2, px = new Float32Array(n), py = new Float32Array(n);
+  for (let i = 0; i < n; i++) { px[i] = DATA.d[2 * i]; py[i] = DATA.d[2 * i + 1]; }
+  const m = DATA.s.length / 2, sx = new Float32Array(m), sy = new Float32Array(m);
+  for (let j = 0; j < m; j++) { sx[j] = DATA.s[2 * j]; sy[j] = DATA.s[2 * j + 1]; }
+  const inView = (x, y) => x >= 0 && x <= W && y >= 0 && y <= H;
+  const sIn = []; for (let j = 0; j < m; j++) if (inView(sx[j], sy[j])) sIn.push(j);
+  const dIn = []; for (let i = 0; i < n; i++) if (inView(px[i], py[i])) dIn.push(i);
+
+  // Neighbour lists up to MAXR, sorted by distance, so "neighbours within ε" is a prefix
+  const nbI = [], nbD = [];
+  for (let i = 0; i < n; i++) {
+    const L = [];
+    for (let k = 0; k < n; k++) { if (k === i) continue; const d = Math.hypot(px[i] - px[k], py[i] - py[k]); if (d <= MAXR) L.push([d, k]); }
+    L.sort((a, b) => a[0] - b[0]);
+    nbD.push(Float32Array.from(L, v => v[0])); nbI.push(Int32Array.from(L, v => v[1]));
+  }
+  const within = (i, eps) => { const a = nbD[i]; let lo = 0, hi = a.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (a[mid] <= eps) lo = mid + 1; else hi = mid; } return lo; };
+
+  // Each detection's nearest structure (within 100 m) stands in for "which structure made it", for diagnostics only
+  const owner = new Int32Array(n).fill(-1);
+  for (let i = 0; i < n; i++) { let b = 100, bj = -1; for (let j = 0; j < m; j++) { const d = Math.hypot(px[i] - sx[j], py[i] - sy[j]); if (d < b) { b = d; bj = j; } } owner[i] = bj; }
+
+  function dbscan(eps, minPts) {               // same rules as scikit-learn: a point counts itself
+    const cnt = new Int32Array(n), core = new Uint8Array(n), lab = new Int32Array(n).fill(-1);
+    for (let i = 0; i < n; i++) { cnt[i] = within(i, eps) + 1; core[i] = cnt[i] >= minPts ? 1 : 0; }
+    let c = 0;
+    for (let i = 0; i < n; i++) {
+      if (lab[i] !== -1 || !core[i]) continue;
+      lab[i] = c; const q = [i];
+      while (q.length) {
+        const p = q.pop(), k = within(p, eps), I = nbI[p];
+        for (let t = 0; t < k; t++) { const j = I[t]; if (lab[j] === -1) { lab[j] = c; if (core[j]) q.push(j); } }
+      }
+      c++;
+    }
+    const cx = new Float64Array(c), cy = new Float64Array(c), cn = new Int32Array(c);
+    for (let i = 0; i < n; i++) if (lab[i] >= 0) { cx[lab[i]] += px[i]; cy[lab[i]] += py[i]; cn[lab[i]]++; }
+    for (let k = 0; k < c; k++) { cx[k] /= cn[k]; cy[k] /= cn[k]; }
+    return { eps, minPts, lab, core, cnt, c, cx, cy, cn };
+  }
+
+  function score(R) {                          // greedy one-to-one matching of cluster centres to structures
+    const pairs = [];
+    for (let k = 0; k < R.c; k++) for (let j = 0; j < m; j++) { const d = Math.hypot(R.cx[k] - sx[j], R.cy[k] - sy[j]); if (d < MATCH) pairs.push([d, k, j]); }
+    pairs.sort((a, b) => a[0] - b[0]);
+    const cm = new Int32Array(R.c).fill(-1), sm = new Int32Array(m).fill(-1);
+    for (const [, k, j] of pairs) if (cm[k] < 0 && sm[j] < 0) { cm[k] = j; sm[j] = k; }
+    const vis = []; for (let k = 0; k < R.c; k++) if (inView(R.cx[k], R.cy[k])) vis.push(k);
+    const tp = vis.filter(k => cm[k] >= 0).length, found = sIn.filter(j => sm[j] >= 0).length;
+    const P = vis.length ? tp / vis.length : 0, Rc = found / sIn.length, F = P + Rc ? 2 * P * Rc / (P + Rc) : 0;
+    return { cm, sm, vis, tp, fp: vis.length - tp, found, missed: sIn.length - found, P, R: Rc, F };
+  }
+
+  function diagnose(R, S) {                    // why structures were missed, using the detections' owners
+    const per = new Map();                      // structure -> {cluster -> count}, noise counted as -1
+    for (const i of dIn) { const j = owner[i]; if (j < 0) continue; if (!per.has(j)) per.set(j, new Map()); const t = per.get(j); t.set(R.lab[i], (t.get(R.lab[i]) || 0) + 1); }
+    const clusterOwners = new Map();
+    let lost = 0, split = 0;
+    for (const j of sIn) {
+      const t = per.get(j); if (!t) continue;
+      let tot = 0, noise = t.get(-1) || 0, big = 0;
+      for (const [k, v] of t) { tot += v; if (k >= 0 && v >= 2) { big++; if (!clusterOwners.has(k)) clusterOwners.set(k, new Set()); clusterOwners.get(k).add(j); } }
+      if (S.sm[j] < 0 && noise > tot / 2) lost++; else if (big >= 2) split++;
+    }
+    let merged = 0, mergedClusters = 0;
+    for (const [, set] of clusterOwners) if (set.size >= 2) { merged += set.size; mergedClusters++; }
+    const own = new Int32Array(R.c), tot = new Int32Array(R.c);
+    for (let i = 0; i < n; i++) if (R.lab[i] >= 0) { tot[R.lab[i]]++; if (owner[i] >= 0) own[R.lab[i]]++; }
+    const ghost = new Set(S.vis.filter(k => S.cm[k] < 0 && own[k] * 2 < tot[k]));
+    return { lost, split, merged, mergedClusters, ghost };
+  }
+
+  // ---- state
+  const epsSl = $("w10-eps"), minSl = $("w10-min"), map = $("w10-map"), sweep = $("w10-sweep"), tip = $("w10-tip");
+  const toEps = v => { const e = EPS_MIN * Math.pow(EPS_MAX / EPS_MIN, v / 1000); return e < 20 ? Math.round(e) : e < 200 ? Math.round(e / 5) * 5 : e < 1000 ? Math.round(e / 10) * 10 : Math.round(e / 50) * 50; };
+  const toSl = e => Math.round(1000 * Math.log(e / EPS_MIN) / Math.log(EPS_MAX / EPS_MIN));
+  let eps = 75, minPts = 5, showKey = false, showRad = false, zoom = false, zc = [3600, 8200], R, S, D, colour = [], curve = null, curveMin = -1, hover = -1;
+  const fmtM = e => e >= 1000 ? (e / 1000).toLocaleString("en-GB", { maximumFractionDigits: 2 }) + " km" : e + " m";
+  const pct = v => Math.round(v * 100) + "%";
+
+  function colourClusters() {                  // greedy colouring so neighbouring clusters differ
+    colour = new Array(R.c);
+    const order = [...Array(R.c).keys()].sort((a, b) => R.cx[a] - R.cx[b]);
+    for (const k of order) {
+      const used = new Array(CAT.length).fill(0);
+      for (let o = 0; o < R.c; o++) if (colour[o] !== undefined) { const d = Math.hypot(R.cx[o] - R.cx[k], R.cy[o] - R.cy[k]); if (d < 1500) used[colour[o]] += 1500 - d; }
+      let best = 0; for (let c = 1; c < CAT.length; c++) if (used[c] < used[best]) best = c;
+      colour[k] = best;
+    }
+  }
+
+  function computeCurve() {
+    if (curveMin === minPts) return;
+    curveMin = minPts; curve = [];
+    for (let s = 0; s <= 60; s++) {
+      const e = EPS_MIN * Math.pow(EPS_MAX / EPS_MIN, s / 60), r = dbscan(e, minPts), sc = score(r);
+      curve.push({ e, c: sc.vis.length, f: sc.F });
+    }
+  }
+
+  function update() {
+    R = dbscan(eps, minPts); S = score(R); D = diagnose(R, S); colourClusters(); computeCurve();
+    $("w10-epsv").textContent = fmtM(eps); $("w10-minv").textContent = minPts;
+    root.querySelectorAll("[data-eps]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.eps === eps)));
+    $("w10-key").setAttribute("aria-pressed", String(showKey)); $("w10-rad").setAttribute("aria-pressed", String(showRad)); $("w10-zoom").setAttribute("aria-pressed", String(zoom));
+    let core = 0, noise = 0; for (const i of dIn) { if (R.core[i]) core++; if (R.lab[i] < 0) noise++; }
+    $("w10-k-cl").textContent = S.vis.length;
+    $("w10-k-core").textContent = core.toLocaleString("en-GB");
+    $("w10-k-noise").textContent = noise.toLocaleString("en-GB");
+    $("w10-score").classList.toggle("w10-hidden", !showKey);
+    $("w10-k-p").textContent = showKey ? pct(S.P) : "?"; $("w10-k-r").textContent = showKey ? pct(S.R) : "?"; $("w10-k-f").textContent = showKey ? S.F.toFixed(2) : "?";
+    say(noise); drawMap(); drawSweep(); legend();
+  }
+
+  function say(noise) {
+    const el = $("w10-say");
+    if (!showKey) {
+      el.className = "w10-say";
+      el.innerHTML = `DBSCAN says there are <b>${S.vis.length} structure${S.vis.length === 1 ? "" : "s"}</b> here and ${noise} of ${dIn.length} detections are noise. Is that right? Without labels there is no score to check: all you can do is reason about the radius (how far off is a detection? how far apart are turbines?) and whether the answer is stable. Reveal the answer key when you've decided.`;
+      return;
+    }
+    const bits = [];
+    if (D.merged) bits.push(`<b>${D.merged} turbines merged</b> into ${D.mergedClusters} cluster${D.mergedClusters === 1 ? "" : "s"}: ε reaches across the gap between neighbouring turbines (the closest pair here is about 450 m apart)`);
+    if (D.lost) bits.push(`<b>${D.lost} structure${D.lost === 1 ? "" : "s"} lost to noise</b>: too few of ${D.lost === 1 ? "its" : "their"} detections fall within ε of each other to reach ${minPts} points`);
+    if (D.split) bits.push(`<b>${D.split} structure${D.split === 1 ? "" : "s"} split</b> into several clusters`);
+    const fpOther = D.ghost.size;
+    if (fpOther) bits.push(`<b>${fpOther} cluster${fpOther === 1 ? "" : "s"} with no structure</b> (red rings): loose pile-ups such as a ship at anchor, or chance coincidences of passing vessels. GFW's supervised classifier exists to weed these out`);
+    const head = `Found <b>${S.found} of ${sIn.length}</b> real structures, with ${S.vis.length} clusters.`;
+    el.className = "w10-say w10-verdict" + (S.F > 0.97 ? " w10-good" : "");
+    el.innerHTML = head + (bits.length ? " " + bits.join(". ") + "." : " A clean result: one cluster per structure and nothing else.");
+  }
+
+  function surface(c) {
+    const dpr = window.devicePixelRatio || 1, w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const g = c.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+    return [g, w, h];
+  }
+  let T = { k: 1, ox: 0, oy: 0, x0: 0, y1: H };
+  const X = x => T.ox + (x - T.x0) * T.k, Y = y => T.oy + (T.y1 - y) * T.k;
+
+  function drawMap() {
+    const [g, w, h] = surface(map);
+    const vw = zoom ? W / 6 : W, vh = zoom ? H / 6 : H;
+    const vx = Math.max(0, Math.min(W - vw, zc[0] - vw / 2)), vy = Math.max(0, Math.min(H - vh, zc[1] - vh / 2));
+    T.k = Math.min(w / vw, h / vh); T.ox = (w - vw * T.k) / 2; T.oy = (h - vh * T.k) / 2; T.x0 = vx; T.y1 = vy + vh;
+    g.fillStyle = "#eef3f6"; g.fillRect(0, 0, w, h);
+    const r = Math.max(1.6, Math.min(2.6, w / 230)) * (zoom ? 1.5 : 1);
+    if (showRad) {
+      const er = eps * T.k;
+      g.globalAlpha = er > 40 ? .05 : .13;
+      for (let i = 0; i < n; i++) if (R.core[i]) { g.fillStyle = CAT[colour[R.lab[i]]]; g.beginPath(); g.arc(X(px[i]), Y(py[i]), er, 0, 7); g.fill(); }
+      g.globalAlpha = 1;
+      if (er < 25) { g.strokeStyle = "rgba(0,0,0,.18)"; g.lineWidth = 1; for (let i = 0; i < n; i++) if (!R.core[i]) { g.beginPath(); g.arc(X(px[i]), Y(py[i]), er, 0, 7); g.stroke(); } }
+    }
+    // noise
+    g.strokeStyle = NOISE; g.lineWidth = 1.2;
+    for (let i = 0; i < n; i++) if (R.lab[i] < 0) { const x = X(px[i]), y = Y(py[i]), a = r * .9; g.beginPath(); g.moveTo(x - a, y - a); g.lineTo(x + a, y + a); g.moveTo(x - a, y + a); g.lineTo(x + a, y - a); g.stroke(); }
+    // border points: rings; core points: filled
+    g.lineWidth = 1.3;
+    for (let i = 0; i < n; i++) if (R.lab[i] >= 0 && !R.core[i]) { g.strokeStyle = CAT[colour[R.lab[i]]]; g.beginPath(); g.arc(X(px[i]), Y(py[i]), r + .4, 0, 7); g.stroke(); }
+    for (let i = 0; i < n; i++) if (R.core[i]) { g.fillStyle = CAT[colour[R.lab[i]]]; g.beginPath(); g.arc(X(px[i]), Y(py[i]), r, 0, 7); g.fill(); }
+    if (showKey) {
+      const q = Math.max(4, r * 2.4);
+      for (let j = 0; j < m; j++) {
+        const x = X(sx[j]), y = Y(sy[j]), hit = S.sm[j] >= 0;
+        g.strokeStyle = hit ? "#000" : RED; g.lineWidth = hit ? 1.4 : 2.4; g.strokeRect(x - q, y - q, 2 * q, 2 * q);
+      }
+      g.strokeStyle = RED; g.lineWidth = 2;
+      for (const k of D.ghost) {
+        let rr = 0; for (let i = 0; i < n; i++) if (R.lab[i] === k) rr = Math.max(rr, Math.hypot(px[i] - R.cx[k], py[i] - R.cy[k]));
+        g.beginPath(); g.arc(X(R.cx[k]), Y(R.cy[k]), Math.max(10, rr * T.k + 6), 0, 7); g.stroke();
+      }
+    }
+    if (hover >= 0) { g.strokeStyle = "#000"; g.lineWidth = 1.5; g.beginPath(); g.arc(X(px[hover]), Y(py[hover]), Math.max(eps * T.k, r + 4), 0, 7); g.stroke(); }
+    // scale bar
+    const len = zoom ? 200 : 1000, bar = len * T.k, bx = 12, by = h - 14;
+    g.fillStyle = "rgba(255,255,255,.85)"; g.fillRect(bx - 6, by - 20, bar + 12, 28);
+    g.fillStyle = "#000"; g.fillRect(bx, by - 3, bar, 4);
+    g.font = "700 11px system-ui, sans-serif"; g.textBaseline = "bottom"; g.fillText(zoom ? "200 m" : "1 km", bx, by - 5);
+    g.font = "11px system-ui, sans-serif"; g.textAlign = "right"; g.fillStyle = "#555"; g.fillText("N ↑", w - 8, 16); g.textAlign = "left";
+  }
+
+  function legend() {
+    const dot = c => `<svg width="10" height="10"><circle cx="5" cy="5" r="4" fill="${c}"/></svg>`;
+    const ring = c => `<svg width="10" height="10"><circle cx="5" cy="5" r="3.6" fill="none" stroke="${c}" stroke-width="1.4"/></svg>`;
+    const x = `<svg width="10" height="10"><path d="M2 2L8 8M2 8L8 2" stroke="${NOISE}" stroke-width="1.4"/></svg>`;
+    const sq = (c, w) => `<svg width="12" height="12"><rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="${c}" stroke-width="${w}"/></svg>`;
+    let s = `<span>${dot(CAT[0])}core point</span><span>${ring(CAT[0])}border point</span><span>${x}noise</span>`;
+    if (showKey) s += `<span>${sq("#000", 1.4)}structure found</span><span>${sq(RED, 2.4)}structure missed</span><span><svg width="12" height="12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="${RED}" stroke-width="2"/></svg>cluster with no structure</span>`;
+    s += `<span style="color:#666">colour = cluster (colours repeat)</span>`;
+    s += `<span class="w10-zoomnote">${zoom ? "Zoomed on the last detection you tapped (or an anchored ship)" : "Tap a detection, then zoom in to look closer"}</span>`;
+    $("w10-legend").innerHTML = s;
+  }
+
+  const SW = { l: 34, r: 30, t: 10, b: 24 };
+  function drawSweep() {
+    const [g, w, h] = surface(sweep);
+    const x0 = SW.l, x1 = w - SW.r, y0 = SW.t, y1 = h - SW.b;
+    const lx = e => x0 + (x1 - x0) * Math.log(e / EPS_MIN) / Math.log(EPS_MAX / EPS_MIN);
+    const cmax = Math.max(40, ...curve.map(p => p.c)), cy = c => y1 - (y1 - y0) * c / cmax, fy = f => y1 - (y1 - y0) * f;
+    g.font = "10px system-ui, sans-serif"; g.fillStyle = "#555"; g.strokeStyle = "#e3e3e3"; g.lineWidth = 1;
+    g.textAlign = "center"; g.textBaseline = "top";
+    for (const e of [10, 30, 100, 300, 1000]) { const x = lx(e); g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y1); g.stroke(); g.fillText(e >= 1000 ? "1 km" : e + " m", x, y1 + 5); }
+    g.textAlign = "right"; g.textBaseline = "middle";
+    const step = cmax > 80 ? 40 : 20;
+    for (let c = 0; c <= cmax; c += step) { const y = cy(c); g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); g.fillText(c, x0 - 4, y); }
+    if (showKey) { g.textAlign = "left"; g.fillStyle = RED; for (const f of [0, .5, 1]) g.fillText(f, x1 + 4, fy(f)); }
+    // turbine spacing marker (domain knowledge you have without labels)
+    g.setLineDash([3, 3]); g.strokeStyle = "#888"; const xs = lx(450); g.beginPath(); g.moveTo(xs, y0); g.lineTo(xs, y1); g.stroke(); g.setLineDash([]);
+    g.save(); g.translate(xs - 3, y0 + 2); g.rotate(-Math.PI / 2); g.textAlign = "right"; g.textBaseline = "bottom"; g.fillStyle = "#777"; g.fillText("turbine gap", 0, 0); g.restore();
+    const line = (f, col, lw) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); curve.forEach((p, i) => { const x = lx(p.e), y = f(p); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); };
+    line(p => cy(p.c), "#000", 2);
+    if (showKey) line(p => fy(p.f), RED, 2);
+    const xe = lx(eps); g.strokeStyle = RED; g.lineWidth = 2; g.beginPath(); g.moveTo(xe, y0); g.lineTo(xe, y1); g.stroke();
+    g.fillStyle = "#000"; g.beginPath(); g.arc(xe, cy(S.vis.length), 4, 0, 7); g.fill();
+    if (showKey) { g.fillStyle = RED; g.beginPath(); g.arc(xe, fy(S.F), 4, 0, 7); g.fill(); }
+    g.strokeStyle = "#000"; g.lineWidth = 1; g.strokeRect(x0 + .5, y0 + .5, x1 - x0, y1 - y0);
+    $("w10-sweepkey").innerHTML = `<i></i>clusters found at each ε (min points = ${minPts})` + (showKey ? `&ensp;<i class="w10-r"></i>F1 against the answer key` : "") + `. Drag along the chart to set ε.`;
+  }
+
+  // ---- interaction
+  const setEps = e => { eps = e; epsSl.value = toSl(e); update(); };
+  epsSl.addEventListener("input", () => { eps = toEps(+epsSl.value); update(); });
+  minSl.addEventListener("input", () => { minPts = +minSl.value; update(); });
+  root.querySelectorAll("[data-eps]").forEach(b => b.addEventListener("click", () => setEps(+b.dataset.eps)));
+  $("w10-key").addEventListener("click", () => { showKey = !showKey; update(); });
+  $("w10-rad").addEventListener("click", () => { showRad = !showRad; update(); });
+  $("w10-zoom").addEventListener("click", () => { zoom = !zoom; hover = -1; tip.style.display = "none"; update(); });
+  $("w10-reset").addEventListener("click", () => { showKey = false; showRad = false; zoom = false; zc = [3600, 8200]; minPts = 5; minSl.value = 5; hover = -1; tip.style.display = "none"; setEps(75); });
+
+  let dragging = false;
+  const sweepAt = ev => {
+    const b = sweep.getBoundingClientRect(), x = ev.clientX - b.left, x0 = SW.l, x1 = b.width - SW.r;
+    const t = Math.max(0, Math.min(1, (x - x0) / (x1 - x0)));
+    setEps(toEps(t * 1000));
+  };
+  sweep.addEventListener("pointerdown", ev => { dragging = true; sweep.setPointerCapture(ev.pointerId); sweepAt(ev); });
+  sweep.addEventListener("pointermove", ev => { if (dragging) sweepAt(ev); });
+  sweep.addEventListener("pointerup", () => { dragging = false; });
+  sweep.addEventListener("pointercancel", () => { dragging = false; });
+
+  function pick(ev) {
+    const b = map.getBoundingClientRect(), mx = ev.clientX - b.left, my = ev.clientY - b.top;
+    let best = 14, bi = -1;
+    for (const i of dIn) { const d = Math.hypot(X(px[i]) - mx, Y(py[i]) - my); if (d < best) { best = d; bi = i; } }
+    hover = bi;
+    if (bi >= 0 && !zoom) zc = [px[bi], py[bi]];
+    if (bi < 0) { tip.style.display = "none"; drawMap(); return; }
+    const c = R.cnt[bi], lab = R.lab[bi];
+    let s;
+    if (R.core[bi]) s = `<b>Core point</b><br>${c} detections within ${fmtM(eps)} (itself included), at least ${minPts}. It seeds or grows a cluster.`;
+    else if (lab >= 0) s = `<b>Border point</b><br>Only ${c} within ${fmtM(eps)}, fewer than ${minPts}, but it is next to a core point, so it joins that cluster.`;
+    else s = `<b>Noise</b><br>Only ${c} within ${fmtM(eps)}, fewer than ${minPts}, and no core point nearby.`;
+    tip.innerHTML = s; tip.style.display = "block";
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    tip.style.left = Math.max(4, Math.min(b.width - tw - 4, mx + 12)) + "px";
+    tip.style.top = (my + 14 + th > b.height ? my - th - 10 : my + 14) + "px";
+    drawMap();
+  }
+  map.addEventListener("pointermove", ev => { if (ev.pointerType === "mouse") pick(ev); });
+  map.addEventListener("pointerdown", pick);
+  map.addEventListener("pointerleave", ev => { if (ev.pointerType === "mouse") { hover = -1; tip.style.display = "none"; drawMap(); } });
+
+  let raf = 0;
+  const redraw = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { drawMap(); drawSweep(); }); };
+  if (window.ResizeObserver) new ResizeObserver(redraw).observe(root); else window.addEventListener("resize", redraw);
+  epsSl.value = toSl(eps);
+  update();
+})();
+</script>
+```

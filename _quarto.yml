@@ -94,6 +94,12 @@ format:
     css: styles.css
     number-sections: false
     toc-title: "On this page"
+    # sidebar flush left, content takes the rest of the width (Quarto page grid)
+    grid:
+      sidebar-width: 260px
+      body-width: 2400px
+      margin-width: 220px
+      gutter-width: 1.5rem
 
 
 

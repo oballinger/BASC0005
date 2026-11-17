@@ -15,3 +15,5 @@ repo-actions: false
 [Week 8 workshop →](../notebooks/W08.%20Causal%20Inference.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
+
+{{< include _did_counterfactual.md >}}

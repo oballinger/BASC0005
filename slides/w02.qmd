@@ -15,3 +15,5 @@ repo-actions: false
 [Week 2 workshop →](../notebooks/W02.%20Pandas.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
 :::
+
+{{< include _tidy_reshape.md >}}

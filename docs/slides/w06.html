@@ -407,7 +407,20 @@ ga('send', {
 .w6b .w6b-sl { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
 .w6b .w6b-lab { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; display: flex; justify-content: space-between; gap: .5rem; }
 .w6b .w6b-lab output { font-variant-numeric: tabular-nums; text-transform: none; }
-.w6b .w6b-bt { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; padding: .6rem .7rem .7rem; margin: 0 0 .9rem; border: 2px solid #000; background: #fafafa; }
+.w6b .w6b-top { display: flex; flex-wrap: wrap; gap: .9rem; align-items: stretch; margin: 0 0 .9rem; }
+.w6b .w6b-top > .w6b-bt { flex: 3 1 420px; min-width: 0; }
+.w6b .w6b-acc { flex: 1 1 230px; min-width: 0; padding: .6rem .7rem .7rem; border: 2px solid #000; background: #fafafa; font-variant-numeric: tabular-nums; }
+.w6b .w6b-acc-big { font-size: 1.9rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; margin: .1rem 0 .35rem; }
+.w6b .w6b-acc-f { display: flex; align-items: center; gap: .4rem; font-size: .95rem; font-weight: 700; margin: 0 0 .5rem; }
+.w6b .w6b-acc-f .w6b-frac > span { padding: .1rem .15rem; gap: .25rem; }
+.w6b .w6b-acc-cm { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; font-size: .74rem; line-height: 1.25; }
+.w6b .w6b-acc-cm > div { border: 2px solid #000; padding: .25rem .35rem; }
+.w6b .w6b-acc-cm b { display: block; font-size: .95rem; }
+.w6b .w6b-acc-cm .ok { box-shadow: inset 0 0 0 2px #000; }
+.w6b .k-tp { color: #d40000; } .w6b .k-fn { color: #800080; } .w6b .k-fp { color: #b86e00; } .w6b .k-tn { color: #008000; }
+.w6b .w6b-acc-cm i { display: inline-block; width: .7rem; height: .7rem; margin-right: .25rem; vertical-align: -.08rem; border: 1px solid #000; }
+.w6b .w6b-acc-n { font-size: .74rem; color: #444; margin: .45rem 0 0; }
+.w6b .w6b-bt { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; padding: .6rem .7rem .7rem; margin: 0; border: 2px solid #000; background: #fafafa; }
 .w6b .w6b-bt-h { flex-basis: 100%; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin: 0 0 .1rem; }
 .w6b .w6b-t { display: inline-flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.25; }
 .w6b .w6b-t .f { font-size: 1.05rem; font-weight: 600; white-space: nowrap; }
@@ -486,6 +499,7 @@ ga('send', {
   </div>
 
   <div class="w6b-main">
+    <div class="w6b-top">
     <div class="w6b-bt" id="w6b-bt" aria-live="polite">
       <p class="w6b-bt-h">Bayes' theorem</p>
       <span class="w6b-t c-post"><span class="f" id="w6b-bt-post"></span><span class="n">Posterior</span><span class="v" id="w6b-bt-postv"></span></span>
@@ -497,6 +511,14 @@ ga('send', {
         <span><span class="w6b-t c-ev"><span class="f" id="w6b-bt-ev"></span><span class="n">Evidence</span><span class="v" id="w6b-bt-evv"></span></span></span>
       </span>
       <p class="w6b-bt-ev" id="w6b-bt-evx"></p>
+    </div>
+    <div class="w6b-acc" id="w6b-acc" aria-live="polite">
+      <p class="w6b-bt-h">Accuracy of the model</p>
+      <div class="w6b-acc-big" id="w6b-acc-v"></div>
+      <div class="w6b-acc-f">Accuracy <span class="w6b-bop">=</span> <span class="w6b-frac"><span><span class="k-tp">TP</span>+<span class="k-tn">TN</span></span><span><span class="k-tp">TP</span>+<span class="k-tn">TN</span>+<span class="k-fp">FP</span>+<span class="k-fn">FN</span></span></span></div>
+      <div class="w6b-acc-cm" id="w6b-acc-cm"></div>
+      <p class="w6b-acc-n" id="w6b-acc-n"></p>
+    </div>
     </div>
     <div class="w6b-eq" id="w6b-eq" aria-live="polite">
       <span class="w6b-lhs" id="w6b-lhs"></span><span class="w6b-op">=</span>
@@ -536,6 +558,8 @@ ga('send', {
   // Check: lh*p / (lh*p + ln*(1-p)) equals prec to within 0.1 point for every city.
   const CITIES = [
     ["All", "All 30 cities", .2470, .7136, .1613, 59.20],
+    // Iran: no ground truth yet. Likelihood and false-alarm rate are the all-city values; the prior is the student's guess.
+    ["Iran", "Iran", .05, .7136, .1613, null],
     ["Gaza", "Gaza", .6233, .9198, .5323, 74.09],
     ["Mariupol", "Mariupol", .4857, .8206, .5045, 60.57],
     ["Raqqa", "Raqqa", .5451, .8722, .5435, 65.79],
@@ -556,7 +580,7 @@ ga('send', {
     Irpin: ["Irpin.jpg", 1132 / 1400], Mosul: ["Mosul.jpg", 1400 / 1307], Chernihiv: ["Chernihiv.jpg", 1323 / 1400],
     Kharkiv: ["Kharkiv.jpg", 1384 / 1400] };
   // no map for Gaza (the repository map uses older labels and does not match Table 2) 
-  const NOMAP = { Gaza: "The PWTT repository map of Gaza uses an older set of damage labels, so its numbers do not match Table 2. It is left out here." };
+  const NOMAP = { Iran: "There is no damage map with ground truth for Iran yet. Without ground truth we cannot measure the prior, so you must choose it.", Gaza: "The PWTT repository map of Gaza uses an older set of damage labels, so its numbers do not match Table 2. It is left out here." };
   const PUBLISHED = new Set(["Mosul", "Rubizhne", "Chernihiv", "Hostomel", "Raqqa", "Irpin"]);
   const BASE = { H: "damaged", nH: "intact", E: "flagged", unit: "buildings", isH: "are damaged", isN: "are intact",
     q1: "How many buildings are damaged?", q2: "Of the damaged buildings, how many does the detector flag?", q3: "Of the intact buildings, how many does it flag by mistake?" };
@@ -564,8 +588,13 @@ ga('send', {
   CITIES.forEach(([id, name, p, lh, ln, prec]) => {
     PRESETS[id] = { ...BASE, id, name, p, lh, ln, prec,
       src: `Source: Ballinger (2025), <i>Remote Sensing of Environment</i>, Table 2 (weighted by building area)${id === "All" ? ", all 30 cities together" : ", " + name}. ` +
-        `Prior and false-alarm rate are derived from Table 2's accuracy, precision and recall; the posterior equals the paper's precision, ${prec.toFixed(2)}%.` };
+        `Prior and false-alarm rate are derived from Table 2's accuracy, precision and recall; the posterior equals the paper's precision, ${prec == null ? "n/a" : prec.toFixed(2)}%.` };
   });
+  Object.assign(PRESETS.Iran, {
+    q1: "Nobody knows yet. Make your own guess: what share of the buildings in the area you study is damaged?",
+    src: "Likelihood and false-alarm rate: the all-city values from Ballinger (2025), <i>Remote Sensing of Environment</i>, Table 2 (weighted by building area). " +
+      "We assume the detector works in Iran as well as it did in the 30 test cities. <b>The prior is your choice</b>: move the first slider and see how the posterior changes. " +
+      "The start value of 5% is only a placeholder, not an estimate." });
   const PMIN = 0.001, PMAX = 0.999;
   let S = { ...PRESETS.All }, N = 1000;
 
@@ -761,6 +790,20 @@ ga('send', {
         `P(${S.E}) = P(${S.E} | ${S.H}) × P(${S.H}) + P(${S.E} | ${S.nH}) × P(${S.nH}) = ${fmtP(S.lh)} × ${fmtP(S.p)} + ${fmtP(S.ln)} × ${fmtP(1 - S.p)} = ${fmtP(ev)}. ` +
         `The second part, P(${S.E} | ${S.nH}), is the <b>false-alarm rate</b>.`;
     }
+    // accuracy panel: TP, TN, FP, FN as shares of all, in the map colours
+    {
+      const tp = S.lh * S.p, fn = (1 - S.lh) * S.p, fp = S.ln * (1 - S.p), tn = (1 - S.ln) * (1 - S.p);
+      $("w6b-acc-v").textContent = fmtP(tp + tn);
+      const cell = (cls, col, ab, name, v, ok) =>
+        `<div class="${ok ? "ok" : ""}"><span class="${cls}"><i style="background:${col}"></i><b>${ab} ${fmtP(v)}</b></span>${name}</div>`;
+      $("w6b-acc-cm").innerHTML =
+        cell("k-tp", C.he, "TP", `True positive: ${S.H}, ${S.E}`, tp, true) +
+        cell("k-fn", C.hn, "FN", `False negative: ${S.H}, not ${S.E}`, fn, false) +
+        cell("k-fp", C.ne, "FP", `False positive: ${S.nH}, ${S.E}`, fp, false) +
+        cell("k-tn", C.nn, "TN", `True negative: ${S.nH}, not ${S.E}`, tn, true);
+      $("w6b-acc-n").innerHTML = `Accuracy = <span class="k-tp">${fmtP(tp)}</span> + <span class="k-tn">${fmtP(tn)}</span> = <b>${fmtP(tp + tn)}</b> of all ${S.unit}. ` +
+        `Accuracy is not the posterior: of the ${S.E} ${S.unit}, ${isNaN(post) ? "an undefined share" : fmtPost(post)} ${S.isH}.`;
+    }
     // exact arithmetic
     const a = S.lh * S.p, b = S.ln * (1 - S.p);
     $("w6b-formula").innerHTML = `P(${S.H} | ${S.E}) = P(${S.E} | ${S.H}) P(${S.H}) ÷ [P(${S.E} | ${S.H}) P(${S.H}) + P(${S.E} | ${S.nH}) P(${S.nH})]` +
@@ -775,7 +818,7 @@ ga('send', {
   const tabs = $("w6b-tabs");
   CITIES.forEach(([id, name], i) => {
     const b = document.createElement("button");
-    b.type = "button"; b.setAttribute("role", "tab"); b.dataset.city = id; b.textContent = name;
+    b.type = "button"; b.setAttribute("role", "tab"); b.dataset.city = id; b.textContent = id === "Iran" ? "Iran: you set the prior" : name;
     b.setAttribute("aria-selected", String(i === 0)); b.tabIndex = i === 0 ? 0 : -1;
     b.setAttribute("aria-controls", "w6b-map");
     tabs.appendChild(b);
@@ -842,7 +885,7 @@ ga('send', {
   nBtns.forEach(b => b.addEventListener("click", () => {
     N = +b.dataset.n; nBtns.forEach(x => x.setAttribute("aria-pressed", String(x === b))); update();
   }));
-  const edited = () => { S.src = `Your own numbers, starting from ${S.name}. Choose a city tab again to reset.`; };
+  const edited = () => { if (S.id !== "Iran") S.src = `Your own numbers, starting from ${S.name}. Choose a city tab again to reset.`; };
   $("w6b-p").addEventListener("input", e => {
     let p = sigm(+e.target.value);
     p = (p < 0.01 || p > 0.99) ? Math.round(p * 1e4) / 1e4 : Math.round(p * 1e3) / 1e3;
