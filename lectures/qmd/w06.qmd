@@ -350,49 +350,22 @@ Source: [Adrian Barnett](https://agbarnett.github.io/talks/TRI/slides)
 # 4. Bayes' Theorem
 <!-- slide 52 -->
 
-## {background-image="img/w06/slide_053.jpg" background-size="contain" .fallback}
+## Bayes' Theorem: Explore It Below
 <!-- slide 53 -->
 
+- Posterior = Likelihood × Prior / Evidence
+    - P(damaged | flagged) = P(flagged | damaged) × P(damaged) / P(flagged)
+- Use the interactive applet below these slides on the course page
+    - Choose a city: the same PWTT damage detector, a different base rate
+    - Move the sliders and watch the posterior change
+- A detector can be good and still give mostly false alarms when damage is rare
 
 ::: notes
-Gigerenzer found most doctors answer close to 90%. The answer is about 9%. Adapted from Gigerenzer & Hoffrage (1995) on natural frequencies.
-
-Slide text: A Quick Question · A disease affects 1% of people. A test catches 90% of people who have it, but also wrongly flags 9% of healthy people. ·  · You test positive. What's the chance you have the disease? · 90% · 81% · 50% · 9% · Go to menti
-:::
-
-## {background-image="img/w06/slide_054.jpg" background-size="contain" .fallback}
-<!-- slide 54 -->
-
-
-::: notes
-Slide text: Think in People, Not Percentages · Of 1,000 people: · 10 are sick; 9 of them test positive · 990 are healthy; 89 of them test positive anyway · 9 / (9 + 89) = · 9% · Most positives are false, because healthy people vastly outnumber sick ones
-:::
-
-## {background-image="img/w06/slide_055.jpg" background-size="contain" .fallback}
-<!-- slide 55 -->
-
-
-::: notes
-Slide text: Bayes' Theorem · P(A | B)  =  P(B | A) × P(A)  /  P(B) · Posterior · P(A | B) · What we believe after seeing the data · Likelihood · P(B | A) · How probable the data are if A is true · Prior · P(A) · What we believed before seeing the data · Evidence · P(B) · How probable the data are overall · Posterior ∝ Likelihood × Prior
-:::
-
-## Plugging In
-<!-- slide 56 -->
-
-- A = you have the disease;  B = you test positive
-    - Prior:  P(sick) = 0.01
-    - Likelihood:  P(positive | sick) = 0.90
-    - Evidence:  P(positive) = 0.90 × 0.01 + 0.09 × 0.99 = 0.098
-- Posterior:  P(sick | positive) = 0.90 × 0.01 / 0.098 = **0.092**
-- P(positive | sick) = 90% but P(sick | positive) = 9%. **Flipping the conditional changes everything**
-- A second, independent positive test? Use 9% as the **new prior** and you get about 50%
-
-::: notes
-Second test: 0.9*0.092 / (0.9*0.092 + 0.09*0.908) = 0.0828/0.1645 ≈ 0.50.
+Open the Week 6 page (slides/w06 on the course site) and scroll below the slides to the Bayes applet. Suggested demo: start with All 30 cities (posterior 59%), then Kharkiv (about 2% damaged: 23% of flags are real), then Gaza (about 62% damaged: 74%). The detector is the same; the prior changes. Then use 'Test it a second time'. Numbers: Ballinger (2025), RSE, Table 2 (area-weighted); the prior and false-alarm rate for each city are derived from Table 2.
 :::
 
 ## A Very Old Idea
-<!-- slide 57 -->
+<!-- slide 54 -->
 
 - **Rev. Thomas Bayes** (c.1701–1761), a Presbyterian minister, worked out how to reason backwards from effects to causes
     - His essay was published after his death by Richard Price in **1763**. Bayes is buried in Bunhill Fields, a 20-minute walk from here
@@ -401,7 +374,7 @@ Second test: 0.9*0.092 / (0.9*0.092 + 0.09*0.908) = 0.0828/0.1645 ≈ 0.50.
 - Since the 1990s, cheap computing (**MCMC**) has made Bayesian methods practical for complex models
 
 ## Are Most Published Findings False?
-<!-- slide 58 -->
+<!-- slide 55 -->
 
 - Ioannidis (2005), one of the most-cited papers in the history of PLoS Medicine
 - Earlier today we rejected the null if p < 0.05. But how often is a 'significant' result actually **true**?
@@ -411,16 +384,18 @@ Second test: 0.9*0.092 / (0.9*0.092 + 0.09*0.908) = 0.0828/0.1645 ≈ 0.50.
     - α = 0.05: **5%** of false hypotheses come out significant by chance
 - What share of significant findings are false?
 
-## {background-image="img/w06/slide_059.jpg" background-size="contain" .fallback}
-<!-- slide 59 -->
+## {background-image="img/w06/slide_056.jpg" background-size="contain" .fallback}
+<!-- slide 56 -->
 
 
 ::: notes
+Grid: 100 true hypotheses (left, the prior: 10%) and 900 with no effect (right). The yellow boxes are the significant results. The left box is 8 of 10 rows high (power, 80%). The right box is half of one row (alpha, 5% of 900 = 45). The formula reuses the two boxes: 45 / (80 + 45) = 36% of discoveries are false.
+
 Slide text: Are Most Published Findings False? · 125 significant results: · 80 true effects · 45 false positives · 36% · of 'discoveries' are false · With 20% power (common in small studies) it's 45 / 65 = 69%
 :::
 
 ## The p-value Trap
-<!-- slide 60 -->
+<!-- slide 57 -->
 
 - A p-value is **P(data this extreme | null is true)**
 - It is **not** P(null is true | data), though it's constantly reported that way
@@ -431,10 +406,10 @@ Slide text: Are Most Published Findings False? · 125 significant results: · 80
 - Bayes' theorem is the only correct way to **flip** a conditional probability
 
 # 5. Priors, Likelihoods and Posteriors
-<!-- slide 61 -->
+<!-- slide 58 -->
 
 ## Estimating Union Membership, Again
-<!-- slide 62 -->
+<!-- slide 59 -->
 
 - In Week 5 we asked: what share of American workers are in a union?
 - Suppose we sample **7 people** and **none** of them are union members
@@ -443,8 +418,8 @@ Slide text: Are Most Published Findings False? · 125 significant results: · 80
 - Does anyone in this room believe union membership in the US is **0%**?
 - We knew something **before** we saw the data. Frequentist methods have no place to put that knowledge. Bayesian methods do: the **prior**
 
-## {background-image="img/w06/slide_063.jpg" background-size="contain" .fallback}
-<!-- slide 63 -->
+## {background-image="img/w06/slide_060.jpg" background-size="contain" .fallback}
+<!-- slide 60 -->
 
 
 ::: notes
@@ -452,7 +427,7 @@ Slide text: Three Ingredients · Prior · p(θ) · What we believe about θ befo
 :::
 
 ## The Beta Distribution
-<!-- slide 64 -->
+<!-- slide 61 -->
 
 ::: {.columns}
 :::: {.column width="45%"}
@@ -469,8 +444,8 @@ Slide text: Three Ingredients · Prior · p(θ) · What we believe about θ befo
 ::::
 :::
 
-## {background-image="img/w06/slide_065.jpg" background-size="contain" .fallback}
-<!-- slide 65 -->
+## {background-image="img/w06/slide_062.jpg" background-size="contain" .fallback}
+<!-- slide 62 -->
 
 
 ::: notes
@@ -478,7 +453,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 :::
 
 ## Prior × Likelihood = Posterior
-<!-- slide 66 -->
+<!-- slide 63 -->
 
 ::: {.columns}
 :::: {.column width="39%"}
@@ -493,7 +468,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 :::
 
 ## More Data, Less Prior
-<!-- slide 67 -->
+<!-- slide 64 -->
 
 ::: {.columns}
 :::: {.column width="39%"}
@@ -508,7 +483,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 :::
 
 ## Today's Posterior Is Tomorrow's Prior
-<!-- slide 68 -->
+<!-- slide 65 -->
 
 ::: {.columns}
 :::: {.column width="37%"}
@@ -524,7 +499,7 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 :::
 
 ## Does the Prior Matter?
-<!-- slide 69 -->
+<!-- slide 66 -->
 
 ::: {.columns}
 :::: {.column width="34%"}
@@ -537,8 +512,8 @@ Slide text: Updating Is Just Counting · With a Beta prior and k successes out o
 ::::
 :::
 
-## {background-image="img/w06/slide_070.jpg" background-size="contain" .fallback}
-<!-- slide 70 -->
+## {background-image="img/w06/slide_067.jpg" background-size="contain" .fallback}
+<!-- slide 67 -->
 
 
 ::: notes
@@ -546,7 +521,7 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 :::
 
 ## Credible Intervals
-<!-- slide 71 -->
+<!-- slide 68 -->
 
 ::: {.columns}
 :::: {.column width="41%"}
@@ -560,7 +535,7 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 :::
 
 ## Confidence vs. Credible Intervals
-<!-- slide 72 -->
+<!-- slide 69 -->
 
 |  | **95% Confidence interval** | **95% Credible interval** |
 |---|---|---|
@@ -571,10 +546,10 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 | **With lots of data and a flat prior** | Nearly identical numbers | Nearly identical numbers |
 
 # 6. Bayes vs. Frequentism
-<!-- slide 73 -->
+<!-- slide 70 -->
 
 ## Two Schools
-<!-- slide 74 -->
+<!-- slide 71 -->
 
 |  | **Frequentist** | **Bayesian** |
 |---|---|---|
@@ -587,7 +562,7 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 | **Computation** | Usually fast, closed-form | Often needs MCMC |
 
 ## Which Should You Use?
-<!-- slide 75 -->
+<!-- slide 72 -->
 
 - It's not a religion. With lots of data and weak priors, the two approaches give **nearly identical numbers**
 - Bayesian methods shine when:
@@ -598,7 +573,7 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 - Whichever you use: state your assumptions, visualise uncertainty, and never report a p-value as the probability your hypothesis is true
 
 ## Recap
-<!-- slide 76 -->
+<!-- slide 73 -->
 
 - The purpose of a T-test is to determine
     - **whether the sample mean difference indicates a real mean difference between the two populations** or
@@ -612,6 +587,6 @@ Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely
 - But, just because a result is statistically significant, doesn’t mean it’s true!
 
 ## Any Questions?
-<!-- slide 77 -->
+<!-- slide 74 -->
 
 [[o.ballinger@ucl.ac.uk](mailto:o.ballinger@ucl.ac.uk)]{style="display:block;text-align:center"}

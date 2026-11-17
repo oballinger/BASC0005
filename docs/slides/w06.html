@@ -385,6 +385,484 @@ ga('send', {
 <div class="slides-bar">
 <p><a href="../lectures/w06.html" class="btn btn-primary" target="_blank">Open full screen ↗</a> <a href="../notebooks/W06. Hypothesis Testing.html" class="btn btn-outline-secondary">Week 6 workshop →</a> <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span></p>
 </div>
+<div class="column-screen-inset-right">
+
+<!-- Bayes' theorem population grid, included in slides/w06.qmd. Same picture as the W06 lecture slides
+     (3Blue1Brown style, lectures/drafts/w06_bayes_grid_figs.py): two strips of equal height, so strip width shows
+     the prior; the evidence fills each strip from the bottom and a black box marks it (map colours: TP red, FN purple, FP orange, TN green). Plain canvas, no libraries. -->
+<style>
+.w6b { --w6b-he: #ff0000; --w6b-hn: #800080; --w6b-ne: #ffa500; --w6b-nn: #008000; --w6b-y: #000000; --w6b-het: #d40000; --w6b-net: #b86e00; --w6b-ink: #1a1a1a;
+  border: 3px solid #000; padding: 1rem; margin: 1.5rem 0; color: var(--w6b-ink); background: #fff; }
+.w6b h2 { margin: 0 0 .25rem; font-size: 1.4rem; letter-spacing: -.02em; border: 0; }
+.w6b .anchorjs-link { display: none; }
+.w6b .w6b-lede { margin: 0 0 1rem; color: #333; max-width: 62rem; }
+.w6b .w6b-bar2 { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-bottom: .75rem; }
+.w6b .w6b-tag { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.w6b .w6b-gap { flex: 1; }
+.w6b button { font: inherit; font-size: .85rem; font-weight: 700; background: #000; color: #fff; border: 2px solid #000; padding: .3rem .75rem; cursor: pointer; border-radius: 0; }
+.w6b button.w6b-chip { background: #fff; color: #000; }
+.w6b button.w6b-chip[aria-pressed=true] { background: var(--w6b-he); border-color: var(--w6b-he); color: #fff; }
+.w6b .w6b-bar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem 1.25rem; margin-bottom: .75rem; }
+@media (max-width: 700px) { .w6b .w6b-bar { grid-template-columns: minmax(0, 1fr); } }
+.w6b .w6b-sl { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.w6b .w6b-lab { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; display: flex; justify-content: space-between; gap: .5rem; }
+.w6b .w6b-lab output { font-variant-numeric: tabular-nums; text-transform: none; }
+.w6b .w6b-bt { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; padding: .6rem .7rem .7rem; margin: 0 0 .9rem; border: 2px solid #000; background: #fafafa; }
+.w6b .w6b-bt-h { flex-basis: 100%; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; margin: 0 0 .1rem; }
+.w6b .w6b-t { display: inline-flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.25; }
+.w6b .w6b-t .f { font-size: 1.05rem; font-weight: 600; white-space: nowrap; }
+.w6b .w6b-t .n { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.w6b .w6b-t .v { font-size: .78rem; font-variant-numeric: tabular-nums; color: #333; }
+.w6b .w6b-bfrac { display: inline-flex; flex-direction: column; align-items: center; }
+.w6b .w6b-bfrac > span:first-child { display: flex; gap: .5rem; align-items: center; padding: 0 .3rem .3rem; border-bottom: 2px solid #000; }
+.w6b .w6b-bfrac > span:last-child { padding-top: .3rem; }
+.w6b .w6b-bfrac { max-width: 100%; min-width: 0; }
+@media (max-width: 480px) { .w6b .w6b-bfrac > span:first-child { flex-wrap: wrap; justify-content: center; } .w6b .w6b-t .f { font-size: .92rem; } }
+.w6b .w6b-bop { font-size: 1.2rem; font-weight: 700; }
+.w6b .w6b-bt-ev { flex-basis: 100%; font-size: .8rem; color: #333; margin-top: .2rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.w6b .c-post { color: #1a1a1a; } .w6b .c-lik { color: #d40000; } .w6b .c-pri { color: #6e6e6e; } .w6b .c-ev { color: #5b2a86; }
+.w6b .w6b-q { text-transform: none; letter-spacing: 0; font-size: .9rem; }
+.w6b .w6b-sub { font-size: .74rem; color: #555; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.w6b input[type=range] { width: 100%; margin: .2rem 0; touch-action: pan-y; }
+.w6b #w6b-p { accent-color: var(--w6b-ink); }
+.w6b #w6b-lh { accent-color: var(--w6b-he); }
+.w6b #w6b-ln { accent-color: var(--w6b-ne); }
+.w6b .w6b-main { border: 2px solid #000; padding: .75rem .9rem .9rem; }
+.w6b .w6b-eq { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .7rem; font-variant-numeric: tabular-nums; margin-bottom: .6rem; }
+.w6b .w6b-lhs { font-size: 1.05rem; white-space: nowrap; }
+.w6b .w6b-frac { display: inline-flex; flex-direction: column; align-items: center; max-width: 100%; }
+.w6b .w6b-frac > span { display: flex; align-items: center; justify-content: center; gap: .3rem; padding: .2rem .15rem; }
+.w6b .w6b-frac > span + span { border-top: 2px solid var(--w6b-ink); }
+.w6b .w6b-frac canvas { display: block; }
+.w6b .w6b-op { font-size: 1.3rem; font-weight: 700; }
+.w6b .w6b-num { font-size: 1.35rem; font-weight: 700; line-height: 1.1; }
+.w6b .w6b-num .h { color: var(--w6b-het); } .w6b .w6b-num .n { color: var(--w6b-net); }
+.w6b .w6b-res { border: 3px solid var(--w6b-ink); padding: .15rem .55rem; line-height: 1.1; }
+.w6b .w6b-res b { display: block; font-size: 1.9rem; letter-spacing: -.02em; }
+.w6b .w6b-res small { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: #555; }
+.w6b canvas.w6b-grid { display: block; width: 100%; }
+.w6b .w6b-legend { display: flex; flex-wrap: wrap; gap: .15rem .9rem; font-size: .76rem; color: #333; margin-top: .45rem; font-variant-numeric: tabular-nums; }
+.w6b .w6b-legend i { display: inline-block; width: .75rem; height: .75rem; margin-right: .3rem; vertical-align: -.1rem; border: 1px solid #000; }
+.w6b .w6b-legend i.e { outline: 2px solid var(--w6b-y); outline-offset: 0; }
+.w6b .w6b-formula { font-size: .85rem; line-height: 1.5; margin: .6rem 0 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.w6b .w6b-verdict { margin: .5rem 0 0; font-weight: 700; padding: .35rem .55rem; border: 2px solid #000; font-size: .9rem; }
+.w6b .w6b-note { font-size: .78rem; color: #555; margin: .6rem 0 0; }
+.w6b .w6b-try { font-size: .82rem; line-height: 1.45; color: #333; margin: .7rem 0 0; padding: 0 0 0 1.1rem; }
+.w6b .w6b-try li { margin: .15rem 0; }
+.w6b .w6b-tabs { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .75rem; min-width: 0; }
+@media (max-width: 700px) { .w6b .w6b-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: .35rem; scrollbar-width: thin; } }
+.w6b .w6b-tabs button { background: #fff; color: #000; white-space: nowrap; flex: 0 0 auto; padding: .25rem .6rem; }
+.w6b .w6b-tabs button[aria-selected=true] { background: var(--w6b-he); border-color: var(--w6b-he); color: #fff; }
+.w6b .w6b-map { margin: .9rem 0 0; padding: .6rem .7rem .7rem; border: 2px solid #000; }
+.w6b .w6b-map h3 { margin: 0 0 .4rem; font-size: .75rem; text-transform: uppercase; letter-spacing: .07em; }
+.w6b .w6b-ar { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--ar, 1.3); background: #f1f1f1; margin: 0; cursor: none; }
+.w6b .w6b-lens { position: absolute; display: none; width: 220px; height: 220px; border-radius: 50%; border: 3px solid #000; background-color: #fff; background-repeat: no-repeat; box-shadow: 0 3px 10px rgba(0,0,0,.35); pointer-events: none; z-index: 2; }
+@media (max-width: 700px) { .w6b .w6b-lens { width: 150px; height: 150px; } }
+.w6b .w6b-ar img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.w6b .w6b-map figcaption { font-size: .8rem; line-height: 1.45; color: #333; margin-top: .45rem; }
+</style>
+
+<div class="w6b" id="w6b">
+  <h2 class="anchored">Explore it: Bayes' theorem as a population</h2>
+  <p class="w6b-lede">Each square is one building. The <b>left block</b> holds the damaged buildings. The <b>right block</b> holds the intact ones. The <b>black boxes</b> hold the buildings that the PWTT damage detector flags: <b style="color:#d40000">red</b> if the building is really damaged, <b style="color:#b86e00">orange</b> if it is intact. Purple buildings are damaged but missed, and green buildings are intact and not flagged. The colours are the same as on the maps. A flag is the alarm. The question is: <b>if the alarm goes off, how likely is it that the building is really damaged?</b> To answer it, count the squares inside both black boxes, and see what share of them is in the left block. That share is the <b>posterior</b>. The width of the left block is the <b>prior</b>, and the height of each black box is a <b>likelihood</b>.</p>
+
+  <p class="w6b-tag" style="margin:0 0 .35rem">PWTT damage detector: choose a city</p>
+  <div class="w6b-tabs" id="w6b-tabs" role="tablist" aria-label="City"></div>
+
+  <div class="w6b-bar">
+    <div class="w6b-sl"><div class="w6b-lab"><label for="w6b-p"><span class="w6b-q" id="w6b-p-q"></span><br><span class="w6b-sub" id="w6b-p-l"></span></label><output id="w6b-p-o"></output></div>
+      <input type="range" id="w6b-p" min="-6.907" max="6.907" step="0.001" value="0"></div>
+    <div class="w6b-sl"><div class="w6b-lab"><label for="w6b-lh"><span class="w6b-q" id="w6b-lh-q"></span><br><span class="w6b-sub" id="w6b-lh-l"></span></label><output id="w6b-lh-o"></output></div>
+      <input type="range" id="w6b-lh" min="0" max="100" step="0.1" value="50"></div>
+    <div class="w6b-sl"><div class="w6b-lab"><label for="w6b-ln"><span class="w6b-q" id="w6b-ln-q"></span><br><span class="w6b-sub" id="w6b-ln-l"></span></label><output id="w6b-ln-o"></output></div>
+      <input type="range" id="w6b-ln" min="0" max="100" step="0.1" value="10"></div>
+  </div>
+  <div class="w6b-bar2">
+    <span class="w6b-tag">Population</span>
+    <button class="w6b-chip" data-n="1000" aria-pressed="true">1,000</button>
+    <button class="w6b-chip" data-n="10000" aria-pressed="false">10,000</button>
+    <span class="w6b-gap"></span>
+    <button id="w6b-again" title="Use this answer as the new starting point (the posterior becomes the prior)">Test it a second time (posterior → prior)</button>
+  </div>
+
+  <div class="w6b-main">
+    <div class="w6b-bt" id="w6b-bt" aria-live="polite">
+      <p class="w6b-bt-h">Bayes' theorem</p>
+      <span class="w6b-t c-post"><span class="f" id="w6b-bt-post"></span><span class="n">Posterior</span><span class="v" id="w6b-bt-postv"></span></span>
+      <span class="w6b-bop">=</span>
+      <span class="w6b-bfrac">
+        <span><span class="w6b-t c-lik"><span class="f" id="w6b-bt-lik"></span><span class="n">Likelihood</span><span class="v" id="w6b-bt-likv"></span></span>
+          <span class="w6b-bop">×</span>
+          <span class="w6b-t c-pri"><span class="f" id="w6b-bt-pri"></span><span class="n">Prior</span><span class="v" id="w6b-bt-priv"></span></span></span>
+        <span><span class="w6b-t c-ev"><span class="f" id="w6b-bt-ev"></span><span class="n">Evidence</span><span class="v" id="w6b-bt-evv"></span></span></span>
+      </span>
+      <p class="w6b-bt-ev" id="w6b-bt-evx"></p>
+    </div>
+    <div class="w6b-eq" id="w6b-eq" aria-live="polite">
+      <span class="w6b-lhs" id="w6b-lhs"></span><span class="w6b-op">=</span>
+      <span class="w6b-frac"><span><canvas id="w6b-m0"></canvas></span><span><canvas id="w6b-m1"></canvas><span class="w6b-op">+</span><canvas id="w6b-m2"></canvas></span></span>
+      <span class="w6b-op" id="w6b-eqs"></span>
+      <span class="w6b-frac w6b-num"><span><span class="h" id="w6b-c0"></span></span><span><span class="h" id="w6b-c1"></span>+<span class="n" id="w6b-c2"></span></span></span>
+      <span class="w6b-res"><b id="w6b-res"></b><small id="w6b-res-s"></small></span>
+    </div>
+    <canvas class="w6b-grid" id="w6b-grid" role="img"></canvas>
+    <div class="w6b-legend" id="w6b-legend"></div>
+    <p class="w6b-formula" id="w6b-formula"></p>
+    <p class="w6b-verdict" id="w6b-verdict"></p>
+    <p class="w6b-note" id="w6b-src"></p>
+    <p class="w6b-note">Table 1 of the paper gives "% damaged" as a share of buildings, not of building area. Damaged buildings are often large, so that share is lower than the area-weighted prior here.</p>
+    <figure class="w6b-map figure" id="w6b-map">
+      <h3 id="w6b-map-h" class="anchored"></h3>
+      <div class="w6b-ar" id="w6b-ar"><img id="w6b-img" alt="" decoding="async" class="figure-img"><div class="w6b-lens" id="w6b-lens" aria-hidden="true"></div></div>
+      <figcaption id="w6b-cap" class="figure-caption"></figcaption>
+    </figure>
+    <ul class="w6b-try">
+      <li><b>Compare Kharkiv with Gaza.</b> The detector is the same. Only the base rate (the prior) changes. In Kharkiv, about 2% of building area is damaged, so most flags are false alarms. In Gaza, about 62% is damaged, so most flags are real.</li>
+      <li><b>Drag the prior down.</b> Keep the two likelihoods the same. The left block becomes narrow, and the posterior falls. A flag means less when damage is rare.</li>
+      <li><b>Press "Test it a second time".</b> The posterior from the first test becomes the new prior. A second flag makes you much more sure than the first one did. (This assumes that the second test is independent of the first.)</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const root = $("w6b"), grid = $("w6b-grid");
+  const C = { he: "#ff0000", hn: "#800080", ne: "#ffa500", nn: "#008000", y: "#000000", het: "#d40000", net: "#b86e00", ink: "#1a1a1a", ink2: "#52514e" };
+
+  // H = hypothesis, nh = not H, e = evidence. Values are probabilities (0-1).
+  // Area-weighted values implied by Ballinger (2025), RSE, Table 2 (accuracy, precision and recall solved together).
+  // p = prior P(damaged), lh = P(flagged | damaged) (recall), ln = P(flagged | intact) (false-alarm rate), prec = paper precision (%).
+  // Check: lh*p / (lh*p + ln*(1-p)) equals prec to within 0.1 point for every city.
+  const CITIES = [
+    ["All", "All 30 cities", .2470, .7136, .1613, 59.20],
+    ["Gaza", "Gaza", .6233, .9198, .5323, 74.09],
+    ["Mariupol", "Mariupol", .4857, .8206, .5045, 60.57],
+    ["Raqqa", "Raqqa", .5451, .8722, .5435, 65.79],
+    ["Aleppo", "Aleppo", .3805, .8259, .4593, 52.48],
+    ["Rubizhne", "Rubizhne", .3967, .7043, .2402, 65.85],
+    ["Sievierodonetsk", "Sievierodonetsk", .4166, .9149, .7066, 48.04],
+    ["Hostomel", "Hostomel", .2863, .8169, .2417, 57.56],
+    ["Lysychansk", "Lysychansk", .1644, .5732, .1661, 40.44],
+    ["Irpin", "Irpin", .1827, .6713, .1313, 53.32],
+    ["Mosul", "Mosul", .1329, .4689, .1149, 38.47],
+    ["Chernihiv", "Chernihiv", .0587, .4213, .0279, 48.52],
+    ["Kharkiv", "Kharkiv", .0202, .3200, .0216, 23.41]
+  ];
+  // map files in pwtt_maps/ (width / height, so the box keeps its shape while the image loads)
+  const MAPS = { All: ["All.png", 1400 / 1080], Gaza: null, Mariupol: ["Mariupol.jpg", 1400 / 621],
+    Raqqa: ["Raqqa.jpg", 1400 / 605], Aleppo: ["Aleppo.jpg", 1400 / 894], Rubizhne: ["Rubizhne.jpg", 1399 / 1400],
+    Sievierodonetsk: ["Sievierodonetsk.jpg", 1400 / 1198], Hostomel: ["Hostomel.jpg", 1400 / 1354], Lysychansk: ["Lysychansk.jpg", 1400 / 1318],
+    Irpin: ["Irpin.jpg", 1132 / 1400], Mosul: ["Mosul.jpg", 1400 / 1307], Chernihiv: ["Chernihiv.jpg", 1323 / 1400],
+    Kharkiv: ["Kharkiv.jpg", 1384 / 1400] };
+  // no map for Gaza (the repository map uses older labels and does not match Table 2) 
+  const NOMAP = { Gaza: "The PWTT repository map of Gaza uses an older set of damage labels, so its numbers do not match Table 2. It is left out here." };
+  const PUBLISHED = new Set(["Mosul", "Rubizhne", "Chernihiv", "Hostomel", "Raqqa", "Irpin"]);
+  const BASE = { H: "damaged", nH: "intact", E: "flagged", unit: "buildings", isH: "are damaged", isN: "are intact",
+    q1: "How many buildings are damaged?", q2: "Of the damaged buildings, how many does the detector flag?", q3: "Of the intact buildings, how many does it flag by mistake?" };
+  const PRESETS = {};
+  CITIES.forEach(([id, name, p, lh, ln, prec]) => {
+    PRESETS[id] = { ...BASE, id, name, p, lh, ln, prec,
+      src: `Source: Ballinger (2025), <i>Remote Sensing of Environment</i>, Table 2 (weighted by building area)${id === "All" ? ", all 30 cities together" : ", " + name}. ` +
+        `Prior and false-alarm rate are derived from Table 2's accuracy, precision and recall; the posterior equals the paper's precision, ${prec.toFixed(2)}%.` };
+  });
+  const PMIN = 0.001, PMAX = 0.999;
+  let S = { ...PRESETS.All }, N = 1000;
+
+  const logit = p => Math.log(p / (1 - p)), sigm = t => 1 / (1 + Math.exp(-t));
+  const fmtP = p => { const v = p * 100; return (v < 10 || v > 99 ? v.toFixed(2) : v.toFixed(1)).replace(/\.?0+$/, "") + "%"; };
+  const fmtPost = p => { const v = p * 100; return (v === 0 || v === 100) ? v + "%" : (v < 1 || v > 99 ? v.toFixed(2) : v.toFixed(1)) + "%"; };
+  const fmtN = n => n.toLocaleString("en-GB");
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const isInt = x => Math.abs(x - Math.round(x)) < 1e-9;
+
+  // counts: rounded expected values; nh = N - h so the population always adds to N
+  function counts() {
+    const xh = N * S.p, h = Math.round(xh), nh = N - h;
+    const xhe = N * S.p * S.lh, xne = N * (1 - S.p) * S.ln;
+    const he = Math.min(Math.round(xhe), h), ne = Math.min(Math.round(xne), nh);
+    return { h, nh, he, ne, xh, xhe, xne, approxH: !isInt(xh), approx: !isInt(xh) || !isInt(xhe) || !isInt(xne) };
+  }
+  const posterior = () => { const a = S.lh * S.p, b = S.ln * (1 - S.p); return a + b > 0 ? a / (a + b) : NaN; };
+
+  // ---------- drawing ----------
+  function setup(cv, w, h) {
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = Math.max(1, Math.round(w * dpr)); cv.height = Math.max(1, Math.round(h * dpr));
+    cv.style.width = w + "px"; cv.style.height = h + "px";
+    const ctx = cv.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h); return ctx;
+  }
+  // n cells in `cols` columns, filled row by row from the bottom (yB), left to right; the first `pos` cells are evidence
+  function cells(ctx, x0, yB, n, pos, cols, cw, ch, cPos, cNeg) {
+    const gx = cw >= 3 ? Math.min(1, cw * 0.25) : 0, gy = ch >= 4 ? 1 : 0;
+    for (let i = 0; i < n; i++) {
+      const r = Math.floor(i / cols), k = i % cols;
+      ctx.fillStyle = i < pos ? cPos : cNeg;
+      ctx.fillRect(x0 + k * cw, yB - (r + 1) * ch + gy, cw - gx, ch - gy);
+    }
+    return { gx, gy };
+  }
+  // outline of the first e cells: full bottom rows plus one part row (a step on the right)
+  function boxPath(x0, yB, e, cols, cw, ch, gx, gy, p) {
+    const full = Math.floor(e / cols), rem = e % cols;
+    const L = x0 - p, B = yB + p, R = x0 + cols * cw - gx + p;
+    if (full === 0) { const xr = x0 + rem * cw - gx + p, t = yB - ch + gy - p; return [[L, B], [xr, B], [xr, t], [L, t]]; }
+    const yf = yB - full * ch + gy - p;
+    if (rem === 0) return [[L, B], [R, B], [R, yf], [L, yf]];
+    const xr = x0 + rem * cw - gx + p;
+    return [[L, B], [R, B], [R, yf], [xr, yf], [xr, yf - ch], [L, yf - ch]];
+  }
+  function stroke(ctx, pts, col, lw) {
+    ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath();
+    ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineJoin = "miter"; ctx.stroke();
+  }
+  // curly brace from (x, y1) to (x, y2) with the tip at x + d; or a horizontal one if horiz
+  function brace(ctx, a1, a2, b, d, horiz) {
+    const m = (a1 + a2) / 2, q = Math.min(Math.abs(a2 - a1) / 4, 10) * Math.sign(a2 - a1 || 1);
+    const P = (u, v) => horiz ? [u, v] : [v, u];
+    ctx.beginPath(); ctx.moveTo(...P(a1, b));
+    ctx.bezierCurveTo(...P(a1, b + d / 2), ...P(a1 + q, b + d / 2), ...P(a1 + q, b + d / 2));
+    ctx.lineTo(...P(m - q, b + d / 2));
+    ctx.bezierCurveTo(...P(m, b + d / 2), ...P(m, b + d), ...P(m, b + d));
+    ctx.bezierCurveTo(...P(m, b + d), ...P(m, b + d / 2), ...P(m + q, b + d / 2));
+    ctx.lineTo(...P(a2 - q, b + d / 2));
+    ctx.bezierCurveTo(...P(a2 - q, b + d / 2), ...P(a2, b + d / 2), ...P(a2, b));
+    ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+
+  let geo = null;
+  function drawGrid(k) {
+    const par = grid.parentElement, cs = getComputedStyle(par);
+    const W = Math.max(240, par.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)), wide = W >= 700;
+    const ROWS = N === 1000 ? 10 : 40;
+    const ch_ = Math.max(1, Math.ceil(k.h / ROWS)), cn_ = Math.max(1, Math.ceil(k.nh / ROWS));
+    const font = wide ? 14 : 12, lineH = font + 3;
+    const ctx0 = grid.getContext("2d"); ctx0.font = `${font}px system-ui, sans-serif`;
+    const tH = [`P(${S.E} | ${S.H})`, `= ${fmtP(S.lh)}`], tN = [`P(${S.E} | ${S.nH})`, `= ${fmtP(S.ln)}`];
+    const lw = wide ? Math.max(...tH.map(t => ctx0.measureText(t).width)) : ctx0.measureText(tH[1]).width;
+    const rw = wide ? Math.max(...tN.map(t => ctx0.measureText(t).width)) : ctx0.measureText(tN[1]).width;
+    const ML = lw + 22, MR = rw + 22, TOP = 46, BOT = 26, GH = wide ? 230 : 170;
+    const H = TOP + GH + BOT;
+    const ctx = setup(grid, W, H);
+    const avail = W - ML - MR, gap = Math.max(6, avail * 0.012);
+    const cw = (avail - gap) / (ch_ + cn_), cht = GH / ROWS, yB = TOP + GH;
+    const xH = ML, xN = ML + ch_ * cw + gap;
+    const gH = cells(ctx, xH, yB, k.h, k.he, ch_, cw, cht, C.he, C.hn);
+    cells(ctx, xN, yB, k.nh, k.ne, cn_, cw, cht, C.ne, C.nn);
+    const pad = 2, BL = wide ? 3 : 2.5;
+    const bH = k.he ? boxPath(xH, yB, k.he, ch_, cw, cht, gH.gx, gH.gy, pad) : null;
+    const bN = k.ne ? boxPath(xN, yB, k.ne, cn_, cw, cht, gH.gx, gH.gy, pad) : null;
+    if (bH) stroke(ctx, bH, C.y, BL);
+    if (bN) stroke(ctx, bN, C.y, BL);
+
+    ctx.font = `${font}px system-ui, sans-serif`; ctx.textBaseline = "middle";
+    // likelihood braces: left for H, right for not H
+    const label = (lines, x, y, align, col) => {
+      ctx.fillStyle = col; ctx.textAlign = align;
+      const y0 = Math.min(Math.max(y - (lines.length - 1) * lineH / 2, TOP), yB - (lines.length - 1) * lineH);
+      lines.forEach((t, i) => ctx.fillText(t, x, y0 + i * lineH));
+    };
+    const linesH = wide ? tH : [tH[1]], linesN = wide ? tN : [tN[1]];
+    const topH = bH ? Math.min(...bH.map(q => q[1])) : yB, topN = bN ? Math.min(...bN.map(q => q[1])) : yB;
+    if (bH) brace(ctx, yB + pad, topH, xH - 5, -8, false);
+    label(linesH, xH - 16, (yB + topH) / 2, "right", C.het);
+    if (bN) brace(ctx, topN, yB + pad, xN + cn_ * cw + 5, 8, false);
+    label(linesN, xN + cn_ * cw + 16, (yB + topN) / 2, "left", C.net);
+
+    // prior: brace over a wide H strip, arrow over a narrow one
+    const sw = ch_ * cw, mid = xH + sw / 2, tPrior = `P(${S.H}) = ${fmtP(S.p)}`;
+    ctx.fillStyle = C.ink; ctx.font = `600 ${font}px system-ui, sans-serif`;
+    const pw = ctx.measureText(tPrior).width;
+    const topStrip = TOP;
+    if (sw >= 40) {
+      brace(ctx, xH, xH + sw - gH.gx, topStrip - 4, -8, true);
+      ctx.textAlign = "center"; ctx.fillText(tPrior, Math.min(Math.max(mid, pw / 2 + 2), W - pw / 2 - 2), topStrip - 24);
+    } else {
+      ctx.beginPath(); ctx.moveTo(mid, topStrip - 26); ctx.lineTo(mid, topStrip - 4);
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(mid - 4, topStrip - 10); ctx.lineTo(mid, topStrip - 3); ctx.lineTo(mid + 4, topStrip - 10); ctx.fill();
+      ctx.textAlign = "left"; ctx.fillText(tPrior, Math.min(Math.max(mid + 6, 2), W - pw - 2), topStrip - 30);
+    }
+
+    // strip labels under the strips
+    const ap = k.approxH ? "≈" : "";
+    const lH = `${cap(S.H)}: ${ap}${fmtN(k.h)}`, lN = `${cap(S.nH)}: ${ap}${fmtN(k.nh)}`;
+    ctx.font = `700 ${font}px system-ui, sans-serif`;
+    const wH = ctx.measureText(lH).width, wN = ctx.measureText(lN).width;
+    let cxH = Math.max(xH + sw / 2, wH / 2 + 2), cxN = Math.min(xN + cn_ * cw / 2, W - wN / 2 - 2);
+    if (cxH + wH / 2 + 10 > cxN - wN / 2) { const sh = (cxH + wH / 2 + 10 - (cxN - wN / 2)) / 2; cxH -= sh; cxN += sh; }
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    ctx.fillStyle = C.het; ctx.fillText(lH, cxH, yB + 7);
+    ctx.fillStyle = C.ink2; ctx.fillText(lN, cxN, yB + 7);
+
+    grid.setAttribute("aria-label", `${fmtN(N)} ${S.unit}: ${fmtN(k.h)} ${S.H}, of which ${fmtN(k.he)} ${S.E}; ${fmtN(k.nh)} ${S.nH}, of which ${fmtN(k.ne)} ${S.E}.`);
+    geo = { cw, cht, ch_, cn_, W };
+  }
+
+  // small copies of the two boxed shapes, for the formula
+  function drawMini(k) {
+    const { cw, cht, ch_, cn_, W } = geo;
+    let s = 0.5;
+    const wOf = (e, c, sc) => Math.max(0, Math.min(e, c)) * Math.max(cw * sc, 0.5);
+    const room = Math.min(W * (W >= 700 ? 0.55 : 0.8), 520);
+    const den = wOf(k.he, ch_, s) + wOf(k.ne, cn_, s) + 30;
+    if (den > room) s *= room / den;
+    const one = (cv, e, cols, col) => {
+      if (!e) { const ctx = setup(cv, 14, 14); ctx.fillStyle = C.ink; ctx.font = "700 13px system-ui"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("0", 7, 7); return; }
+      const mcw = Math.max(cw * s, 0.5), mch = Math.max(cht * s, 2), pad = 3;
+      const w = Math.min(e, cols) * mcw, h = Math.ceil(e / cols) * mch;
+      const ctx = setup(cv, Math.ceil(w + 2 * pad), Math.ceil(h + 2 * pad));
+      const g = cells(ctx, pad, pad + h, e, e, cols, mcw, mch, col, col);
+      stroke(ctx, boxPath(pad, pad + h, e, cols, mcw, mch, g.gx, g.gy, 1.5), C.y, 2);
+    };
+    one($("w6b-m0"), k.he, ch_, C.he);
+    one($("w6b-m1"), k.he, ch_, C.he);
+    one($("w6b-m2"), k.ne, cn_, C.ne);
+  }
+
+  function update() {
+    const k = counts(), post = posterior();
+    // controls
+    $("w6b-p").value = logit(S.p);
+    $("w6b-lh").value = (S.lh * 100).toFixed(1);
+    $("w6b-ln").value = (S.ln * 100).toFixed(1);
+    $("w6b-p-o").textContent = fmtP(S.p);
+    $("w6b-lh-o").textContent = fmtP(S.lh);
+    $("w6b-ln-o").textContent = fmtP(S.ln);
+    $("w6b-p-l").textContent = `Prior: P(${S.H})`; $("w6b-p-q").textContent = S.q1;
+    $("w6b-lh-l").textContent = `Likelihood: P(${S.E} | ${S.H})`; $("w6b-lh-q").textContent = S.q2;
+    $("w6b-ln-l").textContent = `False-alarm rate: P(${S.E} | ${S.nH})`; $("w6b-ln-q").textContent = S.q3;
+    // equation
+    $("w6b-lhs").textContent = `P(${S.H} | ${S.E})`;
+    $("w6b-eqs").textContent = k.approx ? "≈" : "=";
+    $("w6b-c0").textContent = fmtN(k.he); $("w6b-c1").textContent = fmtN(k.he); $("w6b-c2").textContent = fmtN(k.ne);
+    $("w6b-res").textContent = isNaN(post) ? "undefined" : fmtPost(post);
+    const pc = k.he + k.ne > 0 ? k.he / (k.he + k.ne) : NaN;
+    $("w6b-res-s").textContent = isNaN(post) ? "no case shows the evidence"
+      : (k.approx && !isNaN(pc) && Math.abs(pc - post) >= 0.0005) ? `posterior; the squares give ${fmtPost(pc)} (rounded)` : "posterior (exact)";
+    drawGrid(k); drawMini(k);
+    // legend
+    const ap = k.approx ? "≈" : "";
+    $("w6b-legend").innerHTML =
+      `<span><i class="e" style="background:${C.he}"></i>${cap(S.H)}, ${S.E}: ${ap}${fmtN(k.he)}</span>` +
+      `<span><i style="background:${C.hn}"></i>${cap(S.H)}, not ${S.E}: ${ap}${fmtN(k.h - k.he)}</span>` +
+      `<span><i class="e" style="background:${C.ne}"></i>${cap(S.nH)}, ${S.E}: ${ap}${fmtN(k.ne)}</span>` +
+      `<span><i style="background:${C.nn}"></i>${cap(S.nH)}, not ${S.E}: ${ap}${fmtN(k.nh - k.ne)}</span>` +
+      `<span>Each square = 1 of ${fmtN(N)} ${S.unit}.${k.approx ? " ≈: counts are rounded expected values." : ""}</span>`;
+    // Bayes' theorem block with the names of the terms
+    {
+      const ev = S.lh * S.p + S.ln * (1 - S.p);
+      $("w6b-bt-post").textContent = `P(${S.H} | ${S.E})`;
+      $("w6b-bt-postv").textContent = isNaN(post) ? "undefined" : fmtPost(post);
+      $("w6b-bt-lik").textContent = `P(${S.E} | ${S.H})`; $("w6b-bt-likv").textContent = fmtP(S.lh);
+      $("w6b-bt-pri").textContent = `P(${S.H})`; $("w6b-bt-priv").textContent = fmtP(S.p);
+      $("w6b-bt-ev").textContent = `P(${S.E})`; $("w6b-bt-evv").textContent = fmtP(ev);
+      $("w6b-bt-evx").innerHTML = `<b class="c-ev">Evidence</b>: how often the alarm goes off at all, from both blocks. ` +
+        `P(${S.E}) = P(${S.E} | ${S.H}) × P(${S.H}) + P(${S.E} | ${S.nH}) × P(${S.nH}) = ${fmtP(S.lh)} × ${fmtP(S.p)} + ${fmtP(S.ln)} × ${fmtP(1 - S.p)} = ${fmtP(ev)}. ` +
+        `The second part, P(${S.E} | ${S.nH}), is the <b>false-alarm rate</b>.`;
+    }
+    // exact arithmetic
+    const a = S.lh * S.p, b = S.ln * (1 - S.p);
+    $("w6b-formula").innerHTML = `P(${S.H} | ${S.E}) = P(${S.E} | ${S.H}) P(${S.H}) ÷ [P(${S.E} | ${S.H}) P(${S.H}) + P(${S.E} | ${S.nH}) P(${S.nH})]` +
+      `<br>= ${fmtP(S.lh)} × ${fmtP(S.p)} ÷ (${fmtP(S.lh)} × ${fmtP(S.p)} + ${fmtP(S.ln)} × ${fmtP(1 - S.p)})` +
+      `<br>= ${(a * 100).toPrecision(3)}% ÷ (${(a * 100).toPrecision(3)}% + ${(b * 100).toPrecision(3)}%) = <b>${isNaN(post) ? "undefined" : fmtPost(post)}</b>`;
+    $("w6b-verdict").textContent = isNaN(post) ? `No case is ${S.E}, so P(${S.H} | ${S.E}) is undefined.`
+      : `Of all ${S.E} ${S.unit}${S.id && S.id !== "All" ? " in " + S.name : ""}, ${fmtPost(post)} ${S.isH} and ${fmtPost(1 - post)} ${S.isN}. The prior was ${fmtP(S.p)}.`;
+    $("w6b-src").innerHTML = S.src || "Your own numbers.";
+  }
+
+  // ---------- controls ----------
+  const tabs = $("w6b-tabs");
+  CITIES.forEach(([id, name], i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role", "tab"); b.dataset.city = id; b.textContent = name;
+    b.setAttribute("aria-selected", String(i === 0)); b.tabIndex = i === 0 ? 0 : -1;
+    b.setAttribute("aria-controls", "w6b-map");
+    tabs.appendChild(b);
+  });
+  const tabBtns = [...tabs.querySelectorAll("[role=tab]")];
+  // the map is loaded only when its tab is chosen
+  function showMap(id) {
+    const P = PRESETS[id], img = $("w6b-img");
+    if (!MAPS[id]) {
+      img.removeAttribute("src"); $("w6b-ar").style.display = "none";
+      $("w6b-map-h").textContent = `${P.name}: no map`; $("w6b-cap").textContent = NOMAP[id];
+      return;
+    }
+    $("w6b-ar").style.display = "";
+    const [file, ar] = MAPS[id];
+    $("w6b-ar").style.setProperty("--ar", ar.toFixed(4));
+    img.removeAttribute("src");
+    if (id === "All") {
+      $("w6b-map-h").textContent = "All 30 cities: precision against base rate";
+      img.alt = "Scatter plot of the 30 cities. The x-axis is the share of buildings damaged (base rate, log scale). The y-axis is precision, the share of flags that are real damage. Precision is low where damage is rare and high where damage is common.";
+      $("w6b-cap").innerHTML = "Each dot is one city. The x-axis is the base rate (the prior, counted in buildings). The y-axis is the precision (the posterior). The detector is the same everywhere, but where damage is rare, most flags are false alarms. Data: Ballinger (2025), RSE.";
+    } else {
+      $("w6b-map-h").textContent = `${P.name}: damage map`;
+      img.alt = `Map of ${P.name}. Each building is coloured by the PWTT result: red for damaged and flagged, orange for intact and flagged, green for intact and not flagged, purple for damaged and missed.`;
+      $("w6b-cap").innerHTML = "Red: damaged, flagged (true positive). Orange: intact, flagged (false positive). Green: intact, not flagged. Purple: damaged, missed. Legend shares are of building area. " +
+        "The colours are the same as on the grid above: red and orange are the squares inside the black boxes. Move the cursor over the map to zoom in. " +
+        `Ballinger (2025), RSE ${PUBLISHED.has(id) ? "(published figure)" : "(PWTT repository figure)"}.`;
+    }
+    img.src = "pwtt_maps/" + file;
+    img.dataset.hi = "pwtt_maps/hi/" + file;
+    $("w6b-lens").style.display = "none";
+  }
+  // zoom lens: a circle that shows the high-resolution map at ZOOM times the size under the cursor (or finger)
+  {
+    const ZOOM = 3, box = $("w6b-ar"), lens = $("w6b-lens");
+    const move = e => {
+      const img = $("w6b-img"); if (!img.getAttribute("src")) return;
+      const r = box.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      if (x < 0 || y < 0 || x > r.width || y > r.height) { lens.style.display = "none"; return; }
+      if (lens.dataset.src !== img.dataset.hi) { lens.dataset.src = img.dataset.hi; lens.style.backgroundImage = `url("${img.dataset.hi}")`; }
+      lens.style.display = "block";
+      const L = lens.offsetWidth;
+      lens.style.left = (x - L / 2) + "px"; lens.style.top = (y - L / 2) + "px";
+      lens.style.backgroundSize = `${r.width * ZOOM}px ${r.height * ZOOM}px`;
+      lens.style.backgroundPosition = `${L / 2 - x * ZOOM}px ${L / 2 - y * ZOOM}px`;
+    };
+    box.addEventListener("pointermove", move);
+    box.addEventListener("pointerdown", move);
+    box.addEventListener("pointerleave", () => { lens.style.display = "none"; });
+  }
+  function selectCity(id, focus) {
+    S = { ...PRESETS[id] };
+    tabBtns.forEach(x => { const on = x.dataset.city === id; x.setAttribute("aria-selected", String(on)); x.tabIndex = on ? 0 : -1; if (on && focus) x.focus(); });
+    showMap(id); update();
+  }
+  tabBtns.forEach((b, i) => {
+    b.addEventListener("click", () => selectCity(b.dataset.city));
+    b.addEventListener("keydown", e => {
+      const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!d) return; e.preventDefault();
+      selectCity(tabBtns[(i + d + tabBtns.length) % tabBtns.length].dataset.city, true);
+    });
+  });
+  const nBtns = root.querySelectorAll("[data-n]");
+  nBtns.forEach(b => b.addEventListener("click", () => {
+    N = +b.dataset.n; nBtns.forEach(x => x.setAttribute("aria-pressed", String(x === b))); update();
+  }));
+  const edited = () => { S.src = `Your own numbers, starting from ${S.name}. Choose a city tab again to reset.`; };
+  $("w6b-p").addEventListener("input", e => {
+    let p = sigm(+e.target.value);
+    p = (p < 0.01 || p > 0.99) ? Math.round(p * 1e4) / 1e4 : Math.round(p * 1e3) / 1e3;
+    S.p = Math.min(PMAX, Math.max(PMIN, p)); edited(); update();
+  });
+  $("w6b-lh").addEventListener("input", e => { S.lh = +e.target.value / 100; edited(); update(); });
+  $("w6b-ln").addEventListener("input", e => { S.ln = +e.target.value / 100; edited(); update(); });
+  $("w6b-again").addEventListener("click", () => {
+    const post = posterior(); if (isNaN(post)) return;
+    S.p = Math.min(PMAX, Math.max(PMIN, post)); edited();
+    S.src = "Second test: the starting point (prior) is now the answer from the first test. This assumes the second test is independent of the first and just as accurate.";
+    update();
+  });
+
+  let lastW = 0;
+  new ResizeObserver(() => { const w = root.clientWidth; if (w && w !== lastW) { lastW = w; update(); } }).observe(root);
+  showMap("All"); update();
+})();
+</script>
+</div>
 
 
 

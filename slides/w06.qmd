@@ -4,6 +4,9 @@ subtitle: "Week 6 lecture"
 page-layout: full
 toc: false
 repo-actions: false
+resources:
+  - pwtt_maps/*
+  - pwtt_maps/hi/*
 ---
 
 ::: {.slides-embed .column-screen-inset-right}
@@ -14,4 +17,9 @@ repo-actions: false
 [Open full screen ↗](../lectures/w06.html){.btn .btn-primary target="_blank"}
 [Week 6 workshop →](../notebooks/W06.%20Hypothesis%20Testing.html){.btn .btn-outline-secondary}
 <span class="slides-keys"><kbd>F</kbd> full screen · <kbd>S</kbd> speaker notes · <kbd>?</kbd> shortcuts</span>
+:::
+
+
+::: {.column-screen-inset-right}
+{{< include _bayes_applet.md >}}
 :::

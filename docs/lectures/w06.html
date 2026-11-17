@@ -912,74 +912,23 @@ Ollie Ballinger
 <h1>4. Bayes’ Theorem</h1>
 <!-- slide 52 -->
 </section>
-<section id="section-40" class="slide level2 fallback" data-background-image="img/w06/slide_053.jpg" data-background-size="contain">
-<h2></h2>
+<section id="bayes-theorem-explore-it-below" class="slide level2">
+<h2>Bayes’ Theorem: Explore It Below</h2>
 <!-- slide 53 -->
-<aside class="notes">
-<p>Gigerenzer found most doctors answer close to 90%. The answer is about 9%. Adapted from Gigerenzer &amp; Hoffrage (1995) on natural frequencies.</p>
-<p>Slide text: A Quick Question · A disease affects 1% of people. A test catches 90% of people who have it, but also wrongly flags 9% of healthy people. · · You test positive. What’s the chance you have the disease? · 90% · 81% · 50% · 9% · Go to menti</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-41" class="slide level2 fallback" data-background-image="img/w06/slide_054.jpg" data-background-size="contain">
-<h2></h2>
-<!-- slide 54 -->
-<aside class="notes">
-<p>Slide text: Think in People, Not Percentages · Of 1,000 people: · 10 are sick; 9 of them test positive · 990 are healthy; 89 of them test positive anyway · 9 / (9 + 89) = · 9% · Most positives are false, because healthy people vastly outnumber sick ones</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="section-42" class="slide level2 fallback" data-background-image="img/w06/slide_055.jpg" data-background-size="contain">
-<h2></h2>
-<!-- slide 55 -->
-<aside class="notes">
-<p>Slide text: Bayes’ Theorem · P(A | B) = P(B | A) × P(A) / P(B) · Posterior · P(A | B) · What we believe after seeing the data · Likelihood · P(B | A) · How probable the data are if A is true · Prior · P(A) · What we believed before seeing the data · Evidence · P(B) · How probable the data are overall · Posterior ∝ Likelihood × Prior</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="plugging-in" class="slide level2">
-<h2>Plugging In</h2>
-<!-- slide 56 -->
 <ul>
-<li>A = you have the disease; B = you test positive
+<li>Posterior = Likelihood × Prior / Evidence
 <ul>
-<li>Prior: P(sick) = 0.01</li>
-<li>Likelihood: P(positive | sick) = 0.90</li>
-<li>Evidence: P(positive) = 0.90 × 0.01 + 0.09 × 0.99 = 0.098</li>
+<li>P(damaged | flagged) = P(flagged | damaged) × P(damaged) / P(flagged)</li>
 </ul></li>
-<li>Posterior: P(sick | positive) = 0.90 × 0.01 / 0.098 = <strong>0.092</strong></li>
-<li>P(positive | sick) = 90% but P(sick | positive) = 9%. <strong>Flipping the conditional changes everything</strong></li>
-<li>A second, independent positive test? Use 9% as the <strong>new prior</strong> and you get about 50%</li>
+<li>Use the interactive applet below these slides on the course page
+<ul>
+<li>Choose a city: the same PWTT damage detector, a different base rate</li>
+<li>Move the sliders and watch the posterior change</li>
+</ul></li>
+<li>A detector can be good and still give mostly false alarms when damage is rare</li>
 </ul>
 <aside class="notes">
-<p>Second test: 0.9<em>0.092 / (0.9</em>0.092 + 0.09*0.908) = 0.0828/0.1645 ≈ 0.50.</p>
+<p>Open the Week 6 page (slides/w06 on the course site) and scroll below the slides to the Bayes applet. Suggested demo: start with All 30 cities (posterior 59%), then Kharkiv (about 2% damaged: 23% of flags are real), then Gaza (about 62% damaged: 74%). The detector is the same; the prior changes. Then use ‘Test it a second time’. Numbers: Ballinger (2025), RSE, Table 2 (area-weighted); the prior and false-alarm rate for each city are derived from Table 2.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -994,7 +943,7 @@ Ollie Ballinger
 </section>
 <section id="a-very-old-idea" class="slide level2">
 <h2>A Very Old Idea</h2>
-<!-- slide 57 -->
+<!-- slide 54 -->
 <ul>
 <li><strong>Rev.&nbsp;Thomas Bayes</strong> (c.1701–1761), a Presbyterian minister, worked out how to reason backwards from effects to causes
 <ul>
@@ -1007,7 +956,7 @@ Ollie Ballinger
 </section>
 <section id="are-most-published-findings-false" class="slide level2">
 <h2>Are Most Published Findings False?</h2>
-<!-- slide 58 -->
+<!-- slide 55 -->
 <ul>
 <li>Ioannidis (2005), one of the most-cited papers in the history of PLoS Medicine</li>
 <li>Earlier today we rejected the null if p &lt; 0.05. But how often is a ‘significant’ result actually <strong>true</strong>?</li>
@@ -1020,10 +969,11 @@ Ollie Ballinger
 <li>What share of significant findings are false?</li>
 </ul>
 </section>
-<section id="section-43" class="slide level2 fallback" data-background-image="img/w06/slide_059.jpg" data-background-size="contain">
+<section id="section-40" class="slide level2 fallback" data-background-image="img/w06/slide_056.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 59 -->
+<!-- slide 56 -->
 <aside class="notes">
+<p>Grid: 100 true hypotheses (left, the prior: 10%) and 900 with no effect (right). The yellow boxes are the significant results. The left box is 8 of 10 rows high (power, 80%). The right box is half of one row (alpha, 5% of 900 = 45). The formula reuses the two boxes: 45 / (80 + 45) = 36% of discoveries are false.</p>
 <p>Slide text: Are Most Published Findings False? · 125 significant results: · 80 true effects · 45 false positives · 36% · of ‘discoveries’ are false · With 20% power (common in small studies) it’s 45 / 65 = 69%</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1039,7 +989,7 @@ Ollie Ballinger
 </section>
 <section id="the-p-value-trap" class="slide level2">
 <h2>The p-value Trap</h2>
-<!-- slide 60 -->
+<!-- slide 57 -->
 <ul>
 <li>A p-value is <strong>P(data this extreme | null is true)</strong></li>
 <li>It is <strong>not</strong> P(null is true | data), though it’s constantly reported that way</li>
@@ -1055,11 +1005,11 @@ Ollie Ballinger
 <section>
 <section id="priors-likelihoods-and-posteriors" class="title-slide slide level1 center">
 <h1>5. Priors, Likelihoods and Posteriors</h1>
-<!-- slide 61 -->
+<!-- slide 58 -->
 </section>
 <section id="estimating-union-membership-again" class="slide level2">
 <h2>Estimating Union Membership, Again</h2>
-<!-- slide 62 -->
+<!-- slide 59 -->
 <ul>
 <li>In Week 5 we asked: what share of American workers are in a union?</li>
 <li>Suppose we sample <strong>7 people</strong> and <strong>none</strong> of them are union members
@@ -1071,9 +1021,9 @@ Ollie Ballinger
 <li>We knew something <strong>before</strong> we saw the data. Frequentist methods have no place to put that knowledge. Bayesian methods do: the <strong>prior</strong></li>
 </ul>
 </section>
-<section id="section-44" class="slide level2 fallback" data-background-image="img/w06/slide_063.jpg" data-background-size="contain">
+<section id="section-41" class="slide level2 fallback" data-background-image="img/w06/slide_060.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 63 -->
+<!-- slide 60 -->
 <aside class="notes">
 <p>Slide text: Three Ingredients · Prior · p(θ) · What we believe about θ before seeing data, written as a probability distribution · ‘Union membership is probably somewhere between 5% and 40%’ · Likelihood · p(data | θ) · How probable the data we observed would be, for each possible value of θ · ‘If θ were 50%, getting 0 of 7 would be very unlikely’ · Posterior · p(θ | data) · Updated beliefs: the prior reweighted by the likelihood · ‘Given what we knew and what we saw, θ is probably around 12%’ · Posterior ∝ Likelihood × Prior</p>
 <style type="text/css">
@@ -1090,7 +1040,7 @@ Ollie Ballinger
 </section>
 <section id="the-beta-distribution" class="slide level2">
 <h2>The Beta Distribution</h2>
-<!-- slide 64 -->
+<!-- slide 61 -->
 <div class="columns">
 <div class="column" style="width:45%;">
 <ul>
@@ -1109,9 +1059,9 @@ Ollie Ballinger
 </div>
 </div>
 </section>
-<section id="section-45" class="slide level2 fallback" data-background-image="img/w06/slide_065.jpg" data-background-size="contain">
+<section id="section-42" class="slide level2 fallback" data-background-image="img/w06/slide_062.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 65 -->
+<!-- slide 62 -->
 <aside class="notes">
 <p>Slide text: Updating Is Just Counting · With a Beta prior and k successes out of n: · Beta(a, b) + k of n → Beta(a + k, b + n − k) · Prior: Beta(2, 8): mean 20%, ‘probably low’ · Data: 0 union members out of 7 · Posterior: Beta(2 + 0, 8 + 7) = Beta(2, 15): mean 11.8%, 95% interval 1.6% to 30.2% · Small sample, so the prior still does a lot of the work, and the estimate is far more sensible than 0%</p>
 <style type="text/css">
@@ -1128,7 +1078,7 @@ Ollie Ballinger
 </section>
 <section id="prior-likelihood-posterior" class="slide level2">
 <h2>Prior × Likelihood = Posterior</h2>
-<!-- slide 66 -->
+<!-- slide 63 -->
 <div class="columns">
 <div class="column" style="width:39%;">
 <ul>
@@ -1144,7 +1094,7 @@ Ollie Ballinger
 </section>
 <section id="more-data-less-prior" class="slide level2">
 <h2>More Data, Less Prior</h2>
-<!-- slide 67 -->
+<!-- slide 64 -->
 <div class="columns">
 <div class="column" style="width:39%;">
 <ul>
@@ -1160,7 +1110,7 @@ Ollie Ballinger
 </section>
 <section id="todays-posterior-is-tomorrows-prior" class="slide level2">
 <h2>Today’s Posterior Is Tomorrow’s Prior</h2>
-<!-- slide 68 -->
+<!-- slide 65 -->
 <div class="columns">
 <div class="column" style="width:37%;">
 <ul>
@@ -1177,7 +1127,7 @@ Ollie Ballinger
 </section>
 <section id="does-the-prior-matter" class="slide level2">
 <h2>Does the Prior Matter?</h2>
-<!-- slide 69 -->
+<!-- slide 66 -->
 <div class="columns">
 <div class="column" style="width:34%;">
 <ul>
@@ -1190,9 +1140,9 @@ Ollie Ballinger
 </div>
 </div>
 </section>
-<section id="section-46" class="slide level2 fallback" data-background-image="img/w06/slide_070.jpg" data-background-size="contain">
+<section id="section-43" class="slide level2 fallback" data-background-image="img/w06/slide_067.jpg" data-background-size="contain">
 <h2></h2>
-<!-- slide 70 -->
+<!-- slide 67 -->
 <aside class="notes">
 <p>Slide text: Choosing a Prior · Flat · Beta(1, 1) · Every value equally likely. Lets the data speak, but can give silly answers with tiny samples. · Weakly informative · Beta(2, 8) · Rules out absurd values without committing to much. The usual default. · Informative · Beta(20, 80) · Encodes real prior evidence, e.g.&nbsp;last year’s survey or a meta-analysis. · The critique: ‘priors are subjective, so you can get any answer you want’ · The response: every model makes subjective choices (which controls? which sample? α = 0.05?). Priors are at least written down. Report them, and show that your conclusions survive reasonable alternatives (a sensitivity analysis)</p>
 <style type="text/css">
@@ -1209,7 +1159,7 @@ Ollie Ballinger
 </section>
 <section id="credible-intervals" class="slide level2">
 <h2>Credible Intervals</h2>
-<!-- slide 71 -->
+<!-- slide 68 -->
 <div class="columns">
 <div class="column" style="width:41%;">
 <ul>
@@ -1224,7 +1174,7 @@ Ollie Ballinger
 </section>
 <section id="confidence-vs.-credible-intervals" class="slide level2">
 <h2>Confidence vs.&nbsp;Credible Intervals</h2>
-<!-- slide 72 -->
+<!-- slide 69 -->
 <table>
 <colgroup>
 <col style="width: 33%">
@@ -1270,11 +1220,11 @@ Ollie Ballinger
 <section>
 <section id="bayes-vs.-frequentism" class="title-slide slide level1 center">
 <h1>6. Bayes vs.&nbsp;Frequentism</h1>
-<!-- slide 73 -->
+<!-- slide 70 -->
 </section>
 <section id="two-schools" class="slide level2">
 <h2>Two Schools</h2>
-<!-- slide 74 -->
+<!-- slide 71 -->
 <table>
 <colgroup>
 <col style="width: 33%">
@@ -1329,7 +1279,7 @@ Ollie Ballinger
 </section>
 <section id="which-should-you-use" class="slide level2">
 <h2>Which Should You Use?</h2>
-<!-- slide 75 -->
+<!-- slide 72 -->
 <ul>
 <li>It’s not a religion. With lots of data and weak priors, the two approaches give <strong>nearly identical numbers</strong></li>
 <li>Bayesian methods shine when:
@@ -1344,7 +1294,7 @@ Ollie Ballinger
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
-<!-- slide 76 -->
+<!-- slide 73 -->
 <ul>
 <li>The purpose of a T-test is to determine
 <ul>
@@ -1364,7 +1314,7 @@ Ollie Ballinger
 </section>
 <section id="any-questions" class="slide level2">
 <h2>Any Questions?</h2>
-<!-- slide 77 -->
+<!-- slide 74 -->
 <p><span style="display:block;text-align:center"><a href="mailto:o.ballinger@ucl.ac.uk">o.ballinger@ucl.ac.uk</a></span></p>
 <div class="footer footer-default">
 <p>BASC0005 Quantitative Methods 2</p>
